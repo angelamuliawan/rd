@@ -1,0 +1,22 @@
+/* MARGIN */
+.no-mg {
+	margin: 0;
+}
+.mb20 {
+	margin-bottom: 20px;
+}
+
+/* PADDING */
+.no-pd {
+	padding: 0;
+}
+
+/* LIST STYLE */
+.no-ul-type {
+	list-style-type: none;
+}
+
+/* BORDER */
+.with-border {
+	border: 1px solid #000;
+}
