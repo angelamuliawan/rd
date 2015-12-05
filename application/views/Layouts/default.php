@@ -1,7 +1,6 @@
 <?php
 		$domain = $this->config->item('domain');
 ?>
-<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -15,7 +14,8 @@
 		<title>Resep Dunia</title>
 
 		<!-- Bootstrap core CSS -->
-		<link href="<?=$domain?>/resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+		<link href="<?=$domain?>/resources/css/bootstrap/bootstrap.css" rel="stylesheet">
+		<link href="<?=$domain?>/resources/css/bootstrap/docs.css" rel="stylesheet">
 
 		<!-- Custom Admin CSS -->
 		<link href="<?=$domain?>/resources/css/custom.css" rel="stylesheet">
@@ -31,7 +31,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 		      		</button>
-		      		<a class="navbar-brand" href="#">ResepDunia</a>
+		      		<a class="navbar-brand" href="http://localhost/rd/">ResepDunia</a>
 		    	</div>
 		    	<div id="navbar" class="collapse navbar-collapse">
 		      		<ul class="nav navbar-nav navbar-right">
@@ -50,6 +50,20 @@
 		  		}
 		  	?>
 		</div>
+
+		<footer class="bs-docs-footer" role="contentinfo"> 
+			<div class="container"> 
+				<ul class="bs-docs-footer-links"> 
+					<li><a href="#">About Us</a></li> 
+					<li><a href="#">Contact Us</a></li> 
+					<li><a href="#">Terms of Use</a></li> 
+					<li><a href="#">Privacy Policy</a></li> 
+				</ul>
+				<p>
+					Copyright &copy; 2015 Angela & Brian.
+				</p> 
+			</div>
+		</footer>
 
 		<script src="<?=$domain?>/resources/js/jquery/jquery.min.js"></script>
 		<!-- <script src="../../dist/js/bootstrap.min.js"></script> -->
