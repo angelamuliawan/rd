@@ -173,6 +173,12 @@
 					<li class="no-ul-type mb20">
 						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
 					</li>
+					<li class="no-ul-type mb20">
+						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+					</li>
+					<li class="no-ul-type mb20">
+						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+					</li>
 				</ul>
 			</div>
 		</div>

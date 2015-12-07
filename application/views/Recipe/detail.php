@@ -74,7 +74,57 @@
 				<div class="wrapper-top">
 					<h3>100</h3>
 					<p>Recook Photos</p>
-					<div class="wrapper-image">
+
+					<div class="carousel slide" id="myCarousel">
+					  	<div class="carousel-inner">
+						    <div class="item active">
+						      	<div class="col-xs-6">
+						      		<a href="#">
+						      			<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" class="img-responsive">
+						      		</a>
+						      	</div>
+						    </div>
+						    <div class="item">
+						      	<div class="col-xs-6">
+						      		<a href="#">
+						      			<img src="http://localhost/rd/resources/images/food/sate.jpg" class="img-responsive">
+						      		</a>
+						      	</div>
+						    </div>
+						    <div class="item">
+						      	<div class="col-xs-6">
+						      		<a href="#">
+						      			<img src="http://localhost/rd/resources/images/food/bakso.jpg" class="img-responsive">
+						      		</a>
+						      	</div>
+						    </div>
+						    <div class="item">
+						      	<div class="col-xs-6">
+						      		<a href="#">
+						      			<img src="http://localhost/rd/resources/images/food/sate.jpg" class="img-responsive">
+						      		</a>
+						      	</div>
+						    </div>
+						    <div class="item">
+						      	<div class="col-xs-6">
+						      		<a href="#">
+						      			<img src="http://localhost/rd/resources/images/food/bakso.jpg" class="img-responsive">
+						      		</a>
+						      	</div>
+						    </div>
+						    <div class="item">
+						      	<div class="col-xs-6">
+						      		<a href="#">
+						      			<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" class="img-responsive">
+						      		</a>
+						      	</div>
+						    </div>
+					  	</div>
+					  	<a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+					  	<a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+					</div>
+
+					<!-- <div class="wrapper-image">
 						<ul class="no-pd taright">
 							<li class="no-ul-type mr10 with-border" style="display:inline-block;">
 								<div class="with-border" style="width:100px; height:100px;"></div>
@@ -83,8 +133,8 @@
 								<div class="with-border" style="width:100px; height:100px;"></div>
 							</li>
 						</ul>
-					</div>
-					<div class="taright">
+					</div> -->
+					<div class="tacenter mt20">
 						<a href="http://localhost/rd/Recipe/find" class="btn btn-default">Tampilan Semua</a>
 					</div>
 				</div>
@@ -213,6 +263,15 @@
 							<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" />
 						</div>
 					</li>
+					<li>
+						<p>
+							Nih buat lengkapnya aku kasih video aku lagi bikin kuenya yah.
+							Selamat mencoba foodieessss :)
+						</p>
+						<div class="tacenter">
+							<img src="http://localhost/rd/resources/images/youtube-video.png" />
+						</div>
+					</li>
 				</ol>
 
 				<div class="action-bottom mt30 tacenter">
@@ -239,6 +298,12 @@
 					<li class="no-ul-type mb20">
 						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
 					</li>
+					<li class="no-ul-type mb20">
+						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+					</li>
+					<li class="no-ul-type mb20">
+						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -253,13 +318,13 @@
 				<form class="mt10">
 				 	<div class="form-group">
 						<!-- <label for="txtKeyword">Kata Kunci</label> -->
-						<textarea style="width:80%;" class="form-control" rows="3" id="taComment" placeholder="Tuliskan komentar Anda &hellip;"></textarea>
+						<textarea class="form-control" rows="3" id="taComment" placeholder="Tuliskan komentar Anda &hellip;"></textarea>
 				  	</div>
 				  	<a href="#" class="btn btn-default">Kirim Komentar</a>
 				</form>
 
 				<div class="media"> 
-					<div class="media-left"> 
+					<div class="pull-left"> 
 						<a href="#"> 
 							<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 						</a> 
@@ -272,7 +337,7 @@
 					</div>
 				</div>
 				<div class="media"> 
-					<div class="media-left"> 
+					<div class="pull-left"> 
 						<a href="#"> 
 							<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 						</a> 
@@ -285,7 +350,7 @@
 					</div>
 				</div>
 				<div class="media"> 
-					<div class="media-left"> 
+					<div class="pull-left"> 
 						<a href="#"> 
 							<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 						</a> 

@@ -15,6 +15,7 @@
 
 		<!-- Bootstrap core CSS -->
 		<link href="<?=$domain?>/resources/css/bootstrap/bootstrap.css" rel="stylesheet">
+		<!-- <link href="<?=$domain?>/resources/css/bootstrap/3.3.5/bootstrap.css" rel="stylesheet"> -->
 		<link href="<?=$domain?>/resources/css/bootstrap/docs.css" rel="stylesheet">
 
 		<!-- Custom Admin CSS -->
@@ -36,8 +37,31 @@
 		    	<div id="navbar" class="collapse navbar-collapse">
 		      		<ul class="nav navbar-nav navbar-right">
 		        		<li><a href="#">Tulis Resep</a></li>
-		        		<li><a href="#about">Kontes</a></li>
-		        		<li><a href="#contact">Artikel</a></li>
+		        		<li><a href="#">Kontes</a></li>
+		        		<li><a href="#">Artikel</a></li>
+		        		<li>
+		        			<a href="#">
+		        				<span class="glyphicon glyphicon-bell mt3"></span>
+		        				<span class="badge pull-right _mt5">42</span>
+		        			</a>
+		        		</li>
+		        		<li class="dropdown">
+				          	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				          		<img class="img-circle pull-left _mt7 mr5" src="http://localhost/rd/resources/images/64x64.png" style="width: 35px; height: 35px;">
+				          		Angela 
+				          		<b class="caret"></b>
+				          	</a>
+				          	<ul class="dropdown-menu">
+					            <li><a href="#">Resep Saya</a></li>
+					            <li><a href="#">Recook</a></li>
+					            <li><a href="#">Cookmark</a></li>
+					            <li class="divider"></li>
+					            <li><a href="#">Kontes Saya</a></li>
+					            <li><a href="#">Pengaturan Akun</a></li>
+					            <li class="divider"></li>
+					            <li><a href="#">Logout</a></li>
+				          	</ul>
+				        </li>
 		      		</ul>
 		    	</div>
 		  	</div>
@@ -66,6 +90,27 @@
 		</footer>
 
 		<script src="<?=$domain?>/resources/js/jquery/jquery.min.js"></script>
-		<!-- <script src="../../dist/js/bootstrap.min.js"></script> -->
+		<script src="<?=$domain?>/resources/js/bootstrap/bootstrap.min.js"></script>
+
+		<script>
+			$('#myCarousel').carousel({
+			  	interval: 4000
+			})
+
+			$('.carousel .item').each(function(){
+				var next = $(this).next();
+				if (!next.length) {
+					next = $(this).siblings(':first');
+				}
+				next.children(':first-child').clone().appendTo($(this));
+				// for (var i = 0; i < 2; i++ ) {
+				// 	next = next.next();
+				// 	if (!next.length) {
+				// 		next = $(this).siblings(':first');
+				// 	}
+				// 	next.children(':first-child').clone().appendTo($(this));
+				// }
+			});
+		</script>
 	</body>
 </html>
