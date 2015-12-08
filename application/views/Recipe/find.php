@@ -1,3 +1,55 @@
+<?php
+		$domain = $this->config->item('domain');
+?>
+
+<!-- MODAL -->
+<!-- <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-lg">
+    	<div class="modal-content">
+      		...
+      	</div>
+  	</div>
+</div> -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      	<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        	<h3 class="modal-title" id="myModalLabel">Recook</h3>
+	      	</div>
+	      	<div class="modal-body pd15">
+	      		<div class="row">
+		      		<div class="col-sm-12">
+		      			<div id="modal-recook" class="big-wrapper">
+				        	<h4>Nasi Goreng ala Brian Alexandro</h4>
+				        	<div class="with-border wrapper-recook-photo">
+				        		<div class="wrapper" style="display:block;">
+					        		<div>
+					        			<span class="glyphicon glyphicon-upload"></span>
+					        		</div>
+				        		</div>
+				        		<div class="text-wrapper">
+				        			<p>Drag & Drop</p>
+				        			<p>
+				        				Letakkan dokumen Anda disini untuk melakukan proses unggah
+				        			</p>
+				        			<button type="button" class="btn btn-primary mt15">Upload Foto Recook</button>
+				        		</div>
+				        	</div>
+
+			        		<textarea rows="4" class="form-control mt15" placeholder="Cerita recook kamu. Apakah kamu menambahkan atau mengurangi bahan? Apakah masakan kamu berhasil?"></textarea>
+		      			</div>
+		      		</div>
+	      		</div>
+	      	</div>
+	      	<div class="modal-footer">
+	        	<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+	        	<button type="button" class="btn btn-primary">Kirim</button>
+	      	</div>
+	    </div>
+  	</div>
+</div>
+
 <div class="search-box">
 	<div class="row">
 		<div class="col-sm-12">
@@ -85,15 +137,15 @@
 							<div class="row">
 								<div class="col-sm-4 left-side">
 									<div class="box-header">
-										<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" />
+										<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
 									</div>
 									<div class="box-footer">
 										<div class="pull-right mr5">
-											<img src="http://localhost/rd/resources/icons/retweet.png" />
+											<img src="<?=$domain?>/resources/icons/retweet.png" />
 											<span>500</span>
 										</div>
 										<div class="pull-right mr10">
-											<img src="http://localhost/rd/resources/icons/comment.png" />
+											<img src="<?=$domain?>/resources/icons/comment.png" />
 											<span>500</span>
 										</div>
 									</div>
@@ -111,20 +163,22 @@
 										</p>
 										
 										<div class="taright mb5">
-											<a href="http://localhost/rd/Recipe/detail" class="btn btn-default mt5">Selengkapnya</a>
+											<a href="<?=$domain?>/Recipe/detail" class="btn btn-default mt5">Selengkapnya</a>
 										</div>
 
 										<div class="action-bottom mt15 tacenter">
-											<img src="http://localhost/rd/resources/icons/retweet.png" />
-											<span>Recook</span>
-
-											<img src="http://localhost/rd/resources/icons/facebook.png" />
+											<a href="" data-toggle="modal" data-target=".bs-example-modal-lg">
+												<img src="<?=$domain?>/resources/icons/retweet.png" />
+												<span>Recook</span>
+											</a>
+											
+											<img src="<?=$domain?>/resources/icons/facebook.png" />
 											<span class="mr10">Share</span>
 
-											<img src="http://localhost/rd/resources/icons/cookmark.png" />
+											<img src="<?=$domain?>/resources/icons/cookmark.png" />
 											<span class="mr10">Cookmark</span>
 
-											<img src="http://localhost/rd/resources/icons/print.png" />
+											<img src="<?=$domain?>/resources/icons/print.png" />
 											<span>Print</span>
 										</div>
 									</div>
@@ -135,15 +189,15 @@
 							<div class="row">
 								<div class="col-sm-4 left-side">
 									<div class="box-header">
-										<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" />
+										<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
 									</div>
 									<div class="box-footer">
 										<div class="pull-right mr5">
-											<img src="http://localhost/rd/resources/icons/retweet.png" />
+											<img src="<?=$domain?>/resources/icons/retweet.png" />
 											<span>500</span>
 										</div>
 										<div class="pull-right mr10">
-											<img src="http://localhost/rd/resources/icons/comment.png" />
+											<img src="<?=$domain?>/resources/icons/comment.png" />
 											<span>500</span>
 										</div>
 									</div>
@@ -161,20 +215,22 @@
 										</p>
 										
 										<div class="taright mb5">
-											<a href="http://localhost/rd/Recipe/detail" class="btn btn-default mt5">Selengkapnya</a>
+											<a href="<?=$domain?>/Recipe/detail" class="btn btn-default mt5">Selengkapnya</a>
 										</div>
 
 										<div class="action-bottom mt15 tacenter">
-											<img src="http://localhost/rd/resources/icons/retweet.png" />
-											<span>Recook</span>
+											<a href="" data-toggle="modal" data-target=".bs-example-modal-lg">
+												<img src="<?=$domain?>/resources/icons/retweet.png" />
+												<span>Recook</span>
+											</a>
 
-											<img src="http://localhost/rd/resources/icons/facebook.png" />
+											<img src="<?=$domain?>/resources/icons/facebook.png" />
 											<span class="mr10">Share</span>
 
-											<img src="http://localhost/rd/resources/icons/cookmark.png" />
+											<img src="<?=$domain?>/resources/icons/cookmark.png" />
 											<span class="mr10">Cookmark</span>
 
-											<img src="http://localhost/rd/resources/icons/print.png" />
+											<img src="<?=$domain?>/resources/icons/print.png" />
 											<span>Print</span>
 										</div>
 									</div>
@@ -185,15 +241,15 @@
 							<div class="row">
 								<div class="col-sm-4 left-side">
 									<div class="box-header">
-										<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" />
+										<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
 									</div>
 									<div class="box-footer">
 										<div class="pull-right mr5">
-											<img src="http://localhost/rd/resources/icons/retweet.png" />
+											<img src="<?=$domain?>/resources/icons/retweet.png" />
 											<span>500</span>
 										</div>
 										<div class="pull-right mr10">
-											<img src="http://localhost/rd/resources/icons/comment.png" />
+											<img src="<?=$domain?>/resources/icons/comment.png" />
 											<span>500</span>
 										</div>
 									</div>
@@ -211,20 +267,22 @@
 										</p>
 										
 										<div class="taright mb5">
-											<a href="http://localhost/rd/Recipe/detail" class="btn btn-default mt5">Selengkapnya</a>
+											<a href="<?=$domain?>/Recipe/detail" class="btn btn-default mt5">Selengkapnya</a>
 										</div>
 
 										<div class="action-bottom mt15 tacenter">
-											<img src="http://localhost/rd/resources/icons/retweet.png" />
-											<span>Recook</span>
+											<a href="" data-toggle="modal" data-target=".bs-example-modal-lg">
+												<img src="<?=$domain?>/resources/icons/retweet.png" />
+												<span>Recook</span>
+											</a>
 
-											<img src="http://localhost/rd/resources/icons/facebook.png" />
+											<img src="<?=$domain?>/resources/icons/facebook.png" />
 											<span class="mr10">Share</span>
 
-											<img src="http://localhost/rd/resources/icons/cookmark.png" />
+											<img src="<?=$domain?>/resources/icons/cookmark.png" />
 											<span class="mr10">Cookmark</span>
 
-											<img src="http://localhost/rd/resources/icons/print.png" />
+											<img src="<?=$domain?>/resources/icons/print.png" />
 											<span>Print</span>
 										</div>
 									</div>

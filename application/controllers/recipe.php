@@ -9,4 +9,8 @@ class Recipe extends AB_Controller {
 	public function detail() {
 		$this->render();
 	}
+
+	public function add() {
+		$this->render();
+	}
 }

@@ -52,6 +52,9 @@ h1,h2,h3,h4,h5,h6 {
 .mb5 {
 	margin-bottom: 5px !important;
 }
+.mb15 {
+	margin-bottom: 15px !important;
+}
 .mb20 {
 	margin-bottom: 20px;
 }
@@ -90,6 +93,11 @@ h1,h2,h3,h4,h5,h6 {
 }
 .tajustify {
 	text-align: justify;
+}
+
+/* WIDTh */
+.extra-small-width {
+	width: 4%;	
 }
 
 /* PAGE INDEX - FOOD LIST */
@@ -224,6 +232,13 @@ h1,h2,h3,h4,h5,h6 {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+.wrapper-food-list-vertical > .content .right-side > .box-description .action-bottom a {
+	display: inline-block;
+	color: #000000;
+}
+.wrapper-food-list-vertical > .content .right-side > .box-description .action-bottom a:hover {
+	text-decoration: none;
+}
 .wrapper-food-list-vertical > .content .right-side > .box-description .action-bottom img {
 	width:20px; 
 	height:15px; 
@@ -296,6 +311,15 @@ h1,h2,h3,h4,h5,h6 {
 	display:inline;
 }
 
+.comment-box .wrapper .media p {
+	margin: 0;
+}
+.comment-box .wrapper .media p.comment {
+	border-bottom: 1px solid #efefef;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
 .wrapper-ads {
 	text-align: center;	
 }
@@ -310,3 +334,39 @@ h1,h2,h3,h4,h5,h6 {
 .carousel-inner .prev		 { left: -50%; }
 .carousel-control 			 { width:  4%; }
 .carousel-control.left,.carousel-control.right {margin-left:15px;background-image:none;}
+
+/* PAGE ADD RECIPE */
+.wrapper-create-recipe form label {
+	text-align: left !important;
+}
+.wrapper-create-recipe form .list-material .icon-holder .glyphicon {
+	font-size: 20px;
+    margin-top: 6px;
+}
+
+/* MODAL RECOOK */
+#modal-recook .wrapper-recook-photo {
+	width:100%; 
+	height:auto; 
+	min-height:200px; 
+	position:relative;
+	margin-top: 15px;
+	text-align: center;
+}
+#modal-recook .wrapper-recook-photo .wrapper > div {
+	position:absolute; 
+	left:50%; 
+	top: 40%; 
+	opacity:0.5; 
+	transform: translate(-50%, -50%);
+}
+#modal-recook .wrapper-recook-photo .wrapper > div > span.glyphicon {
+	font-size:74px;
+}
+#modal-recook .wrapper-recook-photo .text-wrapper {
+	margin-top:150px;
+	margin-bottom: 20px;
+}
+#modal-recook .wrapper-recook-photo .text-wrapper p {
+	margin: 0;
+}

@@ -1,3 +1,7 @@
+<?php
+		$domain = $this->config->item('domain');
+?>
+
 <div class="search-box">
 	<div class="row">
 		<div class="col-sm-12">
@@ -23,7 +27,7 @@
 					</div>
 		
 					<div class="col-sm-2">
-						<a href="http://localhost/rd/Recipe/find" class="btn btn-default btn-block">Cari</a>
+						<a href="<?=$domain?>/Recipe/find" class="btn btn-default btn-block">Cari</a>
 					</div>
 				</div>
 			</div>
@@ -43,54 +47,54 @@
 					<ul>
 						<li class="no-ul-type with-border">
 							<div class="box-header">
-								<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" />
+								<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
 							</div>
 							<div class="box-content">
 								<h4>Nasi Goreng paling enak sejagat raya</h4>
 							</div>
 							<div class="box-footer">
 								<div class="pull-right mr5">
-									<img src="http://localhost/rd/resources/icons/retweet.png" />
+									<img src="<?=$domain?>/resources/icons/retweet.png" />
 									<span>500</span>
 								</div>
 								<div class="pull-right mr10">
-									<img src="http://localhost/rd/resources/icons/comment.png" />
+									<img src="<?=$domain?>/resources/icons/comment.png" />
 									<span>500</span>
 								</div>
 							</div>
 						</li>
 						<li class="no-ul-type with-border">
 							<div class="box-header">
-								<img src="http://localhost/rd/resources/images/food/bakso.jpg" />
+								<img src="<?=$domain?>/resources/images/food/bakso.jpg" />
 							</div>
 							<div class="box-content">
 								<h4>Bakso lah paling enak</h4>
 							</div>
 							<div class="box-footer">
 								<div class="pull-right mr5">
-									<img src="http://localhost/rd/resources/icons/retweet.png" />
+									<img src="<?=$domain?>/resources/icons/retweet.png" />
 									<span>500</span>
 								</div>
 								<div class="pull-right mr10">
-									<img src="http://localhost/rd/resources/icons/comment.png" />
+									<img src="<?=$domain?>/resources/icons/comment.png" />
 									<span>500</span>
 								</div>
 							</div>
 						</li>
 						<li class="no-ul-type with-border">
 							<div class="box-header">
-								<img src="http://localhost/rd/resources/images/food/sate.jpg" />
+								<img src="<?=$domain?>/resources/images/food/sate.jpg" />
 							</div>
 							<div class="box-content">
 								<h4>Sate sate !!!!</h4>
 							</div>
 							<div class="box-footer">
 								<div class="pull-right mr5">
-									<img src="http://localhost/rd/resources/icons/retweet.png" />
+									<img src="<?=$domain?>/resources/icons/retweet.png" />
 									<span>500</span>
 								</div>
 								<div class="pull-right mr10">
-									<img src="http://localhost/rd/resources/icons/comment.png" />
+									<img src="<?=$domain?>/resources/icons/comment.png" />
 									<span>500</span>
 								</div>
 							</div>
@@ -108,54 +112,54 @@
 					<ul>
 						<li class="no-ul-type with-border">
 							<div class="box-header">
-								<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" />
+								<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
 							</div>
 							<div class="box-content">
 								<h4>Nasi Goreng paling enak sejagat raya</h4>
 							</div>
 							<div class="box-footer">
 								<div class="pull-right mr5">
-									<img src="http://localhost/rd/resources/icons/retweet.png" />
+									<img src="<?=$domain?>/resources/icons/retweet.png" />
 									<span>500</span>
 								</div>
 								<div class="pull-right mr10">
-									<img src="http://localhost/rd/resources/icons/comment.png" />
+									<img src="<?=$domain?>/resources/icons/comment.png" />
 									<span>500</span>
 								</div>
 							</div>
 						</li>
 						<li class="no-ul-type with-border">
 							<div class="box-header">
-								<img src="http://localhost/rd/resources/images/food/bakso.jpg" />
+								<img src="<?=$domain?>/resources/images/food/bakso.jpg" />
 							</div>
 							<div class="box-content">
 								<h4>Bakso lah paling enak</h4>
 							</div>
 							<div class="box-footer">
 								<div class="pull-right mr5">
-									<img src="http://localhost/rd/resources/icons/retweet.png" />
+									<img src="<?=$domain?>/resources/icons/retweet.png" />
 									<span>500</span>
 								</div>
 								<div class="pull-right mr10">
-									<img src="http://localhost/rd/resources/icons/comment.png" />
+									<img src="<?=$domain?>/resources/icons/comment.png" />
 									<span>500</span>
 								</div>
 							</div>
 						</li>
 						<li class="no-ul-type with-border">
 							<div class="box-header">
-								<img src="http://localhost/rd/resources/images/food/sate.jpg" />
+								<img src="<?=$domain?>/resources/images/food/sate.jpg" />
 							</div>
 							<div class="box-content">
 								<h4>Sate sate !!!!</h4>
 							</div>
 							<div class="box-footer">
 								<div class="pull-right mr5">
-									<img src="http://localhost/rd/resources/icons/retweet.png" />
+									<img src="<?=$domain?>/resources/icons/retweet.png" />
 									<span>500</span>
 								</div>
 								<div class="pull-right mr10">
-									<img src="http://localhost/rd/resources/icons/comment.png" />
+									<img src="<?=$domain?>/resources/icons/comment.png" />
 									<span>500</span>
 								</div>
 							</div>
@@ -168,16 +172,16 @@
 			<div class="wrapper-ads">
 				<ul class="no-pd">
 					<li class="no-ul-type mb20">
-						<img src="http://localhost/rd/resources/images/160x120.jpg" />
+						<img src="<?=$domain?>/resources/images/160x120.jpg" />
 					</li>
 					<li class="no-ul-type mb20">
-						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+						<img src="<?=$domain?>/resources/images/sample-ads.jpg" />
 					</li>
 					<li class="no-ul-type mb20">
-						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+						<img src="<?=$domain?>/resources/images/sample-ads.jpg" />
 					</li>
 					<li class="no-ul-type mb20">
-						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+						<img src="<?=$domain?>/resources/images/sample-ads.jpg" />
 					</li>
 				</ul>
 			</div>

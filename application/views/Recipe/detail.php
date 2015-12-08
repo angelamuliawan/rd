@@ -1,3 +1,7 @@
+<?php
+		$domain = $this->config->item('domain');
+?>
+
 <div class="search-box">
 	<div class="row">
 		<div class="col-sm-12">
@@ -32,10 +36,10 @@
 					<a href="#">Angela Muliawan</a>
 				</p>
 				
-				<img src="http://localhost/rd/resources/icons/retweet.png" />
+				<img src="<?=$domain?>/resources/icons/retweet.png" />
 				<span>123</span>
 				
-				<img src="http://localhost/rd/resources/icons/comment.png" />
+				<img src="<?=$domain?>/resources/icons/comment.png" />
 				<span>221</span>
 			</div>
 		</div>
@@ -47,19 +51,19 @@
 		<div class="col-sm-12">
 			<div class="wrapper pd15">
 				<div class="wrapper-banner with-border">
-					<img src="http://localhost/rd/resources/images/hidangan-lezat.jpg" />
+					<img src="<?=$domain?>/resources/images/hidangan-lezat.jpg" />
 				</div>
 				<div class="action-bottom mt15">
-					<img src="http://localhost/rd/resources/icons/retweet.png" />
+					<img src="<?=$domain?>/resources/icons/retweet.png" />
 					<span>Recook</span>
 
-					<img src="http://localhost/rd/resources/icons/facebook.png" />
+					<img src="<?=$domain?>/resources/icons/facebook.png" />
 					<span class="mr10">Share</span>
 
-					<img src="http://localhost/rd/resources/icons/cookmark.png" />
+					<img src="<?=$domain?>/resources/icons/cookmark.png" />
 					<span class="mr10">Cookmark</span>
 
-					<img src="http://localhost/rd/resources/icons/print.png" />
+					<img src="<?=$domain?>/resources/icons/print.png" />
 					<span>Print</span>
 				</div>
 			</div>
@@ -80,42 +84,42 @@
 						    <div class="item active">
 						      	<div class="col-xs-6">
 						      		<a href="#">
-						      			<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" class="img-responsive">
+						      			<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
 						      		<a href="#">
-						      			<img src="http://localhost/rd/resources/images/food/sate.jpg" class="img-responsive">
+						      			<img src="<?=$domain?>/resources/images/food/sate.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
 						      		<a href="#">
-						      			<img src="http://localhost/rd/resources/images/food/bakso.jpg" class="img-responsive">
+						      			<img src="<?=$domain?>/resources/images/food/bakso.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
 						      		<a href="#">
-						      			<img src="http://localhost/rd/resources/images/food/sate.jpg" class="img-responsive">
+						      			<img src="<?=$domain?>/resources/images/food/sate.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
 						      		<a href="#">
-						      			<img src="http://localhost/rd/resources/images/food/bakso.jpg" class="img-responsive">
+						      			<img src="<?=$domain?>/resources/images/food/bakso.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
 						      		<a href="#">
-						      			<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" class="img-responsive">
+						      			<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
@@ -135,7 +139,7 @@
 						</ul>
 					</div> -->
 					<div class="tacenter mt20">
-						<a href="http://localhost/rd/Recipe/find" class="btn btn-default">Tampilan Semua</a>
+						<a href="<?=$domain?>/Recipe/find" class="btn btn-default">Tampilan Semua</a>
 					</div>
 				</div>
 				<hr>
@@ -143,7 +147,7 @@
 					<ul class="no-pd">
 						<li class="no-ul-type">
 							<div class="wrapper-icon">
-								<img src="http://localhost/rd/resources/icons/money.png" />
+								<img src="<?=$domain?>/resources/icons/money.png" />
 							</div>
 							<div class="wrapper-description">
 								<span>IDR 5.000 - 10.000</span>
@@ -151,7 +155,7 @@
 						</li>
 						<li class="no-ul-type">
 							<div class="wrapper-icon">
-								<img src="http://localhost/rd/resources/icons/spoon.png" />
+								<img src="<?=$domain?>/resources/icons/spoon.png" />
 							</div>
 							<div class="wrapper-description">
 								<span>Sarapan</span>
@@ -159,7 +163,7 @@
 						</li>
 						<li class="no-ul-type">
 							<div class="wrapper-icon">
-								<img src="http://localhost/rd/resources/icons/flag.png" />
+								<img src="<?=$domain?>/resources/icons/flag.png" />
 							</div>
 							<div class="wrapper-description">
 								<span>Indonesian, Western, Europe, African</span>
@@ -167,7 +171,7 @@
 						</li>
 						<li class="no-ul-type">
 							<div class="wrapper-icon">
-								<img src="http://localhost/rd/resources/icons/people.png" />
+								<img src="<?=$domain?>/resources/icons/people.png" />
 							</div>
 							<div class="wrapper-description">
 								<span>5 - 10 orang</span>
@@ -175,7 +179,7 @@
 						</li>
 						<li class="no-ul-type">
 							<div class="wrapper-icon">
-								<img src="http://localhost/rd/resources/icons/clock.png" />
+								<img src="<?=$domain?>/resources/icons/clock.png" />
 							</div>
 							<div class="wrapper-description">
 								<span>15 Menit</span>
@@ -183,7 +187,7 @@
 						</li>
 						<li class="no-ul-type">
 							<div class="wrapper-icon">
-								<img src="http://localhost/rd/resources/icons/oven.png" />
+								<img src="<?=$domain?>/resources/icons/oven.png" />
 							</div>
 							<div class="wrapper-description">
 								<span>Goreng</span>
@@ -244,7 +248,7 @@
 							sisihkan (adonan jadinya kalis dan lembab).
 						</p>
 						<div class="tacenter">
-							<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" />
+							<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
 						</div>
 					</li>
 					<li>
@@ -260,7 +264,7 @@
 							3 kali.
 						</p>
 						<div class="tacenter">
-							<img src="http://localhost/rd/resources/images/food/nasi-goreng.jpg" />
+							<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
 						</div>
 					</li>
 					<li>
@@ -269,22 +273,22 @@
 							Selamat mencoba foodieessss :)
 						</p>
 						<div class="tacenter">
-							<img src="http://localhost/rd/resources/images/youtube-video.png" />
+							<img src="<?=$domain?>/resources/images/youtube-video.png" />
 						</div>
 					</li>
 				</ol>
 
 				<div class="action-bottom mt30 tacenter">
-					<img src="http://localhost/rd/resources/icons/retweet.png" />
+					<img src="<?=$domain?>/resources/icons/retweet.png" />
 					<span>Recook</span>
 
-					<img src="http://localhost/rd/resources/icons/facebook.png" />
+					<img src="<?=$domain?>/resources/icons/facebook.png" />
 					<span class="mr10">Share</span>
 
-					<img src="http://localhost/rd/resources/icons/cookmark.png" />
+					<img src="<?=$domain?>/resources/icons/cookmark.png" />
 					<span class="mr10">Cookmark</span>
 
-					<img src="http://localhost/rd/resources/icons/print.png" />
+					<img src="<?=$domain?>/resources/icons/print.png" />
 					<span>Print</span>
 				</div>
 			</div>
@@ -293,16 +297,16 @@
 			<div class="wrapper-ads">
 				<ul class="pd15">
 					<li class="no-ul-type mb20">
-						<img src="http://localhost/rd/resources/images/160x120.jpg" />
+						<img src="<?=$domain?>/resources/images/160x120.jpg" />
 					</li>
 					<li class="no-ul-type mb20">
-						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+						<img src="<?=$domain?>/resources/images/sample-ads.jpg" />
 					</li>
 					<li class="no-ul-type mb20">
-						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+						<img src="<?=$domain?>/resources/images/sample-ads.jpg" />
 					</li>
 					<li class="no-ul-type mb20">
-						<img src="http://localhost/rd/resources/images/sample-ads.jpg" />
+						<img src="<?=$domain?>/resources/images/sample-ads.jpg" />
 					</li>
 				</ul>
 			</div>
@@ -317,7 +321,6 @@
 				<h3>Komentar</h3>
 				<form class="mt10">
 				 	<div class="form-group">
-						<!-- <label for="txtKeyword">Kata Kunci</label> -->
 						<textarea class="form-control" rows="3" id="taComment" placeholder="Tuliskan komentar Anda &hellip;"></textarea>
 				  	</div>
 				  	<a href="#" class="btn btn-default">Kirim Komentar</a>
@@ -326,39 +329,48 @@
 				<div class="media"> 
 					<div class="pull-left"> 
 						<a href="#"> 
-							<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+							<img class="media-object" src="<?=$domain?>/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 						</a> 
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading">Angela</h4> 
-						<p class="tajustify">
+						<p class="tajustify comment">
 							Kalo misal ada yang kuenya ga jadi sesuai panduan gambar, di komen aja ya sis. 
+						</p>
+						<p class="tajustify">
+							Senin, 7 Desember 2015 at 15.00					
 						</p>
 					</div>
 				</div>
 				<div class="media"> 
 					<div class="pull-left"> 
 						<a href="#"> 
-							<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+							<img class="media-object" src="<?=$domain?>/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 						</a> 
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading">Sista Kepo</h4> 
-						<p class="tajustify">
+						<p class="tajustify comment">
 							Sis, kok kue saya jadi hangus yaaa? Ada step yang miss kah ?	
+						</p>
+						<p class="tajustify">
+							Senin, 7 Desember 2015 at 15.00					
 						</p>
 					</div>
 				</div>
 				<div class="media"> 
 					<div class="pull-left"> 
 						<a href="#"> 
-							<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+							<img class="media-object" src="<?=$domain?>/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 						</a> 
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading">Angela</h4> 
-						<p class="tajustify">
+						<p class="tajustify comment">
 							Mampus !!!!!
+						</p>
+						<p class="tajustify">
+							Senin, 7 Desember 2015 at 15.00					
 						</p>
 					</div>
 				</div>

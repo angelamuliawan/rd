@@ -36,7 +36,7 @@
 		    	</div>
 		    	<div id="navbar" class="collapse navbar-collapse">
 		      		<ul class="nav navbar-nav navbar-right">
-		        		<li><a href="#">Tulis Resep</a></li>
+		        		<li><a href="<?=$domain?>/Recipe/add">Tulis Resep</a></li>
 		        		<li><a href="#">Kontes</a></li>
 		        		<li><a href="#">Artikel</a></li>
 		        		<li>
