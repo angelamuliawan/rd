@@ -32,7 +32,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 		      		</button>
-		      		<a class="navbar-brand" href="http://localhost/rd/">ResepDunia</a>
+		      		<a class="navbar-brand" href="<?=$domain?>">ResepDunia</a>
 		    	</div>
 		    	<div id="navbar" class="collapse navbar-collapse">
 		      		<ul class="nav navbar-nav navbar-right">
@@ -47,17 +47,17 @@
 		        		</li>
 		        		<li class="dropdown">
 				          	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-				          		<img class="img-circle pull-left _mt7 mr5" src="http://localhost/rd/resources/images/64x64.png" style="width: 35px; height: 35px;">
+				          		<img class="pull-left _mt7 mr5" src="http://localhost/rd/resources/images/64x64.png" style="width: 35px; height: 35px;">
 				          		Angela 
 				          		<b class="caret"></b>
 				          	</a>
 				          	<ul class="dropdown-menu">
-					            <li><a href="#">Resep Saya</a></li>
-					            <li><a href="#">Recook</a></li>
-					            <li><a href="#">Cookmark</a></li>
+					            <li><a href="<?=$domain?>/Recipe/">Resep Saya</a></li>
+					            <li><a href="<?=$domain?>/Recipe/recook">Recook</a></li>
+					            <li><a href="<?=$domain?>/Recipe/cookmark">Cookmark</a></li>
 					            <li class="divider"></li>
 					            <li><a href="#">Kontes Saya</a></li>
-					            <li><a href="#">Pengaturan Akun</a></li>
+					            <li><a href="<?=$domain?>/Users/">Pengaturan Akun</a></li>
 					            <li class="divider"></li>
 					            <li><a href="#">Logout</a></li>
 				          	</ul>
@@ -92,12 +92,31 @@
 		<script src="<?=$domain?>/resources/js/jquery/jquery.min.js"></script>
 		<script src="<?=$domain?>/resources/js/bootstrap/bootstrap.min.js"></script>
 
-		<script>
-			$('#myCarousel').carousel({
+		<script type="text/javascript">
+			// $('#myCarousel').carousel({
+			//   	interval: 4000
+			// })
+
+			// $('.carousel .item').each(function(){
+			// 	var next = $(this).next();
+			// 	if (!next.length) {
+			// 		next = $(this).siblings(':first');
+			// 	}
+			// 	next.children(':first-child').clone().appendTo($(this));
+			// 	// for (var i = 0; i < 2; i++ ) {
+			// 	// 	next = next.next();
+			// 	// 	if (!next.length) {
+			// 	// 		next = $(this).siblings(':first');
+			// 	// 	}
+			// 	// 	next.children(':first-child').clone().appendTo($(this));
+			// 	// }
+			// });
+
+			$('#recook-carousel').carousel({
 			  	interval: 4000
 			})
 
-			$('.carousel .item').each(function(){
+			$('#recook-carousel .item').each(function(){
 				var next = $(this).next();
 				if (!next.length) {
 					next = $(this).siblings(':first');
@@ -111,6 +130,30 @@
 				// 	next.children(':first-child').clone().appendTo($(this));
 				// }
 			});
+
+			$('#bottom-carousel').carousel({
+			  	interval: 100000
+			});
+
+			$('#bottom-carousel .item').each(function(){
+				var next = $(this).next();
+				if (!next.length) {
+					next = $(this).siblings(':first');
+				}
+				// next.children(':first-child').clone().appendTo($(this));
+				for (var i = 0; i < 5; i++ ) {
+					next = next.next();
+					if (!next.length) {
+						next = $(this).siblings(':first');
+					}
+					next.children(':first-child').clone().appendTo($(this));
+				}
+			});
+
+			$('ul.nav.nav-tabs a').click(function(e) {
+		        e.preventDefault();
+		        $( this ).tab( 'show' );
+		    });
 		</script>
 	</body>
 </html>

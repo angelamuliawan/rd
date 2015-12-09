@@ -2,6 +2,10 @@
 
 class Recipe extends AB_Controller {
 
+	public function index() {
+		$this->render();
+	}
+
 	public function find() {
 		$this->render();
 	}
@@ -11,6 +15,14 @@ class Recipe extends AB_Controller {
 	}
 
 	public function add() {
+		$this->render();
+	}
+
+	public function recook() {
+		$this->render();
+	}
+
+	public function cookmark() {
 		$this->render();
 	}
 }

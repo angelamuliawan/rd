@@ -2,6 +2,199 @@
 		$domain = $this->config->item('domain');
 ?>
 
+<!-- MODAL RECOOK -->
+<div class="modal fade" id="modal-recook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      	<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        	<h3 class="modal-title" id="myModalLabel">Recook</h3>
+	      	</div>
+	      	<div class="modal-body pd15">
+	      		<div class="row">
+		      		<div class="col-sm-12">
+		      			<div class="big-wrapper">
+				        	<h4>Nasi Goreng ala Brian Alexandro</h4>
+				        	<div class="with-border wrapper-recook-photo">
+				        		<div class="wrapper" style="display:block;">
+					        		<div>
+					        			<span class="glyphicon glyphicon-upload"></span>
+					        		</div>
+				        		</div>
+				        		<div class="text-wrapper">
+				        			<p>Drag & Drop</p>
+				        			<p>
+				        				Letakkan dokumen Anda disini untuk melakukan proses unggah
+				        			</p>
+				        			<button type="button" class="btn btn-primary mt15">Upload Foto Recook</button>
+				        		</div>
+				        	</div>
+
+			        		<textarea rows="4" class="form-control mt15" placeholder="Cerita recook kamu. Apakah kamu menambahkan atau mengurangi bahan? Apakah masakan kamu berhasil?"></textarea>
+		      			</div>
+		      		</div>
+	      		</div>
+	      	</div>
+	      	<div class="modal-footer">
+	        	<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+	        	<button type="button" class="btn btn-primary">Kirim</button>
+	      	</div>
+	    </div>
+  	</div>
+</div>
+
+<!-- MODAL VIEW RECOOK -->
+<div class="modal fade" id="modal-view-recook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      	<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        	<h3 class="modal-title" id="myModalLabel">Recook</h3>
+	        	<span>by </span>
+	        	<a href="#">Brian Alexandro</a>
+	      	</div>
+	      	<div class="modal-body pd15">
+	      		<div class="row">
+		      		<div class="col-sm-12">
+		      			<div class="big-wrapper">
+		      				<div class="row">
+		      					<div class="col-sm-6 col-xs-12">
+		      						<div class="wrapper-left" style="width:100%; height:330px;">
+		      							<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
+		      						</div>
+		      					</div>
+		      					<div class="col-sm-6 col-xs-12" >
+		      						<div class="wrapper-right" style="width:100%; height:auto; max-height:330px; overflow-y:auto;">
+		      							<div class="media"> 
+											<div class="pull-left"> 
+												<a href="#"> 
+													<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+												</a> 
+											</div>
+											<div class="media-body" style="width:auto; padding-right:20px;">
+												<h4 class="media-heading">Angela</h4> 
+												<p class="tajustify comment">
+													Kalo misal ada yang kuenya ga jadi sesuai panduan gambar, di komen aja ya sis. 
+												</p>
+												<p class="taright">
+													Senin, 7 Desember 2015 at 15.00					
+												</p>
+											</div>
+										</div>
+										<div class="media"> 
+											<div class="pull-left"> 
+												<a href="#"> 
+													<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+												</a> 
+											</div>
+											<div class="media-body" style="width:auto; padding-right:20px;">
+												<h4 class="media-heading">Angela</h4> 
+												<p class="tajustify comment">
+													Kalo misal ada yang kuenya ga jadi sesuai panduan gambar, di komen aja ya sis. 
+												</p>
+												<p class="taright">
+													Senin, 7 Desember 2015 at 15.00					
+												</p>
+											</div>
+										</div>
+										<div class="media"> 
+											<div class="pull-left"> 
+												<a href="#"> 
+													<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+												</a> 
+											</div>
+											<div class="media-body" style="width:auto; padding-right:20px;">
+												<h4 class="media-heading">Angela</h4> 
+												<p class="tajustify comment">
+													Kalo misal ada yang kuenya ga jadi sesuai panduan gambar, di komen aja ya sis. 
+												</p>
+												<p class="taright">
+													Senin, 7 Desember 2015 at 15.00					
+												</p>
+											</div>
+										</div>
+										<div class="media"> 
+											<div class="pull-left"> 
+												<a href="#"> 
+													<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+												</a> 
+											</div>
+											<div class="media-body" style="width:auto; padding-right:20px;">
+												<h4 class="media-heading">Angela</h4> 
+												<p class="tajustify comment">
+													Kalo misal ada yang kuenya ga jadi sesuai panduan gambar, di komen aja ya sis. 
+												</p>
+												<p class="taright">
+													Senin, 7 Desember 2015 at 15.00					
+												</p>
+											</div>
+										</div>
+		      						</div>
+		      						<textarea rows="3" class="form-control mt15" placeholder="Tuliskan komentar Anda disini..."></textarea>
+		      					</div>
+		      				</div>	
+			        	</div>
+		      		</div>
+	      		</div>
+	      	</div>
+	      	<div class="modal-footer">
+	      		<div class="row">
+	      			<div class="col-sm-12">
+			      		<div class="carousel slide" id="bottom-carousel">
+						  	<div class="carousel-inner">
+							    <div class="item active">
+							      	<div class="col-xs-2">
+							      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
+							      			<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" class="img-responsive">
+							      		</a>
+							      	</div>
+							    </div>
+							    <div class="item">
+							      	<div class="col-xs-2">
+							      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
+							      			<img src="<?=$domain?>/resources/images/food/sate.jpg" class="img-responsive">
+							      		</a>
+							      	</div>
+							    </div>
+							    <div class="item">
+							      	<div class="col-xs-2">
+							      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
+							      			<img src="<?=$domain?>/resources/images/food/bakso.jpg" class="img-responsive">
+							      		</a>
+							      	</div>
+							    </div>
+							    <div class="item">
+							      	<div class="col-xs-2">
+							      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
+							      			<img src="<?=$domain?>/resources/images/food/sate.jpg" class="img-responsive">
+							      		</a>
+							      	</div>
+							    </div>
+							    <div class="item">
+							      	<div class="col-xs-2">
+							      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
+							      			<img src="<?=$domain?>/resources/images/food/bakso.jpg" class="img-responsive">
+							      		</a>
+							      	</div>
+							    </div>
+							    <div class="item">
+							      	<div class="col-xs-2">
+							      		<a href="" data-toggle="modal" data-target="#modal-view-recook">	
+							      			<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" class="img-responsive">
+							      		</a>
+							      	</div>
+							    </div>
+						  	</div>
+						  	<a class="left carousel-control" href="#bottom-carousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+						  	<a class="right carousel-control" href="#bottom-carousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+						</div>
+					</div>
+				</div>
+	      	</div>
+	    </div>
+  	</div>
+</div>
+
 <div class="search-box">
 	<div class="row">
 		<div class="col-sm-12">
@@ -54,8 +247,10 @@
 					<img src="<?=$domain?>/resources/images/hidangan-lezat.jpg" />
 				</div>
 				<div class="action-bottom mt15">
-					<img src="<?=$domain?>/resources/icons/retweet.png" />
-					<span>Recook</span>
+					<a href="" data-toggle="modal" data-target="#modal-recook">
+						<img src="<?=$domain?>/resources/icons/retweet.png" />
+						<span>Recook</span>
+					</a>
 
 					<img src="<?=$domain?>/resources/icons/facebook.png" />
 					<span class="mr10">Share</span>
@@ -79,67 +274,56 @@
 					<h3>100</h3>
 					<p>Recook Photos</p>
 
-					<div class="carousel slide" id="myCarousel">
+					<div class="carousel slide" id="recook-carousel">
 					  	<div class="carousel-inner">
 						    <div class="item active">
 						      	<div class="col-xs-6">
-						      		<a href="#">
+						      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
 						      			<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
-						      		<a href="#">
+						      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
 						      			<img src="<?=$domain?>/resources/images/food/sate.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
-						      		<a href="#">
+						      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
 						      			<img src="<?=$domain?>/resources/images/food/bakso.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
-						      		<a href="#">
+						      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
 						      			<img src="<?=$domain?>/resources/images/food/sate.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
-						      		<a href="#">
+						      		<a href="" data-toggle="modal" data-target="#modal-view-recook">
 						      			<img src="<?=$domain?>/resources/images/food/bakso.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 						    <div class="item">
 						      	<div class="col-xs-6">
-						      		<a href="#">
+						      		<a href="" data-toggle="modal" data-target="#modal-view-recook">	
 						      			<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" class="img-responsive">
 						      		</a>
 						      	</div>
 						    </div>
 					  	</div>
-					  	<a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-					  	<a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+					  	<a class="left carousel-control" href="#recook-carousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+					  	<a class="right carousel-control" href="#recook-carousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
 					</div>
-
-					<!-- <div class="wrapper-image">
-						<ul class="no-pd taright">
-							<li class="no-ul-type mr10 with-border" style="display:inline-block;">
-								<div class="with-border" style="width:100px; height:100px;"></div>
-							</li>
-							<li class="no-ul-type mr10 with-border" style="display:inline-block;">
-								<div class="with-border" style="width:100px; height:100px;"></div>
-							</li>
-						</ul>
-					</div> -->
 					<div class="tacenter mt20">
-						<a href="<?=$domain?>/Recipe/find" class="btn btn-default">Tampilan Semua</a>
+						<a href="<?=$domain?>/Recipe/find" class="btn btn-default">Tampilkan Semua</a>
 					</div>
 				</div>
 				<hr>
@@ -279,8 +463,10 @@
 				</ol>
 
 				<div class="action-bottom mt30 tacenter">
-					<img src="<?=$domain?>/resources/icons/retweet.png" />
-					<span>Recook</span>
+					<a href="" data-toggle="modal" data-target="#modal-recook">
+						<img src="<?=$domain?>/resources/icons/retweet.png" />
+						<span>Recook</span>
+					</a>
 
 					<img src="<?=$domain?>/resources/icons/facebook.png" />
 					<span class="mr10">Share</span>
