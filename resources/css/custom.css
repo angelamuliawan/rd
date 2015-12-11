@@ -58,6 +58,9 @@ h1,h2,h3,h4,h5,h6 {
 .mb20 {
 	margin-bottom: 20px;
 }
+.mb40 {
+	margin-bottom: 40px;
+}
 .mr5 {
 	margin-right: 5px;
 }
@@ -77,6 +80,14 @@ h1,h2,h3,h4,h5,h6 {
 }
 .pd15 {
 	padding: 15px;
+}
+
+.pt15 {
+	padding-top: 15px;
+}
+
+.pb20 {
+	padding-bottom: 20px;
 }
 
 /* LIST STYLE */

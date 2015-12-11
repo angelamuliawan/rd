@@ -28,6 +28,12 @@ class AB_Controller extends CI_Controller {
 			'content_view' => $content_view
 		));
 	}
+
+	public function debug( $param ){
+		echo '<pre>';
+		print_r($param); die();
+		echo '</pre>';
+	}
 }
 
 /* End of file AB_Controller.php */
