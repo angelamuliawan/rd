@@ -6,6 +6,11 @@ class AB_Controller extends CI_Controller {
 		parent::__construct();
 
 		$this->load->library('rest');
+		$this->load->helper('common');
+
+		$this->load->vars(array(
+			'domain' => 'http://localhost/rd',
+		));
 	}
 
 	public function render( $content_name = false, $layout = 'default', $is_admin = false ) {
@@ -27,12 +32,6 @@ class AB_Controller extends CI_Controller {
 		$this->load->view('Layouts/'.$layout, array(
 			'content_view' => $content_view
 		));
-	}
-
-	public function debug( $param ){
-		echo '<pre>';
-		print_r($param); die();
-		echo '</pre>';
 	}
 }
 

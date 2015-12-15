@@ -1,12 +1,150 @@
 /* CUSTOM BOOTSTRAP */
-/* Bootstrap navbar fixed top */
+
+/* NAVBAR */
+.navbar-inverse {
+	background-color: #32322F;
+}
+a.navbar-brand {
+	font-weight: 700;
+	background-color: #E66909;
+}
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+    color: #FFFFFF;
+}
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-nav > li > a:hover {
+    background-color: #ED6E0C;
+    cursor: pointer;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    font-weight: bold;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #FFFFFF;
+  text-decoration: none;
+  background-color: #E66909;
+}
+
+/* FORM CONTROL */
+.form-control:focus {
+	border-color: #E66909;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(245, 124, 2, .7);
+	      box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(245, 124, 2, .7);
+}
+
+/* BUTTON */
+.btn-orange {
+  color: #FFFFFF;
+  background-color: #E66909;
+  /*border-color: #ED7309;*/
+}
+.btn-orange:hover,
+.btn-orange:focus,
+.btn-orange:active,
+.btn-orange.active,
+.open .dropdown-toggle.btn-orange {
+  color: #FFFFFF;
+  background-color: #ED6E0C;
+  /*border-color: #285e8e;*/
+}
+.btn-orange:active,
+.btn-orange.active,
+.open .dropdown-toggle.btn-orange {
+  background-image: none;
+}
+.btn-orange.disabled,
+.btn-orange[disabled],
+fieldset[disabled] .btn-orange,
+.btn-orange.disabled:hover,
+.btn-orange[disabled]:hover,
+fieldset[disabled] .btn-orange:hover,
+.btn-orange.disabled:focus,
+.btn-orange[disabled]:focus,
+fieldset[disabled] .btn-orange:focus,
+.btn-orange.disabled:active,
+.btn-orange[disabled]:active,
+fieldset[disabled] .btn-orange:active,
+.btn-orange.disabled.active,
+.btn-orange[disabled].active,
+fieldset[disabled] .btn-orange.active {
+  background-color: #D1873D;
+  /*border-color: #357ebd;*/
+}
+.btn-orange .badge {
+  color: #D1873D;
+  background-color: #fff;
+}
+
+/* FONT */
+
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'), url('../fonts/custom/font_1.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
 body {
   /*min-height: 900px;*/
   padding-top: 70px;
+  background-color: #e7e7e9;
+  font-size: 1.4em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  /*line-height: 1.6;*/
+  font-weight: 500;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*color: #222; */
+  /*font-family: sans-serif;*/
+  /*font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #fff;*/
 }
 h1,h2,h3,h4,h5,h6 {
 	margin: 0;
 }
+
+/* BACKGROUND */
+.bg-white {
+	background-color: #FFFFFF;
+}
+.bg-orange {
+	background-color: #E66909;
+}
+
+/* Error */
+.error-message {
+	color: #C30F0F !important;
+}
+
+.form-control {
+	border-radius: 0;
+}
+
+/* Overlay for Loading */
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+	top: 0;
+	left: 0;
+	z-index: 1042;
+	opacity: 1;
+	background: rgba(0,0,0,0.5);
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+/* Modal Bootstrap - Set zindex so it will on behind of the overlay */
+.modal {
+	z-index: 1041;
+}
+
 .bs-docs-footer {
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -81,6 +219,9 @@ h1,h2,h3,h4,h5,h6 {
 .pd15 {
 	padding: 15px;
 }
+.pd20 {
+	padding: 20px;
+}
 
 .pt15 {
 	padding-top: 15px;
@@ -112,6 +253,11 @@ h1,h2,h3,h4,h5,h6 {
 /* WIDTh */
 .extra-small-width {
 	width: 4%;	
+}
+
+/* CURSOR */
+.cpointer {
+	cursor: pointer;
 }
 
 /* PAGE INDEX - FOOD LIST */
@@ -159,6 +305,7 @@ h1,h2,h3,h4,h5,h6 {
 	display:block; 
 	padding:10px; 
 	border-top:1px solid #efefef;
+	color: #FFFFFF;
 }
 .wrapper-food-list > .content > ul > li .box-footer img {
 	width:20px; 
@@ -178,6 +325,7 @@ h1,h2,h3,h4,h5,h6 {
 	width:100%; 
 	height:auto; 
 	display:block;
+	background-color: #FFFFFF; 
 }
 .wrapper-food-list-vertical > .content > ul {
 	padding:10px;
@@ -192,6 +340,7 @@ h1,h2,h3,h4,h5,h6 {
 	border-radius:3px;
 	padding: 0 15px;
 	margin: 15px auto;
+	border-bottom: 1px solid #efefef;
 }
 .wrapper-food-list-vertical > .content > ul > li .box-header {
 	width:100%; 
@@ -362,6 +511,9 @@ h1,h2,h3,h4,h5,h6 {
 .wrapper-create-recipe form .list-material .icon-holder .glyphicon {
 	font-size: 20px;
     margin-top: 6px;
+}
+.wrapper-create-recipe form .extra-margin {
+	margin-left: 18%;
 }
 
 /* PAGE MY RECIPE */

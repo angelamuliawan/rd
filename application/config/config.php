@@ -374,7 +374,7 @@ $config['proxy_ips'] = '';
 |
 |
 */
-$config['domain'] = 'http://localhost/rd';
+// $config['domain'] = 'http://localhost/rd';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

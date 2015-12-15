@@ -2,29 +2,113 @@ $(document).ready(function() {
 
 	var serviceUri = 'http://localhost/rd/';
 
-	$('#btnLogin').click(function(e){
-		e.preventDefault();
-
-		var datalogin = {
-			username : $("#txtEmail").val(),
-			password : $("#txtPassword").val()
-		}
-		$.ajax({
-			url: serviceUri + 'users/login',
-			type: 'post',
-			dataType: 'json',
-			data:JSON.stringify(datalogin),
-			contentType: 'application/json;charset=utf-8',
-			success:function(data){
-				// if(data[0].UserID == -1)
-				// 	$("#errorLogin").text("Invalid Username or Password");
-				// else 
-				// {
-				// 	$("#errorLogin").text("");
-				// 	$.session.set('userlogin', 'loggedin');
-				// 	window.location.href= AB.dashboardUri;
-				// }
-			}	
-		});
+	$(document).ajaxStart(function() {
+		$('.overlay').css('visibility', 'visible');
 	});
+	$(document).ajaxComplete(function() {
+		$('.overlay').css('visibility', 'hidden');
+	});
+
+	$('body').on('submit', '.ajax-form', function(e){
+		
+		var self = $(this);
+		var form_data = self.serialize();
+		var form_id = '#'+self.attr('id');
+		var form_action = self.attr('action');
+		var data_reload = self.attr('data-reload');
+
+		$.ajax({
+            url: serviceUri+form_action,
+            type: 'POST',
+            dataType: 'html',
+            data: form_data,
+            success: function( result ) {
+            	var message = $(result).find('#msg-text').html();
+            	var status = $(result).find('#msg-status').html();
+ 
+            	var contentHTML = $(result).find(form_id).html();
+            	$(form_id).html(contentHTML);
+
+            	if( status == 'success' ) {
+            		if( data_reload == 'true' ) {
+            			window.location.reload();
+            		}
+            	}
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
+                return false;
+            }
+        });
+
+		return false;
+	});
+
+    $.ajaxModal();
+    $.tabs();
+    $.replaceText();
+
+    $('body').on('click', '.clone-button', function(){
+
+    	var self = $(this);
+    	var target = self.attr('data-clone');
+    	var parent = $('.' + target).closest('.parent-template');
+    	var template = $('.' + target).clone().removeClass(target).removeClass('hide');
+    	var total_children = parent.children().length;
+
+    	template.find('.template-order').text(total_children);
+    	parent.append(template);
+    });
 });
+
+$.ajaxModal = function(options){
+	var obj = $('.ajax-modal');
+    if( obj.length > 0 ) {
+        obj.off('click');
+        obj.click(function() {
+            var self = $(this);
+	        var url = self.attr('href');
+	        var title = self.attr('title');
+
+	        $.ajax({
+	            url: url,
+	            type: 'POST',
+	            success: function(response, status) {
+
+	                $('#myModal').replaceWith(response);
+	                $('#myModal').modal('show');
+
+	                return false;
+	            },
+	            error: function(XMLHttpRequest, textStatus, errorThrown) {
+	                alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
+	                return false;
+	            }
+	        });
+
+            return false;
+        });
+
+        $('body').on('click', '.close-modal', function(){
+            $('#myModal').modal('hide');
+            return false;
+        });
+    }
+}
+
+$.tabs = function(){
+	$('body').on('click', 'ul.nav.nav-tabs a',function(e) {
+        e.preventDefault();
+        $( this ).tab( 'show' );
+    });
+}
+
+$.replaceText = function(){
+	$('body').on('click', '.replace-text li', function(){
+		var self = $(this);
+		var parent = self.closest('.nav.replace-text');
+		var target = '.' + parent.attr('text-target');
+		var text = self.find("*").last().text();
+		$(target).text(text);
+	});
+}

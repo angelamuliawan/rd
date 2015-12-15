@@ -1,6 +1,3 @@
-<?php
-		$domain = $this->config->item('domain');
-?>
 <div class="search-box">
 	<div class="row">
 		<div class="col-sm-10">

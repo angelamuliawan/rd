@@ -870,7 +870,7 @@ if ( ! function_exists('set_radio'))
  */
 if ( ! function_exists('form_error'))
 {
-	function form_error($field = '', $prefix = '', $suffix = '')
+	function form_error($field = '', $prefix = '<span class="error-message">', $suffix = '</span>')
 	{
 		if (FALSE === ($OBJ =& _get_validation_object()))
 		{

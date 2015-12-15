@@ -1,8 +1,4 @@
-<?php
-		$domain = $this->config->item('domain');
-?>
-
-<div class="big-wrapper">
+<div class="big-wrapper bg-white pd20">
 	<div class="row">
 		<div class="wrapper-profile">
 			<div class="col-sm-3">

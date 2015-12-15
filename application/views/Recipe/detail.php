@@ -1,7 +1,3 @@
-<?php
-		$domain = $this->config->item('domain');
-?>
-
 <!-- MODAL RECOOK -->
 <div class="modal fade" id="modal-recook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   	<div class="modal-dialog modal-lg">
@@ -205,7 +201,7 @@
 					</div>
 		
 					<div class="col-sm-2">
-						<button type="button" class="btn btn-default btn-block">Cari</button>
+						<button type="button" class="btn btn-orange btn-block">Cari</button>
 					</div>
 				</div>
 			</div>
@@ -213,7 +209,7 @@
 	</div>
 </div>
 
-<div class="detail-recipe-header with-border">
+<div class="detail-recipe-header with-border bg-white">
 	<div class="row">
 		<div class="col-sm-9">
 			<div class="wrapper pd15">
@@ -239,7 +235,7 @@
 	</div>
 </div>
 
-<div class="detail-recipe-banner with-border mt20">
+<div class="detail-recipe-banner with-border bg-white">
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="wrapper pd15">
@@ -266,7 +262,7 @@
 	</div>
 </div>
 
-<div class="detail-recipe-content with-border mt20">
+<div class="detail-recipe-content with-border bg-white">
 	<div class="row">
 		<div class="col-sm-3 with-border-right">
 			<div class="wrapper pd15">
@@ -323,7 +319,7 @@
 					  	<a class="right carousel-control" href="#recook-carousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
 					</div>
 					<div class="tacenter mt20">
-						<a href="<?=$domain?>/Recipe/find" class="btn btn-default">Tampilkan Semua</a>
+						<a href="<?=$domain?>/Recipe/find" class="btn btn-orange">Tampilkan Semua</a>
 					</div>
 				</div>
 				<hr>
@@ -500,7 +496,7 @@
 	</div>
 </div>
 
-<div class="comment-box mt10">
+<div class="comment-box bg-white">
 	<div class="row">
 		<div class="col-sm-10">
 			<div class="wrapper pd15">
@@ -509,7 +505,7 @@
 				 	<div class="form-group">
 						<textarea class="form-control" rows="3" id="taComment" placeholder="Tuliskan komentar Anda &hellip;"></textarea>
 				  	</div>
-				  	<a href="#" class="btn btn-default">Kirim Komentar</a>
+				  	<a href="#" class="btn btn-orange">Kirim Komentar</a>
 				</form>
 
 				<div class="media"> 

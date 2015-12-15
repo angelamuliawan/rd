@@ -3,7 +3,6 @@
 class Pages extends AB_Controller {
 
 	public function index() {
-
 		$this->render();
 	}
 }
