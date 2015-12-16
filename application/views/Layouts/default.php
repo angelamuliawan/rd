@@ -20,16 +20,12 @@
 	</head>
 	<body>
 		<?php
-				if( !isLoggedIn() ) {
-					// loadModal('login');
-				}
-				
 				loadSubview('header/menu');
+
 		  		if( isset($content_view)  ) {
-		  			echo tag('div', $content_view, array(
-		  				'class' => 'container',
-		  			));
+		  			echo $content_view;
 		  		}
+		  		
 		  		loadSubview('footer/footer');
 				load_script(array(
 					'jquery/jquery.min',

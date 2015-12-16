@@ -1,8 +1,23 @@
 /* CUSTOM BOOTSTRAP */
 
+/* MAIN PAGE BACKGROUND */
+.wrapper-background {
+	background-image: url('../../resources/images/background/bg.jpg'); 
+	background-size: cover; 
+	color: #fff;
+	/*width: 100%;*/
+	/*height: 100%;*/
+	padding: 55px 0 100px;
+	/*background-position: bottom center;*/
+}
+
 /* NAVBAR */
 .navbar-inverse {
 	background-color: #32322F;
+	margin-bottom: 0;
+}
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+	margin-left: 0;
 }
 a.navbar-brand {
 	font-weight: 700;
@@ -14,6 +29,11 @@ a.navbar-brand {
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-nav > li > a:hover {
     background-color: #ED6E0C;
     cursor: pointer;
+    -webkit-transition: all .25s ease;
+     -moz-transition: all .25s ease;
+      -ms-transition: all .25s ease;
+       -o-transition: all .25s ease;
+          transition: all .25s ease;
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -25,6 +45,11 @@ a.navbar-brand {
   color: #FFFFFF;
   text-decoration: none;
   background-color: #E66909;
+  -webkit-transition: all .25s ease;
+     -moz-transition: all .25s ease;
+      -ms-transition: all .25s ease;
+       -o-transition: all .25s ease;
+          transition: all .25s ease;
 }
 
 /* FORM CONTROL */
@@ -90,7 +115,7 @@ fieldset[disabled] .btn-orange.active {
 
 body {
   /*min-height: 900px;*/
-  padding-top: 70px;
+  padding-top: 50px;
   background-color: #e7e7e9;
   font-size: 1.4em; /* currently ems cause chrome bug misinterpreting rems on body element */
   /*line-height: 1.6;*/
@@ -314,6 +339,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 .wrapper-food-list > .content > ul > li .box-footer span {
 	display: inline;
+	padding-left: 3px;
 }
 
 /* PAGE FIND - FOOD LIST */

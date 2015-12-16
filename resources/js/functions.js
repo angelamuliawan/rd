@@ -9,6 +9,10 @@ $(document).ready(function() {
 		$('.overlay').css('visibility', 'hidden');
 	});
 
+    $('body').on('submit', function(e){
+        $('.wrapper-template').remove();
+    });
+
 	$('body').on('submit', '.ajax-form', function(e){
 		
 		var self = $(this);
@@ -52,11 +56,20 @@ $(document).ready(function() {
 
     	var self = $(this);
     	var target = self.attr('data-clone');
-    	var parent = $('.' + target).closest('.parent-template');
-    	var template = $('.' + target).clone().removeClass(target).removeClass('hide');
+    	
+        var parent = $('.' + target).closest('.parent-template');
+    	var model = parent.attr('model');
+
+        var template = $('.' + target).clone().removeClass(target).removeClass('hide').removeClass('wrapper-template');
     	var total_children = parent.children().length;
 
     	template.find('.template-order').text(total_children);
+        $('.inputField', template).each(function(){
+            var _self = $(this);
+            var field_name = _self.attr('name');
+            _self.attr('name', model+'['+(total_children-1)+']'+'['+field_name+']');
+        });
+
     	parent.append(template);
     });
 });
