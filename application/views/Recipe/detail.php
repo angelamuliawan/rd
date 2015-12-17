@@ -64,7 +64,7 @@
 		      							<div class="media"> 
 											<div class="pull-left"> 
 												<a href="#"> 
-													<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+													<img class="media-object" src="<?=$domain?>/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 												</a> 
 											</div>
 											<div class="media-body" style="width:auto; padding-right:20px;">
@@ -80,7 +80,7 @@
 										<div class="media"> 
 											<div class="pull-left"> 
 												<a href="#"> 
-													<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+													<img class="media-object" src="<?=$domain?>/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 												</a> 
 											</div>
 											<div class="media-body" style="width:auto; padding-right:20px;">
@@ -96,7 +96,7 @@
 										<div class="media"> 
 											<div class="pull-left"> 
 												<a href="#"> 
-													<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+													<img class="media-object" src="<?=$domain?>/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 												</a> 
 											</div>
 											<div class="media-body" style="width:auto; padding-right:20px;">
@@ -112,7 +112,7 @@
 										<div class="media"> 
 											<div class="pull-left"> 
 												<a href="#"> 
-													<img class="media-object" src="http://localhost/rd/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
+													<img class="media-object" src="<?=$domain?>/resources/images/64x64.png" style="width: 64px; height: 64px;"> 
 												</a> 
 											</div>
 											<div class="media-body" style="width:auto; padding-right:20px;">

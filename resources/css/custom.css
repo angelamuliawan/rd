@@ -143,6 +143,7 @@ h1,h2,h3,h4,h5,h6 {
 /* Error */
 .error-message {
 	color: #C30F0F !important;
+	display: block;
 }
 
 .form-control {
@@ -538,9 +539,9 @@ h1,h2,h3,h4,h5,h6 {
 	font-size: 20px;
     margin-top: 6px;
 }
-.wrapper-create-recipe form .extra-margin {
+/*.wrapper-create-recipe form .extra-margin {
 	margin-left: 18%;
-}
+}*/
 
 /* PAGE MY RECIPE */
 #my-recipe.wrapper-food-list-vertical > .content .right-side > .box-description p.description {

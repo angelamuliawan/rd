@@ -22,6 +22,9 @@ class Recipe extends AB_Controller {
 
 		$food_types = $this->db->query('CALL GetAllFoodType()');
 		$food_types = $this->buildDataDropdown($food_types, 'FoodTypeID', 'FoodTypeName');
+
+		$cuisines = $this->db->query('CALL GetAllCuisine()');
+		$cuisines = $this->buildDataDropdown($cuisines, 'CuisineID', 'CuisineName');
 		
 		$food_process = $this->db->query('CALL GetAllFoodProcess()');
 		$food_process = $this->buildDataDropdown($food_process, 'FoodProcessID', 'FoodProcessName');
@@ -44,9 +47,19 @@ class Recipe extends AB_Controller {
 			// debug($post); die();
 
 			$this->form_validation->set_rules('RecipeName', 'Recipe Name', 'required');
-			// $this->form_validation->set_rules('password', 'Password', 'required');
+			$this->form_validation->set_rules('RecipeIntro', 'Recipe Intro', 'required');
+
+			foreach( $post['FoodComposition'] as $key => $value ) {
+				$this->form_validation->set_rules('FoodComposition['.$key.'][Measure]', 'Measure', 'required');
+			}
+
+			foreach( $post['FoodProcess'] as $key => $value ) {
+				$this->form_validation->set_rules('FoodProcess['.$key.'][FoodStepName]', 'Food Step', 'required');
+			}
 
 			if ( $this->form_validation->run() == TRUE ) {
+
+
 
 				// $res = $this->db->query('CALL CheckLogin(?,?)', array(
 				// 	$post['email'], 
@@ -65,12 +78,15 @@ class Recipe extends AB_Controller {
 				// 	$status = 'success';
 				// }
 			}
+
+			// debug(validation_errors()); die();
 		}
 
 		// loadMessage($message, $status);
 
 		$this->load->vars(array(
 			'food_types' => $food_types,
+			'cuisines' => $cuisines,
 			'food_process' => $food_process,
 			'price_ranges' => $price_ranges,
 			'estimation_peoples' => $estimation_peoples,
