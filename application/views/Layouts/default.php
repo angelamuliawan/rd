@@ -14,6 +14,7 @@
 				load_css(array(
 					'bootstrap/bootstrap',
 					'bootstrap/docs',
+					'bootstrap/bootstrap-multiselect',
 					'custom',
 				));
 		?>
@@ -30,6 +31,8 @@
 				load_script(array(
 					'jquery/jquery.min',
 					'bootstrap/bootstrap.min',
+					'bootstrap/typeahead',
+					'bootstrap/bootstrap-multiselect',
 					'functions',
 				));
 

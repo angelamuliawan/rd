@@ -59,10 +59,12 @@
 						
 
 		     			if( isLoggedIn() ) { 
+
+		     				$cnt_notif = count($notifications);
 		     				$spanNotifIcon = tag('span', false, array(
 		     					'class' => 'glyphicon glyphicon-bell mt3'
 		     				));
-		     				$spanNotifCount = tag('span', 42, array(
+		     				$spanNotifCount = tag('span', $cnt_notif, array(
 		     					'class' => 'badge pull-right _mt5'
 		     				));
 

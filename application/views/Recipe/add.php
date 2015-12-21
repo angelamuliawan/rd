@@ -4,7 +4,7 @@
 				echo tag('h2', 'Tulis Resep');
 		?>
 		<div class="wrapper-create-recipe">
-			<form class="form-horizontal mt20" role="form" action="add" method="post" accept-charset="utf-8">
+			<form class="form-horizontal mt20" enctype="multipart/form-data" role="form" action="add" method="post" accept-charset="utf-8">
 			  	<div class="form-group">
 			  		<?php
 			  				echo tag('label', 'Judul Resep', array(
@@ -45,14 +45,32 @@
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Masakan', array(
-			  					'for' => 'CuisineID',
+			  				echo tag('label', 'Gambar Utama', array(
+			  					'for' => 'PrimaryPhoto',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
 			  		?>
 					<div class="col-sm-7">
 						<?php
-								echo form_dropdown('CuisineID', $cuisines, $request['CuisineID'], 'class="form-control"');
+								echo tag('input', false, array(
+									'type' => 'file',
+									'name' => 'PrimaryPhoto',
+								));
+								echo form_error('PrimaryPhoto'); 
+						?>
+					</div>
+				</div>
+				<div class="form-group">
+					<?php
+			  				echo tag('label', 'Masakan', array(
+			  					'for' => 'CuisineID',
+			  					'class' => 'col-sm-2 control-label',
+			  				));
+			  		?>
+					<div class="col-sm-3">
+						<?php
+								echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple"');
+								echo form_error('CuisineID'); 
 						?>
 					</div>
 				</div>
@@ -110,6 +128,28 @@
 				</div>
 				<div class="form-group">
 					<?php
+			  				echo tag('label', 'Estimasi Waktu Membuat', array(
+			  					'for' => 'EstTime',
+			  					'class' => 'col-sm-2 control-label',
+			  				));
+			  		?>
+					<div class="col-sm-2">
+						<div class="input-group">
+							<?php
+									echo tag('input', false, array(
+					    				'type' => 'number',
+					    				'class' => 'form-control',
+					    				'name' => 'EstTime',
+					    				'value' => set_value('EstTime'),
+					    			));
+					    			echo form_error('EstTime');
+							?>
+							<span class="input-group-addon">Menit</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<?php
 			  				echo tag('label', 'Bahan', array(
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -117,7 +157,8 @@
 					<div class="col-sm-7 parent-template" model="FoodComposition">
 						<?php
 								loadSubview('recipe/custom_material', array(
-									'type' => 'init'
+									'type' => 'init',
+									'counter' => '',
 								));
 								
 								$counter = 0;
@@ -126,7 +167,7 @@
 									foreach( $request['FoodComposition'] as $key => $value ) {
 										$measure = $value['Measure'];
 										$measure_size = $value['MeasureSizeID'];
-										$composition = $value['CompositionID'];
+										$composition = $value['CompositionName'];
 
 										loadSubview('recipe/custom_material', array(
 											'type' => 'load',
@@ -165,7 +206,8 @@
 					<div class="col-sm-7 parent-template" model="FoodProcess">
 						<?php
 								loadSubview('recipe/custom_step', array(
-									'type' => 'init'
+									'type' => 'init',
+									'counter' => '',
 								));
 
 								$counter = 0;

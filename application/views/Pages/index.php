@@ -1,5 +1,7 @@
 <?php
-		loadSubview('header/search_box');
+		loadSubview('header/search_box', array(
+			'_with_text' => true
+		));
 ?>
 
 <div class="container mt20">

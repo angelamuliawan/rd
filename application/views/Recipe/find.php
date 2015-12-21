@@ -1,220 +1,111 @@
 <?php
-		loadSubview('header/search_box');
+		loadSubview('header/search_box', array(
+			'_class' => 'pd10'
+		));
 ?>
 
 <div class="container mt20">
 	<div class="big-wrapper">
 		<div class="row bg-white no-mg">
 			<div class="col-sm-3 pd20">
-				<form>
+				<form role="form" action="find" method="GET" accept-charset="utf-8">
 				 	<div class="form-group">
 						<label for="txtKeyword">Kata Kunci</label>
-						<input type="text" class="form-control" id="txtKeyword" placeholder="Kata Kunci">
+						<?php
+								echo tag('input', false, array(
+									'id' => 'txtKeyword',
+				    				'type' => 'text',
+				    				'class' => 'form-control',
+				    				'name' => 'keyword',
+				    				'value' => $this->input->get('keyword')
+				    			));
+						?>
 				  	</div>
 				  	<div class="form-group">
 						<label for="txtRawMaterial">Bahan Baku</label>
-						<input type="text" class="form-control" id="txtRawMaterial" placeholder="Bahan Baku">
+						<input type="text" class="form-control" id="txtRawMaterial" name="CompositionID" placeholder="Bahan Baku">
 				  	</div>
 					<div class="form-group">
-						<label for="ddlFood">Masakan</label>
-						<select id="ddlFood" class="form-control">
-							<option>Pilih Semua</option>
-						</select>
+						<label for="CuisineID">Masakan</label>
+						<?php
+								echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple"');
+						?>
 					</div>
 					<div class="form-group">
-						<label for="ddlFoodType">Semua Tipe</label>
-						<select id="ddlFoodType" class="form-control">
-							<option>Pilih Semua</option>
-						</select>
+						<label for="FoodTypeID">Jenis</label>
+						<?php
+								echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple"');
+						?>
 					</div>
 					<div class="form-group">
-						<label for="ddlCookingProcess">Proses Masak</label>
-						<select id="ddlCookingProcess" class="form-control">
-							<option>Pilih Semua</option>
-						</select>
+						<label for="FoodProcessID">Proses Masak</label>
+						<?php
+								echo form_dropdown('FoodProcessID', $food_process, (isset($request['FoodProcessID'])?$request['FoodProcessID']:false), 'class="form-control multiple-select" multiple="multiple"');
+						?>
 					</div>
 					<div class="form-group">
-						<label for="ddlCostEstimation">Estimasi Biaya</label>
-						<select id="ddlCostEstimation" class="form-control">
-							<option>Pilih Semua</option>
-						</select>
+						<label for="PriceRangeID">Estimasi Biaya</label>
+						<?php
+								echo form_dropdown('PriceRangeID', $price_ranges, (isset($request['PriceRangeID'])?$request['PriceRangeID']:false), 'class="form-control multiple-select" multiple="multiple"');
+						?>
 					</div>
 					<div class="form-group">
-						<label for="ddlPeopleEstimation">Estimasi Orang</label>
-						<select id="ddlPeopleEstimation" class="form-control">
-							<option>Pilih Semua</option>
-						</select>
+						<label for="EstPeopleID">Estimasi Orang</label>
+						<?php
+								echo form_dropdown('EstPeopleID', $estimation_peoples, (isset($request['EstPeopleID'])?$request['EstPeopleID']:false), 'class="form-control multiple-select" multiple="multiple"');
+						?>
 					</div>
 					<div class="form-group">
-						<label for="ddlSortBy">Urutkan Berdasarkan</label>
-						<select id="ddlSortBy" class="form-control">
-							<option>Resep Terbaru</option>
-							<option>Resep Populer</option>
-							<option>Abjad</option>
-						</select>
+						<label for="Sorting">Urutkan Berdasarkan</label>
+						<?php
+								echo form_dropdown('Sorting', $sorts, (isset($request['Sorting'])?$request['Sorting']:false), 'class="form-control"');
+						?>
 					</div>
+					<div class="form-group">
+				  		<?php
+				  				echo tag('button', 'Cari', array(
+				  					'class' => 'btn btn-orange full-width',
+				  					'type' => 'submit',
+				  				));
+				  		?>
+				  	</div>
 				</form>
 			</div>
 			<div class="col-sm-9 no-pd">
 				<div class="wrapper-food-list-vertical">
-					<div class="content with-border">
+					<div class="content">
 						<ul>
-							<li class="no-ul-type">
-								<div class="row">
-									<div class="col-sm-4 left-side">
-										<div class="box-header">
-											<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
-										</div>
-										<div class="box-footer">
-											<div class="pull-right mr5">
-												<img src="<?=$domain?>/resources/icons/retweet.png" />
-												<span>500</span>
-											</div>
-											<div class="pull-right mr10">
-												<img src="<?=$domain?>/resources/icons/comment.png" />
-												<span>500</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-8 right-side">
-										<div class="box-description">
-											<h4>Makanan ABCD</h4>
-											<p>Masakan Sunda, Indonesian</p>
-											<p>Dessert</p>
-											<p class="mt10 description">
-												Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-												Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-												when an unknown printer took a galley of type and scrambled it to make a type 
-												specimen book.
-											</p>
-											
-											<div class="taright mb5">
-												<a href="<?=$domain?>/Recipe/detail" class="btn btn-orange mt5">Selengkapnya</a>
-											</div>
+							<?php
+									if( !empty($values) ) {
+										foreach( $values as $key => $value ) {
+											$image = $value['PrimaryPhoto'];
+											$title = $value['RecipeName'];
+											$cuisine = $value['CuisineName'];
+											$food_type = $value['FoodTypeName'];
+											$recipe_intro = $value['RecipeIntro'];
 
-											<div class="action-bottom mt15 tacenter">
-												<a href="" data-toggle="modal" data-target=".bs-example-modal-lg">
-													<img src="<?=$domain?>/resources/icons/retweet.png" />
-													<span>Recook</span>
-												</a>
-												
-												<img src="<?=$domain?>/resources/icons/facebook.png" />
-												<span class="mr10">Share</span>
+											$cnt_comment = $value['NumberOfComment'];
+											$cnt_recook = $value['NumberOfRecook'];
 
-												<img src="<?=$domain?>/resources/icons/cookmark.png" />
-												<span class="mr10">Cookmark</span>
-
-												<img src="<?=$domain?>/resources/icons/print.png" />
-												<span>Print</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="no-ul-type">
-								<div class="row">
-									<div class="col-sm-4 left-side">
-										<div class="box-header">
-											<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
-										</div>
-										<div class="box-footer">
-											<div class="pull-right mr5">
-												<img src="<?=$domain?>/resources/icons/retweet.png" />
-												<span>500</span>
-											</div>
-											<div class="pull-right mr10">
-												<img src="<?=$domain?>/resources/icons/comment.png" />
-												<span>500</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-8 right-side">
-										<div class="box-description">
-											<h4>Makanan ABCD</h4>
-											<p>Masakan Sunda, Indonesian</p>
-											<p>Dessert</p>
-											<p class="mt10 description">
-												Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-												Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-												when an unknown printer took a galley of type and scrambled it to make a type 
-												specimen book.
-											</p>
-											
-											<div class="taright mb5">
-												<a href="<?=$domain?>/Recipe/detail" class="btn btn-orange mt5">Selengkapnya</a>
-											</div>
-
-											<div class="action-bottom mt15 tacenter">
-												<a href="" data-toggle="modal" data-target=".bs-example-modal-lg">
-													<img src="<?=$domain?>/resources/icons/retweet.png" />
-													<span>Recook</span>
-												</a>
-
-												<img src="<?=$domain?>/resources/icons/facebook.png" />
-												<span class="mr10">Share</span>
-
-												<img src="<?=$domain?>/resources/icons/cookmark.png" />
-												<span class="mr10">Cookmark</span>
-
-												<img src="<?=$domain?>/resources/icons/print.png" />
-												<span>Print</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="no-ul-type">
-								<div class="row">
-									<div class="col-sm-4 left-side">
-										<div class="box-header">
-											<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
-										</div>
-										<div class="box-footer">
-											<div class="pull-right mr5">
-												<img src="<?=$domain?>/resources/icons/retweet.png" />
-												<span>500</span>
-											</div>
-											<div class="pull-right mr10">
-												<img src="<?=$domain?>/resources/icons/comment.png" />
-												<span>500</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-8 right-side">
-										<div class="box-description">
-											<h4>Makanan ABCD</h4>
-											<p>Masakan Sunda, Indonesian</p>
-											<p>Dessert</p>
-											<p class="mt10 description">
-												Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-												Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-												when an unknown printer took a galley of type and scrambled it to make a type 
-												specimen book.
-											</p>
-											
-											<div class="taright mb5">
-												<a href="<?=$domain?>/Recipe/detail" class="btn btn-orange mt5">Selengkapnya</a>
-											</div>
-
-											<div class="action-bottom mt15 tacenter">
-												<a href="" data-toggle="modal" data-target=".bs-example-modal-lg">
-													<img src="<?=$domain?>/resources/icons/retweet.png" />
-													<span>Recook</span>
-												</a>
-
-												<img src="<?=$domain?>/resources/icons/facebook.png" />
-												<span class="mr10">Share</span>
-
-												<img src="<?=$domain?>/resources/icons/cookmark.png" />
-												<span class="mr10">Cookmark</span>
-
-												<img src="<?=$domain?>/resources/icons/print.png" />
-												<span>Print</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
+											loadSubview('recipe/item_recipe', array(
+												'image' => $image,
+												'title' => $title,
+												'cuisine' => $cuisine,
+												'food_type' => $food_type,
+												'recipe_intro' => $recipe_intro,
+												'cnt_comment' => $cnt_comment,
+												'cnt_recook' => $cnt_recook,
+											));
+										}
+									} else {
+										echo tag('h4', 'Pencarian tidak ditemukan', array(
+											'wrapTag' => 'li',
+											'wrapAttributes' => array(
+												'class' => 'no-border'
+											)
+										));
+									}
+							?>
 						</ul>
 					</div>
 				</div>
