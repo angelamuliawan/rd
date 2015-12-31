@@ -1,4 +1,5 @@
 <?php
+		$recipe_id = isset($recipe_id)?$recipe_id:false;
 		$image = isset($image)?$image:false;
 		$title = isset($title)?$title:false;
 		$cuisine = isset($cuisine)?$cuisine:false;
@@ -8,6 +9,7 @@
 		$cnt_comment = isset($cnt_comment)?$cnt_comment:false;
 		$cnt_recook = isset($cnt_recook)?$cnt_recook:false;
 
+		$cooked_by_id = isset($cooked_by_id)?$cooked_by_id:false;
 		$cooked_by = isset($cooked_by)?$cooked_by:false;
 
 		$iconComment = tag('img', false, array(
@@ -20,8 +22,8 @@
 		$totalComment = tag('span', $cnt_comment);
 		$totalRecook = tag('span', $cnt_recook);
 
-		$custom_image = $domain.'/resources/images/food/'.$image;
-		if( !file_exists($custom_image) ) {
+		$custom_image = $domain.'/resources/images/uploads/recipe/primary/'.$image;
+		if( !@getimagesize($custom_image) ) {
 			$custom_image = $domain.'/resources/images/default.png';
 		}
 
@@ -56,7 +58,12 @@
 		<div class="col-sm-8 right-side">
 			<div class="box-description">
 				<?php
-						echo tag('h4', $title);
+						echo tag('h4', $title, array(
+							'wrapTag' => 'a',
+							'wrapAttributes' => array(
+								'href' => $domain.'/recipe/detail/'.$recipe_id,
+							),
+						));
 						echo $custom_span;
 
 						echo tag('p', $cuisine);

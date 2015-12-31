@@ -34,7 +34,7 @@
 				echo form_input(array(
 					'name' => $measure_name,
 					'type' => 'text',
-					'value' => set_value($measure_name),
+					'value' => ( !empty($measure) ) ? $measure : set_value($measure_name),
 					'class' => 'form-control inputField template-field',
 					'placeholder' => 'contoh: 100',
 					'data-model' => 'Measure',
@@ -56,7 +56,7 @@
 					'type' => 'text',
 					'data-provide' => 'typeahead',
 					'data-url' => $domain.'/ajax/list_composition',
-					'value' => set_value($composition_name),
+					'value' => ( !empty($composition) ) ? $composition : set_value($composition_name),
 					'class' => 'form-control inputField autocomplete template-field',
 					'autocomplete' => 'off',
 					'data-model' => 'CompositionName',
@@ -68,7 +68,7 @@
 					'id' => 'hdnFieldComposition'.$counter,
 					'class' => 'inputField template-field',
 					'name' => $composition_id_name,
-					'value' => set_value($composition_id_name),
+					'value' => ( !empty($composition_id) ) ? $composition_id : set_value($composition_id_name),
 					'data-model' => 'CompositionID',
 				));
 		?>

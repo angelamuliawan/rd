@@ -12,6 +12,7 @@
 							<?php
 									if( !empty($values) ) {
 										foreach( $values as $key => $value ) {
+											$id = $value['RecipeID'];
 											$image = $value['PrimaryPhoto'];
 											$title = $value['RecipeName'];
 											$cuisine = $value['CuisineName'];
@@ -21,7 +22,13 @@
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
 
+											$flag_recook = $value['FlagRecook'];
+											
+											$cooked_by_id = $value['UserID'];
+											$cooked_by = $value['UserName'];
+
 											loadSubview('recipe/item_recipe_cookmark', array(
+												'recipe_id' => $id,
 												'image' => $image,
 												'title' => $title,
 												'cuisine' => $cuisine,
@@ -29,7 +36,9 @@
 												'recipe_intro' => $recipe_intro,
 												'cnt_comment' => $cnt_comment,
 												'cnt_recook' => $cnt_recook,
-												'cooked_by' => 'Sample Chef Brian',
+												'flag_recook' => $flag_recook,
+												'cooked_by_id' => $cooked_by_id,
+												'cooked_by' => $cooked_by,
 											));
 										}
 									} else {

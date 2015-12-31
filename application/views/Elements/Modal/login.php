@@ -10,15 +10,36 @@
 	      		<div class="row">
 		      		<div class="col-sm-12">
 		      			<div class="big-wrapper">
-				        	
 				        	<ul class="nav nav-tabs replace-text" text-target="modal-title">
-							  	<li style="width:50%;" class="active"><a class="tacenter" href="#tabs-login">Login</a></li>
-							  	<li style="width:50%;"><a class="tacenter" href="#tabs-register">Register</a></li>
+							  	<?php
+							  			echo tag('a', 'Login', array(
+							  				'class' => 'tacenter',
+							  				'href' => '#tabs-login',
+							  				'wrapTag' => 'li',
+							  				'wrapAttributes' => array(
+							  					'style' => 'width:50%;',
+							  					'class' => 'active'
+							  				)
+							  			));
+							  			echo tag('a', 'Register', array(
+							  				'class' => 'tacenter',
+							  				'href' => '#tabs-register',
+							  				'wrapTag' => 'li',
+							  				'wrapAttributes' => array(
+							  					'style' => 'width:50%;',
+							  				)
+							  			));
+							  	?>
 							</ul>
 
 							<div class="tab-content pd10 pt15">
 								<div class="tab-pane active" id="tabs-login">
 									<form id="formLogin" role="form" action="users/login" data-reload="true" class="ajax-form" method="post" accept-charset="utf-8">
+									  	<?php
+									  			if( isset($alert) ) {
+													echo $alert;
+												}
+									  	?>
 									  	<div class="form-group">
 									    	<label for="txtEmail" class="control-label">Email</label>
 										    <input type="text" name="email" value="<?php echo set_value('email'); ?>" class="form-control" id="txtEmail">
@@ -44,6 +65,11 @@
 								</div>
 								<div class="tab-pane" id="tabs-register">
 									<form id="formRegister" role="form" action="users/register" data-reload="true" class="ajax-form" method="post" accept-charset="utf-8">
+										<?php
+									  			if( isset($alert) ) {
+													echo $alert;
+												}
+									  	?>
 										<div class="form-group">
 									    	<label for="txtRegFullname" class="control-label">Nama Lengkap</label>
 										    <input type="text" name="RegFullname" value="<?php echo set_value('RegFullname'); ?>" class="form-control" id="txtRegFullname">

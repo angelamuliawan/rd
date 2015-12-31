@@ -5,20 +5,22 @@ class Pages extends AB_Controller {
 	public function index() {
 		$this->load->helper('form');
 		$this->load->helper('build_data');
+		$this->callDefaultData('search');
 
-		$post = $this->input->post();
-		$message = 'Gagal menyimpan data. Silahkan coba lagi';
-		$status = 'error';
+		$resNewRecipe = $this->db->query('CALL GetNewlyCreatedRecipe(?)', array(
+			$this->session->userdata('userid'),
+		));
+		$new_recipe = $resNewRecipe->result_array();
+		$resNewRecipe->next_result();
 
-		$food_types = $this->db->query('CALL GetAllFoodType()');
-		$food_types = buildDataDropdown($food_types, 'FoodTypeID', 'FoodTypeName');
-
-		$cuisines = $this->db->query('CALL GetAllCuisine()');
-		$cuisines = buildDataDropdown($cuisines, 'CuisineID', 'CuisineName');
+		$resPopularRecipe = $this->db->query('CALL GetPopularRecipe(?)', array(
+			$this->session->userdata('userid'),
+		));
+		$popular_recipe = $resPopularRecipe->result_array();
 
 		$this->load->vars(array(
-			'food_types' => $food_types,
-			'cuisines' => $cuisines,
+			'valuesNewRecipe' => $new_recipe,
+			'valuesPopularRecipe' => $popular_recipe,
 		));
 
 		$this->render();

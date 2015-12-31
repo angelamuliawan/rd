@@ -1,4 +1,6 @@
 <?php
+		$counter = isset($counter)?$counter:0;
+		$recipe_id = isset($recipe_id)?$recipe_id:false;
 		$image = isset($image)?$image:false;
 		$title = isset($title)?$title:false;
 		$cuisine = isset($cuisine)?$cuisine:false;
@@ -15,8 +17,8 @@
 			'src' => $domain.'/resources/icons/retweet.png',
 		));
 
-		$custom_image = $domain.'/resources/images/food/'.$image;
-		if( !file_exists($custom_image) ) {
+		$custom_image = $domain.'/resources/images/uploads/recipe/primary/'.$image;
+		if( !@getimagesize($custom_image) ) {
 			$custom_image = $domain.'/resources/images/default.png';
 		}
 
@@ -50,14 +52,19 @@
 		<div class="col-sm-8 right-side">
 			<div class="box-description">
 				<?php
-						echo tag('h4', $title);
+						echo tag('h4', $title, array(
+							'wrapTag' => 'a',
+							'wrapAttributes' => array(
+								'href' => $domain.'/recipe/detail/'.$recipe_id,
+							),
+						));
 						echo tag('p', $cuisine);
 						echo tag('p', $food_type);
 						echo tag('p', $recipe_intro, array(
 							'class' => 'mt10 description'
 						));
 						echo tag('a', 'Selengkapnya', array(
-							'href' => $domain.'/recipe/detail',
+							'href' => $domain.'/recipe/detail/'.$recipe_id,
 							'class' => 'btn btn-orange mt5',
 							'wrapTag' => 'div',
 							'wrapAttributes' => array(

@@ -1,4 +1,5 @@
 <?php
+		$recipe_id = isset($recipe_id)?$recipe_id:false;
 		$image = isset($image)?$image:false;
 		$title = isset($title)?$title:false;
 		$recook_desc = isset($recook_desc)?$recook_desc:false;
@@ -10,12 +11,12 @@
 		));
 		$totalComment = tag('span', $cnt_comment);
 
-		$custom_image = $domain.'/resources/images/food/'.$image;
-		if( !file_exists($custom_image) ) {
+		$custom_image = $domain.'/resources/images/uploads/recipe/recook/'.$image;
+		if( !@getimagesize($custom_image) ) {
 			$custom_image = $domain.'/resources/images/default.png';
 		}
 		$custom_title = tag('a', $title, array(
-			'href' => '#'
+			'href' => $domain.'/recipe/detail/'.$recipe_id,
 		));
 ?>
 <li class="no-ul-type">

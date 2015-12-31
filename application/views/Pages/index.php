@@ -10,79 +10,89 @@
 			<div class="col-sm-10">
 				<div class="wrapper-food-list bg-white">
 					<div class="header with-border">
-						<h3 class="pull-left mt5">Baru Dibuat</h3>
-						<a class="btn btn-orange pull-right" href="#" role="button">Tampilkan Semua</a>
+						<?php
+								echo tag('h3', 'Baru Dibuat', array(
+									'class' => 'pull-left mt5'
+								));
+								echo tag('a', 'Tampilkan Semua', array(
+									'class' => 'btn btn-orange pull-right',
+									'href' => $domain.'/recipe/find?Sorting=1',
+									'role' => 'button'
+								));
+						?>
 					</div>
 					<div class="content with-border">
 						<ul>
 							<?php
-									loadSubview('pages/item_recipe', array(
-										'image' => 'nasi-goreng.jpg',
-										'title' => 'Nasi Goreng enak',
-										'cntComment' => 50,
-										'cntRecook' => 124,
-									));
-									loadSubview('pages/item_recipe', array(
-										'image' => 'nasi-goreng.jpg',
-										'title' => 'Nasi Goreng enak',
-										'cntComment' => 50,
-										'cntRecook' => 124,
-									));
-									loadSubview('pages/item_recipe', array(
-										'image' => 'nasi-goreng.jpg',
-										'title' => 'Nasi Goreng enak',
-										'cntComment' => 50,
-										'cntRecook' => 124,
-									));
+									if( !empty($valuesNewRecipe) ) {
+										foreach( $valuesNewRecipe as $key => $value ) {
+											$id = $value['RecipeID'];
+											$image = $value['PrimaryPhoto'];
+											$title = $value['RecipeName'];
+											$recipe_intro = $value['RecipeIntro'];
+											$cnt_comment = $value['NumberOfComment'];
+											$cnt_recook = $value['NumberOfRecook'];
+
+											loadSubview('pages/item_recipe', array(
+												'recipe_id' => $id,
+												'image' => $image,
+												'title' => $title,
+												'cnt_comment' => $cnt_comment,
+												'cnt_recook' => $cnt_recook,
+											));
+										}
+									} else {
+										echo tag('h4', 'Recipe tidak tersedia', array(
+											'wrapTag' => 'li',
+											'wrapAttributes' => array(
+												'class' => 'no-border'
+											)
+										));
+									}
 							?>
-							<!-- <li class="no-ul-type with-border">
-								<div class="box-header">
-									<img src="<?=$domain?>/resources/images/food/nasi-goreng.jpg" />
-								</div>
-								<div class="box-content">
-									<h4>Nasi Goreng paling enak sejagat raya</h4>
-								</div>
-								<div class="box-footer bg-orange">
-									<div class="pull-right mr5">
-										<img src="<?=$domain?>/resources/icons/retweet_w.png" />
-										<span>500</span>
-									</div>
-									<div class="pull-right mr10">
-										<img src="<?=$domain?>/resources/icons/comment_w.png" />
-										<span>500</span>
-									</div>
-								</div>
-							</li> -->
 						</ul>
 					</div>
 				</div>
 
 				<div class="wrapper-food-list bg-white mt20">
 					<div class="header with-border">
-						<h3 class="pull-left mt5">Resep Populer</h3>
-						<a class="btn btn-orange pull-right" href="#" role="button">Tampilkan Semua</a>
+						<?php
+								echo tag('h3', 'Resep Populer', array(
+									'class' => 'pull-left mt5'
+								));
+								echo tag('a', 'Tampilkan Semua', array(
+									'class' => 'btn btn-orange pull-right',
+									'href' => $domain.'/recipe/find?Sorting=2',
+									'role' => 'button'
+								));
+						?>
 					</div>
 					<div class="content with-border">
 						<ul>
 							<?php
-									loadSubview('pages/item_recipe', array(
-										'image' => 'nasi-goreng.jpg',
-										'title' => 'Nasi Goreng enak',
-										'cntComment' => 50,
-										'cntRecook' => 124,
-									));
-									loadSubview('pages/item_recipe', array(
-										'image' => 'nasi-goreng.jpg',
-										'title' => 'Nasi Goreng enak',
-										'cntComment' => 50,
-										'cntRecook' => 124,
-									));
-									loadSubview('pages/item_recipe', array(
-										'image' => 'nasi-goreng.jpg',
-										'title' => 'Nasi Goreng enak',
-										'cntComment' => 50,
-										'cntRecook' => 124,
-									));
+									if( !empty($valuesPopularRecipe) ) {
+										foreach( $valuesPopularRecipe as $key => $value ) {
+											$image = $value['PrimaryPhoto'];
+											$title = $value['RecipeName'];
+											$recipe_intro = $value['RecipeIntro'];
+											$cnt_comment = $value['NumberOfComment'];
+											$cnt_recook = $value['NumberOfRecook'];
+
+											loadSubview('pages/item_recipe', array(
+												'image' => $image,
+												'title' => $title,
+												'cnt_comment' => $cnt_comment,
+												'cnt_recook' => $cnt_recook,
+											));
+										}
+									} else {
+										echo tag('h4', 'Recipe tidak tersedia', array(
+											'wrapTag' => 'li',
+											'wrapAttributes' => array(
+												'class' => 'no-border'
+											)
+										));
+									}
 							?>
 						</ul>
 					</div>

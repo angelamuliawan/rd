@@ -1,9 +1,8 @@
 
 var source_data = {};
+var serviceUri = 'http://localhost/rd/';
 
 $(document).ready(function() {
-
-	var serviceUri = 'http://localhost/rd/';
 
 	$(document).ajaxStart(function() {
 		$('.overlay').css('visibility', 'visible');
@@ -12,8 +11,52 @@ $(document).ready(function() {
 		$('.overlay').css('visibility', 'hidden');
 	});
 
+    $('body').on('click', 'a[data-submit="1"]', function(e){
+        e.preventDefault();
+        var self = $(this);
+        self.closest('form').submit();
+    });
+
     $('body').on('submit', function(e){
         $('.wrapper-template').remove();
+    });
+
+    $('body').on('keypress', '.submit-on-enter', function(e){
+        var code = e.keyCode;
+        if( code == 13 ){
+            e.preventDefault();
+            $(this).closest('form').submit();
+        }
+    });
+
+    $('body').on('click', '.ajax-link', function(e){
+        
+        var self = $(this);
+        var data_url = self.attr('href');
+        var wrapper_class = '.'+self.attr('target-wrapper');
+
+        $.ajax({
+            url: data_url,
+            type: 'GET',
+            dataType: 'html',
+            success: function( result ) {
+                var contentHTML = '';
+                if( $(result).find(wrapper_class).length ) {
+                    contentHTML = $(result).find(wrapper_class).html();
+                    $(wrapper_class).html(contentHTML);
+                } else {
+                    self.closest('.wrapper-ajax-link').replaceWith(result);
+                }
+
+                $.ajaxModal();
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
+                return false;
+            }
+        });
+
+        return false;
     });
 
 	$('body').on('submit', '.ajax-form', function(e){
@@ -33,14 +76,21 @@ $(document).ready(function() {
             	var message = $(result).find('#msg-text').html();
             	var status = $(result).find('#msg-status').html();
  
-            	var contentHTML = $(result).find(form_id).html();
-            	$(form_id).html(contentHTML);
+                var contentHTML = '';
+                if( $(result).find(form_id).length ) {
+                    contentHTML = $(result).find(form_id).html();
+                    $(form_id).html(contentHTML);
+                } else {
+                    self.closest('.ajax-wrapper-form').replaceWith(result);
+                }
 
             	if( status == 'success' ) {
             		if( data_reload == 'true' ) {
             			window.location.reload();
             		}
             	}
+
+                $.fileUpload();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
@@ -54,6 +104,7 @@ $(document).ready(function() {
     $.ajaxModal();
     $.tabs();
     $.replaceText();
+    $.fileUpload();
 
     $('body').on('click', '.clone-button', function(){
 
@@ -96,11 +147,61 @@ $(document).ready(function() {
 
     $.autocomplete();
     $.reorderData();
+    $.magicSuggest();
     $('.multiple-select').multiselect({
         maxHeight: 250,
         buttonWidth: '100%'
     });
 });
+
+$.magicSuggest = function(){
+    if( $('.ms-custom').length ) {
+        var source_ms = $('#hdnSuggestValue').val();
+        var submitted_ms = [];
+        if( source_ms != '' ){
+            source_ms = JSON.parse(source_ms);
+        }
+        if( $('#hdnSubmittedMsValue').val() != '' ) {
+            submitted_ms = $('#hdnSubmittedMsValue').val().split(',');
+        }
+
+        $('.ms-custom').magicSuggest({
+            data: source_ms,
+            placeholder: '',
+            displayField: 'name',
+            name: 'CompositionID',
+            value: submitted_ms,
+        });
+    }
+}
+
+$.fileUpload = function(){
+
+    var action_type = '';
+    if( $('#fileupload').attr('action-type') !== undefined ) {
+        action_type = $('#fileupload').attr('action-type');
+    }
+    $('#fileupload').fileupload({
+        url: serviceUri + 'ajax/upload_image/' + action_type,
+        dataType: 'html',
+        done: function (e, data) {
+            var result = data.result;
+            var filename = $(result).attr('data-name');
+            $('#fileupload').closest('.wrapper-ajax-upload').find('.wrapper-photo').empty().append(result);
+            $('#progress .progress-bar').css('width', 0);
+            $('#fuHiddenField').val(filename);
+
+            if( $('#fileupload').attr('data-show') !== undefined ) {
+                var target_class = $('#fileupload').attr('data-show');
+                $(target_class).show();
+            }
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css('width', progress + '%');
+        }
+    }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+}
 
 $.reorderData = function(){
     $('body').on('click', '.reorder-data', function(){
@@ -176,11 +277,7 @@ $.autocomplete = function(objcontainer){
 
 $.buildAutocomplete = function(obj, _class){
     var id = obj.attr('id');
-    // var name = obj.attr('name');
-    // var parent = obj.closest('.parent-template');
-    // var model = parent.attr('model');
 
-    console.log(id);
     obj.typeahead({
         source: source_data[_class],
         highlighter: function(item) {
@@ -190,23 +287,12 @@ $.buildAutocomplete = function(obj, _class){
             return JSON.parse(item).name.toLocaleLowerCase().indexOf(this.query.toLocaleLowerCase()) != -1;
         },
         updater: function (item) {
-            
             var objItem = JSON.parse(item);
             var hiddenField = $('#hdnField'+id);
-            console.log(hiddenField);
-
             if( hiddenField.length ) {
                 hiddenField.val(objItem.value);
-                console.log(objItem.value);
-            } 
-            // else {
-                // var field = $('<input>').attr({
-                //     'id' : 'hdnField'+id,
-                //     'type' : 'hidden',
-                //     'value' : objItem.value
-                // });
-                // obj.after(field);
-            // }
+            }
+
             return objItem.name;
         }
     });
@@ -228,6 +314,9 @@ $.ajaxModal = function(options){
 
 	                $('#myModal').replaceWith(response);
 	                $('#myModal').modal('show');
+
+                    // Rebuild Function
+                    $.fileUpload();
 
 	                return false;
 	            },

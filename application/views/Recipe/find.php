@@ -8,7 +8,7 @@
 	<div class="big-wrapper">
 		<div class="row bg-white no-mg">
 			<div class="col-sm-3 pd20">
-				<form role="form" action="find" method="GET" accept-charset="utf-8">
+				<form role="form" action="find" method="GET">
 				 	<div class="form-group">
 						<label for="txtKeyword">Kata Kunci</label>
 						<?php
@@ -22,8 +22,24 @@
 						?>
 				  	</div>
 				  	<div class="form-group">
-						<label for="txtRawMaterial">Bahan Baku</label>
-						<input type="text" class="form-control" id="txtRawMaterial" name="CompositionID" placeholder="Bahan Baku">
+						<label for="Composition">Bahan Baku</label>
+						<?php
+								echo tag('div', false, array(
+									'class' => 'ms-custom form-control'
+								));
+								echo tag('input', false, array(
+									'type' => 'hidden',
+									'id' => 'hdnSuggestValue',
+									'name' => 'hdnSuggestValue',
+									'value' => $compositions,
+								));
+								echo tag('input', false, array(
+									'type' => 'hidden',
+									'id' => 'hdnSubmittedMsValue',
+									'name' => 'hdnSubmittedMsValue',
+									'value' => (isset($request['CompositionID'])? implode($request['CompositionID'], ','):false)
+								));
+						?>
 				  	</div>
 					<div class="form-group">
 						<label for="CuisineID">Masakan</label>
@@ -78,6 +94,7 @@
 							<?php
 									if( !empty($values) ) {
 										foreach( $values as $key => $value ) {
+											$id = $value['RecipeID'];
 											$image = $value['PrimaryPhoto'];
 											$title = $value['RecipeName'];
 											$cuisine = $value['CuisineName'];
@@ -87,7 +104,13 @@
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
 
+											$flag_cookmark = $value['FlagCookmark'];
+											$flag_recook = $value['FlagRecook'];
+											$flag_creator = $value['FlagCreator'];										
+
 											loadSubview('recipe/item_recipe', array(
+												'counter' => $key,
+												'recipe_id' => $id,
 												'image' => $image,
 												'title' => $title,
 												'cuisine' => $cuisine,
@@ -95,6 +118,9 @@
 												'recipe_intro' => $recipe_intro,
 												'cnt_comment' => $cnt_comment,
 												'cnt_recook' => $cnt_recook,
+												'flag_cookmark' => $flag_cookmark,
+												'flag_recook' => $flag_recook,
+												'flag_creator' => $flag_creator,
 											));
 										}
 									} else {

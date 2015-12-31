@@ -34,7 +34,7 @@
 								'wrapTag' => 'li',
 							));
 							echo tag('a', 'Artikel', array(
-								'href' => '#',
+								'href' => $domain.'/recipe/article',
 								'wrapTag' => 'li',
 							));
       					} else {
@@ -53,7 +53,7 @@
       					}
       					
 						echo tag('a', 'Kontes', array(
-							'href' => '#',
+							'href' => $domain.'/recipe/contest',
 							'wrapTag' => 'li',
 						));
 						
@@ -67,16 +67,65 @@
 		     				$spanNotifCount = tag('span', $cnt_notif, array(
 		     					'class' => 'badge pull-right _mt5'
 		     				));
-
-		     				echo tag('a', $spanNotifIcon.$spanNotifCount, array(
-		     					'wrapTag' => 'li'
-		     				));
         		?>
+        		<li>
+        			<?php
+        					echo tag('a', $spanNotifIcon.$spanNotifCount, array(
+		     					'class' => 'dropdown-toggle',
+								'data-toggle' => 'dropdown',
+								'aria-hashpopup' => 'true',
+								'aria-expanded' => 'false',
+		     				));
+        			?>
+	        		<div id="notif-panel" class="dropdown-menu">
+	        			<?php
+	        					echo tag('div', 'Notifikasi', array(
+	        						'class' => 'header'
+	        					));
+	        			?>
+						<ul class="no-ul-type" style="max-height:300px; overflow-y:auto;">
+							<?php
+									if( isset($notifications) && !empty($notifications) ) {
+										foreach( $notifications as $value ) {
+											$notif_id = $value['NotificationID'];
+											$notif = $value['NotificationName'];
+											$notif_date = $value['NotificationDate'];
+
+											loadSubview('users/notification', array(
+												'notif_id' => $notif_id,
+												'notif' => $notif,
+												'notif_date' => $notif_date,
+											));
+										}
+									} else {
+										echo tag('h3', 'Notification not available', array(
+											'wrapTag' => 'li',
+										));
+									}
+							?>
+						</ul>
+						<div class="last">
+							<?php
+									echo tag('a', 'Tampilkan semua', array(
+										'href' => $domain.'/users/notifications',
+										'class' => 'btn btn-orange no-radius',
+										'style' => 'display:block; color:#FFFFFF;',
+									));
+							?>
+						</div>
+					</div>
+				</li>
         		<li class="dropdown">
         			<?php
-        					$userImage = tag('img', 'Angela', array(
+        					$userphoto = $this->session->userdata('userphoto');
+        					$custom_image = $domain.'/resources/images/uploads/users/'.$userphoto;
+							if( !@getimagesize($custom_image) ) {
+								$custom_image = $domain.'/resources/images/64x64.png';
+							}
+
+        					$userImage = tag('img', $this->session->userdata('username'), array(
         						'class' => 'pull-left _mt7 mr5',
-        						'src' => $domain.'/resources/images/64x64.png',
+        						'src' => $custom_image,
         						'style' => 'width: 35px; height: 35px;',
         					));
         					$caret = tag('b', false, array(
@@ -105,7 +154,7 @@
 		          				));
 		          				echo divider();
 		          				echo tag('a', 'Kontes Saya', array(
-		          					'href' => '#',
+		          					'href' => $domain.'/recipe/my_contest',
 		          					'wrapTag' => 'li',
 		          				));
 		          				echo tag('a', 'Pengaturan Akun', array(

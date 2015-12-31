@@ -1,12 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class AB_Controller extends CI_Controller {
-	
+
+	public $domain = 'http://localhost/rd';
 	public function __construct() {
 		parent::__construct();
 
 		$this->load->library('rest');
 		$this->load->helper('common');
+
+		$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
 
 		if( isLoggedIn() ) {
 			$resNotification = $this->db->query('CALL GetUnreadNotifications(?)', array(
@@ -18,9 +21,60 @@ class AB_Controller extends CI_Controller {
 				'notifications' => $notifications,
 			));
 		}
+
+		$browser = $this->getBrowser();
+		$ip = $this->getIP();
+		$device = 'Desktop';
+		if( $this->isMobile() ) {
+			$device = 'Mobile';
+		}
+
+		if ( !$this->cache->get('cache_visitor') ) {
+	        $this->cache->save('cache_visitor', 'visitor', 10);
+
+			$resUserLog = $this->db->query('CALL InsertUserLog(?,?,?,?,?,?)', array(
+				( isset($browser['browser']) ? $browser['browser'] : false ),
+				( isset($browser['version']) ? $browser['browser'] : false ),
+				( !empty($ip) ? $ip : false ),
+				( !empty($device) ? $device : false ),
+				( isset($browser['os']) ? $browser['os'] : false ),
+				$this->session->userdata('userid'),
+			));
+			$query_result = $resUserLog->result();
+			$resUserLog->next_result();
+	    }
+
 		$this->load->vars(array(
 			'domain' => 'http://localhost/rd',
 		));
+	}
+
+	public function saveSearchLog( $CuisineID, $FoodTypeID, $Keyword, $Composition, $FoodProcess, $PriceRange, $EstPeople ) {
+
+		$browser = $this->getBrowser();
+		$ip = $this->getIP();
+		$device = 'Desktop';
+		if( $this->isMobile() ) {
+			$device = 'Mobile';
+		}
+
+		$resUserLog = $this->db->query('CALL InsertSearchLog(?,?,?,?,?,?,?,?,?,?,?,?,?)', array(
+			$CuisineID,
+			$FoodTypeID, 
+			$Keyword, 
+			$Composition, 
+			$FoodProcess, 
+			$PriceRange, 
+			$EstPeople,
+			$this->session->userdata('userid'),
+			( isset($browser['browser']) ? $browser['browser'] : false ),
+			( isset($browser['version']) ? $browser['browser'] : false ),
+			( !empty($ip) ? $ip : false ),
+			( !empty($device) ? $device : false ),
+			( isset($browser['os']) ? $browser['os'] : false ),
+		));
+		$query_result = $resUserLog->result();
+		$resUserLog->next_result();
 	}
 
 	public function render( $data = array(), $content_name = false, $layout = 'default', $is_admin = false ) {
@@ -31,7 +85,7 @@ class AB_Controller extends CI_Controller {
 		$default_content_path = $controller_name.'/'.$method_name;
 
 		if( !empty($content_name) ) {
-			$default_content_path = $controller_name.'/'.$content_name;
+			$default_content_path = $content_name;
 		}
 
 		if( !empty($is_admin) ) {
@@ -102,7 +156,7 @@ class AB_Controller extends CI_Controller {
 			$measure_sizes = buildDataDropdown($measure_sizes, 'MeasureSizeID', 'MeasureSizeName');
 
 			$compositions = $this->db->query('CALL GetAllComposition()');
-			$compositions = buildDataDropdown($compositions, 'CompositionID', 'CompositionName');
+			$compositions = buildDataAutocomplete($compositions, 'CompositionID', 'CompositionName');
 		}
 
 		if( !empty($with_sort) ) {
@@ -120,7 +174,7 @@ class AB_Controller extends CI_Controller {
 			'price_ranges' => $price_ranges,
 			'estimation_peoples' => $estimation_peoples,
 			'measure_sizes' => $measure_sizes,
-			'compositions' => $compositions,
+			'compositions' => json_encode($compositions),
 			'sorts' => $sorts,
 		));
 	}
@@ -129,7 +183,7 @@ class AB_Controller extends CI_Controller {
 		$strCuisine = NULL;
 		$strFoodType = NULL;
 		$keyword = isset($post['keyword']) ? $post['keyword'] : NULL;
-		$strComposition = isset($post['composition']) ? $post['composition'] : NULL;
+		$strComposition = isset($post['CompositionID']) ? $post['CompositionID'] : NULL;
 		$strFoodProcess = isset($post['FoodProcessID']) ? $post['FoodProcessID'] : NULL;
 		$strPriceRange = isset($post['PriceRangeID']) ? $post['PriceRangeID'] : NULL;
 		$strEstPeople = isset($post['EstPeopleID']) ? $post['EstPeopleID'] : NULL;
@@ -138,6 +192,9 @@ class AB_Controller extends CI_Controller {
 		$this->form_validation->set_rules('keyword', 'keyword', 'trim');
 		$this->form_validation->run();
 
+		if( isset($post['CompositionID']) ) {
+			$strComposition = implode($post['CompositionID'], ',');
+		}
 		if( isset($post['CuisineID']) ) {
 			$strCuisine = implode($post['CuisineID'], ',');
 		}
@@ -154,7 +211,9 @@ class AB_Controller extends CI_Controller {
 			$strEstPeople = implode($post['EstPeopleID'], ',');
 		}
 
-		$resSearchRecipe = $this->db->query('CALL GetRecipeSearchResult(?,?,?,?,?,?,?,?,?,?)', array(
+		$this->saveSearchLog($strCuisine, $strFoodType, $keyword, $strComposition, $strFoodProcess, $strPriceRange, $strEstPeople);
+
+		$resSearchRecipe = $this->db->query('CALL GetRecipeSearchResult(?,?,?,?,?,?,?,?,?,?,?)', array(
 			$strCuisine, 
 			$strFoodType,
 			$keyword,
@@ -162,6 +221,7 @@ class AB_Controller extends CI_Controller {
 			$strFoodProcess,
 			$strPriceRange,
 			$strEstPeople,
+			$this->session->userdata('userid'),
 			$sortBy,
 			12,
 			0,
@@ -171,6 +231,122 @@ class AB_Controller extends CI_Controller {
 		$this->load->vars(array(
 			'values' => $data,
 		));
+	}
+
+	function getBrowser() {
+		$u_agent = $_SERVER['HTTP_USER_AGENT'];
+		$bname = 'Unknown';
+		$os = 'Unknown';
+		$version= "";
+
+		// get operating system
+		if (preg_match('/linux/i', $u_agent)) {
+			$os = 'linux';
+		}
+		else if (preg_match('/macintosh|mac os x/i', $u_agent)) {
+			$os = 'mac';
+		}
+		else if (preg_match('/windows|win32/i', $u_agent)) {
+			$os = 'windows';
+		}
+
+		// Next get the name of the useragent yes separately and for good reason.
+		if (preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent))
+		{
+			$bname = 'Internet Explorer';
+			$ub = "MSIE";
+		}
+		else if (preg_match('/Firefox/i',$u_agent))
+		{
+			$bname = 'Mozilla Firefox';
+			$ub = "Firefox";
+		}
+		else if (preg_match('/Chrome/i',$u_agent))
+		{
+			$bname = 'Google Chrome';
+			$ub = "Chrome";
+		}
+		else if (preg_match('/Safari/i',$u_agent))
+		{
+			$bname = 'Apple Safari';
+			$ub = "Safari";
+		}
+		else if (preg_match('/Opera/i',$u_agent))
+		{
+			$bname = 'Opera';
+			$ub = "Opera";
+		}
+		else if (preg_match('/Netscape/i',$u_agent))
+		{
+			$bname = 'Netscape';
+			$ub = "Netscape";
+		}
+		else
+		{
+			$bname = 'Mozilla Firefox';
+			$ub = "Firefox";
+		}
+
+		$known = array('Version', $ub, 'other');
+		$pattern = '#(?<browser>' . join('|', $known) .')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+		if (!preg_match_all($pattern, $u_agent, $matches)) {
+			// we have no matching number just continue
+		}
+
+		// See how many we have.
+		$i = count($matches['browser']);
+		if ($i != 1) {
+			if (strripos($u_agent,"Version") < strripos($u_agent,$ub) && !empty($matches['version'][0])){
+				$version = $matches['version'][0];
+			}
+			else if(!empty($matches['version'][1])) {
+				$version = $matches['version'][1];
+			}
+		}
+		else {
+			$version = $matches['version'][0];
+		}
+
+		if ( $version == null || $version == "" ) {
+			$version = "?";
+		}
+
+		return array(
+			'userAgent' => $u_agent,
+			'browser'	  => $bname,
+			'version'   => $version,
+			'os'  => $os,
+		);
+	}
+
+	public function isMobile() {
+	    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+	}
+
+	public function getIP() {
+	    $ip = $_SERVER['SERVER_ADDR'];
+
+	    if (PHP_OS == 'WINNT'){
+	        $ip = getHostByName(getHostName());
+	    }
+
+	    if (PHP_OS == 'Linux'){
+	        $command="/sbin/ifconfig";
+	        exec($command, $output);
+	        // var_dump($output);
+	        $pattern = '/inet addr:?([^ ]+)/';
+
+	        $ip = array();
+	        foreach ($output as $key => $subject) {
+	            $result = preg_match_all($pattern, $subject, $subpattern);
+	            if ($result == 1) {
+	                if ($subpattern[1][0] != "127.0.0.1")
+	                $ip = $subpattern[1][0];
+	            }
+	        	//var_dump($subpattern);
+	        }
+	    }
+	    return $ip;
 	}
 }
 

@@ -15,6 +15,8 @@
 					'bootstrap/bootstrap',
 					'bootstrap/docs',
 					'bootstrap/bootstrap-multiselect',
+					'fileupload/jquery.fileupload',
+					'magicsuggest/magicsuggest',
 					'custom',
 				));
 		?>
@@ -22,6 +24,7 @@
 	<body>
 		<?php
 				loadSubview('header/menu');
+				loadSubview('flash_message');
 
 		  		if( isset($content_view)  ) {
 		  			echo $content_view;
@@ -33,6 +36,10 @@
 					'bootstrap/bootstrap.min',
 					'bootstrap/typeahead',
 					'bootstrap/bootstrap-multiselect',
+					'fileupload/jquery.ui.widget',
+					'fileupload/jquery.fileupload',
+					'fileupload/jquery.iframe-transport',
+					'magicsuggest/magicsuggest',
 					'functions',
 				));
 

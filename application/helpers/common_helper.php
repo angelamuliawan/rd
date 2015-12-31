@@ -10,15 +10,16 @@ if ( ! function_exists('loadSubview')) {
 
 if ( ! function_exists('loadModal')) {
 
-    function loadModal( $view, $data = false ) { 
-	    $CI = get_instance();
+    function loadModal( $view, $data = false) {
+        $CI = get_instance();
+        // $data['alert'] = $CI->load->view($message, '',  TRUE);
 	    return $CI->load->view( 'Elements/Modal/'.$view, $data );
 	}
 }
 
 if ( ! function_exists('tag')) {
 
-	function tag( $tag, $text, $attributes = array() ) {
+	function tag( $tag, $text = false, $attributes = array() ) {
 		$stringify_attributes = '';
 		$wrapTag = false;
 		$stringify_wrapper_attributes = '';
@@ -92,13 +93,16 @@ if ( ! function_exists('isLoggedIn')) {
 
 if ( ! function_exists('loadMessage')) {
 
-	function loadMessage( $message = 'Field yang dibutuhkan tidak valid', $status = 'error' ) {
+	function loadMessage( $message = 'Field yang dibutuhkan tidak valid', $status = 'error', $display_on_error = false ) {
 		$data = array(
 			'message' => $message,
 			'status' => $status,
+			'display_on_error' => $display_on_error,
 		);
 		$CI = get_instance();
-	    return $CI->load->view( 'Elements/Message/message', $data, FALSE );
+	    $CI->load->vars(array(
+	    	'alert' => $CI->load->view( 'Elements/Message/message', $data, TRUE )
+	    ));
 	}
 }
 
@@ -106,5 +110,17 @@ if ( ! function_exists('divider')) {
 
 	function divider( $tag = 'li' ) {
 		return "<$tag class='divider'></$tag>";
+	}
+}
+
+if ( ! function_exists('tableCell')) {
+
+	function tableCell( $data = array() ) {
+		$tableData = '';
+		foreach ($data as $value) {
+			$tableData .= "<td>$value</td>";
+		}
+		$tableRow = "<tr>".$tableData."</tr>";
+	    return $tableRow;
 	}
 }

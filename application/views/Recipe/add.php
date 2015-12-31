@@ -1,10 +1,17 @@
+<?php
+		// debug($request); die();
+?>
+
 <div class="container">
 	<div class="big-wrapper bg-white pd20">
 		<?php
+				if( isset($alert) ) {
+					echo $alert;
+				}
 				echo tag('h2', 'Tulis Resep');
 		?>
 		<div class="wrapper-create-recipe">
-			<form class="form-horizontal mt20" enctype="multipart/form-data" role="form" action="add" method="post" accept-charset="utf-8">
+			<form class="form-horizontal mt20" enctype="multipart/form-data" role="form" method="post" accept-charset="utf-8">
 			  	<div class="form-group">
 			  		<?php
 			  				echo tag('label', 'Judul Resep', array(
@@ -19,7 +26,7 @@
 				    				'class' => 'form-control',
 				    				'name' => 'RecipeName',
 				    				'placeholder' => 'contoh: Nasi Cumi Cabe Garam, etc',
-				    				'value' => set_value('RecipeName'),
+				    				'value' => ( isset($request['RecipeName']) ? $request['RecipeName']: set_value('RecipeName') ),
 				    			));
 				    			echo form_error('RecipeName');
 				    	?>
@@ -34,7 +41,7 @@
 			  		?>
 					<div class="col-sm-7">
 						<?php
-								echo tag('textarea', set_value('RecipeIntro'), array(
+								echo tag('textarea', ( isset($request['RecipeIntro']) ? $request['RecipeIntro']: set_value('RecipeIntro') ) , array(
 				    				'rows' => 4,
 				    				'class' => 'form-control',
 				    				'name' => 'RecipeIntro',
@@ -52,6 +59,20 @@
 			  		?>
 					<div class="col-sm-7">
 						<?php
+								if( isset($request['PrimaryPhoto_preview']) ) {
+									$custom_image = $domain.'/resources/images/uploads/recipe/primary/'.$request['PrimaryPhoto_preview'];
+									if( @getimagesize($custom_image) ) {
+										echo tag('img', false, array(
+											'src' => $domain.'/resources/images/uploads/recipe/primary/'.$request['PrimaryPhoto_preview'],
+											'style' => 'width: 100%; max-width: 200px;',
+										));
+										echo tag('input', false, array(
+											'type' => 'hidden',
+											'name' => 'PrimaryPhoto_preview',
+											'value' => $request['PrimaryPhoto_preview'],
+										));
+									}
+								}
 								echo tag('input', false, array(
 									'type' => 'file',
 									'name' => 'PrimaryPhoto',
@@ -140,7 +161,7 @@
 					    				'type' => 'number',
 					    				'class' => 'form-control',
 					    				'name' => 'EstTime',
-					    				'value' => set_value('EstTime'),
+					    				'value' => ( isset($request['EstTime']) ? $request['EstTime']: set_value('EstTime') ),
 					    			));
 					    			echo form_error('EstTime');
 							?>
@@ -168,12 +189,14 @@
 										$measure = $value['Measure'];
 										$measure_size = $value['MeasureSizeID'];
 										$composition = $value['CompositionName'];
+										$composition_id = $value['CompositionID'];
 
 										loadSubview('recipe/custom_material', array(
 											'type' => 'load',
 											'measure' => $measure,
 											'measure_size' => $measure_size,
 											'composition' => $composition,
+											'composition_id' => $composition_id,
 											'counter' => $counter,
 										));
 										$counter++;

@@ -24,9 +24,12 @@ if ( ! function_exists('buildDataAutocomplete')) {
     function buildDataAutocomplete( $data = false, $optionValueName = false, $optionTextName = false ){
 		$result = array();
 		if( !empty($data) && !empty($optionValueName) && !empty($optionTextName) ) {
-			foreach( $data as $row ) {
+			$values = $data->result_array();
+			$data->next_result();
+
+			foreach( $values as $row ) {
 				$arr = array(
-					'value' => $row[$optionValueName],
+					'id' => $row[$optionValueName],
 					'name' => $row[$optionTextName],
 				);
 				array_push($result, $arr);

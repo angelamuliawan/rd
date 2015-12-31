@@ -1,13 +1,35 @@
+<?php
+		$edit = tag('img', false, array(
+			'src' => $domain.'/resources/icons/edit.png',
+		));
+		$view = tag('img', false, array(
+			'src' => $domain.'/resources/icons/view.png',
+		));
+		$share = tag('img', false, array(
+			'src' => $domain.'/resources/icons/facebook.png',
+		));
+
+		$edit .= tag('span', 'Edit', array(
+			'class' => 'ml5'
+		));
+		$view .= tag('span', 'Selengkapnya', array(
+			'class' => 'ml5'
+		));
+		$share .= tag('span', 'Share', array(
+			'class' => 'ml5 mr10'
+		));
+?>
+
 <div class="action-bottom mt15 tacenter">
-	<img src="<?=$domain?>/resources/icons/edit.png" />
-	<span class="mr10">Edit</span>
-
-	<img src="<?=$domain?>/resources/icons/view.png" />
-	<span class="mr10">Preview</span>
-
-	<img src="<?=$domain?>/resources/icons/facebook.png" />
-	<span class="mr10">Share</span>
-
-	<img src="<?=$domain?>/resources/icons/print.png" />
-	<span>Print</span>
+	<?php
+			echo tag('a', $edit, array(
+				'href' => $domain.'/recipe/edit/'.$recipe_id,
+				'class' => 'mr10',
+			));
+			echo tag('a', $view, array(
+				'href' => $domain.'/recipe/detail/'.$recipe_id,
+				'class' => 'mr10',
+			));
+			echo $share;
+	?>
 </div>

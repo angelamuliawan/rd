@@ -1,13 +1,27 @@
 <footer class="bs-docs-footer" role="contentinfo"> 
 	<div class="container"> 
 		<ul class="bs-docs-footer-links"> 
-			<li><a href="#">About Us</a></li> 
-			<li><a href="#">Contact Us</a></li> 
-			<li><a href="#">Terms of Use</a></li> 
-			<li><a href="#">Privacy Policy</a></li> 
+			<?php
+					echo tag('a', 'About Us', array(
+						'href' => $domain.'pages/about_us',
+						'wrapTag' => 'li',
+					));
+					echo tag('a', 'Contact Us', array(
+						'href' => $domain.'pages/about_us',
+						'wrapTag' => 'li',
+					));
+					echo tag('a', 'Terms of Use', array(
+						'href' => $domain.'pages/about_us',
+						'wrapTag' => 'li',
+					));
+					echo tag('a', 'Privacy Policy', array(
+						'href' => $domain.'pages/about_us',
+						'wrapTag' => 'li',
+					));
+			?> 
 		</ul>
-		<p>
-			Copyright &copy; 2015 Angela & Brian.
-		</p> 
+		<?php
+				echo tag('p', 'Copyright &copy; 2015 Cookindo. Hak Cipta Dilindungi Undang-Undang');
+		?>
 	</div>
 </footer>
