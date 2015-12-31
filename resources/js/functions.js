@@ -313,7 +313,7 @@ $.buildAutocomplete = function(obj, _class){
             var objItem = JSON.parse(item);
             var hiddenField = $('#hdnField'+id);
             if( hiddenField.length ) {
-                hiddenField.val(objItem.value);
+                hiddenField.val(objItem.id);
             }
 
             return objItem.name;
