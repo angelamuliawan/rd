@@ -23,7 +23,7 @@
 				));
 		?>
 	</div>
-	<div class="col-sm-7 col-xs-7 no-pd">
+	<div class="col-sm-7 col-xs-10 no-pd">
 		<?php
 				echo tag('textarea', ( !empty($step) ) ? $step : set_value($step_name), array(
 					'id' => 'FoodStepName'.$counter,

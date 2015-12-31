@@ -11,6 +11,21 @@ $(document).ready(function() {
 		$('.overlay').css('visibility', 'hidden');
 	});
 
+    $('body').on('click', '*[show-on-click]', function(e){
+        e.preventDefault();
+        var self = $(this);
+        var _class = self.attr('show-on-click');
+
+        $(_class).show();
+    });
+    $('body').on('click', '*[hide-on-click]', function(e){
+        e.preventDefault();
+        var self = $(this);
+        var _class = self.attr('hide-on-click');
+
+        $(_class).hide();
+    });
+
     $('body').on('click', 'a[data-submit="1"]', function(e){
         e.preventDefault();
         var self = $(this);
@@ -34,27 +49,35 @@ $(document).ready(function() {
         var self = $(this);
         var data_url = self.attr('href');
         var wrapper_class = '.'+self.attr('target-wrapper');
+        var with_confirm = self.attr('with-confirm');
+        var conf = true;
 
-        $.ajax({
-            url: data_url,
-            type: 'GET',
-            dataType: 'html',
-            success: function( result ) {
-                var contentHTML = '';
-                if( $(result).find(wrapper_class).length ) {
-                    contentHTML = $(result).find(wrapper_class).html();
-                    $(wrapper_class).html(contentHTML);
-                } else {
-                    self.closest('.wrapper-ajax-link').replaceWith(result);
+        if( with_confirm !== undefined ) {
+            conf = confirm(with_confirm); 
+        }
+
+        if( conf == true ) {
+            $.ajax({
+                url: data_url,
+                type: 'GET',
+                dataType: 'html',
+                success: function( result ) {
+                    var contentHTML = '';
+                    if( $(result).find(wrapper_class).length ) {
+                        contentHTML = $(result).find(wrapper_class).html();
+                        $(wrapper_class).html(contentHTML);
+                    } else {
+                        self.closest('.wrapper-ajax-link').replaceWith(result);
+                    }
+
+                    $.ajaxModal();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
+                    return false;
                 }
-
-                $.ajaxModal();
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
-                return false;
-            }
-        });
+            });
+        }
 
         return false;
     });

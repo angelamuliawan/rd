@@ -627,6 +627,20 @@ class Recipe extends AB_Controller {
 		loadSubview('recipe/comment');
 	}
 
+	public function delete_recipe_comment( $comment_id = false ) {
+		$res = $this->db->query('CALL DeleteRecipeComment(?,?)', array(
+			$comment_id,
+			$this->session->userdata('userid'),
+		));
+	}
+
+	public function delete_recook_comment( $recook_comment_id = false ) {
+		$res = $this->db->query('CALL DeleteRecookComment(?,?)', array(
+			$recook_comment_id,
+			$this->session->userdata('userid'),
+		));
+	}
+
 	public function cookmark_item( $recipe_id = false, $allow_print = false ) {	
 
 		$message = 'Gagal menyimpan data cookmark';

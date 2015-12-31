@@ -718,3 +718,61 @@ h1,h2,h3,h4,h5,h6 {
 #modal-view-recook .carousel-inner .prev		 { left: -20%; }
 #modal-view-recook .carousel-control 			 { width:  4%; }
 #modal-view-recook .carousel-control.left,.carousel-control.right {margin-left:15px;background-image:none;}*/
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+	.search-box form .row .row-centered {
+    	text-align:center;
+	}
+
+	.search-box form .row .col-centered {
+	    display:inline-block;
+	    float:none;
+	    /* reset the text-align */
+	    text-align:left;
+	    /* inline-block space fix */
+	    margin-right:-4px;
+	    margin: 6px auto;
+	}
+
+	.wrapper-food-list .content {
+		text-align: center;
+	}
+
+	.wrapper-background {
+		padding: 30px 0;
+	}
+
+	.wrapper-ads {
+		padding-top: 10px;
+	}
+
+	.detail-recipe-banner .wrapper-banner img {
+		width: 100%;
+		height: auto;
+	}
+
+	.wrapper-food-list-vertical ul li .box-description {
+		height: auto !important;
+	}
+
+	.wrapper-food-list-vertical ul li .box-description p.description {
+		height: auto !important;
+	}
+
+	.wrapper-food-list-vertical ul li .box-description .action-bottom {
+		margin-bottom: 15px;
+	}
+
+	.wrapper-profile .wrapper-photo img {
+		width: auto !important;
+	}
+
+	.wrapper-profile .btn.btn-orange {
+		width: 100%;
+	}
+
+	.wrapper-create-recipe .btn.btn-orange {
+		width: 100%;
+	}
+}

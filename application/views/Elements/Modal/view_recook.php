@@ -54,6 +54,8 @@
 			      							<?php
 			      								if( !empty($valuesRecookComment) ) {
 			      									foreach( $valuesRecookComment as $value ) {
+			      										$user_id = $value['UserID'];
+			      										$recook_comment_id = $value['RecookCommentID'];
 			      										$comment_username = $value['RecookUserName'];
 			      										$comment = $value['RecookCommentDesc'];
 			      										$comment_time = $value['RecookCommentTime'];
@@ -65,6 +67,8 @@
 														}
 
 														loadSubview('recipe/item_recook_comment', array(
+															'user_id' => $user_id,
+															'recook_comment_id' => $recook_comment_id,
 															'comment_username' => $comment_username,
 															'comment' => $comment,
 															'comment_time' => $comment_time,

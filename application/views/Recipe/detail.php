@@ -154,10 +154,6 @@
 						  	<!-- <a class="left carousel-control" href="#recook-carousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a> -->
 						  	<!-- <a class="right carousel-control" href="#recook-carousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> -->
 						</div>
-						
-						<div class="tacenter mt20">
-							<a href="<?=$domain?>/Recipe/find" class="btn btn-orange">Tampilkan Semua</a>
-						</div>
 
 						<?php
 								} else {

@@ -18,28 +18,29 @@
 								}
 						?>
 						<form role="form" action="<?php echo $domain; ?>/recipe/find" method="GET" accept-charset="utf-8">
-							<div class="row">
-								<div class="col-sm-2">
+							<div class="row row-centered">
+								<div class="col-sm-2 col-xs-8 col-centered">
 									<?php
 											echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple"');
 									?>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-2 col-xs-8 col-centered">
 									<?php
 											echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple"');
 									?>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-6 col-xs-8 col-centered">
 									<?php
 											echo tag('input', false, array(
 							    				'type' => 'text',
 							    				'class' => 'form-control',
 							    				'name' => 'keyword',
+							    				'placeholder' => 'Ketik kata kunci masakan &hellip;',
 							    				'value' => $this->input->get('keyword')
 							    			));
 									?>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-2 col-xs-8 col-centered">
 									<input type="submit" class="btn btn-orange btn-block" value="Cari" />
 								</div>
 							</div>

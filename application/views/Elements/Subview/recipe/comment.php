@@ -33,7 +33,9 @@
 				<?php
 						if( !empty($valuesRecipeComment) ) {
 							foreach( $valuesRecipeComment as $key => $value ) {
+								$user_id = $value['UserID'];
 								$username = $value['UserName'];
+								$comment_id = $value['FoodCommentID'];
 								$comment = $value['Comment'];
 								$comment_date = $value['CommentDate'];
 								$user_photo = $value['UserPhoto'];
@@ -45,7 +47,9 @@
 
 								loadSubview('common/item_comment', array(
 									'image' => $custom_image,
+									'user_id' => $user_id,
 									'username' => $username,
+									'comment_id' => $comment_id,
 									'comment' => $comment,
 									'comment_date' => $comment_date,
 								));

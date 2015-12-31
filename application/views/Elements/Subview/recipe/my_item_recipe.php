@@ -58,6 +58,7 @@
 						echo tag('p', $recipe_intro, array(
 							'class' => 'mt10 description'
 						));
+						
 						loadSubview('common/action_bottom_myrecipe');
 				?>
 			</div>

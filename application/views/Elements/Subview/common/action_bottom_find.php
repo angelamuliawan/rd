@@ -52,7 +52,7 @@
 			$urlCookmark = $domain.'/recipe/cookmark_item/'.$recipe_id.'/'.$_print;
 			
 			if( !empty($flag_creator) ) {
-				$cookmark = '';
+				$cookmark = $recook = '';
 			} else {
 				if( empty($flag_cookmark) ) {
 					$cookmark = tag('a', $cookmark, array(
