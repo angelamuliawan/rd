@@ -137,6 +137,79 @@
 					</div>
 				</div>
 			</div>
+			<?php
+					if( isset($totalRowData) && !empty($totalRowData) ) {
+
+						$curPage = isset( $currentPage ) ? $currentPage : 1;
+						$last_item = $curPage*10;
+						if( $last_item > $totalRowData ) {
+							$last_item = $totalRowData;
+						} 
+			?>
+					<div class="col-sm-3 col-sm-offset-3">
+						<?php
+								echo tag( 'span', sprintf('%s - %s dari %s Resep', (($curPage-1)*10)+1, $last_item, $totalRowData) );
+						?>
+					</div>
+					<div class="col-sm-6">
+						<div class="wrapper-pagination taright">
+							<ul class="pagination">
+								<?php
+										$query_string = $this->input->server('QUERY_STRING');
+										$totalPage = ceil($totalRowData / 10);
+
+										$first = 0;
+										$last = $totalPage;
+
+										echo tag('a', '&laquo;', array(
+											'href' => $domain.'/recipe/find/1/?'.$query_string,
+											'wrapTag' => 'li',
+										));
+										echo tag('a', '&lsaquo;', array(
+											'href' => $domain.'/recipe/find/'.( ($curPage == 1 ) ? $curPage : ($curPage-1) ).'/?'.$query_string,
+											'wrapTag' => 'li',
+										));
+
+										if( $totalPage > 5 ) {
+											$first = $curPage - 2;
+											$last = $curPage + 2;
+											while( $first < 1 ) {
+												$first++;
+												$last++;
+											}
+											while( $last > $totalPage ) {
+												$first--;
+												$last--;
+											}
+										}
+
+										for( $i = $first; $i < $last; $i++ ) {
+											$_class = '';
+											if( ($i+1) == $curPage ) {
+												$_class = 'active';
+											}
+											echo tag('a', ($i+1), array(
+												'href' => $domain.'/recipe/find/'.($i+1).'/?'.$query_string,
+												'class' => $_class,
+												'wrapTag' => 'li',
+											));
+										}
+
+										echo tag('a', '&rsaquo;', array(
+											'href' => $domain.'/recipe/find/'.( ($curPage == $totalPage ) ? $totalPage : ($curPage+1) ).'/?'.$query_string,
+											'wrapTag' => 'li',
+										));
+										echo tag('a', '&raquo;', array(
+											'href' => $domain.'/recipe/find/'.$totalPage.'/?'.$query_string,
+											'wrapTag' => 'li',
+										));
+								?>
+							</ul>
+						</div>
+					</div>
+			<?php
+					}
+			?>
 		</div>
 	</div>
 </div>

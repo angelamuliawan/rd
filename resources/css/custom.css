@@ -101,9 +101,9 @@ a.navbar-brand {
 	display:block; 
 	font-size:13px;
 }
-#notif-panel ul li p {
+#notif-panel ul li span.notif-date {
 	font-size: 13px; 
-	margin-top: 5px; 
+	margin-top: 5px;
 	opacity: 0.8;
 }
 #notif-panel ul li:hover {
@@ -718,6 +718,43 @@ h1,h2,h3,h4,h5,h6 {
 #modal-view-recook .carousel-inner .prev		 { left: -20%; }
 #modal-view-recook .carousel-control 			 { width:  4%; }
 #modal-view-recook .carousel-control.left,.carousel-control.right {margin-left:15px;background-image:none;}*/
+
+/* PAGINATION */
+ul.pagination {
+	margin: 0 auto 20px;
+}
+.pagination li {
+	display: block;
+	margin-right: 5px;
+	vertical-align: bottom;
+	float: left;
+}
+.pagination li a {
+	display: block;
+	padding: 5px 13px;
+	color: #999999;
+	background-color: #e6e6e6;
+	border: 1px solid #e3e3e3;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.pagination li a:hover, .pagination li a:focus {
+	color: #FFFFFF;
+	background-color: #cccccc;
+	border-color: #c9c9c9;
+}
+.pagination li a.active {
+	color: #FFF;
+	background-color: #ED6E0C;
+	border-color: #ED6E0C;
+}
+.pagination li span.ellipsis {
+	display: block;
+	color: #666666;
+	padding: 8px 5px 0;
+	font-weight: 700;
+}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {

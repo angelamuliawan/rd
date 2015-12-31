@@ -28,7 +28,7 @@
 											));
 										}
 									} else {
-										echo tag('h4', 'Pencarian tidak ditemukan', array(
+										echo tag('h4', 'Data tidak ditemukan', array(
 											'wrapTag' => 'li',
 											'wrapAttributes' => array(
 												'class' => 'no-border'

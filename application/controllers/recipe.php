@@ -30,13 +30,13 @@ class Recipe extends AB_Controller {
 		$this->render($post);
 	}
 
-	public function find() {
+	public function find( $page = 1 ) {
 		$this->load->helper('form');
 		$this->load->helper('build_data');
 
 		$post = $this->input->get();
 		$this->callDefaultData('create', true);
-		$this->callSearchRecipe($post);
+		$this->callSearchRecipe($post, $page);
 
 		$this->render($post);
 	}

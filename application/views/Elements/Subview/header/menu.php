@@ -60,13 +60,23 @@
 
 		     			if( isLoggedIn() ) { 
 
-		     				$cnt_notif = count($notifications);
+		     				$cnt_notif = 0;
+		     				foreach( $notifications as $value ) {
+								$isRead = $value['isRead'];
+								if( $isRead == 0 ) {
+									$cnt_notif++;
+								}
+							}
+
 		     				$spanNotifIcon = tag('span', false, array(
 		     					'class' => 'glyphicon glyphicon-bell mt3'
 		     				));
-		     				$spanNotifCount = tag('span', $cnt_notif, array(
-		     					'class' => 'badge pull-right _mt5'
-		     				));
+		     				$spanNotifCount = '';
+		     				if( !empty($cnt_notif) ) {
+		     					$spanNotifCount = tag('span', $cnt_notif, array(
+			     					'class' => 'badge pull-right _mt5'
+			     				));
+		     				}
         		?>
         		<li>
         			<?php
@@ -90,29 +100,31 @@
 											$notif_id = $value['NotificationID'];
 											$notif = $value['NotificationName'];
 											$notif_date = $value['NotificationDate'];
+											$isRead = $value['isRead'];
 
 											loadSubview('users/notification', array(
 												'notif_id' => $notif_id,
 												'notif' => $notif,
 												'notif_date' => $notif_date,
+												'isRead' => $isRead,
 											));
 										}
 									} else {
-										echo tag('h3', 'Notification not available', array(
+										echo tag('h5', 'Notifikasi tidak tersedia', array(
 											'wrapTag' => 'li',
 										));
 									}
 							?>
 						</ul>
-						<div class="last">
+						<!-- <div class="last"> -->
 							<?php
-									echo tag('a', 'Tampilkan semua', array(
-										'href' => $domain.'/users/notifications',
-										'class' => 'btn btn-orange no-radius',
-										'style' => 'display:block; color:#FFFFFF;',
-									));
+									// echo tag('a', 'Tampilkan semua', array(
+									// 	'href' => $domain.'/users/notifications',
+									// 	'class' => 'btn btn-orange no-radius',
+									// 	'style' => 'display:block; color:#FFFFFF;',
+									// ));
 							?>
-						</div>
+						<!-- </div> -->
 					</div>
 				</li>
         		<li class="dropdown">

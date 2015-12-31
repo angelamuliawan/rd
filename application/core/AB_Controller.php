@@ -12,7 +12,7 @@ class AB_Controller extends CI_Controller {
 		$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
 
 		if( isLoggedIn() ) {
-			$resNotification = $this->db->query('CALL GetUnreadNotifications(?)', array(
+			$resNotification = $this->db->query('CALL GetNotifications(?)', array(
 				$this->session->userdata('userid')
 			));
 			$notifications = $resNotification->result_array();
@@ -179,7 +179,7 @@ class AB_Controller extends CI_Controller {
 		));
 	}
 
-	public function callSearchRecipe( $post = array() ){
+	public function callSearchRecipe( $post = array(), $page = 1 ){
 		$strCuisine = NULL;
 		$strFoodType = NULL;
 		$keyword = isset($post['keyword']) ? $post['keyword'] : NULL;
@@ -223,13 +223,34 @@ class AB_Controller extends CI_Controller {
 			$strEstPeople,
 			$this->session->userdata('userid'),
 			$sortBy,
-			12,
-			0,
+			10,
+			($page-1) * 10,
 		));
 		$data = $resSearchRecipe->result_array();
+		$resSearchRecipe->next_result();
+
+		$resRowData = $this->db->query('CALL GetRowDataSearchResult(?,?,?,?,?,?,?,?)', array(
+			$strCuisine, 
+			$strFoodType,
+			$keyword,
+			$strComposition,
+			$strFoodProcess,
+			$strPriceRange,
+			$strEstPeople,
+			$this->session->userdata('userid'),
+		));
+		$valuesRowData = $resRowData->result_array();
+		$resRowData->next_result();
+
+		$totalRowData = 0;
+		if( isset($valuesRowData[0]['RowData']) ) {
+			$totalRowData = $valuesRowData[0]['RowData'];
+		}
 
 		$this->load->vars(array(
 			'values' => $data,
+			'totalRowData' => $totalRowData,
+			'currentPage' => $page,
 		));
 	}
 

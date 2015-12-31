@@ -58,17 +58,6 @@
 					'name' => 'imageStep'.$counter,
 					'data-model' => 'imageStep',
 				));
-
-				// echo tag('input', false, array(
-				// 	'id' => 'FoodStepSequence'.$counter,
-				// 	'type' => 'hidden',
-				// 	'class' => 'inputField template-field',
-				// 	'value' => $counter,
-				// 	'match-name-with-id' => true,
-				// 	'name' => $step_sequence,
-				// 	'data-model' => 'FoodStepSequence',
-				// ));
-
 				echo form_error('imageStep'.$counter);
 
 				// echo tag('a', 'Tambahkan foto pada langkah ini', array(

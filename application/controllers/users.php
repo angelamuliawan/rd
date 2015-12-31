@@ -23,11 +23,17 @@ class Users extends AB_Controller {
 		$this->load->helper('url');
 
 		if( !empty($notif_id) ) {
-			// $resUpdateNotif = $this->db->query('CALL GetSettingUserData(?)', array(
-			// 	$this->session->userdata('userid'),
-			// ));	
+			$resUpdateNotif = $this->db->query('CALL ReadNotification(?,?)', array(
+				$notif_id,
+				$this->session->userdata('userid'),
+			));	
+			$values = $resUpdateNotif->result_array()[0];
+			$notif_url = $values['NotificationURL'];
+
+			redirect( $this->domain.'/'.$notif_url );
+		} else {
+			redirect($_SERVER['HTTP_REFERER']);
 		}
-		redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	public function update_photo() {
@@ -222,22 +228,25 @@ class Users extends AB_Controller {
 
 			if ( $this->form_validation->run() == TRUE ) {
 
-				// $res = $this->db->query('CALL CheckLogin(?,?)', array(
-				// 	$post['email'], 
-				// 	sha1($post['password'])
-				// ));
-				// $data = $res->result()[0];
+				$res = $this->db->query('CALL RegisterUser(?,?,?)', array(
+					$post['RegFullname'],
+					$post['RegEmail'],
+					sha1($post['RegPassword'])
+				));
+				$data = $res->result()[0];
 
-				// if( $data->UserID != -1 ) {
-					// $this->session->set_userdata('loggedin', true);
-					// $this->session->set_userdata('userid', $data->UserID);
-					// $this->session->set_userdata('username', $data->UserName);
-					// $this->session->set_userdata('useremail', $data->UserEmail);
-					// $this->session->set_userdata('userrole', $data->UserRole);
+				if( $data->UserID != -1 ) {
+					$this->session->set_userdata('loggedin', true);
+					$this->session->set_userdata('userid', $data->UserID);
+					$this->session->set_userdata('username', $post['RegFullname']);
+					$this->session->set_userdata('useremail', $post['RegEmail']);
+					$this->session->set_userdata('userrole', 0);
 
-					// $message = 'Sukses melakukan login';
-					// $status = 'success';
-				// }
+					$message = 'Sukses melakukan pendaftaran';
+					$status = 'success';
+				} else {
+					$this->setCustomError('RegEmail', 'Email telah terdaftar.');
+				}
 			}
 		}
 
