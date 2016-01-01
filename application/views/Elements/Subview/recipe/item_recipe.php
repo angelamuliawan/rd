@@ -1,6 +1,7 @@
 <?php
 		$counter = isset($counter)?$counter:0;
 		$recipe_id = isset($recipe_id)?$recipe_id:false;
+		$slug = isset($slug)?$slug:false;
 		$image = isset($image)?$image:false;
 		$title = isset($title)?$title:false;
 		$cuisine = isset($cuisine)?$cuisine:false;
@@ -24,27 +25,33 @@
 
 		$totalComment = tag('span', $cnt_comment);
 		$totalRecook = tag('span', $cnt_recook);
+
+		$url = $domain.'/detail/'.$recipe_id.'/'.$slug;
 ?>
 <li class="no-ul-type">
 	<div class="row">
 		<div class="col-sm-4 left-side">
-			<?php
-					echo tag('img', false, array(
-						'src' => $custom_image,
-						'wrapTag' => 'div',
-						'wrapAttributes' => array(
-							'class' => 'box-header',
-						),
-					));
+			<a href="<?php echo $url; ?>">
+				<?php
+						echo tag('img', false, array(
+							'src' => $custom_image,
+							'wrapTag' => 'div',
+							'wrapAttributes' => array(
+								'class' => 'box-header',
+							),
+						));
 
-			?>
+				?>
+			</a>
 			<div class="box-footer">
 				<?php
 						echo tag('div', $iconComment.$totalComment, array(
-							'class' => 'pull-right mr5'
+							'class' => 'pull-right mr5',
+							'title' => 'Jumlah Komentar',
 						));
 						echo tag('div', $iconRecook.$totalRecook, array(
-							'class' => 'pull-right mr10'
+							'class' => 'pull-right mr10',
+							'title' => 'Jumlah Recook',
 						));
 				?>
 			</div>
@@ -55,7 +62,7 @@
 						echo tag('h4', $title, array(
 							'wrapTag' => 'a',
 							'wrapAttributes' => array(
-								'href' => $domain.'/recipe/detail/'.$recipe_id,
+								'href' => $url,
 							),
 						));
 						echo tag('p', $cuisine);
@@ -64,7 +71,7 @@
 							'class' => 'mt10 description'
 						));
 						echo tag('a', 'Selengkapnya', array(
-							'href' => $domain.'/recipe/detail/'.$recipe_id,
+							'href' => $url,
 							'class' => 'btn btn-orange mt5',
 							'wrapTag' => 'div',
 							'wrapAttributes' => array(

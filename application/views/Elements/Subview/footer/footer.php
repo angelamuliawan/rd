@@ -6,14 +6,29 @@
 						'href' => $domain.'pages/about_us',
 						'wrapTag' => 'li',
 					));
+
+					echo tag('span', '&middot;', array(
+						'style' => 'margin: auto 5px; color:#FFFFFF;'
+					));
+
 					echo tag('a', 'Contact Us', array(
 						'href' => $domain.'pages/about_us',
 						'wrapTag' => 'li',
 					));
+
+					echo tag('span', '&middot;', array(
+						'style' => 'margin: auto 5px; color:#FFFFFF;'
+					));
+
 					echo tag('a', 'Terms of Use', array(
 						'href' => $domain.'pages/about_us',
 						'wrapTag' => 'li',
 					));
+
+					echo tag('span', '&middot;', array(
+						'style' => 'margin: auto 5px; color:#FFFFFF;'
+					));
+
 					echo tag('a', 'Privacy Policy', array(
 						'href' => $domain.'pages/about_us',
 						'wrapTag' => 'li',

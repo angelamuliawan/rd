@@ -72,10 +72,16 @@
 
 <div class="action-bottom mt15 tacenter wrapper-ajax-link">
 	<?php
-			echo tag('a', $recook, array(
-				'class' => 'ajax-modal',
-				'href' => $urlRecook,
-			));
+			// bisa recook makanan yang sudah direcook ga ?
+			if( !empty($flag_recook) ) {
+				echo $recook;
+			} else {
+				echo tag('a', $recook, array(
+					'class' => 'ajax-modal',
+					'href' => $urlRecook,
+				));
+			}
+
 			echo $share;
 			echo $cookmark;
 

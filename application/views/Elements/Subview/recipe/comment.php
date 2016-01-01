@@ -8,7 +8,14 @@
 			<div class="wrapper pd15">
 				<?php
 						echo tag('h3', 'Komentar');
+
+						if( empty($valuesRecipeComment) ) {
+							echo tag('h5', 'Komentar tidak ditemukan', array(
+								'class' => 'mt5'
+							));
+						}
 						
+						if ( isLoggedIn() ) {
 				?>
 				<form class="mt10 ajax-form" role="form" action="recipe/recipe_comment/<?php echo $recipe_id; ?>" method="post" accept-charset="utf-8">
 				 	<div class="form-group">
@@ -31,6 +38,8 @@
 				</form>
 
 				<?php
+						}
+
 						if( !empty($valuesRecipeComment) ) {
 							foreach( $valuesRecipeComment as $key => $value ) {
 								$user_id = $value['UserID'];

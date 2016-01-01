@@ -223,7 +223,7 @@ class Users extends AB_Controller {
 		if( !empty($post) ) {
 				
 			$this->form_validation->set_rules('RegFullname', 'Fullname', 'required');
-			$this->form_validation->set_rules('RegEmail', 'Email', 'required');
+			$this->form_validation->set_rules('RegEmail', 'Email', 'required|valid_email');
 			$this->form_validation->set_rules('RegPassword', 'Password', 'required');
 
 			if ( $this->form_validation->run() == TRUE ) {

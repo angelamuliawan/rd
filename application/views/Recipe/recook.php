@@ -12,6 +12,8 @@
 									if( !empty($values) ) {
 										foreach( $values as $key => $value ) {
 											$recipe_id = $value['RecipeID'];
+											$recook_id = $value['RecookID'];
+											$slug = $value['Slug'];
 											$image = $value['RecookPhoto'];
 											$title = $value['RecipeName'];
 											$recook_desc = $value['RecookDesc'];
@@ -20,6 +22,8 @@
 
 											loadSubview('recipe/item_recipe_recook', array(
 												'recipe_id' => $recipe_id,
+												'recook_id' => $recook_id,
+												'slug' => $slug,
 												'image' => $image,
 												'title' => $title,
 												'recook_desc' => $recook_desc,

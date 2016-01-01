@@ -41,6 +41,9 @@
 $route['default_controller'] = "pages";
 $route['404_override'] = '';
 
+$route['detail/(:num)'] = 'recipe/detail/$1';
+$route['detail/(:num)/(:any)'] = 'recipe/detail/$1/$2';
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -8,7 +8,7 @@
 	<div class="big-wrapper">
 		<div class="row bg-white no-mg">
 			<div class="col-sm-3 pd20">
-				<form role="form" action="find" method="GET">
+				<form role="form" action="<?php echo $domain; ?>/recipe/find" method="GET" accept-charset="utf-8">
 				 	<div class="form-group">
 						<label for="txtKeyword">Kata Kunci</label>
 						<?php
@@ -95,7 +95,9 @@
 							<?php
 									if( !empty($values) ) {
 										foreach( $values as $key => $value ) {
+
 											$id = $value['RecipeID'];
+											$slug = $value['Slug'];
 											$image = $value['PrimaryPhoto'];
 											$title = $value['RecipeName'];
 											$cuisine = $value['CuisineName'];
@@ -112,6 +114,7 @@
 											loadSubview('recipe/item_recipe', array(
 												'counter' => $key,
 												'recipe_id' => $id,
+												'slug' => $slug,
 												'image' => $image,
 												'title' => $title,
 												'cuisine' => $cuisine,

@@ -173,7 +173,21 @@ $(document).ready(function() {
     $.magicSuggest();
     $('.multiple-select').multiselect({
         maxHeight: 250,
-        buttonWidth: '100%'
+        buttonWidth: '100%',
+        onChange: function(element, checked) {
+            var id = '#' + $(element).parent().attr('id');
+            var self = $(id);
+
+            if( self.attr('max-selected') !== undefined ) {
+                var max = self.attr('max-selected');
+                var selected = $('.multiple-select option:selected').length;
+                if( selected == 3 ) {
+                    alert('Maksimal ' + max + ' opsi');
+                    var value = $(element[0]).val();
+                    $('.multiple-select').multiselect('deselect', value);
+                }
+            }
+        }
     });
 });
 

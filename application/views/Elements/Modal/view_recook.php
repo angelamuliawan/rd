@@ -50,35 +50,50 @@
 		      					</div>
 		      					<div class="col-sm-6 col-xs-12" >
 		      						<form id="formViewRecook" role="form" action="recipe/view_recook_item/<?php echo $recook_id; ?>" class="ajax-form" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-			      						<div class="wrapper-right" style="width:100%; height:auto; max-height:330px; overflow-y:auto;">
-			      							<?php
+			      						<?php
 			      								if( !empty($valuesRecookComment) ) {
-			      									foreach( $valuesRecookComment as $value ) {
-			      										$user_id = $value['UserID'];
-			      										$recook_comment_id = $value['RecookCommentID'];
-			      										$comment_username = $value['RecookUserName'];
-			      										$comment = $value['RecookCommentDesc'];
-			      										$comment_time = $value['RecookCommentTime'];
-			      										$user_photo = $value['UserPhoto'];
+			      						?>
+						      						<div class="wrapper-right" style="width:100%; height:auto; max-height:330px; overflow-y:auto;">
+						      							<?php
+						      									foreach( $valuesRecookComment as $value ) {
+						      										$user_id = $value['UserID'];
+						      										$recook_comment_id = $value['RecookCommentID'];
+						      										$comment_username = $value['RecookUserName'];
+						      										$comment = $value['RecookCommentDesc'];
+						      										$comment_time = $value['RecookCommentTime'];
+						      										$user_photo = $value['UserPhoto'];
 
-			      										$custom_photo = $domain.'/resources/images/uploads/users/'.$user_photo;
-														if( !@getimagesize($custom_photo) ) {
-															$custom_photo = $domain.'/resources/images/64x64.png';
-														}
+						      										$custom_photo = $domain.'/resources/images/uploads/users/'.$user_photo;
+																	if( !@getimagesize($custom_photo) ) {
+																		$custom_photo = $domain.'/resources/images/64x64.png';
+																	}
 
-														loadSubview('recipe/item_recook_comment', array(
-															'user_id' => $user_id,
-															'recook_comment_id' => $recook_comment_id,
-															'comment_username' => $comment_username,
-															'comment' => $comment,
-															'comment_time' => $comment_time,
-															'photo' => $custom_photo,
-														));
-			      									}
+																	loadSubview('recipe/item_recook_comment', array(
+																		'user_id' => $user_id,
+																		'recook_comment_id' => $recook_comment_id,
+																		'comment_username' => $comment_username,
+																		'comment' => $comment,
+																		'comment_time' => $comment_time,
+																		'photo' => $custom_photo,
+																	));
+						      									}
+						      							?>
+						      						</div>
+			      						<?php
+			      								} else {
+			      									echo tag('h4', 'Komentar tidak ditemukan');
 			      								}
-			      							?>
-			      						</div>
-			      						<textarea name="recook_comment" rows="3" class="form-control mt15 submit-on-enter" placeholder="Tuliskan komentar Anda disini..."></textarea>
+
+			      								if( isLoggedIn() ) {
+			      									echo tag('textarea', set_value('recook_comment'), array(
+			      										'name' => 'recook_comment',
+			      										'rows' => 3,
+			      										'class' => 'form-control mt15 submit-on-enter',
+			      										'placeholder' => 'Tuliskan komentar Anda disini &hellip;',
+			      									));
+			      									echo form_error('recook_comment');
+			      								}
+			      						?>
 		      						</form>
 		      					</div>
 		      				</div>	

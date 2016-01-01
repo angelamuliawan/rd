@@ -18,6 +18,8 @@
 		$share .= tag('span', 'Share', array(
 			'class' => 'ml5 mr10'
 		));
+
+		$url = $domain.'/detail/'.$recipe_id.'/'.$slug;
 ?>
 
 <div class="action-bottom mt15 tacenter">
@@ -27,7 +29,7 @@
 				'class' => 'mr10',
 			));
 			echo tag('a', $view, array(
-				'href' => $domain.'/recipe/detail/'.$recipe_id,
+				'href' => $url,
 				'class' => 'mr10',
 			));
 			echo $share;

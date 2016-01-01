@@ -15,7 +15,7 @@ class Recipe extends AB_Controller {
 		$post = $this->input->get();
 		$this->callDefaultData('search', true);
 
-		$sortBy = isset($post['Sorting']) ? $post['Sorting'] : NULL;
+		$sortBy = isset($post['Sorting']) ? $post['Sorting'] : 1;
 		$resMyRecipe = $this->db->query('CALL GetMyRecipe(?,?,?,?)', array(
 			$this->session->userdata('userid'),
 			$sortBy,
@@ -53,6 +53,14 @@ class Recipe extends AB_Controller {
 		));
 		$valuesRecipeHeader = $resRecipeHeader->result_array();
 		$resRecipeHeader->next_result();
+
+		if( !strpos($this->uri->segment(3), '-') ){
+			$this->load->helper('url');
+			$slug = isset( $valuesRecipeHeader[0]['Slug'] ) ? $valuesRecipeHeader[0]['Slug'] : 'resep-masak';
+			$url = $this->domain.'/detail/'.$recipe_id.'/'.$slug;
+
+			return redirect($url);
+		}
 
 		// Recipe Recook
 		$resRecipeRecook = $this->db->query('CALL GetRecipeDetailRecook(?)', array(
@@ -110,7 +118,7 @@ class Recipe extends AB_Controller {
 			$this->form_validation->set_rules('RecipeName', 'Recipe Name', 'required');
 			$this->form_validation->set_rules('RecipeIntro', 'Recipe Intro', 'required');
 			$this->form_validation->set_rules('CuisineID', 'Cuisine', 'required');
-			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required');
+			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required|greater_than[0]');
 
 			$config = $this->getConfigImage('recipe/step');
 
@@ -198,7 +206,7 @@ class Recipe extends AB_Controller {
 							($key+1),
 							$composition, 
 							$measure,
-							$composition_id,
+							( $composition_id == '' ) ? NULL : $composition_id,
 							$recipe_id,
 							$measure_size_id,
 							$this->session->userdata('userid'),
@@ -239,7 +247,16 @@ class Recipe extends AB_Controller {
 			}
 		}
 
-		loadMessage($message, $status);
+		if( $status == 'success' ) {
+			$this->session->set_flashdata('flash_message', array(
+				'message' => $message,
+				'status' => $status,
+			));
+			$this->load->helper('url');
+			redirect($this->domain.'/recipe/add');
+		} else {
+			loadMessage($message, $status);
+		}
 		$this->render($post);
 	}
 
@@ -259,7 +276,7 @@ class Recipe extends AB_Controller {
 			$this->form_validation->set_rules('RecipeName', 'Recipe Name', 'required');
 			$this->form_validation->set_rules('RecipeIntro', 'Recipe Intro', 'required');
 			$this->form_validation->set_rules('CuisineID', 'Cuisine', 'required');
-			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required');
+			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required|greater_than[0]');
 
 			$config = $this->getConfigImage('recipe/step');
 
@@ -355,7 +372,7 @@ class Recipe extends AB_Controller {
 							($key+1),
 							$composition, 
 							$measure,
-							$composition_id,
+							( $composition_id == '' ) ? NULL : $composition_id,
 							$recipe_id,
 							$measure_size_id,
 							$this->session->userdata('userid'),

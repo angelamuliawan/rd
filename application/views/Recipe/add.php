@@ -90,7 +90,7 @@
 			  		?>
 					<div class="col-sm-3">
 						<?php
-								echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple"');
+								echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'id="ddlCuisine" max-selected="2" class="form-control multiple-select" multiple="multiple"');
 								echo form_error('CuisineID'); 
 						?>
 					</div>
@@ -163,10 +163,12 @@
 					    				'name' => 'EstTime',
 					    				'value' => ( isset($request['EstTime']) ? $request['EstTime']: set_value('EstTime') ),
 					    			));
-					    			echo form_error('EstTime');
 							?>
 							<span class="input-group-addon">Menit</span>
 						</div>
+						<?php
+								echo form_error('EstTime');
+						?>
 					</div>
 				</div>
 				<div class="form-group">

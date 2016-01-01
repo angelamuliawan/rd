@@ -12,6 +12,10 @@
 	/*background-position: bottom center;*/
 }
 
+.glyphicon:hover {
+	cursor: pointer;
+}
+
 /* WIDTH */
 .full-width {
 	width: 100%;
@@ -429,6 +433,9 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 /* PAGE FIND - FOOD LIST */
+.wrapper-food-list-vertical > .content > ul > li .box-header:hover {
+	opacity: 0.8;
+}
 .wrapper-food-list-vertical > .header {
 	height:50px; 
 	padding:5px 10px;

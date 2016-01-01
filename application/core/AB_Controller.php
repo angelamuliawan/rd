@@ -8,7 +8,6 @@ class AB_Controller extends CI_Controller {
 
 		$this->load->library('rest');
 		$this->load->helper('common');
-
 		$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
 
 		if( isLoggedIn() ) {
@@ -28,25 +27,43 @@ class AB_Controller extends CI_Controller {
 		if( $this->isMobile() ) {
 			$device = 'Mobile';
 		}
+		$this->savePageViewLog($browser, $ip, $device);
 
 		if ( !$this->cache->get('cache_visitor') ) {
 	        $this->cache->save('cache_visitor', 'visitor', 10);
-
-			$resUserLog = $this->db->query('CALL InsertUserLog(?,?,?,?,?,?)', array(
-				( isset($browser['browser']) ? $browser['browser'] : false ),
-				( isset($browser['version']) ? $browser['browser'] : false ),
-				( !empty($ip) ? $ip : false ),
-				( !empty($device) ? $device : false ),
-				( isset($browser['os']) ? $browser['os'] : false ),
-				$this->session->userdata('userid'),
-			));
-			$query_result = $resUserLog->result();
-			$resUserLog->next_result();
+	        $this->saveUserLog( $browser, $ip, $device );
 	    }
 
 		$this->load->vars(array(
 			'domain' => 'http://localhost/rd',
 		));
+	}
+
+	public function savePageViewLog( $browser, $ip, $device ) {
+		$resPageViewLog = $this->db->query('CALL InsertPageViewLog(?,?,?,?,?,?,?)', array(
+			$_SERVER['REQUEST_URI'],
+			( isset($browser['browser']) ? $browser['browser'] : false ),
+			( isset($browser['version']) ? $browser['browser'] : false ),
+			( !empty($ip) ? $ip : false ),
+			( !empty($device) ? $device : false ),
+			( isset($browser['os']) ? $browser['os'] : false ),
+			$this->session->userdata('userid'),
+		));
+		$query_result = $resPageViewLog->result();
+		$resPageViewLog->next_result();
+	}
+
+	public function saveUserLog( $browser, $ip, $device ) {
+		$resUserLog = $this->db->query('CALL InsertUserLog(?,?,?,?,?,?)', array(
+			( isset($browser['browser']) ? $browser['browser'] : false ),
+			( isset($browser['version']) ? $browser['browser'] : false ),
+			( !empty($ip) ? $ip : false ),
+			( !empty($device) ? $device : false ),
+			( isset($browser['os']) ? $browser['os'] : false ),
+			$this->session->userdata('userid'),
+		));
+		$query_result = $resUserLog->result();
+		$resUserLog->next_result();
 	}
 
 	public function saveSearchLog( $CuisineID, $FoodTypeID, $Keyword, $Composition, $FoodProcess, $PriceRange, $EstPeople ) {
