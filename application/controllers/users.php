@@ -30,7 +30,7 @@ class Users extends AB_Controller {
 			$values = $resUpdateNotif->result_array()[0];
 			$notif_url = $values['NotificationURL'];
 
-			redirect( $this->domain.'/'.$notif_url );
+			redirect( $this->domain.'/'.$notif_url);
 		} else {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
@@ -257,6 +257,6 @@ class Users extends AB_Controller {
 	function logout(){
 		$this->load->helper('url');
 		$this->session->sess_destroy();
-		redirect('http://localhost/rd/pages');
+		redirect($this->domain.'/pages');
 	}
 }

@@ -819,4 +819,8 @@ ul.pagination {
 	.wrapper-create-recipe .btn.btn-orange {
 		width: 100%;
 	}
+
+	.modal-dialog {
+		width: auto !important;
+	}
 }

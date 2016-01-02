@@ -1,4 +1,3 @@
-
 var source_data = {};
 var serviceUri = 'http://localhost/rd/';
 
@@ -10,7 +9,24 @@ $(document).ready(function() {
 	$(document).ajaxComplete(function() {
 		$('.overlay').css('visibility', 'hidden');
 	});
+    
+    $.customFunction();
+    $.ajaxLink();
+    $.ajaxForm();
+    $.ajaxModal();
+    $.tabs();
+    $.replaceText();
+    $.fileUpload();
+    $.cloneButton();
 
+    $.autocomplete();
+    $.reorderData();
+    $.magicSuggest();
+    $.multipleSelect();
+    $.carousel()
+});
+
+$.customFunction = function(){
     $('body').on('click', '*[show-on-click]', function(e){
         e.preventDefault();
         var self = $(this);
@@ -43,9 +59,31 @@ $(document).ready(function() {
             $(this).closest('form').submit();
         }
     });
+}
 
+$.carousel = function(){
+    $('#recook-carousel').carousel({
+        interval: 4000
+    })
+
+    $('#recook-carousel .item').each(function(){
+        var next = $(this).next();
+        if (!next.length) {
+            next = $(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo($(this));
+        // for (var i = 0; i < 2; i++ ) {
+        //  next = next.next();
+        //  if (!next.length) {
+        //      next = $(this).siblings(':first');
+        //  }
+        //  next.children(':first-child').clone().appendTo($(this));
+        // }
+    });
+}
+
+$.ajaxLink = function(){
     $('body').on('click', '.ajax-link', function(e){
-        
         var self = $(this);
         var data_url = self.attr('href');
         var wrapper_class = '.'+self.attr('target-wrapper');
@@ -69,8 +107,6 @@ $(document).ready(function() {
                     } else {
                         self.closest('.wrapper-ajax-link').replaceWith(result);
                     }
-
-                    $.ajaxModal();
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
@@ -81,23 +117,24 @@ $(document).ready(function() {
 
         return false;
     });
+}
 
-	$('body').on('submit', '.ajax-form', function(e){
-		
-		var self = $(this);
-		var form_data = self.serialize();
-		var form_id = '#'+self.attr('id');
-		var form_action = self.attr('action');
-		var data_reload = self.attr('data-reload');
+$.ajaxForm = function(){
+    $('body').on('submit', '.ajax-form', function(e){
+        var self = $(this);
+        var form_data = self.serialize();
+        var form_id = '#'+self.attr('id');
+        var form_action = self.attr('action');
+        var data_reload = self.attr('data-reload');
 
-		$.ajax({
+        $.ajax({
             url: serviceUri+form_action,
             type: 'POST',
             dataType: 'html',
             data: form_data,
             success: function( result ) {
-            	var message = $(result).find('#msg-text').html();
-            	var status = $(result).find('#msg-status').html();
+                var message = $(result).find('#msg-text').html();
+                var status = $(result).find('#msg-status').html();
  
                 var contentHTML = '';
                 if( $(result).find(form_id).length ) {
@@ -107,11 +144,11 @@ $(document).ready(function() {
                     self.closest('.ajax-wrapper-form').replaceWith(result);
                 }
 
-            	if( status == 'success' ) {
-            		if( data_reload == 'true' ) {
-            			window.location.reload();
-            		}
-            	}
+                if( status == 'success' ) {
+                    if( data_reload == 'true' ) {
+                        window.location.reload();
+                    }
+                }
 
                 $.fileUpload();
             },
@@ -121,26 +158,22 @@ $(document).ready(function() {
             }
         });
 
-		return false;
-	});
+        return false;
+    });
+}
 
-    $.ajaxModal();
-    $.tabs();
-    $.replaceText();
-    $.fileUpload();
-
+$.cloneButton = function(){
     $('body').on('click', '.clone-button', function(){
-
-    	var self = $(this);
-    	var target = self.attr('data-clone');
-    	
+        var self = $(this);
+        var target = self.attr('data-clone');
+        
         var parent = $('.' + target).closest('.parent-template');
-    	var model = parent.attr('model');
+        var model = parent.attr('model');
 
         var template = $('.' + target).clone().removeClass(target).removeClass('hide').removeClass('wrapper-template');
-    	var total_children = parent.children().length;
+        var total_children = parent.children().length;
 
-    	template.find('.template-order').text(total_children);
+        template.find('.template-order').text(total_children);
         $('.inputField', template).each(function(){
             var _self = $(this);
             var field_name = _self.attr('name');
@@ -164,13 +197,12 @@ $(document).ready(function() {
             }
         });
 
-    	parent.append(template);
+        parent.append(template);
         $.autocomplete(template);
     });
+}
 
-    $.autocomplete();
-    $.reorderData();
-    $.magicSuggest();
+$.multipleSelect = function(){
     $('.multiple-select').multiselect({
         maxHeight: 250,
         buttonWidth: '100%',
@@ -189,7 +221,7 @@ $(document).ready(function() {
             }
         }
     });
-});
+}
 
 $.magicSuggest = function(){
     if( $('.ms-custom').length ) {
@@ -336,41 +368,37 @@ $.buildAutocomplete = function(obj, _class){
 }
 
 $.ajaxModal = function(options){
-	var obj = $('.ajax-modal');
-    if( obj.length > 0 ) {
-        obj.off('click');
-        obj.click(function() {
-            var self = $(this);
-	        var url = self.attr('href');
-	        var title = self.attr('title');
+    $('body').on('click', '.ajax-modal', function() {
+        var self = $(this);
+        var url = self.attr('href');
+        var title = self.attr('title');
 
-	        $.ajax({
-	            url: url,
-	            type: 'POST',
-	            success: function(response, status) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            success: function(response, status) {
 
-	                $('#myModal').replaceWith(response);
-	                $('#myModal').modal('show');
+                $('#myModal').replaceWith(response);
+                $('#myModal').modal('show');
 
-                    // Rebuild Function
-                    $.fileUpload();
+                // Rebuild Function
+                $.fileUpload();
 
-	                return false;
-	            },
-	            error: function(XMLHttpRequest, textStatus, errorThrown) {
-	                alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
-	                return false;
-	            }
-	        });
-
-            return false;
+                return false;
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
+                return false;
+            }
         });
 
-        $('body').on('click', '.close-modal', function(){
-            $('#myModal').modal('hide');
-            return false;
-        });
-    }
+        return false;
+    });
+
+    $('body').on('click', '.close-modal', function(){
+        $('#myModal').modal('hide');
+        return false;
+    });
 }
 
 $.tabs = function(){

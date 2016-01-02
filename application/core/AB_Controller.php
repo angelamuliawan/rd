@@ -35,7 +35,7 @@ class AB_Controller extends CI_Controller {
 	    }
 
 		$this->load->vars(array(
-			'domain' => 'http://localhost/rd',
+			'domain' => $this->domain,
 		));
 	}
 
@@ -96,7 +96,7 @@ class AB_Controller extends CI_Controller {
 
 	public function render( $data = array(), $content_name = false, $layout = 'default', $is_admin = false ) {
 		
-		$controller_name = $this->router->fetch_class();
+		$controller_name = ucwords($this->router->fetch_class());
 		$method_name = $this->router->fetch_method();
 
 		$default_content_path = $controller_name.'/'.$method_name;

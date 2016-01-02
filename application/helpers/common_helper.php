@@ -48,11 +48,13 @@ if ( ! function_exists('tag')) {
 
 if ( ! function_exists('load_script')) {
 
-	function load_script( $scripts = array(), $domain = 'http://localhost/rd/' ) {
+	function load_script( $scripts = array() ) {
 		$stringify_script = '';
+		$CI = get_instance();
+
 		if( !empty($scripts) ) {
 			foreach ($scripts as $script) {
-		        $stringify_script .= "<script type='text/javascript' src='".$domain.'resources/js/'.$script.".js'></script>";
+				$stringify_script .= "<script type='text/javascript' src='".$CI->domain.'/resources/js/'.$script.".js' defer></script>";
 		    }
 		}
 	    
@@ -62,14 +64,15 @@ if ( ! function_exists('load_script')) {
 
 if ( ! function_exists('load_css')) {
 
-	function load_css( $scripts = array(), $domain = 'http://localhost/rd/' ) {
+	function load_css( $scripts = array() ) {
 		$stringify_script = '';
+		$CI = get_instance();
+
 		if( !empty($scripts) ) {
 			foreach ($scripts as $script) {
-		        $stringify_script .= "<link href='".$domain.'resources/css/'.$script.".css' rel='stylesheet'>";
+		        $stringify_script .= "<link href='".$CI->domain.'/resources/css/'.$script.".css' rel='stylesheet'>";
 		    }
 		}
-	    
 	    echo $stringify_script;
 	}
 }

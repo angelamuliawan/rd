@@ -49,10 +49,10 @@
 				));
 				$imageLoading = tag('img', 'Loading...', array(
 					'src' => $domain.'/resources/images/reload.gif',
-					'style' => 'width:30%; height:auto; display:block;',
+					'style' => 'width:25px; height:auto; display:block; margin: 0 12px;',
 					'wrapTag' => 'div',
 					'wrapAttributes' => array(
-						'style' => 'position:absolute; left:48%; top:45%; color:white;',
+						'style' => 'position:absolute; left:47%; top:45%; color:white;',
 					),
 				));
 				echo tag('div', $imageLoading, array(
@@ -80,43 +80,24 @@
 			// 	// }
 			// });
 
-			$('#recook-carousel').carousel({
-			  	interval: 4000
-			})
+			// $('#bottom-carousel').carousel({
+			//   	interval: 100000
+			// });
 
-			$('#recook-carousel .item').each(function(){
-				var next = $(this).next();
-				if (!next.length) {
-					next = $(this).siblings(':first');
-				}
-				next.children(':first-child').clone().appendTo($(this));
-				// for (var i = 0; i < 2; i++ ) {
-				// 	next = next.next();
-				// 	if (!next.length) {
-				// 		next = $(this).siblings(':first');
-				// 	}
-				// 	next.children(':first-child').clone().appendTo($(this));
-				// }
-			});
-
-			$('#bottom-carousel').carousel({
-			  	interval: 100000
-			});
-
-			$('#bottom-carousel .item').each(function(){
-				var next = $(this).next();
-				if (!next.length) {
-					next = $(this).siblings(':first');
-				}
-				// next.children(':first-child').clone().appendTo($(this));
-				for (var i = 0; i < 5; i++ ) {
-					next = next.next();
-					if (!next.length) {
-						next = $(this).siblings(':first');
-					}
-					next.children(':first-child').clone().appendTo($(this));
-				}
-			});
+			// $('#bottom-carousel .item').each(function(){
+			// 	var next = $(this).next();
+			// 	if (!next.length) {
+			// 		next = $(this).siblings(':first');
+			// 	}
+			// 	// next.children(':first-child').clone().appendTo($(this));
+			// 	for (var i = 0; i < 5; i++ ) {
+			// 		next = next.next();
+			// 		if (!next.length) {
+			// 			next = $(this).siblings(':first');
+			// 		}
+			// 		next.children(':first-child').clone().appendTo($(this));
+			// 	}
+			// });
 		</script>
 	</body>
 </html>

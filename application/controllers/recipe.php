@@ -53,12 +53,14 @@ class Recipe extends AB_Controller {
 		));
 		$valuesRecipeHeader = $resRecipeHeader->result_array();
 		$resRecipeHeader->next_result();
+		
+		$slug = $this->uri->segment(3);
 
-		if( !strpos($this->uri->segment(3), '-') ){
+		if( !strpos($slug, '-') && ($slug == '' || str_word_count($slug) > 1 ) ) {
 			$this->load->helper('url');
 			$slug = isset( $valuesRecipeHeader[0]['Slug'] ) ? $valuesRecipeHeader[0]['Slug'] : 'resep-masak';
 			$url = $this->domain.'/detail/'.$recipe_id.'/'.$slug;
-
+			
 			return redirect($url);
 		}
 

@@ -4,13 +4,18 @@
 
 		$counter = isset( $counter ) ? $counter : false;
 		$is_first_item = ( $counter == 0 ) ? 'active' : '';
+
+		$custom_image = $domain.'/resources/images/uploads/recipe/recook/'.$recook_photo;
+		if( !@getimagesize($custom_image) ) {
+			$custom_image = $domain.'/resources/images/default.png';
+		}
 ?>
 <div class="item <?php echo $is_first_item; ?>">
   	<div class="col-xs-6 item-recook">
   		<?php
   				echo tag('img', false, array(
   					'class' => 'img-responsive',
-  					'src' => $domain.'/resources/images/uploads/recipe/recook/'.$recook_photo,
+  					'src' => $custom_image,
   					'style' => 'width:86px; height:64px;',
   					'wrapTag' => 'a',
   					'wrapAttributes' => array(
