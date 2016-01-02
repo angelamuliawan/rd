@@ -230,7 +230,7 @@
 
 							if( !empty($valuesRecipeStep) ) {
 					?>
-					<ol>
+					<ol style="padding:0 20px;">
 						<?php
 								foreach( $valuesRecipeStep as $key => $value ) {
 									$food_step = $value['FoodStepName'];

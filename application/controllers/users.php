@@ -30,7 +30,7 @@ class Users extends AB_Controller {
 			$values = $resUpdateNotif->result_array()[0];
 			$notif_url = $values['NotificationURL'];
 
-			redirect( $this->domain.'/'.$notif_url);
+			redirect( $this->domain.$notif_url);
 		} else {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
@@ -252,6 +252,211 @@ class Users extends AB_Controller {
 
 		loadMessage($message, $status);
 		loadModal('login');
+	}
+
+	function article() {
+		$this->load->helper('form');
+
+		$post = $this->input->post();
+		$message = false;
+		$status = false;
+
+		if( !empty($post) ) {
+			
+			$this->load->library('upload');
+			$this->form_validation->set_rules('title', 'Title', 'required');
+			$this->form_validation->set_rules('content', 'Content', 'required');
+
+			$config = $this->getConfigImage('article/primary');
+
+			$valid_photo = true;
+			foreach ($_FILES as $field_name => $file_object) {
+			    if ( !empty($file_object['name']) ) {
+			    	
+			    	$file_name = $file_object['name'];
+			    	$ext = pathinfo($file_name, PATHINFO_EXTENSION);
+			    	$config['file_name'] = $file_name = sprintf('%s_%s.%s', date("Ymd_H_i_s", time()), mt_rand(1,100), $ext);
+
+		    		$post['photo'] = $file_name;
+		    		$post['photo_preview'] = $file_name;
+
+			        $this->upload->initialize($config);
+			        
+			        if ( !$this->upload->do_upload($field_name) ) {
+			            $errors = $this->upload->display_errors();
+			            $this->setCustomError($field_name, $errors);
+			            $valid_photo = false;
+			        } else {
+			             // Code After Files Upload Success GOES HERE
+			        }
+			    } else {
+			    	if( $field_name == 'photo' && ( !isset($post['photo_preview']) ) ) {
+						$this->setCustomError($field_name, 'The Photo field is required.');
+						$valid_photo = false;
+					}
+			    }
+			}
+
+			if ( $this->form_validation->run() == TRUE && $valid_photo == true ) {
+
+				$resInsertArticle = $this->db->query('CALL InsertArticle(?,?,?,?)', array(
+					isset($post['photo']) ? $post['photo'] : $post['photo_preview'],
+					$post['title'],
+					$post['content'],
+					$this->session->userdata('userid'),
+				));
+
+				$message = 'Sukses menyimpan artikel';
+				$status = 'success';
+			} else {
+				$message = 'Gagal menyimpan artikel. Silahkan coba lagi';
+				$status = 'error';
+			}
+		}
+
+		$this->session->set_flashdata('flash_message', array(
+			'message' => $message,
+			'status' => $status,
+		));
+	
+		if( $status == 'success' ){
+			$this->load->helper('url');
+			redirect($this->domain.'/users/article');
+		}
+
+		$this->load->vars(array(
+			'additional_css' => array(
+				'froala/font-awesome.min',
+				'froala/froala_editor.min',
+				'froala/froala_style.min',
+			),
+			'additional_js' => array(
+				'froala/froala_editor.min',
+				'froala/plugins/tables.min',
+				'froala/plugins/colors.min',
+				'froala/plugins/media_manager.min',
+				'froala/plugins/font_family.min',
+				'froala/plugins/font_size.min',
+				'froala/plugins/block_styles.min',
+				'froala/plugins/lists.min',
+			),
+		));
+		$this->render($post);
+	}
+
+	function edit_article( $article_id = false ) {
+		$this->load->helper('form');
+
+		$post = $this->input->post();
+		$message = false;
+		$status = false;
+
+		if( !empty($post) ) {
+			
+			$this->load->library('upload');
+			$this->form_validation->set_rules('title', 'Title', 'required');
+			$this->form_validation->set_rules('content', 'Content', 'required');
+
+			$config = $this->getConfigImage('article/primary');
+
+			$valid_photo = true;
+			foreach ($_FILES as $field_name => $file_object) {
+			    if ( !empty($file_object['name']) ) {
+			    	
+			    	$file_name = $file_object['name'];
+			    	$ext = pathinfo($file_name, PATHINFO_EXTENSION);
+			    	$config['file_name'] = $file_name = sprintf('%s_%s.%s', date("Ymd_H_i_s", time()), mt_rand(1,100), $ext);
+
+		    		$post['photo'] = $file_name;
+		    		$post['photo_preview'] = $file_name;
+
+			        $this->upload->initialize($config);
+			        
+			        if ( !$this->upload->do_upload($field_name) ) {
+			            $errors = $this->upload->display_errors();
+			            $this->setCustomError($field_name, $errors);
+			            $valid_photo = false;
+			        } else {
+			             // Code After Files Upload Success GOES HERE
+			        }
+			    } else {
+			    	if( $field_name == 'photo' && ( !isset($post['photo_preview']) ) ) {
+						$this->setCustomError($field_name, 'The Photo field is required.');
+						$valid_photo = false;
+					}
+			    }
+			}
+
+			if ( $this->form_validation->run() == TRUE && $valid_photo == true ) {
+
+				$resInsertArticle = $this->db->query('CALL UpdateArticle(?,?,?,?,?)', array(
+					isset($post['photo']) ? $post['photo'] : $post['photo_preview'],
+					$post['title'],
+					$post['content'],
+					$this->session->userdata('userid'),
+					$article_id,
+				));
+
+				$message = 'Sukses memperbarui artikel';
+				$status = 'success';
+			} else {
+				$message = 'Gagal memperbarui artikel. Silahkan coba lagi';
+				$status = 'error';
+			}
+		} else {
+
+			$resArticleDetail = $this->db->query('CALL GetArticleDetail(?)', array(
+				$article_id,
+			));
+			$values = $resArticleDetail->result_array()[0];
+			$resArticleDetail->next_result();
+
+			$post = array(
+				'title' => $values['ArticleTitle'],
+				'content' => $values['ArticleContent'],
+			);
+
+			if( !empty($values['ArticleImage']) ) {
+				$post['photo_preview'] = $values['ArticleImage'];
+			}
+		}
+
+		$this->session->set_flashdata('flash_message', array(
+			'message' => $message,
+			'status' => $status,
+		));
+
+		if( $status == 'success' ){
+			$this->load->helper('url');
+			redirect($this->domain.'/users/edit_article/'.$article_id);
+		}
+
+		$this->load->vars(array(
+			'additional_css' => array(
+				'froala/font-awesome.min',
+				'froala/froala_editor.min',
+				'froala/froala_style.min',
+			),
+			'additional_js' => array(
+				'froala/froala_editor.min',
+				'froala/plugins/tables.min',
+				'froala/plugins/colors.min',
+				'froala/plugins/media_manager.min',
+				'froala/plugins/font_family.min',
+				'froala/plugins/font_size.min',
+				'froala/plugins/block_styles.min',
+				'froala/plugins/lists.min',
+			),
+		));
+
+		$this->render($post, 'users/article');
+	}
+
+	function delete_article( $article_id = false ) {
+		$res = $this->db->query('CALL DeleteArticle(?,?)', array(
+			$article_id,
+			$this->session->userdata('userid'),
+		));
 	}
 
 	function logout(){

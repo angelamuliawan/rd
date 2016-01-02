@@ -154,7 +154,7 @@
 			  					'class' => 'col-sm-2 control-label',
 			  				));
 			  		?>
-					<div class="col-sm-2">
+					<div class="col-sm-2 inputNumberField">
 						<div class="input-group">
 							<?php
 									echo tag('input', false, array(

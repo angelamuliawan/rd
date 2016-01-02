@@ -9,7 +9,7 @@
 	      	<div class="modal-body pd15 pb20">
 	      		<div class="row">
 		      		<div class="col-sm-12">
-		      			<div class="big-wrapper">
+		      			<div class="big-wrapper wrapper-login">
 				        	<ul class="nav nav-tabs replace-text" text-target="modal-title">
 							  	<?php
 							  			echo tag('a', 'Login', array(

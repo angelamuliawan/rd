@@ -51,7 +51,10 @@
 					echo tag('h4', $username, array(
 						'class' => 'mt10'
 					));
-					echo tag('p', $email);
+					echo tag('p', $email, array(
+						'class' => 'mt5',
+						'style' => 'word-wrap: break-word;'
+					));
 					echo tag('a', $customLevel, array(
 						'href' => '#'
 					));

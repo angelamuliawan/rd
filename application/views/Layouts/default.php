@@ -19,6 +19,10 @@
 					'magicsuggest/magicsuggest',
 					'custom',
 				));
+
+				if(isset($additional_css) && !empty($additional_css)){
+	                load_css($additional_css);
+	            }
 		?>
 	</head>
 	<body>
@@ -43,6 +47,10 @@
 					'functions',
 				));
 
+				if(isset($additional_js) && !empty($additional_js)) {
+	                load_script($additional_js);
+	            }
+
 				echo tag('div', false, array(
 					'id' => 'myModal',
 					'class' => 'modal fade',
@@ -59,45 +67,5 @@
 					'class' => 'overlay'
 				));
 		?>
-
-		<script type="text/javascript">
-			// $('#myCarousel').carousel({
-			//   	interval: 4000
-			// })
-
-			// $('.carousel .item').each(function(){
-			// 	var next = $(this).next();
-			// 	if (!next.length) {
-			// 		next = $(this).siblings(':first');
-			// 	}
-			// 	next.children(':first-child').clone().appendTo($(this));
-			// 	// for (var i = 0; i < 2; i++ ) {
-			// 	// 	next = next.next();
-			// 	// 	if (!next.length) {
-			// 	// 		next = $(this).siblings(':first');
-			// 	// 	}
-			// 	// 	next.children(':first-child').clone().appendTo($(this));
-			// 	// }
-			// });
-
-			// $('#bottom-carousel').carousel({
-			//   	interval: 100000
-			// });
-
-			// $('#bottom-carousel .item').each(function(){
-			// 	var next = $(this).next();
-			// 	if (!next.length) {
-			// 		next = $(this).siblings(':first');
-			// 	}
-			// 	// next.children(':first-child').clone().appendTo($(this));
-			// 	for (var i = 0; i < 5; i++ ) {
-			// 		next = next.next();
-			// 		if (!next.length) {
-			// 			next = $(this).siblings(':first');
-			// 		}
-			// 		next.children(':first-child').clone().appendTo($(this));
-			// 	}
-			// });
-		</script>
 	</body>
 </html>

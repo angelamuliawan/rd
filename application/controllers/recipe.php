@@ -60,7 +60,7 @@ class Recipe extends AB_Controller {
 			$this->load->helper('url');
 			$slug = isset( $valuesRecipeHeader[0]['Slug'] ) ? $valuesRecipeHeader[0]['Slug'] : 'resep-masak';
 			$url = $this->domain.'/detail/'.$recipe_id.'/'.$slug;
-			
+
 			return redirect($url);
 		}
 
@@ -449,7 +449,6 @@ class Recipe extends AB_Controller {
 			$valuesFoodStep = $resFoodStep->result_array();
 			$resFoodStep->next_result();
 			
-
 			$post = array(
 				'RecipeName' => $valuesRecipeDetailHeader['RecipeName'],
 				'RecipeIntro' => $valuesRecipeDetailHeader['RecipeIntro'],

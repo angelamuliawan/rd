@@ -14,9 +14,23 @@
 				<div class="col-sm-9">
 					<div class="wrapper-right">
 						<ul class="nav nav-tabs">
-						  	<li class="active"><a href="#tabs-statistic">Statistik</a></li>
-						  	<li><a href="#tabs-change-password">Kata Sandi</a></li>
-						  	<li><a href="#tabs-account">Akun</a></li>
+							<?php
+									echo tag('a', 'Statistik', array(
+										'href' => '#tabs-statistic',
+										'wrapTag' => 'li',
+										'wrapAttributes' => array(
+											'class' => 'active',
+										)
+									));
+									echo tag('a', 'Kata Sandi', array(
+										'href' => '#tabs-change-password',
+										'wrapTag' => 'li',
+									));
+									echo tag('a', 'Akun', array(
+										'href' => '#tabs-account',
+										'wrapTag' => 'li',
+									));
+							?>
 						</ul>
 
 						<div class="tab-content pd15">

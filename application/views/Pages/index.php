@@ -12,7 +12,7 @@
 					<div class="header with-border">
 						<?php
 								echo tag('h3', 'Baru Dibuat', array(
-									'class' => 'pull-left mt5'
+									'class' => 'pull-left mt5 wrapper-text'
 								));
 								echo tag('a', 'Tampilkan Semua', array(
 									'class' => 'btn btn-orange pull-right',
@@ -60,7 +60,7 @@
 					<div class="header with-border">
 						<?php
 								echo tag('h3', 'Resep Populer', array(
-									'class' => 'pull-left mt5'
+									'class' => 'pull-left mt5 wrapper-text'
 								));
 								echo tag('a', 'Tampilkan Semua', array(
 									'class' => 'btn btn-orange pull-right',

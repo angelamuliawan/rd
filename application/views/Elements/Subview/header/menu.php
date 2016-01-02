@@ -33,10 +33,6 @@
 								'href' => $domain.'/recipe/add',
 								'wrapTag' => 'li',
 							));
-							echo tag('a', 'Artikel', array(
-								'href' => $domain.'/recipe/article',
-								'wrapTag' => 'li',
-							));
       					} else {
       						echo tag('a', 'Tulis Resep', array(
 								'href' => $domain.'/users/login',
@@ -44,13 +40,12 @@
 		        				'class' => 'ajax-modal',
 		        				'wrapTag' => 'li',
 							));
-							echo tag('a', 'Artikel', array(
-								'href' => $domain.'/users/login',
-								'data-title' => 'Login',
-		        				'class' => 'ajax-modal',
-								'wrapTag' => 'li',
-							));
       					}
+
+      					echo tag('a', 'Artikel', array(
+							'href' => $domain.'/pages/article',
+							'wrapTag' => 'li',
+						));
       					
 						echo tag('a', 'Kontes', array(
 							'href' => $domain.'/recipe/contest',
@@ -174,6 +169,13 @@
 		          					'wrapTag' => 'li',
 		          				));
 		          				echo divider();
+		          				if( $this->session->userdata('userrole') == 1 ) {
+		          					echo tag('a', 'Buat Artikel', array(
+			          					'href' => $domain.'/users/article',
+			          					'wrapTag' => 'li',
+			          				));
+			          				echo divider();
+		          				}
 		          				echo tag('a', 'Logout', array(
 		          					'href' => $domain.'/users/logout',
 		          					'wrapTag' => 'li',

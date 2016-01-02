@@ -42,12 +42,12 @@
 				echo form_error($measure_name);
 		?>
 	</div>
-	<div class="col-sm-3 col-xs-3">
+	<div class="col-sm-3 col-xs-3 custom-field">
 		<?php
 				echo form_dropdown($measure_size_name, $measure_sizes, $measure_size, 'class="form-control inputField"');
 		?>
 	</div>
-	<div class="col-sm-3 col-xs-2 no-pd">
+	<div class="col-sm-3 col-xs-2 no-pd custom-field">
 		<?php
 				echo form_input(array(
 					'id' => 'Composition'.$counter,
