@@ -449,7 +449,7 @@ class Users extends AB_Controller {
 			),
 		));
 
-		$this->render($post, 'users/article');
+		$this->render($post, 'Users/article');
 	}
 
 	function delete_article( $article_id = false ) {

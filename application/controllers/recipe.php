@@ -485,7 +485,7 @@ class Recipe extends AB_Controller {
 		}
 
 		loadMessage($message, $status);
-		$this->render($post, 'recipe/add');
+		$this->render($post, 'Recipe/add');
 	}
 
 	public function recook() {
