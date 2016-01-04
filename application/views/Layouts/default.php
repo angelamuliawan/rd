@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -5,11 +6,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<meta name="description" content="">
-		<meta name="author" content="">
-		
+		<meta name="keywords" content="resep masak, resep enak, makanan enak, makanan lezat, masak apa hari ini, masakan enak, masakan murah, masakan lezat">
+		<meta name="description" content="Cookindo adalah direktori resep online dari Indonesia yang memungkinkan user untuk mencari resep sesuai dengan kebutuhan mereka. Untuk mendapatkan resep yang user inginkan, cookindo menyediakan fitur pencarian yang lengkap mulai dari estimasi harga, orang, maupun bahan-bahan masakan yang dimiliki oleh user.">
+		<meta name="author" content="index,follow">
+				
 		<?php
-				echo tag('title', 'Resep Dunia');
+				echo tag('title', 'Cookindo');
 
 				load_css(array(
 					'bootstrap/bootstrap',

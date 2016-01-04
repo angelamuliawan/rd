@@ -32,6 +32,7 @@
 					'class' => 'form-control mb5 inputField template-field',
 					'placeholder' => 'Masukkan deskripsi langkah apa yang Anda lakukan pada tahap ini secara detil. Contoh: Tuangkan 100mg air ke dalam botol lalu kocok 5 kali.',
 					'data-model' => 'FoodStepName',
+					'maxlength' => 500,
 				));
 				echo form_error($step_name); 
 

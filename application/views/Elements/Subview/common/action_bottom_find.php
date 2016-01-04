@@ -27,7 +27,7 @@
 			if( !empty($flag_creator) ) {
 				$textCookmark = '';
 			} else if( !empty($flag_cookmark) ) {
-				$textCookmark = 'Cookmarked';
+				$textCookmark = 'Uncookmark';
 			}
 		}
 
@@ -59,6 +59,11 @@
 						'href' => $urlCookmark,
 						'class' => 'ajax-link',
 					));
+				} else {
+					$cookmark = tag('a', $cookmark, array(
+						'href' => $domain.'/recipe/uncookmark_item/'.$recipe_id.'/'.$flag_cookmark.'/'.$_print,
+						'class' => 'ajax-link',
+					));
 				}
 			}
 		} else {
@@ -75,7 +80,7 @@
 			// bisa recook makanan yang sudah direcook ga ?
 			if( !empty($flag_recook) ) {
 				echo $recook;
-			} else {
+			} else if( empty($flag_creator) ) {
 				echo tag('a', $recook, array(
 					'class' => 'ajax-modal',
 					'href' => $urlRecook,
@@ -86,7 +91,11 @@
 			echo $cookmark;
 
 			if( !empty($_print) ) {
-				echo $print;
+				echo tag('a', $print, array(
+					'class' => 'btnPrint',
+					'title' => 'Print Resep',
+					'href' => '#',
+				));
 			}
 	?>
 </div>

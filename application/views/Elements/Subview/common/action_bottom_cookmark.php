@@ -1,5 +1,6 @@
 <?php
-		$recipe_id = isset( $recipe_id ) ? $recipe_id : false;
+		$cookmark_id = isset($cookmark_id)?$cookmark_id:false;
+		$recipe_id = isset($recipe_id)?$recipe_id:false;
 		$flag_recook = isset($flag_recook)?$flag_recook:false;
 		
 		$recook = tag('img', false, array(
@@ -7,6 +8,9 @@
 		));
 		$share = tag('img', false, array(
 			'src' => $domain.'/resources/icons/facebook.png',
+		));
+		$cookmark = tag('img', false, array(
+			'src' => $domain.'/resources/icons/cookmark.png',
 		));
 
 		$textRecook = 'Recook';
@@ -21,6 +25,9 @@
 			'class' => 'ml5'
 		));
 		$share .= tag('span', 'Share', array(
+			'class' => 'ml5 mr10'
+		));
+		$cookmark .= tag('span', 'Uncookmark', array(
 			'class' => 'ml5 mr10'
 		));
 
@@ -45,5 +52,10 @@
 			}
 
 			echo $share;
+			echo tag('a', $cookmark, array(
+				'class' => 'ajax-link',
+				'href' => $domain.'/recipe/uncookmark_item/'.$recipe_id.'/'.$cookmark_id,
+				'remove' => true,
+			));
 	?>
 </div>

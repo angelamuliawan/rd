@@ -18,7 +18,8 @@
 				    				'class' => 'form-control',
 				    				'name' => 'keyword',
 				    				'placeholder' => 'Ketik kata kunci masakan &hellip;',
-				    				'value' => $this->input->get('keyword')
+				    				'value' => $this->input->get('keyword'),
+				    				'maxlength' => 200,
 				    			));
 						?>
 				  	</div>

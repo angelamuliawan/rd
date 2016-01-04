@@ -1,7 +1,3 @@
-<?php
-		// debug($request); die();
-?>
-
 <div class="container">
 	<div class="big-wrapper bg-white pd20">
 		<?php
@@ -26,6 +22,7 @@
 				    				'class' => 'form-control',
 				    				'name' => 'RecipeName',
 				    				'placeholder' => 'contoh: Nasi Cumi Cabe Garam, etc',
+				    				'maxlength' => 100,
 				    				'value' => ( isset($request['RecipeName']) ? $request['RecipeName']: set_value('RecipeName') ),
 				    			));
 				    			echo form_error('RecipeName');
@@ -45,6 +42,7 @@
 				    				'rows' => 4,
 				    				'class' => 'form-control',
 				    				'name' => 'RecipeIntro',
+				    				'maxlength' => 500,
 				    			));
 								echo form_error('RecipeIntro'); 
 						?>

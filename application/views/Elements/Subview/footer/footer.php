@@ -1,9 +1,9 @@
-<footer class="bs-docs-footer" role="contentinfo"> 
+<footer class="bs-docs-footer hidden-print" role="contentinfo"> 
 	<div class="container"> 
 		<ul class="bs-docs-footer-links"> 
 			<?php
 					echo tag('a', 'About Us', array(
-						'href' => $domain.'pages/about_us',
+						'href' => $domain.'/pages/about_us',
 						'wrapTag' => 'li',
 					));
 
@@ -12,7 +12,7 @@
 					));
 
 					echo tag('a', 'Contact Us', array(
-						'href' => $domain.'pages/about_us',
+						'href' => $domain.'/pages/contact_us',
 						'wrapTag' => 'li',
 					));
 
@@ -21,7 +21,7 @@
 					));
 
 					echo tag('a', 'Terms of Use', array(
-						'href' => $domain.'pages/about_us',
+						'href' => $domain.'/pages/terms_of_use',
 						'wrapTag' => 'li',
 					));
 
@@ -30,7 +30,7 @@
 					));
 
 					echo tag('a', 'Privacy Policy', array(
-						'href' => $domain.'pages/about_us',
+						'href' => $domain.'/pages/privacy_policy',
 						'wrapTag' => 'li',
 					));
 			?> 

@@ -2,7 +2,7 @@
 		$recipe_id = isset($recipe_id) ? $recipe_id : false;
 ?>
 
-<div class="comment-box bg-white ajax-wrapper-form">
+<div class="comment-box bg-white ajax-wrapper-form hidden-print">
 	<div class="row">
 		<div class="col-sm-10">
 			<div class="wrapper pd15">
@@ -25,6 +25,7 @@
 				    				'class' => 'form-control',
 				    				'name' => 'comment',
 				    				'placeholder' => "Tuliskan komentar Anda &hellip;",
+				    				'maxlength' => 200,
 				    			));
 								echo form_error('comment');
 				 		?>

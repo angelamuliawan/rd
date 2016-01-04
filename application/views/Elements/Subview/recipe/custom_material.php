@@ -60,6 +60,7 @@
 					'class' => 'form-control inputField autocomplete template-field',
 					'autocomplete' => 'off',
 					'data-model' => 'CompositionName',
+					'maxlength' => 100,
 				));
 				echo form_error($composition_name);
 		

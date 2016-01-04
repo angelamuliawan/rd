@@ -3,7 +3,7 @@
 if ( ! function_exists('loadSubview')) {
 
     function loadSubview( $view, $data = false ) { 
-	    $CI = get_instance();
+	    $CI = &get_instance();
 	    return $CI->load->view( 'Elements/Subview/'.$view, $data );
 	}
 }
@@ -11,8 +11,7 @@ if ( ! function_exists('loadSubview')) {
 if ( ! function_exists('loadModal')) {
 
     function loadModal( $view, $data = false) {
-        $CI = get_instance();
-        // $data['alert'] = $CI->load->view($message, '',  TRUE);
+        $CI = &get_instance();
 	    return $CI->load->view( 'Elements/Modal/'.$view, $data );
 	}
 }
@@ -54,7 +53,7 @@ if ( ! function_exists('load_script')) {
 
 		if( !empty($scripts) ) {
 			foreach ($scripts as $script) {
-				$stringify_script .= "<script type='text/javascript' src='".$CI->domain.'/resources/js/'.$script.".js' defer></script>";
+				$stringify_script .= "<script type='text/javascript' src='".$CI->domain.'/resources/js/'.$script.".js'></script>";
 		    }
 		}
 	    

@@ -49,33 +49,9 @@
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="wrapper-ads">
-					<ul class="no-pd">
-						<?php
-								echo tag('img', false, array(
-									'src' => $domain.'/resources/images/160x120.jpg',
-									'wrapTag' => 'li',
-									'wrapAttributes' => array(
-										'class' => 'no-ul-type mb20',
-									),
-								));
-								echo tag('img', false, array(
-									'src' => $domain.'/resources/images/sample-ads.jpg',
-									'wrapTag' => 'li',
-									'wrapAttributes' => array(
-										'class' => 'no-ul-type mb20',
-									),
-								));
-								echo tag('img', false, array(
-									'src' => $domain.'/resources/images/sample-ads.jpg',
-									'wrapTag' => 'li',
-									'wrapAttributes' => array(
-										'class' => 'no-ul-type mb20',
-									),
-								));
-						?>
-					</ul>
-				</div>
+				<?php
+						loadSubview('common/ads');
+				?>
 			</div>
 		</div>
 	</div>

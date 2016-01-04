@@ -12,6 +12,7 @@
 							<?php
 									if( !empty($values) ) {
 										foreach( $values as $key => $value ) {
+											$cookmark_id = $value['CookmarkID'];
 											$id = $value['RecipeID'];
 											$slug = $value['Slug'];
 											$image = $value['PrimaryPhoto'];
@@ -29,6 +30,7 @@
 											$cooked_by = $value['UserName'];
 
 											loadSubview('recipe/item_recipe_cookmark', array(
+												'cookmark_id' => $cookmark_id,
 												'recipe_id' => $id,
 												'slug' => $slug,
 												'image' => $image,
@@ -57,33 +59,9 @@
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="wrapper-ads">
-					<ul class="no-pd">
-						<?php
-								echo tag('img', false, array(
-									'src' => $domain.'/resources/images/160x120.jpg',
-									'wrapTag' => 'li',
-									'wrapAttributes' => array(
-										'class' => 'no-ul-type mb20',
-									),
-								));
-								echo tag('img', false, array(
-									'src' => $domain.'/resources/images/sample-ads.jpg',
-									'wrapTag' => 'li',
-									'wrapAttributes' => array(
-										'class' => 'no-ul-type mb20',
-									),
-								));
-								echo tag('img', false, array(
-									'src' => $domain.'/resources/images/sample-ads.jpg',
-									'wrapTag' => 'li',
-									'wrapAttributes' => array(
-										'class' => 'no-ul-type mb20',
-									),
-								));
-						?>
-					</ul>
-				</div>
+				<?php
+						loadSubview('common/ads');
+				?>
 			</div>
 		</div>
 	</div>

@@ -81,4 +81,54 @@ class Pages extends AB_Controller {
 		));
 		$this->render();
 	}
+
+	public function about_us() {
+		$this->render();
+	}
+
+	public function contact_us() {
+		$this->load->helper('form');
+
+		$post = $this->input->post();
+		$message = false;
+		$status = false;
+
+		if( !empty($post) ) {
+
+			$this->form_validation->set_rules('name', 'Name', 'required');
+			$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+			$this->form_validation->set_rules('message', 'Message', 'required');
+
+			if ( $this->form_validation->run() == TRUE ) {
+
+				$resInsertContactUs = $this->db->query('CALL InsertContactUs(?,?,?,?,?)', array(
+					$post['name'],
+					$post['email'],
+					$post['message'],
+					$this->session->userdata('userid'),
+					$this->getIP(),
+				));
+
+				$query_result = $resInsertContactUs->result();				
+				$resInsertContactUs->next_result();
+
+				$message = 'Sukses menyimpan data';
+				$status = 'success';
+			} else {
+				$message = 'Gagal menyimpan data. Silahkan coba lagi';
+				$status = 'error';
+			}
+		}
+		
+		loadMessage($message, $status);
+		$this->render($post);
+	}
+
+	public function terms_of_use() {
+		$this->render();
+	}
+
+	public function privacy_policy() {
+		$this->render();
+	}
 }

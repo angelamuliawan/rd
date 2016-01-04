@@ -41,14 +41,36 @@
 												}
 									  	?>
 									  	<div class="form-group">
-									    	<label for="txtEmail" class="control-label">Email</label>
-										    <input type="text" name="email" value="<?php echo set_value('email'); ?>" class="form-control" id="txtEmail">
-										    <?php echo form_error('email'); ?>
+									  		<?php
+									  				echo tag('label', 'Email', array(
+									  					'for' => 'email',
+									  					'class' => 'control-label',
+									  				));
+									  				echo tag('input', false, array(
+									  					'type' => 'text',
+									  					'name' => 'email',
+									  					'maxlength' => 100,
+									  					'value' => set_value('email'),
+									  					'class' => 'form-control',
+									  				));
+									  				echo form_error('email');
+									  		?>
 									  	</div>
 										<div class="form-group">
-									    	<label for="txtPassword" class="control-label">Password</label>
-										    <input type="password" name="password" value="<?php echo set_value('password'); ?>" class="form-control" id="txtPassword">
-										    <?php echo form_error('password'); ?>
+											<?php
+									  				echo tag('label', 'Password', array(
+									  					'for' => 'password',
+									  					'class' => 'control-label',
+									  				));
+									  				echo tag('input', false, array(
+									  					'type' => 'password',
+									  					'name' => 'password',
+									  					'maxlength' => 20,
+									  					'value' => set_value('password'),
+									  					'class' => 'form-control',
+									  				));
+									  				echo form_error('password');
+									  		?>
 									  	</div>
 									  	<div class="checkbox">
 										    <label>
@@ -56,10 +78,20 @@
 										    </label>
 										</div>
 									  	<div class="form-group">
-									  		<input type="submit" value="Login" class="btn btn-success col-sm-12">
+									  		<?php
+									  				echo tag('input', false, array(
+									  					'type' => 'submit',
+									  					'value' => 'Login',
+									  					'class' => 'btn btn-success col-sm-12',
+									  				));
+									  		?>
 									    </div>
 									    <div class="form-group">
-									    	<a href="#">Forgot your password?</a>
+									    	<?php
+									    			echo tag('a', 'Forgot your password?', array(
+									    				'href' => '#',
+									    			));
+									    	?>
 									    </div>
 									</form>
 								</div>
@@ -71,22 +103,61 @@
 												}
 									  	?>
 										<div class="form-group">
-									    	<label for="txtRegFullname" class="control-label">Nama Lengkap</label>
-										    <input type="text" name="RegFullname" value="<?php echo set_value('RegFullname'); ?>" class="form-control" id="txtRegFullname">
-									  		<?php echo form_error('RegFullname'); ?>
+											<?php
+													echo tag('label', 'Nama Lengkap', array(
+														'for' => 'RegFullname',
+														'class' => 'control-label',
+													));
+													echo tag('input', false, array(
+														'type' => 'text',
+														'name' => 'RegFullname',
+														'maxlength' => 100,
+														'value' => set_value('RegFullname'),
+														'class' => 'form-control',
+													));
+													echo form_error('RegFullname');
+											?>
 									  	</div>
 									  	<div class="form-group">
-									    	<label for="txtRegEmail" class="control-label">Email</label>
-										    <input type="text" name="RegEmail" value="<?php echo set_value('RegEmail'); ?>" class="form-control" id="txtRegEmail">
-										    <?php echo form_error('RegEmail'); ?>
+									  		<?php
+									  				echo tag('label', 'Email', array(
+									  					'for' => 'RegEmail',
+									  					'class' => 'control-label',
+									  				));
+									  				echo tag('input', false, array(
+									  					'type' => 'text',
+									  					'name' => 'RegEmail',
+									  					'maxlength' => 100,
+									  					'value' => set_value('RegEmail'),
+									  					'class' => 'form-control',
+									  				));
+									  				echo form_error('RegEmail');
+									  		?>
 									  	</div>
 										<div class="form-group">
-									    	<label for="txtRegPassword" class="control-label">Password</label>
-										    <input type="password" name="RegPassword" value="<?php echo set_value('RegPassword'); ?>" class="form-control" id="txtRegPassword">
-										    <?php echo form_error('RegPassword'); ?>
-									  	</div>
+											<?php
+									  				echo tag('label', 'Password', array(
+									  					'for' => 'RegPassword',
+									  					'class' => 'control-label',
+									  				));
+									  				echo tag('input', false, array(
+									  					'type' => 'password',
+									  					'name' => 'RegPassword',
+									  					'maxlength' => 20,
+									  					'value' => set_value('RegPassword'),
+									  					'class' => 'form-control',
+									  				));
+									  				echo form_error('RegPassword');
+									  		?>
+									    </div>
 									  	<div class="form-group mb40">
-									  		<input type="submit" value="Register" class="btn btn-success col-sm-12">
+									  		<?php
+									  				echo tag('input', false, array(
+									  					'type' => 'submit',
+									  					'value' => 'Register',
+									  					'class' => 'btn btn-success col-sm-12',
+									  				));
+									  		?>
 									    </div>
 									</form>
 								</div>
@@ -101,14 +172,14 @@
 										<span>Sign in with Facebook</span>
 									</div>
 								</div>
-								<div class="with-border" style="width:100%; height:50px; background-color:#DD4C39;">
+								<!-- <div class="with-border" style="width:100%; height:50px; background-color:#DD4C39;">
 									<div style="width:15%; display:inline-block; height:100%; background-color:#B12818; color: #FFFFFF;padding-left: 15px; line-height: 45px; font-weight: bold; font-size: 24px;">
 										<span>G+</span>
 									</div>
 									<div style="width: 85%; float: right; color: #FFFFFF;line-height: 45px; padding-left: 90px;">
 										<span>Sign in with Google+</span>
 									</div>
-								</div>
+								</div> -->
 							</div>
 		      			</div>
 		      		</div>

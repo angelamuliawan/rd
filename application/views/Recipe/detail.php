@@ -3,6 +3,7 @@
 
 		// Recipe Header
 		$valueRecipeHeader = isset($valuesRecipeHeader[0]) ? $valuesRecipeHeader[0] : false;
+		$recipe_id = isset($valueRecipeHeader['RecipeID']) ? $valueRecipeHeader['RecipeID'] : false;
 		$image = isset($valueRecipeHeader['PrimaryPhoto']) ? $valueRecipeHeader['PrimaryPhoto'] : false;
 		$title = isset($valueRecipeHeader['RecipeName']) ? $valueRecipeHeader['RecipeName'] : false;
 		$recipe_intro = isset($valueRecipeHeader['RecipeIntro']) ? $valueRecipeHeader['RecipeIntro'] : false;
@@ -41,7 +42,7 @@
 <div class="container mt20">
 	<div class="detail-recipe-header with-border bg-white">
 		<div class="row">
-			<div class="col-sm-9">
+			<div class="col-sm-9 print-floleft">
 				<?php
 						echo tag('h1', $title, array(
 							'wrapTag' => 'div',
@@ -51,7 +52,7 @@
 						));
 				?>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-3 print-floright">
 				<div class="wrapper pd10 taright">
 					<?php
 							echo tag('p', 'Originally cooked by:');
@@ -87,6 +88,7 @@
 								)
 							));
 							loadSubview('common/action_bottom_find', array(
+								'recipe_id' => $recipe_id,
 								'flag_cookmark' => $flag_cookmark,
 								'flag_recook' => $flag_recook,
 								'flag_creator' => $flag_creator,
@@ -98,11 +100,11 @@
 		</div>
 	</div>
 
-	<div class="detail-recipe-content with-border bg-white">
+	<div class="detail-recipe-content bg-white">
 		<div class="row">
 			<div class="col-sm-3 with-border-right">
 				<div class="wrapper pd15">
-					<div class="wrapper-top">
+					<div class="wrapper-top hidden-print">
 
 						<?php
 								if( !empty($valuesRecipeRecook) ) {
@@ -161,13 +163,14 @@
 								}
 						?>
 					</div>
-					<hr>
-					<div class="wrapper-bottom">
+					<hr class="hidden-print">
+					<div class="wrapper-bottom page-break">
 						<ul class="no-pd">
 							<?php
 									loadSubview('common/recipe_summary', array(
 										'icon' => 'money.png',
 										'value' => $est_price,
+										'_class' => 'print-floleft',
 									));
 									loadSubview('common/recipe_summary', array(
 										'icon' => 'spoon.png',
@@ -194,7 +197,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-7">
+			<div class="col-sm-9">
 				<div class="wrapper pd15">
 					<?php
 							echo tag('p', $recipe_intro);
@@ -267,7 +270,7 @@
 					?>
 				</div>
 			</div>
-			<div class="col-sm-2">
+			<!-- <div class="col-sm-2 hidden-print">
 				<div class="wrapper-ads">
 					<ul class="pd15">
 						<?php
@@ -295,7 +298,7 @@
 						?>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 

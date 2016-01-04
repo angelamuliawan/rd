@@ -3,7 +3,7 @@
 		$_with_text = isset($_with_text)?$_with_text:false;
 ?>
 
-<div class="wrapper-background <?php echo $_class; ?>">
+<div class="wrapper-background hidden-print <?php echo $_class; ?>">
 	<div class="container">
 		<div class="search-box">
 			<div class="row">
@@ -37,6 +37,7 @@
 							    				'name' => 'keyword',
 							    				'placeholder' => 'Ketik kata kunci masakan &hellip;',
 							    				'value' => $this->input->get('keyword'),
+							    				'maxlength' => 200,
 							    			));
 									?>
 								</div>

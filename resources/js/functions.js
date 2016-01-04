@@ -95,19 +95,11 @@ $.customFunction = function(){
 
     $('body').on('submit', function(e){
         $('.wrapper-template').remove();
+    });
 
-        // if( $('.fr-custom-textarea').length ) {
-            // var html = $('.fr-custom-textarea').editable('getHTML', false, true);
-            // $('#hdnContentHTML').val(html);
-            // $('.fr-custom-textarea').closest('form').append( $('input').attr({
-            //     'type' : 'hidden',
-            //     'name' : 'contentHTML',
-            //     'value' : html
-            // }));
-
-            // console.log(html);
-            // e.preventDefault();
-        // }
+    $('body').on('click', '.btnPrint', function(e){
+        e.preventDefault();
+        window.print();
     });
 }
 
@@ -174,7 +166,11 @@ $.ajaxLink = function(){
                         contentHTML = $(result).find(wrapper_class).html();
                         $(wrapper_class).html(contentHTML);
                     } else {
-                        self.closest('.wrapper-ajax-link').replaceWith(result);
+                        if( self.attr('remove') !== undefined ) {
+                            self.closest('.wrapper-ajax-link').remove();
+                        } else {
+                            self.closest('.wrapper-ajax-link').replaceWith(result);
+                        }
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -451,7 +447,7 @@ $.ajaxModal = function(options){
                 $('#myModal').modal('show');
 
                 // Rebuild Function
-                // $.fileUpload();
+                $.fileUpload();
 
                 return false;
             },

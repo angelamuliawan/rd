@@ -26,7 +26,7 @@
 										}
 					        	?>
 					        	<div class="with-border wrapper-recook-photo wrapper-ajax-upload">
-					        		<div class="wrapper wrapper-photo" style="display:block; height:100%; max-height:150px;">
+					        		<div class="wrapper wrapper-photo" style="display:block; height:100%; height:150px; max-height:150px;">
 					        			<?php
 					        					if( !empty($request['photo']) ) {
 					        						echo tag('img', false, array(
@@ -79,6 +79,7 @@
 						    				'class' => 'form-control mt15',
 						    				'name' => 'RecookDesc',
 						    				'placeholder' => 'Cerita recook kamu. Apakah kamu menambahkan atau mengurangi bahan? Apakah masakan kamu berhasil?',
+						    				'maxlength' => 500,
 						    			));
 										echo form_error('RecookDesc'); 
 					        	?>

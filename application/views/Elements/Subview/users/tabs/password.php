@@ -20,6 +20,7 @@
 		    				'name' => 'oldPassword',
 		    				'placeholder' => 'Password lama &hellip;',
 		    				'value' => set_value('oldPassword'),
+		    				'maxlength' => 20,
 		    			));
 		    			echo form_error('oldPassword');
 		      	?>
@@ -40,6 +41,7 @@
 		    				'name' => 'newPassword',
 		    				'placeholder' => 'Password baru &hellip;',
 		    				'value' => set_value('newPassword'),
+		    				'maxlength' => 20,
 		    			));
 		    			echo form_error('newPassword');
 		      	?>
@@ -60,6 +62,7 @@
 		    				'name' => 'confirmPassword',
 		    				'placeholder' => 'Konfirmasi password &hellip;',
 		    				'value' => set_value('confirmPassword'),
+		    				'maxlength' => 20,
 		    			));
 		    			echo form_error('confirmPassword');
 		      	?>
@@ -77,28 +80,5 @@
 	  				));
 	  		?>
 	  	</div>
-	  	<!-- <div class="form-group">
-	    	<label for="inputEmail3" class="col-sm-3 control-label taleft">Password Lama</label>
-		    <div class="col-sm-6">
-		      	<input type="password" class="form-control" id="inputEmail3" >
-		    </div>
-	  	</div> -->
-		<!-- <div class="form-group">
-			<label for="inputEmail3" class="col-sm-3 control-label taleft">Password Baru</label>
-		    <div class="col-sm-6">
-		      	<input type="password" class="form-control" id="inputEmail3" placeholder="Password baru &hellip;">
-		    </div>
-		</div> -->
-		<!-- <div class="form-group">
-			<label for="inputEmail3" class="col-sm-3 control-label taleft">Konfirmasi Password</label>
-		    <div class="col-sm-6">
-		      	<input type="password" class="form-control" id="inputEmail3" placeholder="Konfirmasi password &hellip;">
-		    </div>
-		</div> -->
-		<!-- <div class="form-group">
-	    	<div class="col-sm-offset-3 col-sm-2">
-	      		<button type="submit" class="btn btn-default">Simpan</button>
-	    	</div>
-	  	</div> -->
 	</form>
 </div>

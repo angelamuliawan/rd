@@ -73,7 +73,7 @@
 			     				));
 		     				}
         		?>
-        		<li>
+        		<li class="desktop-only">
         			<?php
         					echo tag('a', $spanNotifIcon.$spanNotifCount, array(
 		     					'class' => 'dropdown-toggle',

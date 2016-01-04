@@ -30,7 +30,7 @@ class Users extends AB_Controller {
 			$values = $resUpdateNotif->result_array()[0];
 			$notif_url = $values['NotificationURL'];
 
-			redirect( $this->domain.$notif_url);
+			redirect( $this->domain.'/'.$notif_url);
 		} else {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
@@ -89,9 +89,9 @@ class Users extends AB_Controller {
 
 		if( !empty($post) ) {
 			
-			$this->form_validation->set_rules('oldPassword', 'Old Password', 'required');
-			$this->form_validation->set_rules('newPassword', 'New Password', 'required');
-			$this->form_validation->set_rules('confirmPassword', 'Confirmation Password', 'required|matches[newPassword]');
+			$this->form_validation->set_rules('oldPassword', 'Old Password', 'required|min_length[5]|max_length[20]');
+			$this->form_validation->set_rules('newPassword', 'New Password', 'required|min_length[5]|max_length[20]');
+			$this->form_validation->set_rules('confirmPassword', 'Confirmation Password', 'required|min_length[5]|max_length[20]|matches[newPassword]');
 
 			if ( $this->form_validation->run() == TRUE ) {
 
@@ -224,7 +224,7 @@ class Users extends AB_Controller {
 				
 			$this->form_validation->set_rules('RegFullname', 'Fullname', 'required');
 			$this->form_validation->set_rules('RegEmail', 'Email', 'required|valid_email');
-			$this->form_validation->set_rules('RegPassword', 'Password', 'required');
+			$this->form_validation->set_rules('RegPassword', 'Password', 'required|min_length[5]|max_length[20]');
 
 			if ( $this->form_validation->run() == TRUE ) {
 

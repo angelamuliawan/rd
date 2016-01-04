@@ -27,6 +27,7 @@
 		    				'class' => 'form-control',
 		    				'name' => 'username',
 		    				'value' => isset( $request['username'] ) ? set_value('username') : $username,
+		    				'maxlength' => 100,
 		    			));
 		    			echo form_error('username');
 		      	?>
@@ -46,6 +47,7 @@
 		    				'class' => 'form-control',
 		    				'name' => 'country',
 		    				'value' => isset( $request['country'] ) ? set_value('country') : $country,
+		    				'maxlength' => 100,
 		    			));
 		    			echo form_error('country');
 				?>
@@ -65,6 +67,7 @@
 		    				'class' => 'form-control',
 		    				'name' => 'city',
 		    				'value' => isset( $request['city'] ) ? set_value('city') : $city,
+		    				'maxlength' => 100,
 		    			));
 		    			echo form_error('city');
 				?>

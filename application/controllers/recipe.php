@@ -91,6 +91,8 @@ class Recipe extends AB_Controller {
 		));
 		$valuesRecipeComment = $resRecipeComment->result_array();
 		$resRecipeComment->next_result();
+
+		// debug($valuesRecipeHeader); die();
 		
 		$this->load->vars(array(
 			'valuesRecipeHeader' => $valuesRecipeHeader,
@@ -120,7 +122,7 @@ class Recipe extends AB_Controller {
 			$this->form_validation->set_rules('RecipeName', 'Recipe Name', 'required');
 			$this->form_validation->set_rules('RecipeIntro', 'Recipe Intro', 'required');
 			$this->form_validation->set_rules('CuisineID', 'Cuisine', 'required');
-			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required|greater_than[0]');
+			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required|greater_than[0]|numeric');
 
 			$config = $this->getConfigImage('recipe/step');
 
@@ -160,7 +162,7 @@ class Recipe extends AB_Controller {
 			}
 
 			foreach( $post['FoodComposition'] as $key => $value ) {
-				$this->form_validation->set_rules('FoodComposition['.$key.'][Measure]', 'Measure', 'required');
+				$this->form_validation->set_rules('FoodComposition['.$key.'][Measure]', 'Measure', 'required|greater_than[0]|numeric');
 				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionName]', 'CompositionName', 'required');
 				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionID]', 'CompositionID', 'trim');
 			}
@@ -278,7 +280,7 @@ class Recipe extends AB_Controller {
 			$this->form_validation->set_rules('RecipeName', 'Recipe Name', 'required');
 			$this->form_validation->set_rules('RecipeIntro', 'Recipe Intro', 'required');
 			$this->form_validation->set_rules('CuisineID', 'Cuisine', 'required');
-			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required|greater_than[0]');
+			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required|greater_than[0]|numeric');
 
 			$config = $this->getConfigImage('recipe/step');
 
@@ -318,7 +320,7 @@ class Recipe extends AB_Controller {
 			}
 
 			foreach( $post['FoodComposition'] as $key => $value ) {
-				$this->form_validation->set_rules('FoodComposition['.$key.'][Measure]', 'Measure', 'required');
+				$this->form_validation->set_rules('FoodComposition['.$key.'][Measure]', 'Measure', 'required|greater_than[0]|numeric');
 				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionName]', 'CompositionName', 'required');
 				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionID]', 'CompositionID', 'trim');
 			}
@@ -659,6 +661,13 @@ class Recipe extends AB_Controller {
 		));
 	}
 
+	public function delete( $recipe_id = false ) {
+		$res = $this->db->query('CALL DeleteRecipe(?,?)', array(
+			$recipe_id,
+			$this->session->userdata('userid'),
+		));
+	}
+
 	public function cookmark_item( $recipe_id = false, $allow_print = false ) {	
 
 		$message = 'Gagal menyimpan data cookmark';
@@ -671,6 +680,45 @@ class Recipe extends AB_Controller {
 			$resCookmark = $this->db->query('CALL InsertCookmark(?,?)', array(
 				$this->session->userdata('userid'),
 				$recipe_id
+			));
+			$resCookmark->next_result();
+
+			$resRecipeHeader = $this->db->query('CALL GetRecipeDetailHeader(?,?)', array(
+				$recipe_id,
+				$this->session->userdata('userid'),
+			));
+			$valuesRecipeHeader = $resRecipeHeader->result_array();
+			$resRecipeHeader->next_result();
+
+			$value = $valuesRecipeHeader[0];
+
+			$flag_cookmark = $value['FlagCookmark'];
+			$flag_recook = $value['FlagRecook'];
+			$flag_creator = $value['FlagCreator'];
+			loadSubview('common/action_bottom_find', array(
+				'recipe_id' => $recipe_id,
+				'flag_cookmark' => $flag_cookmark,
+				'flag_recook' => $flag_recook,
+				'flag_creator' => $flag_creator,
+				'_print' => $allow_print,
+			));
+		} else {
+			loadMessage($message, $status);
+		}
+	}
+
+	public function uncookmark_item( $recipe_id = false, $cookmark_id = false, $allow_print = false ) {	
+
+		$message = 'Gagal menghapus cookmark';
+		$status = 'error';
+
+		if( !empty($cookmark_id) ) {    		
+			$message = 'Sukses menghapus data cookmark';
+			$status = 'success';
+
+			$resCookmark = $this->db->query('CALL DeleteCookmark(?,?)', array(
+				$cookmark_id,
+				$this->session->userdata('userid'),
 			));
 			$resCookmark->next_result();
 

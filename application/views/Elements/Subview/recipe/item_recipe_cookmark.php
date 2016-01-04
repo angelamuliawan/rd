@@ -34,7 +34,7 @@
 
 		$url = $domain.'/detail/'.$recipe_id.'/'.$slug;
 ?>
-<li class="no-ul-type">
+<li class="no-ul-type wrapper-ajax-link">
 	<div class="row">
 		<div class="col-sm-4 left-side">
 			<a href="<?php echo $url; ?>">
