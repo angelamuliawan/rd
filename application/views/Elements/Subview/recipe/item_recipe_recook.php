@@ -13,12 +13,14 @@
 		));
 		$totalComment = tag('span', $cnt_comment);
 
-		$custom_image = $domain.'/resources/images/uploads/recipe/recook/'.$image;
-		if( !@getimagesize($custom_image) ) {
+		$path_image = '/resources/images/uploads/recipe/recook/thumbs/'.$image;
+		$custom_image = $domain.$path_image;
+		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
 		}
+
 		$custom_title = tag('a', $title, array(
-			'href' => $domain.'/detail/'.$recipe_id.'/'.$slug,
+			'href' => $domain.'/resep-masak/'.$recipe_id.'/'.$slug,
 		));
 ?>
 <li class="no-ul-type">

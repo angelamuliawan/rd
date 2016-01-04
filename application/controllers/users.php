@@ -36,6 +36,18 @@ class Users extends AB_Controller {
 		}
 	}
 
+	public function notifications(){
+		$resNotif = $this->db->query('CALL GetNotifications(?)', array(
+			$this->session->userdata('userid'),
+		));
+		$values = $resNotif->result_array();
+		$this->load->vars(array(
+			'values' => $values,
+		));
+
+		$this->render();
+	}
+
 	public function update_photo() {
 		
 		$post = $this->input->post();
@@ -241,6 +253,7 @@ class Users extends AB_Controller {
 					$this->session->set_userdata('username', $post['RegFullname']);
 					$this->session->set_userdata('useremail', $post['RegEmail']);
 					$this->session->set_userdata('userrole', 0);
+					$this->session->set_userdata('userphoto', 'def');
 
 					$message = 'Sukses melakukan pendaftaran';
 					$status = 'success';
@@ -287,7 +300,18 @@ class Users extends AB_Controller {
 			            $this->setCustomError($field_name, $errors);
 			            $valid_photo = false;
 			        } else {
-			             // Code After Files Upload Success GOES HERE
+			            // Code After Files Upload Success GOES HERE
+			            $fInfo = $this->upload->data();
+						$config_resize = array(
+							'source_image' => $fInfo['full_path'],
+							'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
+							'maintain_ratio' => false,
+							'width' => 275,
+							'height' => 168,
+							'quality' => '50%',
+					    );
+					    $this->load->library('image_lib', $config_resize);
+					    $this->image_lib->resize(); 
 			        }
 			    } else {
 			    	if( $field_name == 'photo' && ( !isset($post['photo_preview']) ) ) {
@@ -377,7 +401,18 @@ class Users extends AB_Controller {
 			            $this->setCustomError($field_name, $errors);
 			            $valid_photo = false;
 			        } else {
-			             // Code After Files Upload Success GOES HERE
+			            // Code After Files Upload Success GOES HERE
+			            $fInfo = $this->upload->data();
+						$config_resize = array(
+							'source_image' => $fInfo['full_path'],
+							'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
+							'maintain_ratio' => false,
+							'width' => 275,
+							'height' => 168,
+							'quality' => '50%',
+					    );
+					    $this->load->library('image_lib', $config_resize);
+					    $this->image_lib->resize(); 
 			        }
 			    } else {
 			    	if( $field_name == 'photo' && ( !isset($post['photo_preview']) ) ) {
@@ -464,4 +499,54 @@ class Users extends AB_Controller {
 		$this->session->sess_destroy();
 		redirect($this->domain.'/pages');
 	}
+
+	function login_facebook() {
+        $fb_config = array(
+            'appId'  => '804289439680868',
+            'secret' => '1de38769a1d1fb57f9985b648b7db7d2',
+        );
+
+        $this->load->library('facebook', $fb_config);
+        $user = $this->facebook->getUser();
+
+        if ($user) {
+            try {
+                $datauser = $this->facebook->api('/me?fields=email,name,picture');
+		        $img = file_get_contents('http://graph.facebook.com/'.$datauser['id'].'/picture?type=large&redirect=false');
+				$decode = json_decode($img);
+				$sourceURL = $decode->data->url;
+				$profile_pic = $datauser['id'].'.jpg';
+
+		      	copy($sourceURL, $_SERVER['DOCUMENT_ROOT'].'/resources/images/uploads/users/'.$profile_pic);
+
+		        $res = $this->db->query('CALL RegisterFacebook(?,?,?,?,?)', array(
+					$datauser['name'],
+					$datauser['email'],
+					sha1('cookindo'),
+					$profile_pic,
+					$datauser['id'],
+				));
+				$result = $res->result()[0];
+				
+				$this->session->set_userdata('loggedin', true);
+				$this->session->set_userdata('userid', $result ->UserID);
+				$this->session->set_userdata('username', $datauser['name']);
+				$this->session->set_userdata('useremail', $datauser['email']);
+				$this->session->set_userdata('userrole', 0);
+				$this->session->set_userdata('userphoto', $result ->UserPhoto);
+				
+            } catch (FacebookApiException $e) {
+                $user = null;
+            }
+        }
+
+        if ($user) {
+            $data['logout_url'] = $this->facebook->getLogoutUrl();
+        } else {
+		    $this->load->helper('url');
+            redirect($this->facebook->getLoginUrl( array('scope' => 'email,read_stream') ));
+        }
+
+        $this->load->view('Users/login_facebook');
+    }
 }

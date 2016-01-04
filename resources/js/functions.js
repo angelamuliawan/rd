@@ -26,14 +26,40 @@ $(document).ready(function() {
     $.carousel();
 
     $.froala();
+
+    $.oauthpopup = function (options) {
+        options.windowName = options.windowName || 'ConnectWithOAuth';
+        options.windowOptions = options.windowOptions || 'location=0,status=0,width='+options.width+',height='+options.height+',scrollbars=1';
+        options.callback = options.callback || function () {
+            window.location.reload();
+        };
+        var that = this;
+        that._oauthWindow = window.open(options.path, options.windowName, options.windowOptions);
+        that._oauthInterval = window.setInterval(function () {
+            if (that._oauthWindow.closed) {
+                window.clearInterval(that._oauthInterval);
+                options.callback();
+            }
+        }, 1000);
+    };
+
+    $('body').on('click', '.facebook-link', function(e){
+        e.preventDefault();
+        $.oauthpopup({
+            path: serviceUri+'users/login_facebook',
+            width : 600,
+            height : 300,
+            callback: function(){
+                window.location.reload();
+            }
+        }); 
+    });
 });
 
 $.froala = function(){
     if( $('.fr-custom-textarea').length ) {
         $('.fr-custom-textarea').editable({
             inlineMode: false, 
-            //height:200, 
-            //imageUploadURL: '../../php/upload_image.php'
             imageUploadURL: serviceUri + 'ajax/upload_image_article'
             }).on('editable.imageError', function (e, editor, error) {
                 // Custom error message returned from the server.
@@ -114,33 +140,7 @@ $.carousel = function(){
             next = $(this).siblings(':first');
         }
         next.children(':first-child').clone().appendTo($(this));
-        // for (var i = 0; i < 2; i++ ) {
-        //  next = next.next();
-        //  if (!next.length) {
-        //      next = $(this).siblings(':first');
-        //  }
-        //  next.children(':first-child').clone().appendTo($(this));
-        // }
     });
-
-    // $('#bottom-carousel').carousel({
-    //      interval: 100000
-    // });
-
-    // $('#bottom-carousel .item').each(function(){
-    //  var next = $(this).next();
-    //  if (!next.length) {
-    //      next = $(this).siblings(':first');
-    //  }
-    //  // next.children(':first-child').clone().appendTo($(this));
-    //  for (var i = 0; i < 5; i++ ) {
-    //      next = next.next();
-    //      if (!next.length) {
-    //          next = $(this).siblings(':first');
-    //      }
-    //      next.children(':first-child').clone().appendTo($(this));
-    //  }
-    // });
 }
 
 $.ajaxLink = function(){

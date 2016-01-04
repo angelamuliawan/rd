@@ -7,8 +7,9 @@
 		$content = isset($content)? strip_tags($content) :false;
 		$date = isset($date)?$date:false;
 
-		$custom_image = $domain.'/resources/images/uploads/article/primary/'.$image;
-		if( !@getimagesize($custom_image) ) {
+		$path_image = '/resources/images/uploads/article/primary/thumbs/'.$image;
+		$custom_image = $domain.$path_image;
+		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
 		}
 

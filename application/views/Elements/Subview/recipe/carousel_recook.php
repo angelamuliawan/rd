@@ -5,8 +5,9 @@
 		$counter = isset( $counter ) ? $counter : false;
 		$is_first_item = ( $counter == 0 ) ? 'active' : '';
 
-		$custom_image = $domain.'/resources/images/uploads/recipe/recook/'.$recook_photo;
-		if( !@getimagesize($custom_image) ) {
+		$path_image = '/resources/images/uploads/recipe/recook/thumbs/'.$recook_photo;
+		$custom_image = $domain.$path_image;
+		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
 		}
 ?>

@@ -41,6 +41,20 @@ class Ajax extends AB_Controller {
 		            $errors = $this->upload->display_errors();
 		            $this->setCustomError($field_name, $errors);
 		        } else {
+		        	if( $path == 'recipe/recook' ) {
+		        		$fInfo = $this->upload->data();
+						$config_resize = array(
+							'source_image' => $fInfo['full_path'],
+							'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
+							'maintain_ratio' => false,
+							'width' => 275,
+							'height' => 168,
+							'quality' => '50%',
+					    );
+					    $this->load->library('image_lib', $config_resize);
+					    $this->image_lib->resize();
+		        	}
+
 		        	$result = tag('img', false, array(
 		        		'src' => $this->domain.'/'.$config['upload_path'].'/'.$config['file_name'],
 		        		'data-name' => $config['file_name'],

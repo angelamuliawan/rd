@@ -12,7 +12,7 @@
 						<?php
 								if( !empty($_with_text) ) {
 									echo tag('h3', 'Cari Resep Terbaikmu Disini !');
-									echo tag('p', 'Lebih dari 100.000 resep', array(
+									echo tag('p', false, array(
 										'class' => 'mt10'
 									));
 								}

@@ -6,8 +6,9 @@
 		$recook_desc = $valuesRecipeRecook['RecookDesc'];
 		$recipe = $valuesRecipeRecook['RecipeName'];
 
-		$custom_image = $domain.'/resources/images/uploads/recipe/recook/'.$recook_photo;
-		if( !@getimagesize($custom_image) ) {
+		$path_image = '/resources/images/uploads/recipe/recook/'.$recook_photo;
+		$custom_image = $domain.$path_image;
+		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
 		}
 ?>
@@ -63,9 +64,10 @@
 						      										$comment_time = $value['RecookCommentTime'];
 						      										$user_photo = $value['UserPhoto'];
 
-						      										$custom_photo = $domain.'/resources/images/uploads/users/'.$user_photo;
-																	if( !@getimagesize($custom_photo) ) {
-																		$custom_photo = $domain.'/resources/images/64x64.png';
+																	$path_image = '/resources/images/uploads/users/'.$user_photo;
+																	$custom_image = $domain.$path_image;
+																	if( !file_exists( $webroot.$path_image ) ) {
+																		$custom_image = $domain.'/resources/images/64x64.png';
 																	}
 
 																	loadSubview('recipe/item_recook_comment', array(
@@ -74,7 +76,7 @@
 																		'comment_username' => $comment_username,
 																		'comment' => $comment,
 																		'comment_time' => $comment_time,
-																		'photo' => $custom_photo,
+																		'photo' => $custom_image,
 																	));
 						      									}
 						      							?>

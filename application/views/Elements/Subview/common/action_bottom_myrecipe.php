@@ -25,7 +25,7 @@
 			'class' => 'ml5 mr10'
 		));
 
-		$url = $domain.'/detail/'.$recipe_id.'/'.$slug;
+		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
 ?>
 
 <div class="action-bottom mt15 tacenter">

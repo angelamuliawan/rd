@@ -18,15 +18,16 @@
 			'src' => $domain.'/resources/icons/retweet.png',
 		));
 
-		$custom_image = $domain.'/resources/images/uploads/recipe/primary/'.$image;
-		if( !@getimagesize($custom_image) ) {
+		$path_image = '/resources/images/uploads/recipe/primary/'.$image;
+		$custom_image = $domain.$path_image;
+		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
 		}
 
 		$totalComment = tag('span', $cnt_comment);
 		$totalRecook = tag('span', $cnt_recook);
 
-		$url = $domain.'/detail/'.$recipe_id.'/'.$slug;
+		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
 ?>
 <li class="no-ul-type">
 	<div class="row">

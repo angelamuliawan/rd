@@ -4,6 +4,7 @@
 		// Recipe Header
 		$valueRecipeHeader = isset($valuesRecipeHeader[0]) ? $valuesRecipeHeader[0] : false;
 		$recipe_id = isset($valueRecipeHeader['RecipeID']) ? $valueRecipeHeader['RecipeID'] : false;
+		$slug = isset($valueRecipeHeader['Slug']) ? $valueRecipeHeader['Slug'] : false;
 		$image = isset($valueRecipeHeader['PrimaryPhoto']) ? $valueRecipeHeader['PrimaryPhoto'] : false;
 		$title = isset($valueRecipeHeader['RecipeName']) ? $valueRecipeHeader['RecipeName'] : false;
 		$recipe_intro = isset($valueRecipeHeader['RecipeIntro']) ? $valueRecipeHeader['RecipeIntro'] : false;
@@ -29,14 +30,14 @@
 			'src' => $domain.'/resources/icons/retweet.png',
 		));
 
-		$custom_image = $domain.'/resources/images/uploads/recipe/primary/'.$image;
-		if( !@getimagesize($custom_image) ) {
+		$path_image = '/resources/images/uploads/recipe/primary/'.$image;
+		$custom_image = $domain.$path_image;
+		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
 		}
 
 		// Recipe Composition
 		$valuesRecipeComposition = isset($valuesRecipeComposition) ? $valuesRecipeComposition : false;
-
 ?>
 
 <div class="container mt20">
@@ -89,6 +90,7 @@
 							));
 							loadSubview('common/action_bottom_find', array(
 								'recipe_id' => $recipe_id,
+								'slug' => $slug,
 								'flag_cookmark' => $flag_cookmark,
 								'flag_recook' => $flag_recook,
 								'flag_creator' => $flag_creator,
@@ -153,8 +155,6 @@
 						  				),
 						  			));
 						  	?>
-						  	<!-- <a class="left carousel-control" href="#recook-carousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a> -->
-						  	<!-- <a class="right carousel-control" href="#recook-carousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> -->
 						</div>
 
 						<?php
@@ -265,40 +265,9 @@
 							} else {
 								echo tag('h3', 'Langkah tidak tersedia');
 							}
-
-							// loadSubview('common/action_bottom_find');
 					?>
 				</div>
 			</div>
-			<!-- <div class="col-sm-2 hidden-print">
-				<div class="wrapper-ads">
-					<ul class="pd15">
-						<?php
-								echo tag('img', false, array(
-									'src' => $domain.'/resources/images/160x120.jpg',
-									'wrapTag' => 'li',
-									'wrapAttributes' => array(
-										'class' => 'no-ul-type mb20',
-									),
-								));
-								echo tag('img', false, array(
-									'src' => $domain.'/resources/images/sample-ads.jpg',
-									'wrapTag' => 'li',
-									'wrapAttributes' => array(
-										'class' => 'no-ul-type mb20',
-									),
-								));
-								echo tag('img', false, array(
-									'src' => $domain.'/resources/images/sample-ads.jpg',
-									'wrapTag' => 'li',
-									'wrapAttributes' => array(
-										'class' => 'no-ul-type mb20',
-									),
-								));
-						?>
-					</ul>
-				</div>
-			</div> -->
 		</div>
 	</div>
 

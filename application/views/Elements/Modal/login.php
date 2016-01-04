@@ -164,22 +164,19 @@
 							</div>
 
 							<div class="wrapper-social pd10">
-								<div class="with-border" style="width:100%; height:50px; background-color:#3C579C;">
-									<div style="width:15%; display:inline-block; height:100%; background-color:#283F6D; color: #FFFFFF;padding-left: 25px; line-height: 45px; font-weight: bold; font-size: 24px;">
-										<span>F</span>
-									</div>
-									<div style="width: 85%; float: right; color: #FFFFFF;line-height: 45px; padding-left: 90px;">
-										<span>Sign in with Facebook</span>
-									</div>
+								<div class="wrapper-facebook with-border">
+									<a href="#" class="facebook-link">
+										<?php
+												echo tag('span', 'Sign in with Facebook', array(
+													'class' => 'fbold',
+													'wrapTag' => 'div',
+													'wrapAttributes' => array(
+														'class' => 'wrapper-inner',
+													),
+												));
+										?>
+									</a>
 								</div>
-								<!-- <div class="with-border" style="width:100%; height:50px; background-color:#DD4C39;">
-									<div style="width:15%; display:inline-block; height:100%; background-color:#B12818; color: #FFFFFF;padding-left: 15px; line-height: 45px; font-weight: bold; font-size: 24px;">
-										<span>G+</span>
-									</div>
-									<div style="width: 85%; float: right; color: #FFFFFF;line-height: 45px; padding-left: 90px;">
-										<span>Sign in with Google+</span>
-									</div>
-								</div> -->
 							</div>
 		      			</div>
 		      		</div>

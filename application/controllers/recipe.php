@@ -53,13 +53,18 @@ class Recipe extends AB_Controller {
 		));
 		$valuesRecipeHeader = $resRecipeHeader->result_array();
 		$resRecipeHeader->next_result();
-		
+
+		if( empty($valuesRecipeHeader) ) {
+			$this->load->helper('url');
+			return redirect($this->domain);
+		}
+
 		$slug = $this->uri->segment(3);
 
 		if( !strpos($slug, '-') && ($slug == '' || str_word_count($slug) > 1 ) ) {
 			$this->load->helper('url');
 			$slug = isset( $valuesRecipeHeader[0]['Slug'] ) ? $valuesRecipeHeader[0]['Slug'] : 'resep-masak';
-			$url = $this->domain.'/detail/'.$recipe_id.'/'.$slug;
+			$url = $this->domain.'/resep-masak/'.$recipe_id.'/'.$slug;
 
 			return redirect($url);
 		}
@@ -91,9 +96,7 @@ class Recipe extends AB_Controller {
 		));
 		$valuesRecipeComment = $resRecipeComment->result_array();
 		$resRecipeComment->next_result();
-
-		// debug($valuesRecipeHeader); die();
-		
+	
 		$this->load->vars(array(
 			'valuesRecipeHeader' => $valuesRecipeHeader,
 			'valuesRecipeRecook' => $valuesRecipeRecook,
@@ -101,6 +104,12 @@ class Recipe extends AB_Controller {
 			'valuesRecipeStep' => $valuesRecipeStep,
 			'valuesRecipeComment' => $valuesRecipeComment,
 			'recipe_id' => $recipe_id,
+			'og_meta' => array(
+				'title' => $valuesRecipeHeader[0]['RecipeName'],
+				'url' => $this->domain.'/resep-masak/'.$recipe_id.'/'.utf8_decode($valuesRecipeHeader[0]['Slug']),
+				'image' => $this->domain.'/resources/images/uploads/recipe/primary/'.$valuesRecipeHeader[0]['PrimaryPhoto'],
+				'desc' => $valuesRecipeHeader[0]['RecipeIntro'],
+			)
 		));
 
 		$this->render();
@@ -119,15 +128,16 @@ class Recipe extends AB_Controller {
 		if( !empty($post) ) {
 
 			$this->load->library('upload');
-			$this->form_validation->set_rules('RecipeName', 'Recipe Name', 'required');
-			$this->form_validation->set_rules('RecipeIntro', 'Recipe Intro', 'required');
+			$this->form_validation->set_rules('RecipeName', 'Recipe Name', 'trim|required');
+			$this->form_validation->set_rules('RecipeIntro', 'Recipe Intro', 'trim|required');
 			$this->form_validation->set_rules('CuisineID', 'Cuisine', 'required');
-			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required|greater_than[0]|numeric');
-
-			$config = $this->getConfigImage('recipe/step');
+			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'trim|required|greater_than[0]|numeric');
 
 			$valid_photo = true;
+			$is_primary_photo = true;
 			foreach ($_FILES as $field_name => $file_object) {
+				$config = $this->getConfigImage('recipe/step');
+
 			    if ( !empty($file_object['name']) ) {
 			    	
 			    	$file_name = $file_object['name'];
@@ -142,6 +152,7 @@ class Recipe extends AB_Controller {
 						$photo_counter = str_replace("imageStep","",$field_name);
 						$post['FoodProcess'][$photo_counter]['FoodStepImage'] = $file_name;
 						$post['FoodProcess'][$photo_counter]['FoodStepImage_preview'] = $file_name;
+						$is_primary_photo = false;
 					}
 
 			        $this->upload->initialize($config);
@@ -151,7 +162,20 @@ class Recipe extends AB_Controller {
 			            $this->setCustomError($field_name, $errors);
 			            $valid_photo = false;
 			        } else {
-			             // Code After Files Upload Success GOES HERE
+			     		// Code After Files Upload Success GOES HERE
+			        	if( !empty($is_primary_photo) ) {
+			        		$fInfo = $this->upload->data();
+							$config_resize = array(
+								'source_image' => $fInfo['full_path'],
+								'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
+								'maintain_ratio' => false,
+								'width' => 258,
+								'height' => 170,
+								'quality' => '50%',
+						    );
+						    $this->load->library('image_lib', $config_resize);
+						    $this->image_lib->resize();
+			        	}
 			        }
 			    } else {
 			    	if( $field_name == 'PrimaryPhoto' && ( !isset($post['PrimaryPhoto_preview']) ) ) {
@@ -162,8 +186,8 @@ class Recipe extends AB_Controller {
 			}
 
 			foreach( $post['FoodComposition'] as $key => $value ) {
-				$this->form_validation->set_rules('FoodComposition['.$key.'][Measure]', 'Measure', 'required|greater_than[0]|numeric');
-				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionName]', 'CompositionName', 'required');
+				$this->form_validation->set_rules('FoodComposition['.$key.'][Measure]', 'Measure', 'trim|required|greater_than[0]|numeric');
+				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionName]', 'CompositionName', 'trim|required');
 				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionID]', 'CompositionID', 'trim');
 			}
 
@@ -181,7 +205,7 @@ class Recipe extends AB_Controller {
 				// Create Recipe
 				$resInsertRecipe = $this->db->query('CALL InsertRecipe(?,?,?,?,?,?,?,?,?,?,?,?)', array(
 					$post['RecipeName'], 
-					$post['RecipeIntro'],
+					nl2br($post['RecipeIntro']),
 					$post['FoodTypeID'],
 					$post['FoodProcessID'],
 					$post['EstPeopleID'],
@@ -221,10 +245,11 @@ class Recipe extends AB_Controller {
 					}
 				}
 
+				// debug($post); die();
 				
 				if( isset($post['FoodProcess']) ) {
 					foreach( $post['FoodProcess'] as $key => $value ) {
-						$step = $value['FoodStepName'];
+						$step = nl2br($value['FoodStepName']);
 						$step_image = isset($value['FoodStepImage']) ? $value['FoodStepImage'] : NULL;
 						if( $step_image == NULL && isset($post['FoodProcess'][$key]['FoodStepImage_preview']) ) {
 							$step_image = $post['FoodProcess'][$key]['FoodStepImage_preview'];
@@ -277,15 +302,16 @@ class Recipe extends AB_Controller {
 		if( !empty($post) ) {
 
 			$this->load->library('upload');
-			$this->form_validation->set_rules('RecipeName', 'Recipe Name', 'required');
-			$this->form_validation->set_rules('RecipeIntro', 'Recipe Intro', 'required');
+			$this->form_validation->set_rules('RecipeName', 'Recipe Name', 'trim|required');
+			$this->form_validation->set_rules('RecipeIntro', 'Recipe Intro', 'trim|required');
 			$this->form_validation->set_rules('CuisineID', 'Cuisine', 'required');
-			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'required|greater_than[0]|numeric');
-
-			$config = $this->getConfigImage('recipe/step');
+			$this->form_validation->set_rules('EstTime', 'Estimated Time', 'trim|required|greater_than[0]|numeric');
 
 			$valid_photo = true;
+			$is_primary_photo = true;
 			foreach ($_FILES as $field_name => $file_object) {
+				$config = $this->getConfigImage('recipe/step');
+				
 			    if ( !empty($file_object['name']) ) {
 			    	
 			    	$file_name = $file_object['name'];
@@ -300,6 +326,7 @@ class Recipe extends AB_Controller {
 						$photo_counter = str_replace("imageStep","",$field_name);
 						$post['FoodProcess'][$photo_counter]['FoodStepImage'] = $file_name;
 						$post['FoodProcess'][$photo_counter]['FoodStepImage_preview'] = $file_name;
+						$is_primary_photo = false;
 					}
 
 			        $this->upload->initialize($config);
@@ -309,7 +336,20 @@ class Recipe extends AB_Controller {
 			            $this->setCustomError($field_name, $errors);
 			            $valid_photo = false;
 			        } else {
-			             // Code After Files Upload Success GOES HERE
+			            // Code After Files Upload Success GOES HERE
+			        	if( !empty($is_primary_photo) ) {
+			        		$fInfo = $this->upload->data();
+							$config_resize = array(
+								'source_image' => $fInfo['full_path'],
+								'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
+								'maintain_ratio' => false,
+								'width' => 258,
+								'height' => 170,
+								'quality' => '50%',
+						    );
+						    $this->load->library('image_lib', $config_resize);
+						    $this->image_lib->resize();
+			        	}
 			        }
 			    } else {
 			    	if( $field_name == 'PrimaryPhoto' && ( !isset($post['PrimaryPhoto_preview']) ) ) {
@@ -320,8 +360,8 @@ class Recipe extends AB_Controller {
 			}
 
 			foreach( $post['FoodComposition'] as $key => $value ) {
-				$this->form_validation->set_rules('FoodComposition['.$key.'][Measure]', 'Measure', 'required|greater_than[0]|numeric');
-				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionName]', 'CompositionName', 'required');
+				$this->form_validation->set_rules('FoodComposition['.$key.'][Measure]', 'Measure', 'trim|required|greater_than[0]|numeric');
+				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionName]', 'CompositionName', 'trim|required');
 				$this->form_validation->set_rules('FoodComposition['.$key.'][CompositionID]', 'CompositionID', 'trim');
 			}
 
@@ -340,7 +380,7 @@ class Recipe extends AB_Controller {
 				$resUpdateRecipe = $this->db->query('CALL UpdateRecipe(?,?,?,?,?,?,?,?,?,?,?,?,?)', array(
 					$recipe_id,
 					$post['RecipeName'], 
-					$post['RecipeIntro'],
+					nl2br($post['RecipeIntro']),
 					$post['FoodTypeID'],
 					$post['FoodProcessID'],
 					$post['EstPeopleID'],
@@ -399,7 +439,7 @@ class Recipe extends AB_Controller {
 					$resDeleteFoodStep->next_result();
 
 					foreach( $post['FoodProcess'] as $key => $value ) {
-						$step = $value['FoodStepName'];
+						$step = nl2br($value['FoodStepName']);
 						$step_image = isset($value['FoodStepImage']) ? $value['FoodStepImage'] : NULL;
 						if( $step_image == NULL && isset($post['FoodProcess'][$key]['FoodStepImage_preview']) ) {
 							$step_image = $post['FoodProcess'][$key]['FoodStepImage_preview'];
@@ -453,7 +493,7 @@ class Recipe extends AB_Controller {
 			
 			$post = array(
 				'RecipeName' => $valuesRecipeDetailHeader['RecipeName'],
-				'RecipeIntro' => $valuesRecipeDetailHeader['RecipeIntro'],
+				'RecipeIntro' => strip_tags($valuesRecipeDetailHeader['RecipeIntro']),
 				'CuisineID' => explode(',', $valuesRecipeDetailHeader['CuisineID']),
 				'FoodTypeID' => $valuesRecipeDetailHeader['FoodTypeID'],
 				'FoodProcessID' => $valuesRecipeDetailHeader['FoodProcessID'],
@@ -477,7 +517,7 @@ class Recipe extends AB_Controller {
 
 			foreach( $valuesFoodStep as $row ) {
 				$step_arr = array(
-					'FoodStepName' => $row['FoodStepName'],
+					'FoodStepName' => strip_tags($row['FoodStepName']),
 				);
 				if( !empty($row['FoodStepImage']) ) {
 					$step_arr['FoodStepImage_preview'] = $row['FoodStepImage'];

@@ -3,6 +3,7 @@
 class AB_Controller extends CI_Controller {
 
 	public $domain = 'http://localhost/rd';
+
 	public function __construct() {
 		parent::__construct();
 
@@ -21,21 +22,23 @@ class AB_Controller extends CI_Controller {
 			));
 		}
 
-		$browser = $this->getBrowser();
-		$ip = $this->getIP();
-		$device = 'Desktop';
-		if( $this->isMobile() ) {
-			$device = 'Mobile';
-		}
-		$this->savePageViewLog($browser, $ip, $device);
+		// $browser = $this->getBrowser();
+		// $ip = $this->getRealUserIp();
+		// $device = 'Desktop';
+		// if( $this->isMobile() ) {
+		// 	$device = 'Mobile';
+		// }
+		// $this->savePageViewLog($browser, $ip, $device);
 
-		if ( !$this->cache->get('cache_visitor') ) {
-	        $this->cache->save('cache_visitor', 'visitor', 10);
-	        $this->saveUserLog( $browser, $ip, $device );
-	    }
+		// if ( !$this->cache->get('cache_visitor') ) {
+	 //        $this->cache->save('cache_visitor', 'visitor', 100);
+	 //        $this->saveUserLog( $browser, $ip, $device );
+	 //    }
 
+	    $this->webroot = $_SERVER['DOCUMENT_ROOT'].'/rd/';
 		$this->load->vars(array(
 			'domain' => $this->domain,
+			'webroot' => $_SERVER['DOCUMENT_ROOT'].'/rd/',
 		));
 	}
 
@@ -69,7 +72,7 @@ class AB_Controller extends CI_Controller {
 	public function saveSearchLog( $CuisineID, $FoodTypeID, $Keyword, $Composition, $FoodProcess, $PriceRange, $EstPeople ) {
 
 		$browser = $this->getBrowser();
-		$ip = $this->getIP();
+		$ip = $this->getRealUserIp();
 		$device = 'Desktop';
 		if( $this->isMobile() ) {
 			$device = 'Mobile';
@@ -79,7 +82,7 @@ class AB_Controller extends CI_Controller {
 			$CuisineID,
 			$FoodTypeID, 
 			$Keyword, 
-			$Composition, 
+			$Composition,
 			$FoodProcess, 
 			$PriceRange, 
 			$EstPeople,
@@ -361,30 +364,13 @@ class AB_Controller extends CI_Controller {
 	    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 	}
 
-	public function getIP() {
-	    $ip = $_SERVER['SERVER_ADDR'];
-
-	    if (PHP_OS == 'WINNT'){
-	        $ip = getHostByName(getHostName());
+	function getRealUserIp(){
+	    switch(true){
+	      case (!empty($_SERVER['HTTP_X_REAL_IP'])) : return $_SERVER['HTTP_X_REAL_IP'];
+	      case (!empty($_SERVER['HTTP_CLIENT_IP'])) : return $_SERVER['HTTP_CLIENT_IP'];
+	      case (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) : return $_SERVER['HTTP_X_FORWARDED_FOR'];
+	      default : return $_SERVER['REMOTE_ADDR'];
 	    }
-
-	    if (PHP_OS == 'Linux'){
-	        $command="/sbin/ifconfig";
-	        exec($command, $output);
-	        // var_dump($output);
-	        $pattern = '/inet addr:?([^ ]+)/';
-
-	        $ip = array();
-	        foreach ($output as $key => $subject) {
-	            $result = preg_match_all($pattern, $subject, $subpattern);
-	            if ($result == 1) {
-	                if ($subpattern[1][0] != "127.0.0.1")
-	                $ip = $subpattern[1][0];
-	            }
-	        	//var_dump($subpattern);
-	        }
-	    }
-	    return $ip;
 	}
 }
 

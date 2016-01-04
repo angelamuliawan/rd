@@ -1,5 +1,6 @@
 <?php
 		$recipe_id = isset( $recipe_id ) ? $recipe_id : false;
+		$slug = isset( $slug ) ? $slug : false;
 		$flag_cookmark = isset($flag_cookmark)?$flag_cookmark:false;
 		$flag_recook = isset($flag_recook)?$flag_recook:false;
 		$flag_creator = isset($flag_creator)?$flag_creator:false;
@@ -73,11 +74,13 @@
 				'href' => $urlCookmark,
 			));
 		}
+
+
+		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
 ?>
 
 <div class="action-bottom mt15 tacenter wrapper-ajax-link">
 	<?php
-			// bisa recook makanan yang sudah direcook ga ?
 			if( !empty($flag_recook) ) {
 				echo $recook;
 			} else if( empty($flag_creator) ) {
@@ -86,8 +89,14 @@
 					'href' => $urlRecook,
 				));
 			}
-
-			echo $share;
+	?>
+			
+			<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>&t=<?php echo $slug; ?>"
+			   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+			   target="_blank" title="Share on Facebook">
+			   <?php echo $share; ?>
+			</a>
+	<?php
 			echo $cookmark;
 
 			if( !empty($_print) ) {

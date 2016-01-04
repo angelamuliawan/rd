@@ -50,8 +50,9 @@
 								$comment_date = $value['CommentDate'];
 								$user_photo = $value['UserPhoto'];
 
-								$custom_image = $domain.'/resources/images/uploads/users/'.$user_photo;
-								if( !@getimagesize($custom_image) ) {
+								$path_image = '/resources/images/uploads/users/'.$user_photo;
+								$custom_image = $domain.$path_image;
+								if( !file_exists( $webroot.$path_image ) ) {
 									$custom_image = $domain.'/resources/images/64x64.png';
 								}
 

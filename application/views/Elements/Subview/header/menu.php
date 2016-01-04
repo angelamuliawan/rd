@@ -23,11 +23,21 @@
 						'href' => $domain,
 						'class' => 'navbar-brand'
 					));
+					
+					echo tag('img', false, array(
+						'src' => $domain.'/resources/images/logos/logo.jpg',
+						'class' => 'hide',
+					));
       		?>
     	</div>
     	<div id="navbar" class="collapse navbar-collapse">
       		<ul class="nav navbar-nav navbar-right">
       			<?php
+      					echo tag('a', 'Cari Resep', array(
+							'href' => $domain.'/recipe/find',
+							'wrapTag' => 'li',
+						));
+						
       					if( isLoggedIn() ) {
       						echo tag('a', 'Tulis Resep', array(
 								'href' => $domain.'/recipe/add',
@@ -51,7 +61,6 @@
 							'href' => $domain.'/recipe/contest',
 							'wrapTag' => 'li',
 						));
-						
 
 		     			if( isLoggedIn() ) { 
 
@@ -69,9 +78,15 @@
 		     				$spanNotifCount = '';
 		     				if( !empty($cnt_notif) ) {
 		     					$spanNotifCount = tag('span', $cnt_notif, array(
-			     					'class' => 'badge pull-right _mt5'
+			     					'class' => 'badge vatop _mt5'
 			     				));
 		     				}
+
+		     				echo tag('a', sprintf('Notifikasi %s %s', $spanNotifIcon, $spanNotifCount), array(
+								'class' => 'mobile-only',
+								'href' => $domain.'/users/notifications',
+								'wrapTag' => 'li',
+							));
         		?>
         		<li class="desktop-only">
         			<?php
@@ -111,22 +126,23 @@
 									}
 							?>
 						</ul>
-						<!-- <div class="last"> -->
+						<div class="last">
 							<?php
-									// echo tag('a', 'Tampilkan semua', array(
-									// 	'href' => $domain.'/users/notifications',
-									// 	'class' => 'btn btn-orange no-radius',
-									// 	'style' => 'display:block; color:#FFFFFF;',
-									// ));
+									echo tag('a', 'Tampilkan semua', array(
+										'href' => $domain.'/users/notifications',
+										'class' => 'btn btn-orange no-radius',
+										'style' => 'display:block; color:#FFFFFF;',
+									));
 							?>
-						<!-- </div> -->
+						</div>
 					</div>
 				</li>
         		<li class="dropdown">
         			<?php
         					$userphoto = $this->session->userdata('userphoto');
-        					$custom_image = $domain.'/resources/images/uploads/users/'.$userphoto;
-							if( !@getimagesize($custom_image) ) {
+							$path_image = '/resources/images/uploads/users/'.$userphoto;
+							$custom_image = $domain.$path_image;
+							if( !file_exists( $webroot.$path_image ) ) {
 								$custom_image = $domain.'/resources/images/64x64.png';
 							}
 

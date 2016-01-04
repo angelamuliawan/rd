@@ -12,11 +12,11 @@
 		}
 
 		$custom_image = false;
-		if( isset( $request['photo'] ) && @getimagesize( $domain.'/resources/images/uploads/users/'.$request['photo'] ) ) {
+		if( isset( $request['photo'] ) && file_exists( $webroot.'/resources/images/uploads/users/'.$request['photo']) ) {
 			$custom_image = $domain.'/resources/images/uploads/users/'.$request['photo'];
 		} else {
 			$custom_image = $domain.'/resources/images/uploads/users/'.$photo;
-			if( !@getimagesize($custom_image) ) {
+			if( !file_exists($webroot.'/resources/images/uploads/users/'.$photo) ) {
 				$custom_image = $domain.'/resources/images/default.png';
 			}
 		}

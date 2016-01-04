@@ -74,6 +74,8 @@
 							<?php
 									if( !empty($valuesPopularRecipe) ) {
 										foreach( $valuesPopularRecipe as $key => $value ) {
+											$id = $value['RecipeID'];
+											$slug = $value['Slug'];
 											$image = $value['PrimaryPhoto'];
 											$title = $value['RecipeName'];
 											$recipe_intro = $value['RecipeIntro'];
@@ -81,6 +83,8 @@
 											$cnt_recook = $value['NumberOfRecook'];
 
 											loadSubview('pages/item_recipe', array(
+												'recipe_id' => $id,
+												'slug' => $slug,
 												'image' => $image,
 												'title' => $title,
 												'cnt_comment' => $cnt_comment,
