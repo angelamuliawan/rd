@@ -333,6 +333,9 @@ h1,h2,h3,h4,h5,h6 {
 .mb5 {
 	margin-bottom: 5px !important;
 }
+.mb10 {
+	margin-bottom: 10px !important;
+}
 .mb15 {
 	margin-bottom: 15px !important;
 }
@@ -587,7 +590,8 @@ h1,h2,h3,h4,h5,h6 {
 
 .detail-recipe-banner .wrapper-banner img {
 	width:auto; 
-	max-height:600px;
+	max-width: 815px;
+	/*max-height:545px;*/
 	/*height: 100%;*/
 }
 .detail-recipe-banner .wrapper .action-bottom img {
@@ -659,6 +663,7 @@ h1,h2,h3,h4,h5,h6 {
     margin-bottom: 10px;
 }
 
+/* Ads */
 .wrapper-ads {
 	text-align: center;	
 }
@@ -794,6 +799,73 @@ h1,h2,h3,h4,h5,h6 {
       -ms-transition: all .25s ease;
        -o-transition: all .25s ease;
           transition: all .25s ease; 
+}
+
+/* USER PUBLIC PROFILE */
+.wrapper-popular-user p {
+	margin: 0;
+	font-size: 14px;
+}
+.wrapper-popular-user p.stats {
+	font-size: 13px;
+	opacity: 0.8;
+}
+
+.wrapper-popular-user ul li {
+	margin-bottom: 15px;
+}
+
+.wrapper-public-profile ul li {
+	margin-bottom: 15px;
+}
+.wrapper-public-profile .box-header {
+	width: 100%; 
+	height: 115px; 
+	display: block; 
+	text-align: center;
+}
+.wrapper-public-profile .box-header img {
+	height:127px; 
+	width:auto;
+}
+.wrapper-public-profile .box-footer {
+	width: 100%; 
+	height: 40px; 
+	display: block; 
+	padding: 10px; 
+	margin-top: 5px;
+}
+.wrapper-public-profile .box-footer img {
+	width:20px; 
+	height:15px; 
+	display:inline;
+}
+.wrapper-public-profile .box-footer span {
+	padding-left: 3px;
+}
+.wrapper-public-profile .box-description .title {
+    text-overflow: ellipsis;
+    height: 20px;
+    overflow: hidden;
+}
+.wrapper-public-profile .box-description p.stats {
+	font-size:13px;
+}
+.wrapper-public-profile .box-description p.description {
+	text-overflow: ellipsis; 
+	width: auto; 
+	overflow: hidden; 
+	height: 40px; 
+	text-align: justify;
+}
+.wrapper-public-profile .box-description .action-bottom a {
+	display:inline-block;
+	color: #000000;
+}
+.wrapper-public-profile .box-description .action-bottom img {
+	width: 20px; 
+	height: 15px; 
+	display: inline;
 }
 
 /* MODAL RECOOK */

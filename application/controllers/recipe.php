@@ -16,11 +16,12 @@ class Recipe extends AB_Controller {
 		$this->callDefaultData('search', true);
 
 		$sortBy = isset($post['Sorting']) ? $post['Sorting'] : 1;
-		$resMyRecipe = $this->db->query('CALL GetMyRecipe(?,?,?,?)', array(
+		$resMyRecipe = $this->db->query('CALL GetMyRecipe(?,?,?,?,?)', array(
 			$this->session->userdata('userid'),
 			$sortBy,
 			10,
 			0,
+			$this->session->userdata('userid'),
 		));
 		$data = $resMyRecipe->result_array();
 
@@ -96,13 +97,30 @@ class Recipe extends AB_Controller {
 		));
 		$valuesRecipeComment = $resRecipeComment->result_array();
 		$resRecipeComment->next_result();
-	
+
+		// related recipe by authors
+		$resRelatedByAuthor = $this->db->query('CALL GetRelatedRecipeByAuthor(?,?)', array(
+			$recipe_id,
+			$this->session->userdata('userid'),
+		));
+		$valuesRelatedByAuthor = $resRelatedByAuthor->result_array();
+		$resRelatedByAuthor->next_result();
+
+		// related recipe by recipe
+		// $resRelatedByRecipe = $this->db->query('CALL GetRelatedRecipesByRecipe(?,?)', array(
+		// 	$recipe_id,
+		// 	$this->session->userdata('userid'),
+		// ));
+		// $valuesRelatedByAuthor = $resRelatedByAuthor->result_array();
+		// $resRelatedByAuthor->next_result();
+
 		$this->load->vars(array(
 			'valuesRecipeHeader' => $valuesRecipeHeader,
 			'valuesRecipeRecook' => $valuesRecipeRecook,
 			'valuesRecipeComposition' => $valuesRecipeComposition,
 			'valuesRecipeStep' => $valuesRecipeStep,
 			'valuesRecipeComment' => $valuesRecipeComment,
+			'valuesRelatedByAuthor' => $valuesRelatedByAuthor,
 			'recipe_id' => $recipe_id,
 			'og_meta' => array(
 				'title' => $valuesRecipeHeader[0]['RecipeName'],
@@ -537,10 +555,11 @@ class Recipe extends AB_Controller {
 		$post = $this->input->get();
 		$this->callDefaultData();
 
-		$resRecook = $this->db->query('CALL GetMyRecook(?,?,?)', array(
+		$resRecook = $this->db->query('CALL GetMyRecook(?,?,?,?)', array(
 			$this->session->userdata('userid'),
 			10,
 			0,
+			$this->session->userdata('userid'),
 		));
 		$data = $resRecook->result_array();
 
@@ -557,10 +576,11 @@ class Recipe extends AB_Controller {
 		$post = $this->input->get();
 		$this->callDefaultData();
 
-		$resCookmark = $this->db->query('CALL GetMyCookmark(?,?,?)', array(
+		$resCookmark = $this->db->query('CALL GetMyCookmark(?,?,?,?)', array(
 			$this->session->userdata('userid'),
 			10,
 			0,
+			$this->session->userdata('userid'),
 		));
 		$data = $resCookmark->result_array();
 

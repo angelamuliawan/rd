@@ -5,6 +5,7 @@
 		$photo = isset( $valuesUserAccount['UserPhoto'] ) ? $valuesUserAccount['UserPhoto'] : false;
 		$curLevel = isset( $valuesUserAccount['LevelName'] ) ? $valuesUserAccount['LevelName'] : false;
 		$curLevelNick = isset( $valuesUserAccount['LevelNickName'] ) ? $valuesUserAccount['LevelNickName'] : false;
+		$_allow_upload = isset( $_allow_upload ) ? $_allow_upload : true;
 
 		$customLevel = 'No level yet';
 		if( !empty($curLevel) && !empty($curLevelNick) ) {
@@ -37,15 +38,21 @@
 			        	));
 				?>
 			</div>
+			<?php
+					if( !empty($_allow_upload) ) {
+			?>
 			<span class="btn btn-primary mt10 fileinput-button" style="margin:auto;">
 		        <span>Ubah Foto Profil</span>
 		        <input id="fileupload" data-show=".fu-show-after-upload" action-type="users" type="file" name="files" />
 		    </span>
-		    <?php
+		    <?php		
 	        		echo form_error('photo'); 
 	        ?>
 		    <br>
 		    <br>
+		    <?php
+		    		}
+		    ?>
 			<input type="submit" class="btn btn-orange fu-show-after-upload" style="display:none;" value="Simpan" />
 			<?php
 					echo tag('h4', $username, array(
@@ -55,9 +62,21 @@
 						'class' => 'mt5',
 						'style' => 'word-wrap: break-word;'
 					));
-					echo tag('a', $customLevel, array(
+					echo tag('p', $customLevel, array(
 						'href' => '#'
 					));
+
+					if( empty($_allow_upload) ) {
+						$country = isset( $valuesUserAccount['CountryName'] ) ? $valuesUserAccount['CountryName'] : false;
+						$city = isset( $valuesUserAccount['CityName'] ) ? $valuesUserAccount['CityName'] : false;
+
+						if( !empty($city) ) {
+							echo $city;
+						}
+						if( !empty($country) ) {
+							echo ', '.$country;
+						}
+					}
 
 					echo tag('input', false, array(
 	    				'id' => 'fuHiddenField',

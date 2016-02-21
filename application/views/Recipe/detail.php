@@ -22,6 +22,7 @@
 		$est_time = isset($valueRecipeHeader['TimeEst']) ? $valueRecipeHeader['TimeEst'] : false;
 		$est_price = isset($valueRecipeHeader['EstPrice']) ? $valueRecipeHeader['EstPrice'] : false;
 
+		$user_id = isset($valueRecipeHeader['UserID']) ? $valueRecipeHeader['UserID'] : false;
 		$username = isset($valueRecipeHeader['UserName']) ? $valueRecipeHeader['UserName'] : false;
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment.png',
@@ -58,7 +59,7 @@
 					<?php
 							echo tag('p', 'Originally cooked by:');
 							echo tag('a', $username, array(
-								'href' => '#',
+								'href' => $domain.'/users/profile/'.$user_id,
 								'wrapTag' => 'p',
 								'wrapAttributes' => array(
 									'class' => 'mb5'
@@ -78,7 +79,7 @@
 
 	<div class="detail-recipe-banner with-border bg-white">
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-9">
 				<div class="wrapper pd15 tacenter">
 					<?php
 							echo tag('img', false, array(
@@ -98,6 +99,14 @@
 							));
 					?>
 				</div>
+			</div>
+			<div class="col-sm-3">
+				<?php
+						loadSubview('users/related_recipe', array(
+							'heading' => 'Same Author',
+							'values' => $valuesRelatedByAuthor,
+						));
+				?>
 			</div>
 		</div>
 	</div>
@@ -197,7 +206,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-9">
+			<div class="col-sm-6">
 				<div class="wrapper pd15">
 					<?php
 							echo tag('p', $recipe_intro);
@@ -268,6 +277,14 @@
 					?>
 				</div>
 			</div>
+			<!-- <div class="col-sm-3">
+				<?php
+						loadSubview('users/related_recipe', array(
+							'heading' => 'Same Author',
+							'values' => $valuesRelatedByAuthor,
+						));
+				?>
+			</div> -->
 		</div>
 	</div>
 

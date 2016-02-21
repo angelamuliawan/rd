@@ -110,7 +110,7 @@
 
 											$flag_cookmark = $value['FlagCookmark'];
 											$flag_recook = $value['FlagRecook'];
-											$flag_creator = $value['FlagCreator'];										
+											$flag_creator = $value['FlagCreator'];
 
 											loadSubview('recipe/item_recipe', array(
 												'counter' => $key,

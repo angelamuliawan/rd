@@ -549,4 +549,66 @@ class Users extends AB_Controller {
 
         $this->load->view('Users/login_facebook');
     }
+
+    function profile( $user_id = false ) {
+    	$this->load->helper('url');
+
+    	$resUserAccount = $this->db->query('CALL GetSettingUserData(?)', array(
+			$user_id,
+		));
+		$valuesUserAccount = $resUserAccount->result_array();
+		$resUserAccount->next_result();
+
+		if( !empty($valuesUserAccount) ) {
+			
+			// Get Related Popular User
+			$resRelatedPopularUser = $this->db->query('CALL GetRelatedPopularUser(?)', array(
+				$user_id,
+			));
+			$valuesRelatedPopularUser = $resRelatedPopularUser->result_array();
+			$resRelatedPopularUser->next_result();
+
+			// Get user own recipe
+			$resMyRecipe = $this->db->query('CALL GetMyRecipe(?,?,?,?,?)', array(
+				$user_id,
+				1,
+				100,
+				0,
+				$this->session->userdata('userid'),
+			));
+			$valuesMyRecipe = $resMyRecipe->result_array();
+			$resMyRecipe->next_result();
+
+			// Get user recook
+			$resRecook = $this->db->query('CALL GetMyRecook(?,?,?,?)', array(
+				$user_id,
+				100,
+				0,
+				$this->session->userdata('userid'),
+			));
+			$valuesRecook = $resRecook->result_array();
+			$resRecook->next_result();
+
+			// Get user cookmark
+			$resCookmark = $this->db->query('CALL GetMyCookmark(?,?,?,?)', array(
+				$user_id,
+				100,
+				0,
+				$this->session->userdata('userid'),
+			));
+			$valuesCookmark = $resCookmark->result_array();
+			$resCookmark->next_result();
+
+			$this->load->vars(array(
+				'valuesUserAccount' => $valuesUserAccount,
+				'valuesRelatedPopularUser' => $valuesRelatedPopularUser,
+				'valuesMyRecipe' => $valuesMyRecipe,
+				'valuesRecook' => $valuesRecook,
+				'valuesCookmark' => $valuesCookmark,
+			));
+	    	$this->render();
+		} else {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+    }
 }

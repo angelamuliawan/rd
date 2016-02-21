@@ -72,12 +72,12 @@
 				echo tag('title', 'Cookindo');
 
 				load_css(array(
-					// 'bootstrap/bootstrap',
-					// 'bootstrap/docs',
-					// 'bootstrap/bootstrap-multiselect',
-					// 'magicsuggest/magicsuggest',
-					// 'custom',
-					'defer',
+					'bootstrap/bootstrap',
+					'bootstrap/docs',
+					'bootstrap/bootstrap-multiselect',
+					'magicsuggest/magicsuggest',
+					'custom',
+					// 'defer',
 				));
 
 				if(isset($additional_css) && !empty($additional_css)){
