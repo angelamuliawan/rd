@@ -107,12 +107,11 @@ class Recipe extends AB_Controller {
 		$resRelatedByAuthor->next_result();
 
 		// related recipe by recipe
-		// $resRelatedByRecipe = $this->db->query('CALL GetRelatedRecipesByRecipe(?,?)', array(
-		// 	$recipe_id,
-		// 	$this->session->userdata('userid'),
-		// ));
-		// $valuesRelatedByAuthor = $resRelatedByAuthor->result_array();
-		// $resRelatedByAuthor->next_result();
+		$resRelatedByRecipe = $this->db->query('CALL GetRelatedRecipesByRecipe(?)', array(
+			$recipe_id,
+		));
+		$valuesRelatedRecipe = $resRelatedByRecipe->result_array();
+		$resRelatedByRecipe->next_result();
 
 		$this->load->vars(array(
 			'valuesRecipeHeader' => $valuesRecipeHeader,
@@ -121,6 +120,7 @@ class Recipe extends AB_Controller {
 			'valuesRecipeStep' => $valuesRecipeStep,
 			'valuesRecipeComment' => $valuesRecipeComment,
 			'valuesRelatedByAuthor' => $valuesRelatedByAuthor,
+			'valuesRelatedRecipe' => $valuesRelatedRecipe,
 			'recipe_id' => $recipe_id,
 			'og_meta' => array(
 				'title' => $valuesRecipeHeader[0]['RecipeName'],

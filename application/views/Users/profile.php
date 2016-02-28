@@ -94,11 +94,11 @@
 											foreach( $valuesRecook as $key => $value ) {
 												$id = $value['RecipeID'];
 												$slug = $value['Slug'];
-												$image = $value['PrimaryPhoto'];
+												$image = $value['RecookPhoto'];
 												$title = $value['RecipeName'];
 												$cuisine = $value['CuisineName'];
 												$food_type = $value['FoodTypeName'];
-												$recipe_intro = $value['RecipeIntro'];
+												$recipe_intro = $value['RecookDesc'];
 
 												$cnt_comment = $value['NumberOfComment'];
 												$cnt_recook = $value['NumberOfRecook'];

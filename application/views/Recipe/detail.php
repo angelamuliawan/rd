@@ -106,6 +106,10 @@
 							'heading' => 'Same Author',
 							'values' => $valuesRelatedByAuthor,
 						));
+						loadSubview('users/related_recipe', array(
+							'heading' => 'Related Recipe',
+							'values' => $valuesRelatedRecipe,
+						));
 				?>
 			</div>
 		</div>
@@ -277,14 +281,6 @@
 					?>
 				</div>
 			</div>
-			<!-- <div class="col-sm-3">
-				<?php
-						loadSubview('users/related_recipe', array(
-							'heading' => 'Same Author',
-							'values' => $valuesRelatedByAuthor,
-						));
-				?>
-			</div> -->
 		</div>
 	</div>
 
