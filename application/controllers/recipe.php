@@ -61,6 +61,7 @@ class Recipe extends AB_Controller {
 		}
 
 		$slug = $this->uri->segment(3);
+		$recipe_creator_id = $valuesRecipeHeader[0]['UserID'];
 
 		if( !strpos($slug, '-') && ($slug == '' || str_word_count($slug) > 1 ) ) {
 			$this->load->helper('url');
@@ -101,7 +102,7 @@ class Recipe extends AB_Controller {
 		// related recipe by authors
 		$resRelatedByAuthor = $this->db->query('CALL GetRelatedRecipeByAuthor(?,?)', array(
 			$recipe_id,
-			$this->session->userdata('userid'),
+			$recipe_creator_id,
 		));
 		$valuesRelatedByAuthor = $resRelatedByAuthor->result_array();
 		$resRelatedByAuthor->next_result();

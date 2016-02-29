@@ -6,7 +6,7 @@
 <div class="wrapper-popular-user">
 	<?php
 			echo tag('h4', $heading, array(
-				'class' => 'mb20 mt10'
+				'class' => 'mb10 mt20'
 			));
 
 			if( !empty($values) ) {
@@ -60,6 +60,8 @@
 		?>
 	</ul>
 	<?php
+			} else {
+				echo tag('p', 'Data tidak tersedia');
 			}
 	?>
 </div>
