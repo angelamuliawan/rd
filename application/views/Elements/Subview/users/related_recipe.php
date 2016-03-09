@@ -3,9 +3,9 @@
 		$values = isset($values) ? $values : false;
 ?>
 
-<div class="wrapper-popular-user">
+<div class="wrapper-popular-user hidden-print">
 	<?php
-			echo tag('h4', $heading, array(
+			echo tag('h3', $heading, array(
 				'class' => 'mb10 mt20'
 			));
 
@@ -35,7 +35,6 @@
 					<?php
 							echo tag('img', false, array(
 								'src' => $custom_image,
-								'style' => 'width: 64px; height: 40px;',
 								'wrapTag' => 'a',
 								'wrapAttributes' => array(
 									'href' => $domain.'/resep-masak/'.$recipe_id.'/',

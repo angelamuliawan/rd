@@ -815,6 +815,11 @@ h1,h2,h3,h4,h5,h6 {
 	margin-bottom: 15px;
 }
 
+.wrapper-popular-user ul li a img {
+	width: 64px;
+	height: 40px;
+}
+
 .wrapper-public-profile ul li {
 	margin-bottom: 15px;
 }
@@ -1102,6 +1107,21 @@ ul.pagination {
 	.modal-dialog {
 		width: auto !important;
 	}
+
+	.wrapper-popular-user {
+		padding: 15px;
+	}
+
+	.wrapper-popular-user ul li {
+		text-align: center;
+	}
+
+	.wrapper-popular-user ul li a img {
+		width: 100%;
+		height: auto;
+		margin-bottom: 10px;
+		max-width: 400px;
+	}
 }
 
 @media (min-width: 768px) { 
@@ -1123,6 +1143,14 @@ ul.pagination {
 		height: 80px;
 	}
 }
+
+@media (width: 768px) { 
+	.wrapper-popular-user ul li a img {
+		width: 40px;
+		height: auto;
+	}
+}
+
 @media (max-width: 991px) { 
 	.wrapper-create-recipe .holder-template textarea {
 		height: 115px;
@@ -1151,6 +1179,12 @@ ul.pagination {
 @media (min-width: 992px) { 
 	#cookmark.wrapper-food-list-vertical > .content .right-side > .box-description p.description {
 		height: 100px;
+	}
+}
+
+@media (min-width:769px) and (max-width: 1024px) { 
+	.wrapper-popular-user ul li a img {
+		width: 54px;
 	}
 }
 

@@ -127,6 +127,22 @@ $.customFunction = function(){
         e.preventDefault();
         window.print();
     });
+
+    if( $('.ddlMeasureSize').length ) {
+        $('body').on('change', '.ddlMeasureSize', function(){
+            var self = $(this);
+            var value = self.val();
+
+            if( value == 9 || value == 10 ) {
+                self.closest('.holder-template').find('.freeField').val(1).css({
+                    'background-color' : '#efefef',
+                    'pointer-events' : 'none',
+                });
+            } else {
+                self.closest('.holder-template').find('.freeField').val('').removeAttr('style');
+            }
+        });
+    }
 }
 
 $.carousel = function(){

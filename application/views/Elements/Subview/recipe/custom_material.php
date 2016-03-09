@@ -39,14 +39,14 @@
 					'class' => 'form-control inputField template-field freeField',
 					'placeholder' => 'contoh: 100',
 					'data-model' => 'Measure',
-					( $measure_size == 10 && $type == 'load' ) ? 'disabled' : 'false',
+					'style' => ( $measure_size == 9 || $measure_size == 10 && $type == 'load' ) ? 'pointer-events:none; background-color:#efefef;' : '',
 				));
 				echo form_error($measure_name);
 		?>
 	</div>
 	<div class="col-sm-3 col-xs-3 custom-field">
 		<?php
-				echo form_dropdown($measure_size_name, $measure_sizes, $measure_size, 'id="ddlMeasureSize" class="form-control inputField"');
+				echo form_dropdown($measure_size_name, $measure_sizes, $measure_size, 'id="ddlMeasureSize" class="form-control inputField ddlMeasureSize"');
 		?>
 	</div>
 	<div class="col-sm-3 col-xs-2 no-pd custom-field">

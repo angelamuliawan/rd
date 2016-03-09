@@ -42,7 +42,7 @@
 				    				'rows' => 4,
 				    				'class' => 'form-control',
 				    				'name' => 'RecipeIntro',
-				    				'maxlength' => 500,
+				    				'maxlength' => 1200,
 				    			));
 								echo form_error('RecipeIntro'); 
 						?>
