@@ -114,15 +114,15 @@
 
 				
 				load_script(array(
-					// 'jquery/jquery.min',
-					// 'bootstrap/bootstrap.min',
-					// 'bootstrap/typeahead',
-					// 'bootstrap/bootstrap-multiselect',
-					// 'fileupload/jquery.ui.widget',
-					// 'fileupload/jquery.fileupload',
-					// 'fileupload/jquery.iframe-transport',
-					// 'magicsuggest/magicsuggest',
-					// 'functions',
+					'jquery/jquery.min',
+					'bootstrap/bootstrap.min',
+					'bootstrap/typeahead',
+					'bootstrap/bootstrap-multiselect',
+					'fileupload/jquery.ui.widget',
+					'fileupload/jquery.fileupload',
+					'fileupload/jquery.iframe-transport',
+					'magicsuggest/magicsuggest',
+					'functions',
 				));
 
 				if(isset($additional_js) && !empty($additional_js)) {
@@ -132,17 +132,17 @@
 		?>
 
 		<script type="text/javascript">
-			function downloadJSAtOnload() {
-				var element = document.createElement("script");
-				element.src = 'http://'+document.domain+'/rd/resources/js/defer.js';
-				document.body.appendChild(element);
-			}
-			if (window.addEventListener)
-				window.addEventListener("load", downloadJSAtOnload, false);
-			else if (window.attachEvent)
-				window.attachEvent("onload", downloadJSAtOnload);
-			else 
-				window.onload = downloadJSAtOnload;
+			// function downloadJSAtOnload() {
+			// 	var element = document.createElement("script");
+			// 	element.src = 'http://'+document.domain+':1234/rd/resources/js/defer.js';
+			// 	document.body.appendChild(element);
+			// }
+			// if (window.addEventListener)
+			// 	window.addEventListener("load", downloadJSAtOnload, false);
+			// else if (window.attachEvent)
+			// 	window.attachEvent("onload", downloadJSAtOnload);
+			// else 
+			// 	window.onload = downloadJSAtOnload;
 		</script>
 	</body>
 </html>

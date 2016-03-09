@@ -32,19 +32,21 @@
 	<div class="col-sm-2 col-xs-2 no-pd">
 		<?php
 				echo form_input(array(
+					'id' => 'txtMeasure',
 					'name' => $measure_name,
 					'type' => 'text',
 					'value' => ( !empty($measure) ) ? $measure : set_value($measure_name),
-					'class' => 'form-control inputField template-field',
+					'class' => 'form-control inputField template-field freeField',
 					'placeholder' => 'contoh: 100',
 					'data-model' => 'Measure',
+					( $measure_size == 10 && $type == 'load' ) ? 'disabled' : 'false',
 				));
 				echo form_error($measure_name);
 		?>
 	</div>
 	<div class="col-sm-3 col-xs-3 custom-field">
 		<?php
-				echo form_dropdown($measure_size_name, $measure_sizes, $measure_size, 'class="form-control inputField"');
+				echo form_dropdown($measure_size_name, $measure_sizes, $measure_size, 'id="ddlMeasureSize" class="form-control inputField"');
 		?>
 	</div>
 	<div class="col-sm-3 col-xs-2 no-pd custom-field">

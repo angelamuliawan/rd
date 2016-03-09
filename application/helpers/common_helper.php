@@ -53,7 +53,7 @@ if ( ! function_exists('load_script')) {
 
 		if( !empty($scripts) ) {
 			foreach ($scripts as $script) {
-				$stringify_script .= "<script type='text/javascript' src='".$CI->domain.'/resources/js/'.$script.".js' defer></script>";
+				$stringify_script .= "<script type='text/javascript' src='".$CI->domain.'/resources/js/'.$script.".js'></script>";
 		    }
 		}
 	    
