@@ -15,7 +15,7 @@
 		}
 ?>
 
-<div class="row mb15 holder-template <?php echo $class; ?>">
+<div class="row mb15 list-step holder-template <?php echo $class; ?>">
 	<div class="col-sm-1 col-xs-1 extra-small-width">
 		<?php
 				echo tag('label', ($counter+1), array(
@@ -23,7 +23,7 @@
 				));
 		?>
 	</div>
-	<div class="col-sm-7 col-xs-10 no-pd">
+	<div class="col-sm-7 col-xs-9 no-pd">
 		<?php
 				echo tag('textarea', ( !empty($step) ) ? $step : set_value($step_name), array(
 					'id' => 'FoodStepName'.$counter,
@@ -60,11 +60,20 @@
 					'data-model' => 'imageStep',
 				));
 				echo form_error('imageStep'.$counter);
-
-				// echo tag('a', 'Tambahkan foto pada langkah ini', array(
-				// 	'class' => 'mt10',
-				// 	'href' => '#',
-				// ));
 		?>
+	</div>
+	<div class="col-sm-3 col-xs-2">
+		<div class="icon-holder">
+			<?php
+					$hideActionDelete = ' hide';
+					if( $type == 'init' || ( $type == 'load' && !empty($counter) ) ) {
+						$hideActionDelete = '';
+					}
+
+					echo tag('span', false, array(
+						'class' => 'glyphicon glyphicon-trash reorder-data remove-data'.$hideActionDelete
+					));
+			?>
+		</div>
 	</div>
 </div>

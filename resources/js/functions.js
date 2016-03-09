@@ -386,6 +386,11 @@ $.rebuildTemplate = function(parent){
             } else {
                 var _name = model+'['+index+']'+'['+self.attr('data-model')+']';
                 var _id = self.attr('id');
+
+                var match_name_with_id = self.attr('match-name-with-id');            
+                if( match_name_with_id !== undefined ) {
+                    _name = _id;
+                }
                 
                 self.attr('name', _name);
                 if( _id !== undefined ) {
