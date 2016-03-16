@@ -281,6 +281,8 @@
 							'heading' => 'Related Recipe',
 							'values' => $valuesRelatedRecipe,
 						));
+
+						loadSubview('common/ads');
 				?>
 			</div>
 		</div>

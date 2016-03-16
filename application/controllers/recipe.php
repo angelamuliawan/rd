@@ -812,7 +812,7 @@ class Recipe extends AB_Controller {
 		$this->load->helper('build_data');
 
 		$this->callDefaultData();
-		$this->render(false, 'coming_soon');
+		$this->render();
 	}
 
 	public function my_contest() {

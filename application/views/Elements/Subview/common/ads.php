@@ -1,13 +1,17 @@
 <div class="wrapper-ads">
 	<ul class="no-pd">
 		<?php
-				// echo tag('img', false, array(
-				// 	'src' => $domain.'/resources/images/sample-ads.jpg',
-				// 	'wrapTag' => 'li',
-				// 	'wrapAttributes' => array(
-				// 		'class' => 'no-ul-type mb20',
-				// 	),
-				// ));
+				echo tag('a', tag('img', false, array(
+					'src' => $domain.'/resources/images/uploads/banner/vertical.jpg',
+					'style' => 'height: 100%; width: auto; max-width:100%;',
+				)), array(
+					'href' => $domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
+					'wrapTag' => 'li',
+					'wrapAttributes' => array(
+						'class' => 'no-ul-type mb20 wrapper-banner',
+					),
+				));
+
 				// echo tag('img', false, array(
 				// 	'src' => $domain.'/resources/images/sample-ads.jpg',
 				// 	'wrapTag' => 'li',

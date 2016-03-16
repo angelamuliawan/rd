@@ -3,8 +3,19 @@
 			'_with_text' => true
 		));
 ?>
-
-<div class="container mt20">
+<div class="wrapper-banner hidden-print mt10">
+	<div class="container">
+		<?php
+				echo tag('a', tag('img', false, array(
+					'src' => $domain.'/resources/images/uploads/banner/banner.jpg',
+					'style' => 'max-width: 100%',
+				)), array(
+					'href' => $domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
+				));
+		?>
+	</div>
+</div>
+<div class="container mt5">
 	<div class="big-wrapper">
 		<div class="row">
 			<div class="col-sm-10">
@@ -106,7 +117,7 @@
 			</div>
 			<div class="col-sm-2">
 				<?php
-						loadSubview('common/ads');
+						// loadSubview('common/ads');
 				?>
 			</div>
 		</div>

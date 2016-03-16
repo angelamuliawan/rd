@@ -128,13 +128,12 @@
 				if(isset($additional_js) && !empty($additional_js)) {
 	                load_script($additional_js);
 	            }
-	            
 		?>
 
 		<script type="text/javascript">
 			// function downloadJSAtOnload() {
 			// 	var element = document.createElement("script");
-			// 	element.src = 'http://'+document.domain+':1234/rd/resources/js/defer.js';
+			// 	element.src = 'http://'+document.domain+'/cookindo/resources/js/defer.js';
 			// 	document.body.appendChild(element);
 			// }
 			// if (window.addEventListener)

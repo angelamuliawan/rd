@@ -84,12 +84,12 @@
 						$hideActionDelete = '';
 					}
 
-					echo tag('span', false, array(
-						'class' => 'glyphicon glyphicon-circle-arrow-up reorder-data move-data-up'
-					));
-					echo tag('span', false, array(
-						'class' => 'glyphicon glyphicon-circle-arrow-down reorder-data move-data-down'
-					));
+					// echo tag('span', false, array(
+					// 	'class' => 'glyphicon glyphicon-circle-arrow-up reorder-data move-data-up'
+					// ));
+					// echo tag('span', false, array(
+					// 	'class' => 'glyphicon glyphicon-circle-arrow-down reorder-data move-data-down'
+					// ));
 					echo tag('span', false, array(
 						'class' => 'glyphicon glyphicon-trash reorder-data remove-data'.$hideActionDelete
 					));

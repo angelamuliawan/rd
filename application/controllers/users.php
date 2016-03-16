@@ -184,6 +184,11 @@ class Users extends AB_Controller {
 	}
 
 	public function login() {
+
+		if( $this->session->userdata('loggedin') ) {
+			$this->load->helper('url');
+			redirect($this->domain);
+		}
 		
 		$post = $this->input->post();
 		$message = false;
@@ -222,11 +227,20 @@ class Users extends AB_Controller {
 			}
 		}
 
-		loadMessage($message, $status);
-		loadModal('login');
+		if( $this->input->is_ajax_request() ) {
+			loadMessage($message, $status);
+			loadModal('login');
+		} else {
+			$this->render($post);
+		}
 	}
 
 	public function register() {
+
+		if( $this->session->userdata('loggedin') ) {
+			$this->load->helper('url');
+			redirect($this->domain);
+		}
 		
 		$post = $this->input->post();
 		$message = 'Mohon lengkapi semua data yang diperlukan.';
@@ -263,8 +277,12 @@ class Users extends AB_Controller {
 			}
 		}
 
-		loadMessage($message, $status);
-		loadModal('login');
+		if( $this->input->is_ajax_request() ) {
+			loadMessage($message, $status);
+			loadModal('login');
+		} else {
+			$this->render($post);
+		}
 	}
 
 	function article() {

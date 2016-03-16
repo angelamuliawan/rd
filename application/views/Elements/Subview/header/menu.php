@@ -58,8 +58,9 @@
 						));
       					
 						echo tag('a', 'Kontes', array(
-							'href' => $domain.'/recipe/contest',
+							'href' => $domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
 							'wrapTag' => 'li',
+							// 'class' => 'blink',
 						));
 
 		     			if( isLoggedIn() ) { 
@@ -201,10 +202,21 @@
 		        </li>
 		        <?php
 		        		} else {
-		        			echo tag('a', 'Login', array(
-		        				'href' => $domain.'/users/login',
+		        			$method_name = ucwords($this->router->method);
+		        			$ajax_login_class = 'ajax-modal';
+		        			$display_text = 'Login';
+
+		        			if( $method_name == 'Login' || $method_name == 'Register' ) {
+		        				$ajax_login_class = '';
+		        				if( $method_name == 'Login' ) {
+		        					$display_text = 'Register';
+		        				}
+		        			}
+
+		        			echo tag('a', $display_text, array(
+		        				'href' => $domain.'/users/'.strtolower($display_text),
 		        				'data-title' => 'Login',
-		        				'class' => 'ajax-modal',
+		        				'class' => $ajax_login_class,
 		        				'wrapTag' => 'li'
 		        			));
 		        		}
