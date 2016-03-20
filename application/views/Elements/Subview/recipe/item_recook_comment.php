@@ -24,6 +24,10 @@
 		<?php
 				echo tag('h4', $comment_username, array(
 					'class' => 'media-heading fbold',
+					'wrapTag' => 'a',
+					'wrapAttributes' => array(
+						'href' => $domain.'/users/profile/'.$user_id,
+					),
 				));
 				echo tag('p', $comment, array(
 					'class' => 'tajustify comment',

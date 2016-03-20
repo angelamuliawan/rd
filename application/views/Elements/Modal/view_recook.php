@@ -1,6 +1,7 @@
 <?php
 		$valuesRecipeRecook = isset( $valuesRecipeRecook[0] ) ? $valuesRecipeRecook[0] : false;
 		$recook_id = $valuesRecipeRecook['RecookID'];
+		$recook_user_id = $valuesRecipeRecook['UserID'];
 		$recook_username = $valuesRecipeRecook['UserName'];
 		$recook_photo = $valuesRecipeRecook['RecookPhoto'];
 		$recook_desc = $valuesRecipeRecook['RecookDesc'];
@@ -25,7 +26,9 @@
 	        				'class' => 'modal-title',
 	        			));
 	        			echo tag('span', 'by ');
-	        			echo tag('a', $recook_username);
+	        			echo tag('a', $recook_username, array(
+	        				'href' => $domain.'/users/profile/'.$recook_user_id,
+	        			));
 	        	?>
 	      	</div>
 	      	<div class="modal-body pd15">

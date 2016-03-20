@@ -1,5 +1,5 @@
 var source_data = {};
-var serviceUri = 'http://localhost/cookindo/';
+var serviceUri = 'http://localhost/rd/';
 
 $(document).ready(function() {
 
@@ -98,12 +98,22 @@ $.customFunction = function() {
         var self = $(this);
         var _class = self.attr('show-on-click');
         $(_class).show();
+
+        if( $(_class).hasClass('hide') ) {
+            $(_class).removeClass('hide');
+        }
     });
     $('body').on('click', '*[hide-on-click]', function(e) {
         e.preventDefault();
         var self = $(this);
         var _class = self.attr('hide-on-click');
         $(_class).hide();
+    });
+    $('body').on('click', '*[trigger-on-click]', function(e) {
+        e.preventDefault();
+        var self = $(this);
+        var _class = self.attr('trigger-on-click');
+        $(_class).trigger('click');
     });
     $('body').on('click', 'a[data-submit="1"]', function(e) {
         e.preventDefault();
@@ -429,17 +439,26 @@ $.ajaxModal = function(options) {
     });
 }
 $.tabs = function() {
-    $('body').on('click', 'ul.nav.nav-tabs a', function(e) {
+    $('body').on('click', 'ul.nav.nav-tabs a, a.custom-nav-tabs', function(e) {
         e.preventDefault();
-        $(this).tab('show');
+        var self = $(this);
+        if(self.hasClass('custom-nav-tabs')){
+            $('ul.nav.nav-tabs li').removeClass('active');
+        }
+
+        self.tab('show');
     });
 }
 $.replaceText = function() {
-    $('body').on('click', '.replace-text li', function() {
+    $('body').on('click', '.replace-text', function() {
         var self = $(this);
-        var parent = self.closest('.nav.replace-text');
-        var target = '.' + parent.attr('text-target');
+        var target = self.attr('text-target');
+
         var text = self.find("*").last().text();
+        if( self.attr('text-value') !== undefined ) {
+            text = self.attr('text-value');
+        }
+
         $(target).text(text);
     });
 }

@@ -7,6 +7,8 @@ class Users extends AB_Controller {
     }
 
 	public function index() {
+		$this->validateUserLogin();
+
 		$this->load->helper('form');
 		$resUserAccount = $this->db->query('CALL GetSettingUserData(?)', array(
 			$this->session->userdata('userid'),
@@ -208,15 +210,21 @@ class Users extends AB_Controller {
 				$data = $res->result()[0];
 
 				if( $data->UserID != -1 ) {
-					$this->session->set_userdata('loggedin', true);
-					$this->session->set_userdata('userid', $data->UserID);
-					$this->session->set_userdata('username', $data->UserName);
-					$this->session->set_userdata('useremail', $data->UserEmail);
-					$this->session->set_userdata('userrole', $data->UserRole);
-					$this->session->set_userdata('userphoto', $data->UserPhoto);
 
-					$message = 'Sukses melakukan login';
-					$status = 'success';
+					if( $data->IsActive == 0 ) {
+						$message = 'Untuk sementara waktu anda tidak bisa login. Kemungkinan karena data yang anda input mengandung unsur SARA, PLAGIARISME atau mengurangi kualitas data pada website kami. Untuk info lebih lanjut silahkan email ke admin@cookindo.com';
+						$status = 'error';
+					} else {
+						$this->session->set_userdata('loggedin', true);
+						$this->session->set_userdata('userid', $data->UserID);
+						$this->session->set_userdata('username', $data->UserName);
+						$this->session->set_userdata('useremail', $data->UserEmail);
+						$this->session->set_userdata('userrole', $data->UserRole);
+						$this->session->set_userdata('userphoto', $data->UserPhoto);
+
+						$message = 'Sukses melakukan login';
+						$status = 'success';
+					}
 				} else {
 					$message = 'Email atau Password Anda tidak valid. Silahkan coba lagi';
 					$status = 'error';
@@ -285,7 +293,120 @@ class Users extends AB_Controller {
 		}
 	}
 
+	public function forgot_password() {
+
+		if( $this->session->userdata('loggedin') ) {
+			$this->load->helper('url');
+			redirect($this->domain);
+		}
+		
+		$post = $this->input->post();
+		$message = 'Mohon lengkapi semua data yang diperlukan.';
+		$status = 'error';
+		
+		if( !empty($post) ) {
+				
+			$this->form_validation->set_rules('ForgotEmail', 'Email', 'required|valid_email');
+
+			if ( $this->form_validation->run() == TRUE ) {
+
+				$res = $this->db->query('CALL ForgotPassword(?)', array(
+					$post['ForgotEmail'],
+				));
+				$data = $res->result()[0];
+
+				if( $data->UserID != -1 ) {
+					$message = 'Sukses melakukan reset password. Mohon cek email Anda di menu pesan masuk maupun spam, dan ikuti instruksi yang telah Kami sediakan.';
+					$status = 'success';
+
+					$this->_sendEmail(array(
+			    		'email_view' => 'forgot_password',
+			    		'subject' => 'Reset Password',
+			    		'to' => $post['ForgotEmail'],
+			    		'to_name' => $data->UserName,
+			    		'data' => array(
+			    			'reset_code' => $data->ResetCode,
+			    		),
+			    	));
+				} else {
+					$this->setCustomError('ForgotEmail', 'Email tidak ditemukan.');
+				}
+			}
+		}
+
+		if( $this->input->is_ajax_request() ) {
+			loadMessage($message, $status);
+			loadModal('login');
+		} else {
+			$this->render($post);
+		}
+	}
+
+	public function verify( $reset_code ) {
+
+		// check validity of reset code
+		$res = $this->db->query('CALL VerifyResetCode(?)', array(
+			$reset_code,
+		));
+		$dataUser = $res->result()[0];
+		$res->next_result();
+
+		if( $dataUser->UserID == -1 ) {
+			$this->session->set_flashdata('flash_message', array(
+				'message' => 'Maaf, link tersebut sudah tidak aktif dikarenakan sudah pernah digunakan sebelumnya.',
+				'status' => 'error',
+			));
+			$this->load->helper('url');
+			redirect($this->domain.'/users/forgot_password');	
+		}
+		
+		$post = $this->input->post();
+		$message = 'Mohon lengkapi semua data yang diperlukan.';
+		$status = 'error';
+		
+		if( !empty($post) ) {
+
+			$this->form_validation->set_rules('NewPassword', 'New Password', 'required|min_length[5]|max_length[20]');
+			$this->form_validation->set_rules('NewPasswordConfirmation', 'New Confirmation Password', 'required|min_length[5]|max_length[20]|matches[NewPassword]');
+
+			if ( $this->form_validation->run() == TRUE ) {
+
+				$res = $this->db->query('CALL ResetPassword(?,?)', array(
+					$dataUser->UserID,
+					sha1($post['NewPassword']),
+				));
+				
+				$data = $res->result();
+				$this->session->set_userdata('loggedin', true);
+				$this->session->set_userdata('userid', $dataUser->UserID);
+				$this->session->set_userdata('username', $dataUser->UserName);
+				$this->session->set_userdata('useremail', $dataUser->UserEmail);
+				$this->session->set_userdata('userrole', $dataUser->UserRole);
+				$this->session->set_userdata('userphoto', $dataUser->UserPhoto);
+
+				$this->session->set_flashdata('flash_message', array(
+					'message' => 'Sukses melakukan reset password.',
+					'status' => 'success',
+				));
+
+				$this->load->helper('url');
+				redirect($this->domain.'/users/');
+			}
+		}
+
+		$this->load->vars(array(
+			'reset_code' => $reset_code,
+		));
+
+		$this->render($post);
+	}
+
 	function article() {
+		if( $this->session->userdata('userrole') != 1 ) {
+			$this->load->helper('url');
+			redirect($this->domain);
+		}
+
 		$this->load->helper('form');
 
 		$post = $this->input->post();

@@ -52,9 +52,22 @@
     </div>
     <div class="form-group">
     	<?php
-    			echo tag('a', 'Forgot your password?', array(
-    				'href' => '#',
-    			));
+    			$direct_link = isset( $direct_link ) ? $direct_link : false;
+
+    			if( !empty($direct_link) ) {
+    				echo tag('a', 'Forgot your password?', array(
+	    				'href' => $domain.'/users/forgot_password',
+	    			));
+    			} else {
+	    			echo tag('a', 'Forgot your password?', array(
+	    				'href' => '#tabs-forgot-password',
+	    				'text-value' => 'Forgot Password',
+	    				'class' => 'custom-nav-tabs replace-text',
+						'text-target' => '.modal-title',
+						'hide-on-click' => '.nav.nav-tabs',
+						'show-on-click' => '.backToLogin',
+	    			));
+	    		}
     	?>
     </div>
 </form>

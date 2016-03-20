@@ -10,15 +10,17 @@
 	      		<div class="row">
 		      		<div class="col-sm-12">
 		      			<div class="big-wrapper wrapper-login">
-				        	<ul class="nav nav-tabs replace-text" text-target="modal-title">
+				        	<ul class="nav nav-tabs">
 							  	<?php
 							  			echo tag('a', 'Login', array(
+							  				'id' => 'liLoginTab',
 							  				'class' => 'tacenter',
 							  				'href' => '#tabs-login',
 							  				'wrapTag' => 'li',
 							  				'wrapAttributes' => array(
 							  					'style' => 'width:50%;',
-							  					'class' => 'active'
+							  					'class' => 'active replace-text',
+							  					'text-target' => '.modal-title',
 							  				)
 							  			));
 							  			echo tag('a', 'Register', array(
@@ -27,10 +29,21 @@
 							  				'wrapTag' => 'li',
 							  				'wrapAttributes' => array(
 							  					'style' => 'width:50%;',
+							  					'class' => 'replace-text',
+							  					'text-target' => '.modal-title',
 							  				)
 							  			));
 							  	?>
 							</ul>
+							<?php
+									echo tag('a', '< Login', array(
+										'href' => '#',
+										'class' => 'backToLogin hide',
+										'trigger-on-click' => '#liLoginTab',
+										'show-on-click' => '.nav.nav-tabs',
+										'hide-on-click' => '.backToLogin',
+									));
+							?>
 
 							<div class="tab-content pd10 pt15">
 								<div class="tab-pane active" id="tabs-login">
@@ -41,6 +54,11 @@
 								<div class="tab-pane" id="tabs-register">
 									<?php
 											loadSubview('users/register');
+									?>
+								</div>
+								<div class="tab-pane" id="tabs-forgot-password">
+									<?php
+											loadSubview('users/forgot_password');
 									?>
 								</div>
 							</div>

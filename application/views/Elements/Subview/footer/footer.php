@@ -36,7 +36,7 @@
 			?> 
 		</ul>
 		<?php
-				echo tag('p', 'Copyright &copy; 2015 Cookindo. Hak Cipta Dilindungi Undang-Undang');
+				echo tag('p', 'Copyright &copy; 2016 Cookindo. Hak Cipta Dilindungi Undang-Undang');
 		?>
 	</div>
 </footer>

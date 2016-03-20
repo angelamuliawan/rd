@@ -6,7 +6,7 @@
   	?>
 	<div class="form-group">
 		<?php
-				echo tag('label', 'Nama Lengkap', array(
+				echo tag('label', 'Nama Lengkap *', array(
 					'for' => 'RegFullname',
 					'class' => 'control-label',
 				));
@@ -22,7 +22,7 @@
   	</div>
   	<div class="form-group">
   		<?php
-  				echo tag('label', 'Email', array(
+  				echo tag('label', 'Email *', array(
   					'for' => 'RegEmail',
   					'class' => 'control-label',
   				));
@@ -38,7 +38,7 @@
   	</div>
 	<div class="form-group">
 		<?php
-  				echo tag('label', 'Password', array(
+  				echo tag('label', 'Password *', array(
   					'for' => 'RegPassword',
   					'class' => 'control-label',
   				));

@@ -12,7 +12,9 @@
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
 					<?php
-							loadSubview('users/login');
+							loadSubview('users/login',  array(
+								'direct_link' => true,
+							));
 					?>
 
 					<div class="wrapper-social">

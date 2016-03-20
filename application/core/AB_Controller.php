@@ -35,11 +35,18 @@ class AB_Controller extends CI_Controller {
 	 //        $this->saveUserLog( $browser, $ip, $device );
 	 //    }
 
-	    $this->webroot = $_SERVER['DOCUMENT_ROOT'].'/rd/';
+	    $this->webroot = $_SERVER['DOCUMENT_ROOT'].'/cookindo/';
 		$this->load->vars(array(
 			'domain' => $this->domain,
-			'webroot' => $_SERVER['DOCUMENT_ROOT'].'/rd/',
+			'webroot' => $_SERVER['DOCUMENT_ROOT'].'/cookindo/',
 		));
+	}
+
+	function validateUserLogin(){
+		if( empty($this->session->userdata('loggedin')) ) {
+			$this->load->helper('url');
+			redirect($this->domain);
+		}
 	}
 
 	public function savePageViewLog( $browser, $ip, $device ) {
@@ -372,6 +379,51 @@ class AB_Controller extends CI_Controller {
 	      default : return $_SERVER['REMOTE_ADDR'];
 	    }
 	}
+
+	function _sendEmail( $params = array() ) {
+    	if( !empty($params) ) {
+    		$config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.googlemail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'cookindo.official@gmail.com',
+				'smtp_pass' => 'cookindo123',
+				'mailtype' => 'html',
+				'charset' => 'iso-8859-1',
+				'wordwrap' => TRUE
+			);
+
+    		$view 		= isset($params['email_view']) ? $params['email_view'] : false;
+    		$data 		= isset($params['data']) ? $params['data'] : false;
+    		$to 		= isset($params['to']) ? $params['to'] : false;
+    		$to_name 	= isset($params['to_name']) ? $params['to_name'] : false;
+    		$subject 	= isset($params['subject']) ? $params['subject'] : false;
+
+    		if( !empty($view) && !empty($data) && !empty($to) && !empty($subject) ) {
+    			$mail_view = $this->load->view('Emails/'.$view, $data, true);
+    			$mail_body = $this->load->view('Layouts/Emails/default', array(
+					'content_view' => $mail_view,
+					'subject' => $subject,
+					'to_name' => $to_name,
+				));
+
+				// echo $mail_body;
+
+				$this->load->library('email', $config);
+				$this->email->set_newline("\r\n");
+				$this->email->from('admin@cookindo.com');
+				$this->email->to($to);
+				$this->email->subject($subject);
+				$this->email->message($mail_view);
+				
+				if( $this->email->send() ) {
+					// echo 'Email sent.';
+				} else {
+					// show_error($this->email->print_debugger());
+				}
+    		}
+    	}
+    }
 }
 
 /* End of file AB_Controller.php */

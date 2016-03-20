@@ -9,6 +9,8 @@ class Recipe extends AB_Controller {
     }
 
 	public function index() {
+		$this->validateUserLogin();
+
 		$this->load->helper('form');
 		$this->load->helper('build_data');
 
@@ -135,6 +137,8 @@ class Recipe extends AB_Controller {
 	}
 
 	public function add() {
+		$this->validateUserLogin();
+
 		$this->load->helper('form');
 		$this->load->helper('build_data');
 
@@ -309,6 +313,8 @@ class Recipe extends AB_Controller {
 	}
 
 	public function edit( $recipe_id = false ) {
+		$this->validateUserLogin();
+
 		$this->load->helper('form');
 		$this->load->helper('build_data');
 
@@ -571,6 +577,8 @@ class Recipe extends AB_Controller {
 	}
 
 	public function cookmark() {
+		$this->validateUserLogin();
+
 		$this->load->helper('form');
 		$this->load->helper('build_data');
 
@@ -816,6 +824,8 @@ class Recipe extends AB_Controller {
 	}
 
 	public function my_contest() {
+		$this->validateUserLogin();
+		
 		$this->load->helper('form');
 		$this->load->helper('build_data');
 
