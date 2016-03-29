@@ -1,6 +1,8 @@
 <?php
 		$heading = isset($heading) ? $heading : false;
 		$values = isset($values) ? $values : false;
+
+		if( !empty($values) ) {
 ?>
 
 <div class="wrapper-popular-user hidden-print">
@@ -8,8 +10,6 @@
 			echo tag('h3', $heading, array(
 				'class' => 'mb10 mt20'
 			));
-
-			if( !empty($values) ) {
 	?>
 	<ul class="no-pd no-ul-type">
 		<?php
@@ -58,9 +58,7 @@
 				}
 		?>
 	</ul>
-	<?php
-			} else {
-				echo tag('p', 'Data tidak tersedia');
-			}
-	?>
 </div>
+<?php
+		}
+?>

@@ -54,4 +54,28 @@
 			?>
 		</div>
 	</a>
+	<!-- <a href="<?php echo $url; ?>">
+	    <div class="box-header">
+			<?php
+					echo tag('span', $title, array(
+						'class' => 'wrapper-inner'
+					));
+					echo tag('img', false, array(
+						'src' => $custom_image,
+					));
+			?>
+			<div class="box-footer">
+				<?php
+						echo tag('div', $iconComment.$totalComment, array(
+							'class' => 'pull-right mr5',
+							'title' => 'Jumlah Komentar',
+						));
+						echo tag('div', $iconRecook.$totalRecook, array(
+							'class' => 'pull-right mr10',
+							'title' => 'Jumlah Recook',
+						));
+				?>
+			</div>
+		</div>
+	</a> -->
 </li>

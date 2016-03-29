@@ -7,7 +7,7 @@
 		$curLevelNick = isset( $valuesUserAccount['LevelNickName'] ) ? $valuesUserAccount['LevelNickName'] : false;
 		$_allow_upload = isset( $_allow_upload ) ? $_allow_upload : true;
 
-		$customLevel = 'No level yet';
+		$customLevel = false;
 		if( !empty($curLevel) && !empty($curLevelNick) ) {
 			$customLevel = sprintf('%s (%s)', $curLevel, $curLevelNick);
 		}

@@ -7,86 +7,99 @@
 <div class="container mt20">
 	<div class="big-wrapper">
 		<div class="row bg-white no-mg">
-			<div class="col-sm-3 pd20">
+			<div class="col-sm-3" style="padding: 20px 20px 0px;">
 				<form role="form" action="<?php echo $domain; ?>/recipe/find" method="GET" accept-charset="utf-8">
-				 	<div class="form-group">
-						<label for="txtKeyword">Kata Kunci</label>
+				 	<div class="form-group no-mg mobile-only">
 						<?php
-								echo tag('input', false, array(
-									'id' => 'txtKeyword',
-				    				'type' => 'text',
-				    				'class' => 'form-control',
-				    				'name' => 'keyword',
-				    				'placeholder' => 'Ketik kata kunci masakan &hellip;',
-				    				'value' => $this->input->get('keyword'),
-				    				'maxlength' => 200,
-				    			));
-						?>
-				  	</div>
-				  	<div class="form-group">
-						<label for="Composition">Bahan Baku</label>
-						<?php
-								echo tag('div', false, array(
-									'class' => 'ms-custom form-control'
-								));
-								echo tag('input', false, array(
-									'type' => 'hidden',
-									'id' => 'hdnSuggestValue',
-									'name' => 'hdnSuggestValue',
-									'value' => $compositions,
-								));
-								echo tag('input', false, array(
-									'type' => 'hidden',
-									'id' => 'hdnSubmittedMsValue',
-									'name' => 'hdnSubmittedMsValue',
-									'value' => (isset($request['CompositionID'])? implode($request['CompositionID'], ','):false)
+								echo tag('a', 'Pencarian Detail '.tag('span', false, array('class' => 'glyphicon glyphicon-plus ml5')), array(
+									'href' => '#',
+									'class' => 'btn btn-default',
+									'slide-toggle-on-click' => '.wrapper-adv-search',
+									'title' => 'Tampilan Pencarian Detail',
 								));
 						?>
+						<hr class="mt10 mb10">
 				  	</div>
-					<div class="form-group">
-						<label for="CuisineID">Masakan</label>
-						<?php
-								echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple"');
-						?>
+				  	<div class="wrapper-adv-search">
+					 	<div class="form-group">
+							<label for="txtKeyword">Kata Kunci</label>
+							<?php
+									echo tag('input', false, array(
+										'id' => 'txtKeyword',
+					    				'type' => 'text',
+					    				'class' => 'form-control',
+					    				'name' => 'keyword',
+					    				'placeholder' => 'Ketik kata kunci masakan &hellip;',
+					    				'value' => $this->input->get('keyword'),
+					    				'maxlength' => 200,
+					    			));
+							?>
+					  	</div>
+					  	<div class="form-group">
+							<label for="Composition">Bahan Baku</label>
+							<?php
+									echo tag('div', false, array(
+										'class' => 'ms-custom form-control'
+									));
+									echo tag('input', false, array(
+										'type' => 'hidden',
+										'id' => 'hdnSuggestValue',
+										'name' => 'hdnSuggestValue',
+										'value' => $compositions,
+									));
+									echo tag('input', false, array(
+										'type' => 'hidden',
+										'id' => 'hdnSubmittedMsValue',
+										'name' => 'hdnSubmittedMsValue',
+										'value' => (isset($request['CompositionID'])? implode($request['CompositionID'], ','):false)
+									));
+							?>
+					  	</div>
+						<div class="form-group">
+							<label for="CuisineID">Masakan</label>
+							<?php
+									echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple"');
+							?>
+						</div>
+						<div class="form-group">
+							<label for="FoodTypeID">Jenis</label>
+							<?php
+									echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple"');
+							?>
+						</div>
+						<div class="form-group">
+							<label for="FoodProcessID">Proses Masak</label>
+							<?php
+									echo form_dropdown('FoodProcessID', $food_process, (isset($request['FoodProcessID'])?$request['FoodProcessID']:false), 'class="form-control multiple-select" multiple="multiple"');
+							?>
+						</div>
+						<div class="form-group">
+							<label for="PriceRangeID">Estimasi Biaya</label>
+							<?php
+									echo form_dropdown('PriceRangeID', $price_ranges, (isset($request['PriceRangeID'])?$request['PriceRangeID']:false), 'class="form-control multiple-select" multiple="multiple"');
+							?>
+						</div>
+						<div class="form-group">
+							<label for="EstPeopleID">Estimasi Orang</label>
+							<?php
+									echo form_dropdown('EstPeopleID', $estimation_peoples, (isset($request['EstPeopleID'])?$request['EstPeopleID']:false), 'class="form-control multiple-select" multiple="multiple"');
+							?>
+						</div>
+						<div class="form-group">
+							<label for="Sorting">Urutkan Berdasarkan</label>
+							<?php
+									echo form_dropdown('Sorting', $sorts, (isset($request['Sorting'])?$request['Sorting']:false), 'class="form-control"');
+							?>
+						</div>
+						<div class="form-group">
+					  		<?php
+					  				echo tag('button', 'Cari', array(
+					  					'class' => 'btn btn-orange full-width',
+					  					'type' => 'submit',
+					  				));
+					  		?>
+					  	</div>
 					</div>
-					<div class="form-group">
-						<label for="FoodTypeID">Jenis</label>
-						<?php
-								echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple"');
-						?>
-					</div>
-					<div class="form-group">
-						<label for="FoodProcessID">Proses Masak</label>
-						<?php
-								echo form_dropdown('FoodProcessID', $food_process, (isset($request['FoodProcessID'])?$request['FoodProcessID']:false), 'class="form-control multiple-select" multiple="multiple"');
-						?>
-					</div>
-					<div class="form-group">
-						<label for="PriceRangeID">Estimasi Biaya</label>
-						<?php
-								echo form_dropdown('PriceRangeID', $price_ranges, (isset($request['PriceRangeID'])?$request['PriceRangeID']:false), 'class="form-control multiple-select" multiple="multiple"');
-						?>
-					</div>
-					<div class="form-group">
-						<label for="EstPeopleID">Estimasi Orang</label>
-						<?php
-								echo form_dropdown('EstPeopleID', $estimation_peoples, (isset($request['EstPeopleID'])?$request['EstPeopleID']:false), 'class="form-control multiple-select" multiple="multiple"');
-						?>
-					</div>
-					<div class="form-group">
-						<label for="Sorting">Urutkan Berdasarkan</label>
-						<?php
-								echo form_dropdown('Sorting', $sorts, (isset($request['Sorting'])?$request['Sorting']:false), 'class="form-control"');
-						?>
-					</div>
-					<div class="form-group">
-				  		<?php
-				  				echo tag('button', 'Cari', array(
-				  					'class' => 'btn btn-orange full-width',
-				  					'type' => 'submit',
-				  				));
-				  		?>
-				  	</div>
 				</form>
 			</div>
 			<div class="col-sm-9 no-pd">

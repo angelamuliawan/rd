@@ -5,6 +5,8 @@
 		$comment = isset($comment) ? $comment : false;
 		$comment_id = isset($comment_id) ? $comment_id : false;
 		$comment_date = isset($comment_date) ? $comment_date : false;
+
+		$urlDelete = isset($urlDelete) ? $urlDelete : '/recipe/delete_recipe_comment/';
 ?>
 <div class="media wrapper-ajax-link"> 
 	<div class="pull-left">
@@ -37,7 +39,7 @@
 						'wrapAttributes' => array(
 							'class' => 'ajax-link',
 							'with-confirm' => "Yakin ingin menghapus?",
-							'href' => $domain.'/recipe/delete_recipe_comment/'.$comment_id,
+							'href' => $domain.$urlDelete.$comment_id,
 						),
 					));
 					echo tag('span', '&middot;', array(

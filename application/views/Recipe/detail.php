@@ -39,6 +39,9 @@
 
 		// Recipe Composition
 		$valuesRecipeComposition = isset($valuesRecipeComposition) ? $valuesRecipeComposition : false;
+
+		// Recipe Recook
+		$valueRecipeRecook = isset($valuesRecipeRecook[0]) ? $valuesRecipeRecook[0] : false;
 ?>
 
 <div class="container mt20">
@@ -153,15 +156,60 @@
 									  			));
 									  	?>
 									</div>
-
 									<?php
-											} else {
-												echo tag('h4', 'Recook tidak tersedia');
-											}
+												echo tag('hr', false, array(
+													'class' => 'hidden-print'
+												));
+											} 
+											// else {
+											// 	echo tag('h4', 'Recook tidak tersedia');
+											// }
 									?>
+								</div>								
+								<div class="wrapper-bottom hidden-print">
+									<ul class="no-pd">
+										<?php
+												loadSubview('common/recipe_summary', array(
+													'icon' => 'money.png',
+													'value' => $est_price,
+													'_class' => 'print-floleft',
+													'style' => 'padding: 15px 5px;',
+													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+												));
+												loadSubview('common/recipe_summary', array(
+													'icon' => 'flag.png',
+													'value' => $cuisine_name,
+													'style' => 'padding: 15px 5px;',
+													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+												));
+												loadSubview('common/recipe_summary', array(
+													'icon' => 'spoon.png',
+													'value' => $food_type_name,
+													'style' => 'padding: 15px 5px;',
+													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+												));
+												loadSubview('common/recipe_summary', array(
+													'icon' => 'people.png',
+													'value' => $est_people,
+													'style' => 'padding: 15px 5px;',
+													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+												));
+												loadSubview('common/recipe_summary', array(
+													'icon' => 'clock.png',
+													'value' => sprintf('%s Menit', $est_time),
+													'style' => 'padding: 15px 5px;',
+													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+												));
+												loadSubview('common/recipe_summary', array(
+													'icon' => 'oven.png',
+													'value' => $food_process_name,
+													'style' => 'padding: 15px 5px;',
+													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+												));
+										?>
+									</ul>
 								</div>
-								<hr class="hidden-print">
-								<div class="wrapper-bottom page-break">
+								<div class="wrapper-bottom page-break visible-print">
 									<ul class="no-pd">
 										<?php
 												loadSubview('common/recipe_summary', array(
@@ -170,12 +218,12 @@
 													'_class' => 'print-floleft',
 												));
 												loadSubview('common/recipe_summary', array(
-													'icon' => 'spoon.png',
-													'value' => $food_type_name,
-												));
-												loadSubview('common/recipe_summary', array(
 													'icon' => 'flag.png',
 													'value' => $cuisine_name,
+												));
+												loadSubview('common/recipe_summary', array(
+													'icon' => 'spoon.png',
+													'value' => $food_type_name,
 												));
 												loadSubview('common/recipe_summary', array(
 													'icon' => 'people.png',

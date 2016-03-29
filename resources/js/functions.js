@@ -93,6 +93,12 @@ $.froala = function(){
 }
 
 $.customFunction = function() {
+    $('body').on('click', '*[slide-toggle-on-click]', function(e) {
+        e.preventDefault();
+        var self = $(this);
+        var _class = self.attr('slide-toggle-on-click');
+        $(_class).slideToggle();
+    });
     $('body').on('click', '*[show-on-click]', function(e) {
         e.preventDefault();
         var self = $(this);
@@ -135,9 +141,7 @@ $.customFunction = function() {
         window.print();
     });
     $(".ddlMeasureSize").length && $("body").on("change", ".ddlMeasureSize", function() {
-        var e = $(this),
-            l = e.val();
-        9 == l || 10 == l ? e.closest(".holder-template").find(".freeField").val(1).css({
+        var e = $(this), l = e.val(); 9 == l || 10 == l ? e.closest(".holder-template").find(".freeField").val(1).css({
             "background-color": "#efefef",
             "pointer-events": "none"
         }) : e.closest(".holder-template").find(".freeField").val("").removeAttr("style")

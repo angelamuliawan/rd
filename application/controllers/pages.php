@@ -7,6 +7,10 @@ class Pages extends AB_Controller {
 		$this->load->helper('build_data');
 		$this->callDefaultData('search');
 
+		$resTopCuisine = $this->db->query('CALL GetTopCuisine()');
+		$top_cuisine = $resTopCuisine->result_array();
+		$resTopCuisine->next_result();
+
 		$resNewRecipe = $this->db->query('CALL GetNewlyCreatedRecipe(?)', array(
 			$this->session->userdata('userid'),
 		));
@@ -17,10 +21,18 @@ class Pages extends AB_Controller {
 			$this->session->userdata('userid'),
 		));
 		$popular_recipe = $resPopularRecipe->result_array();
+		$resPopularRecipe->next_result();
+
+		// related recipe by recipe
+		$resPopularUser = $this->db->query('CALL GetPopularUser()');
+		$valuesPopularUser = $resPopularUser->result_array();
+		$resPopularUser->next_result();
 
 		$this->load->vars(array(
+			'valuesTopCuisine' => $top_cuisine,
 			'valuesNewRecipe' => $new_recipe,
 			'valuesPopularRecipe' => $popular_recipe,
+			'valuesPopularUser' => $valuesPopularUser,
 		));
 
 		$this->render();
@@ -49,6 +61,13 @@ class Pages extends AB_Controller {
 		));
 		$values = $resArticleDetail->result_array();
 		$resArticleDetail->next_result();
+
+		// Article Comment
+		$resArticleComment = $this->db->query('CALL GetArticleComment(?)', array(
+			$article_id
+		));
+		$valuesArticleComment = $resArticleComment->result_array();
+		$resArticleComment->next_result();
 		
 		$slug = $this->uri->segment(3);
 
@@ -62,6 +81,8 @@ class Pages extends AB_Controller {
 
 		$this->load->vars(array(
 			'values' => $values,
+			'valuesArticleComment' => $valuesArticleComment,
+			'article_id' => $article_id,
 			'additional_css' => array(
 				'froala/font-awesome.min',
 				'froala/froala_editor.min',
@@ -78,8 +99,53 @@ class Pages extends AB_Controller {
 				'froala/plugins/video.min',
 				'froala/plugins/lists.min',
 			),
+			'og_meta' => array(
+				'title' => $values[0]['ArticleTitle'],
+				'url' => $this->domain.'/artikel/'.$article_id.'/'.utf8_decode($values[0]['Slug']),
+				'image' => $this->domain.'/resources/images/uploads/article/primary/'.$values[0]['ArticleImage'],
+				'desc' => substr(strip_tags($values[0]['ArticleContent']), 0, 250),
+			)
 		));
 		$this->render();
+	}
+
+	public function article_comment( $article_id = false ) {
+		
+		$post = $this->input->post();
+		if( !empty($post) ) {
+			
+			$this->form_validation->set_rules('comment', 'Comment', 'required');
+			if ( $this->form_validation->run() == TRUE ) {
+				$res = $this->db->query('CALL InsertArticleComment(?,?,?)', array(
+					$post['comment'],
+					$this->session->userdata('userid'),
+					$article_id,
+				));
+				$res->next_result();
+
+				$post['comment'] = false;
+			}
+		}
+
+		// Recipe Comment
+		$resArticleComment = $this->db->query('CALL GetArticleComment(?)', array(
+			$article_id
+		));
+		$valuesArticleComment = $resArticleComment->result_array();
+		$resArticleComment->next_result();
+
+		$this->load->vars(array(
+			'valuesArticleComment' => $valuesArticleComment,
+			'article_id' => $article_id,
+		));
+		loadSubview('article/comment');
+	}
+
+	public function delete_article_comment( $comment_id = false ) {
+		$res = $this->db->query('CALL DeleteArticleComment(?,?)', array(
+			$comment_id,
+			$this->session->userdata('userid'),
+		));
 	}
 
 	public function about_us() {
@@ -106,7 +172,7 @@ class Pages extends AB_Controller {
 					$post['email'],
 					$post['message'],
 					$this->session->userdata('userid'),
-					$this->getIP(),
+					$this->getRealUserIp(),
 				));
 
 				$query_result = $resInsertContactUs->result();				

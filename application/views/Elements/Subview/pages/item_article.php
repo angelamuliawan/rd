@@ -47,24 +47,39 @@
 				<?php
 						echo tag('h2', $title, array(
 							'class' => 'header-text',
+							'style' => 'line-height: 3.3rem',
 							'wrapTag' => 'a',
 							'wrapAttributes' => array(
+								'title' => $title,
 								'href' => $url,
 							),
 						));
 						echo tag('p', $content, array(
-							'class' => 'mt10 description'
+							'class' => 'mt10 description',
+							'style' => 'line-height: 2rem;',
 						));
-
-						echo tag('a', 'Selengkapnya', array(
-							'href' => $url,
-							'class' => 'btn btn-orange mt5',
-							'wrapTag' => 'div',
-							'wrapAttributes' => array(
-								'class' => 'taright mb5'
-							)
-						));
-
+				?>
+				<div class="wrapper-button taright">
+					<?php
+							echo tag('a', 'Selengkapnya', array(
+								'title' => 'Selengkapnya',
+								'href' => $url,
+								'class' => 'btn btn-orange mt5',
+								'wrapTag' => 'div',
+								'wrapAttributes' => array(
+									'class' => 'mb5 mr10',
+								)
+							));
+					?>
+					<div class="mb5">
+						<a class="btn btn-facebook mt5" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>&t=<?php echo $slug; ?>"
+						   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+						   target="_blank" title="Share on Facebook">
+						   Share
+						</a>
+					</div>
+				</div>
+				<?php
 						echo tag('p', $date, array(
 							'class' => 'pull-right mt10',
 							'style' => 'opacity:0.8;',

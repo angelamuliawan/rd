@@ -1,4 +1,4 @@
-<div class="wrapper-ads">
+<div class="wrapper-ads hidden-print">
 	<ul class="no-pd">
 		<?php
 				echo tag('a', tag('img', false, array(

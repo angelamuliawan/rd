@@ -57,11 +57,13 @@
 			} else {
 				if( empty($flag_cookmark) ) {
 					$cookmark = tag('a', $cookmark, array(
+						'title' => $textCookmark,
 						'href' => $urlCookmark,
 						'class' => 'ajax-link',
 					));
 				} else {
 					$cookmark = tag('a', $cookmark, array(
+						'title' => $textCookmark,
 						'href' => $domain.'/recipe/uncookmark_item/'.$recipe_id.'/'.$flag_cookmark.'/'.$_print,
 						'class' => 'ajax-link',
 					));
@@ -70,6 +72,7 @@
 		} else {
 			$urlRecook = $urlCookmark = $domain.'/users/login';
 			$cookmark = tag('a', $cookmark, array(
+				'title' => 'Cookmark',
 				'class' => 'ajax-modal',
 				'href' => $urlCookmark,
 			));
@@ -85,6 +88,7 @@
 				echo $recook;
 			} else if( empty($flag_creator) ) {
 				echo tag('a', $recook, array(
+					'title' => 'Recook',
 					'class' => 'ajax-modal',
 					'href' => $urlRecook,
 				));

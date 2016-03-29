@@ -13,6 +13,14 @@
 		$cooked_by_id = isset($cooked_by_id)?$cooked_by_id:false;
 		$cooked_by = isset($cooked_by)?$cooked_by:false;
 
+		$iconCuisine = tag('img', false, array(
+			'style' => 'width:15px;',
+			'src' => $domain.'/resources/icons/spoon.png',
+		));
+		$iconFoodType = tag('img', false, array(
+			'style' => 'width:15px;',
+			'src' => $domain.'/resources/icons/flag.png',
+		));
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment.png',
 		));
@@ -29,8 +37,12 @@
 			$custom_image = $domain.'/resources/images/default.png';
 		}
 
-		$custom_span = tag('span', ' Ala '. tag('a', $cooked_by, array(
-			'href' => '#'
+		$custom_span = tag('span', ' Ala '. tag('h4', $cooked_by, array(
+			'wrapTag' => 'a',
+			'wrapAttributes' => array(
+				'title' => $cooked_by,
+				'href' => $domain.'/users/profile/'.$cooked_by_id,
+			),
 		)));
 
 		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
@@ -69,13 +81,20 @@
 						echo tag('h4', $title, array(
 							'wrapTag' => 'a',
 							'wrapAttributes' => array(
+								'title' => $title,
 								'href' => $url,
 							),
 						));
 						echo $custom_span;
+						echo '<br>';
 
-						echo tag('p', $cuisine);
-						echo tag('p', $food_type);
+						echo $iconFoodType.tag('p', $cuisine, array(
+							'class' => 'fbold ml5 dpinlineblock'
+						));
+						echo '<br>';
+						echo $iconCuisine.tag('p', $food_type, array(
+							'class' => 'fbold ml5 dpinlineblock'
+						));
 						echo tag('p', $recipe_intro, array(
 							'class' => 'mt10 description'
 						));

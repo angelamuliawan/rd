@@ -35,10 +35,10 @@ class AB_Controller extends CI_Controller {
 	 //        $this->saveUserLog( $browser, $ip, $device );
 	 //    }
 
-	    $this->webroot = $_SERVER['DOCUMENT_ROOT'].'/cookindo/';
+	    $this->webroot = $_SERVER['DOCUMENT_ROOT'].'/rd/';
 		$this->load->vars(array(
 			'domain' => $this->domain,
-			'webroot' => $_SERVER['DOCUMENT_ROOT'].'/cookindo/',
+			'webroot' => $_SERVER['DOCUMENT_ROOT'].'/rd/',
 		));
 	}
 
@@ -382,14 +382,14 @@ class AB_Controller extends CI_Controller {
 
 	function _sendEmail( $params = array() ) {
     	if( !empty($params) ) {
-    		$config = Array(
+    		$config = array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'ssl://smtp.googlemail.com',
+				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
 				'smtp_user' => 'cookindo.official@gmail.com',
 				'smtp_pass' => 'cookindo123',
 				'mailtype' => 'html',
-				'charset' => 'iso-8859-1',
+				'charset' => 'utf-8',
 				'wordwrap' => TRUE
 			);
 
@@ -405,22 +405,48 @@ class AB_Controller extends CI_Controller {
 					'content_view' => $mail_view,
 					'subject' => $subject,
 					'to_name' => $to_name,
-				));
+				), true);
 
 				// echo $mail_body;
+				
+				// To send HTML mail, the Content-type header must be set
+				$headers  = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+				
+				// Additional headers
+				$headers .= 'To: '.$to_name.' <'.$to.'>' . "\r\n";
+				$headers .= 'From: admin@cookindo.com' . "\r\n";
+				// $headers .= 'Cc: birthdayarchive@example.com' . "\r\n";
+				// $headers .= 'Bcc: birthdaycheck@example.com' . "\r\n";
+				
+				// Mail it
+				mail($to, $subject, $mail_body, $headers);
 
+				// echo $mail_body;
+				
+				/*
 				$this->load->library('email', $config);
-				$this->email->set_newline("\r\n");
 				$this->email->from('admin@cookindo.com');
 				$this->email->to($to);
 				$this->email->subject($subject);
 				$this->email->message($mail_view);
+				
+				
+				$ci = get_instance();
+				$ci->load->library('email');
+				$ci->email->initialize($config);
+				$ci->email->from('admin@cookindo.com');
+				$ci->email->to($to);
+				$ci->email->subject($subject);
+				$ci->email->message($mail_view);
+				// $ci->email->send();
 				
 				if( $this->email->send() ) {
 					// echo 'Email sent.';
 				} else {
 					// show_error($this->email->print_debugger());
 				}
+				*/
     		}
     	}
     }

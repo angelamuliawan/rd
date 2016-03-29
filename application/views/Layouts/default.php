@@ -114,15 +114,16 @@
 
 				
 				load_script(array(
-					'jquery/jquery.min',
-					'bootstrap/bootstrap.min',
-					'bootstrap/typeahead',
-					'bootstrap/bootstrap-multiselect',
-					'fileupload/jquery.ui.widget',
-					'fileupload/jquery.fileupload',
-					'fileupload/jquery.iframe-transport',
-					'magicsuggest/magicsuggest',
-					'functions',
+					// 'jquery/jquery.min',
+					// 'bootstrap/bootstrap.min',
+					// 'bootstrap/typeahead',
+					// 'bootstrap/bootstrap-multiselect',
+					// 'fileupload/jquery.ui.widget',
+					// 'fileupload/jquery.fileupload',
+					// 'fileupload/jquery.iframe-transport',
+					// 'magicsuggest/magicsuggest',
+					// 'functions',
+					'defer',
 				));
 
 				if(isset($additional_js) && !empty($additional_js)) {

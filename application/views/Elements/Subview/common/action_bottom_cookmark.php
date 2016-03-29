@@ -37,6 +37,8 @@
 		} else {
 			$urlRecook = $urlCookmark = $domain.'/users/login';
 		}
+
+		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
 ?>
 
 <div class="action-bottom mt15 tacenter">
@@ -46,12 +48,18 @@
 				echo $recook;
 			} else {
 				echo tag('a', $recook, array(
+					'title' => $textRecook,
 					'class' => 'ajax-modal',
 					'href' => $urlRecook,
 				));
 			}
-
-			echo $share;
+	?>
+			<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>&t=<?php echo $slug; ?>"
+			   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+			   target="_blank" title="Share on Facebook">
+			   <?php echo $share; ?>
+			</a>
+	<?php		
 			echo tag('a', $cookmark, array(
 				'class' => 'ajax-link',
 				'href' => $domain.'/recipe/uncookmark_item/'.$recipe_id.'/'.$cookmark_id,

@@ -20,13 +20,16 @@
 		}
 
 		$custom_title = tag('a', $title, array(
+			'title' => $title,
 			'href' => $domain.'/resep-masak/'.$recipe_id.'/'.$slug,
 		));
+
+		$url = $domain.'/recipe/view_recook_item/'.$recook_id;
 ?>
 <li class="no-ul-type">
 	<div class="row">
 		<div class="col-sm-4 left-side">
-			<a href="<?php echo $domain.'/recipe/view_recook_item/'.$recook_id ?>" class="ajax-modal">
+			<a href="<?php echo $url; ?>" class="ajax-modal">
 				<?php
 						echo tag('img', false, array(
 							'src' => $custom_image,
@@ -41,7 +44,7 @@
 			<div class="box-footer">
 				<?php
 						echo tag('div', $iconComment.$totalComment, array(
-							'class' => 'pull-right mr10',
+							'class' => 'pull-right mr5',
 							'title' => 'Jumlah Komentar',
 						));
 				?>

@@ -6,35 +6,65 @@
 		$slug = $value['Slug'];
 		$content = $value['ArticleContent'];
 		$date = $value['ArticleDate'];
+
+		$comment = tag('img', false, array(
+			'src' => $domain.'/resources/icons/comment_w.png',
+		));
+		$total_comment = count($valuesArticleComment);
+
+		$url = $domain.'/artikel/'.$id.'/'.$slug;
+
+		$path_image = '/resources/images/uploads/article/primary/'.$image;
+		$custom_image = $domain.$path_image;
+		if( !file_exists( $webroot.$path_image ) ) {
+			$custom_image = $domain.'/resources/images/default.png';
+		}
 ?>
 
 <div class="container">
 	<div class="big-wrapper">
 		<div class="row">
-			<div class="col-sm-10">
+			<div class="col-sm-12">
 				<div id="article-detail" class="bg-white">
-					<div class="header with-border pd15">
+					<div class="wrapper-background-article" style="position:relative;">
 						<?php
-								echo tag('h2', $title, array(
-									'class' => 'wrapper-text',
-									'style' => 'padding-bottom:5px;',
+								echo tag('div', false, array(
+									'class' => 'bg-holder',
+									'style' => 'background-image:url("'.$custom_image.'");'
 								));
-								echo tag('span', 'Created on '.$date, array(
-									// 'class' => 'mt20',
-									'style' => 'opacity:0.8;',
+								echo tag('h1', $title, array(
+									'wrapTag' => 'div',
+									'wrapAttributes' => array(
+										'class' => 'article-title'
+									),
 								));
 						?>
+						<div class="right-side">
+							<?php
+									echo $comment;
+									echo tag('span', $total_comment);
+							?>
+						</div>
 					</div>
 					<div class="content with-border pd15">
 						<?php
 								echo $content;
 						?>
+						<div class="wrapper-social">
+							<div class="wrapper-facebook with-border">
+								<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>&t=<?php echo $slug; ?>"
+								   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+								   target="_blank" title="Share on Facebook">
+									<div class="wrapper-inner">
+										<span class="fbold">Share to Facebook</span>
+									</div>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-sm-2">
 				<?php
-						loadSubview('common/ads');
+						loadSubview('article/comment');
 				?>
 			</div>
 		</div>

@@ -27,6 +27,7 @@
 	        			));
 	        			echo tag('span', 'by ');
 	        			echo tag('a', $recook_username, array(
+	        				'title' => $recook_username,
 	        				'href' => $domain.'/users/profile/'.$recook_user_id,
 	        			));
 	        	?>

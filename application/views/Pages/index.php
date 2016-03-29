@@ -3,30 +3,76 @@
 			'_with_text' => true
 		));
 ?>
-<div class="wrapper-banner hidden-print mt10">
-	<div class="container">
-		<?php
-				echo tag('a', tag('img', false, array(
-					'src' => $domain.'/resources/images/uploads/banner/banner.jpg',
-					'style' => 'max-width: 100%',
-				)), array(
-					'href' => $domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
-				));
-		?>
-	</div>
-</div>
-<div class="container mt5">
+<div class="container mt5 bg-white">
 	<div class="big-wrapper">
 		<div class="row">
 			<div class="col-sm-10">
+				<div class="wrapper-banner hidden-print mt10">
+					<?php
+							echo tag('a', tag('img', false, array(
+								'src' => $domain.'/resources/images/uploads/banner/banner.jpg',
+								'style' => 'max-width: 100%',
+							)), array(
+								'href' => $domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
+							));
+					?>
+				</div>
 				<div class="wrapper-food-list bg-white">
-					<div class="header with-border">
+					<div class="header">
+						<?php
+								echo tag('h3', 'Top Cuisines', array(
+									'class' => 'pull-left mt5 wrapper-text'
+								));
+						?>
+					</div>
+					<div class="content with-border">
+						<ul>
+							<?php
+									if( !empty($valuesTopCuisine) ) {
+										foreach( $valuesTopCuisine as $key => $value ) {
+											$id = $value['CuisineID'];
+											$name = $value['CuisineName'];
+											$photo = $value['CuisinePhoto'];
+											$cnt = $value['Total'];
+											
+											loadSubview('pages/item_cuisine', array(
+												'cuisine_id' => $id,
+												'cuisine_name' => $name,
+												'image' => $photo,
+												'cnt' => $cnt,
+												'style' => 'height:170px;',
+											));
+										}
+									} else {
+										echo tag('h4', 'Top cuisine tidak tersedia', array(
+											'wrapTag' => 'li',
+											'wrapAttributes' => array(
+												'class' => 'no-border'
+											)
+										));
+									}
+							?>
+						</ul>
+					</div>
+					<div class="header custom mobile-only">
+						<?php
+								echo tag('a', 'Tampilkan Semua ' .tag('span', false, array('class' => 'glyphicon glyphicon-chevron-down')), array(
+									'class' => 'btn btn-default full-width',
+									'href' => $domain.'/recipe/find?Sorting=1',
+									'role' => 'button',
+								));
+						?>
+					</div>
+				</div>
+
+				<div class="wrapper-food-list bg-white">
+					<div class="header">
 						<?php
 								echo tag('h3', 'Baru Dibuat', array(
 									'class' => 'pull-left mt5 wrapper-text'
 								));
-								echo tag('a', 'Tampilkan Semua', array(
-									'class' => 'btn btn-orange pull-right',
+								echo tag('a', 'Tampilkan Semua ' .tag('span', false, array('class' => 'glyphicon glyphicon-chevron-down')), array(
+									'class' => 'btn btn-default pull-right',
 									'href' => $domain.'/recipe/find?Sorting=1',
 									'role' => 'button'
 								));
@@ -65,16 +111,25 @@
 							?>
 						</ul>
 					</div>
+					<div class="header custom mobile-only">
+						<?php
+								echo tag('a', 'Tampilkan Semua ' .tag('span', false, array('class' => 'glyphicon glyphicon-chevron-down')), array(
+									'class' => 'btn btn-default full-width',
+									'href' => $domain.'/recipe/find?Sorting=1',
+									'role' => 'button',
+								));
+						?>
+					</div>
 				</div>
 
 				<div class="wrapper-food-list bg-white mt20">
-					<div class="header with-border">
+					<div class="header">
 						<?php
 								echo tag('h3', 'Resep Populer', array(
 									'class' => 'pull-left mt5 wrapper-text'
 								));
-								echo tag('a', 'Tampilkan Semua', array(
-									'class' => 'btn btn-orange pull-right',
+								echo tag('a', 'Tampilkan Semua '.tag('span', false, array('class' => 'glyphicon glyphicon-chevron-down')), array(
+									'class' => 'btn btn-default pull-right',
 									'href' => $domain.'/recipe/find?Sorting=2',
 									'role' => 'button'
 								));
@@ -113,10 +168,24 @@
 							?>
 						</ul>
 					</div>
+					<div class="header custom mobile-only">
+						<?php
+								echo tag('a', 'Tampilkan Semua ' .tag('span', false, array('class' => 'glyphicon glyphicon-chevron-down')), array(
+									'class' => 'btn btn-default full-width',
+									'href' => $domain.'/recipe/find?Sorting=2',
+									'role' => 'button',
+								));
+						?>
+					</div>
 				</div>
 			</div>
 			<div class="col-sm-2">
 				<?php
+						loadSubview('users/top_users', array(
+							'heading' => 'Top Chef',
+							'values' => $valuesPopularUser,
+						));
+
 						// loadSubview('common/ads');
 				?>
 			</div>

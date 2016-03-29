@@ -10,6 +10,14 @@
 		$cnt_comment = isset($cnt_comment)?$cnt_comment:false;
 		$cnt_recook = isset($cnt_recook)?$cnt_recook:false;
 
+		$iconCuisine = tag('img', false, array(
+			'style' => 'width:15px;',
+			'src' => $domain.'/resources/icons/spoon.png',
+		));
+		$iconFoodType = tag('img', false, array(
+			'style' => 'width:15px;',
+			'src' => $domain.'/resources/icons/flag.png',
+		));
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment.png',
 		));
@@ -40,6 +48,7 @@
 								'class' => 'box-header',
 							),
 						));
+
 				?>
 			</a>
 			<div class="box-footer">
@@ -59,10 +68,16 @@
 			<div class="box-description">
 				<?php
 						echo tag('a', tag('h4', $title), array(
+							'title' => $title,
 							'href' => $url,
 						));
-						echo tag('p', $cuisine);
-						echo tag('p', $food_type);
+						echo $iconFoodType.tag('p', $cuisine, array(
+							'class' => 'fbold ml5 dpinlineblock'
+						));
+						echo '<br>';
+						echo $iconCuisine.tag('p', $food_type, array(
+							'class' => 'fbold ml5 dpinlineblock'
+						));
 						echo tag('p', $recipe_intro, array(
 							'class' => 'mt10 description'
 						));
