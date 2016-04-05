@@ -1,19 +1,75 @@
 <?php
-		loadSubview('header/search_box');
+		// loadSubview('header/search_box');
+
+		if( !empty($values) ) {
+			$first = $values[0];
+			unset($values[0]);
+			$values = array_values($values);
+		}
 ?>
 
-<div class="container mt20">
+<div class="container">
 	<div class="big-wrapper">
 		<div class="row">
-			<div class="col-sm-10">
+			<div class="col-sm-9">
 				<div id="article-list" class="wrapper-food-list-vertical bg-white">
-					<div class="header with-border">
+					<!-- <div class="header with-border"> -->
 						<?php
-								echo tag('h3', 'Artikel', array(
-									'class' => 'pull-left mt5 wrapper-text'
-								));
+								// echo tag('h3', 'Artikel', array(
+								// 	'class' => 'pull-left mt5 wrapper-text'
+								// ));
 						?>
-					</div>
+					<!-- </div> -->
+
+					<?php
+							if( isset($first) ) {
+								$id = $first['ArticleID'];
+								$image = $first['ArticleImage'];
+								$title = $first['ArticleTitle'];
+								$slug = $first['Slug'];
+
+								// $comment = tag('img', false, array(
+								// 	'src' => $domain.'/resources/icons/comment_w.png',
+								// ));
+								// $total_comment = count($valuesArticleComment);
+
+								$url = $domain.'/artikel/'.$id.'/'.$slug;
+
+								$path_image = '/resources/images/uploads/article/primary/'.$image;
+								$custom_image = $domain.$path_image;
+								if( !file_exists( $webroot.$path_image ) ) {
+									$custom_image = $domain.'/resources/images/default.png';
+								}
+					?>	
+								<div id="article-detail">
+									<div class="wrapper-background-article">
+										<?php
+												echo tag('div', false, array(
+													'class' => 'bg-holder',
+													'style' => 'background-image:url('.$custom_image.')',
+												));
+										?>
+										<div class="article-title">
+											<?php
+													echo tag('h1', $title, array(
+														'wrapTag' => 'a',
+														'wrapAttributes' => array(
+															'href' => $url,
+															'title' => $title,
+														),
+													));
+											?>
+										</div>
+										<!-- <div class="right-side">
+											<img src="http://localhost/cookindo/resources/icons/comment_w.png">
+											<span>1</span>						
+										</div> -->
+									</div>
+								</div>
+					<?php
+							}
+					?>
+
 					<div class="content with-border">
 						<ul>
 							<?php
@@ -48,7 +104,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-2">
+			<div class="col-sm-3">
 				<?php
 						loadSubview('common/ads');
 				?>

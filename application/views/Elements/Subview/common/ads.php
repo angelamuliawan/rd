@@ -12,13 +12,8 @@
 					),
 				));
 
-				// echo tag('img', false, array(
-				// 	'src' => $domain.'/resources/images/sample-ads.jpg',
-				// 	'wrapTag' => 'li',
-				// 	'wrapAttributes' => array(
-				// 		'class' => 'no-ul-type mb20',
-				// 	),
-				// ));
+				loadSubview('common/sdk');
+
 				// echo tag('img', false, array(
 				// 	'src' => $domain.'/resources/images/sample-ads.jpg',
 				// 	'wrapTag' => 'li',

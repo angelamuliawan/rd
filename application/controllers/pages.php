@@ -28,11 +28,19 @@ class Pages extends AB_Controller {
 		$valuesPopularUser = $resPopularUser->result_array();
 		$resPopularUser->next_result();
 
+		// Newest Article
+		$resNewestArticle = $this->db->query('CALL GetNewestArticle(?)', array(
+			NULL
+		));
+		$valuesNewestArticle = $resNewestArticle->result_array();
+		$resNewestArticle->next_result();
+
 		$this->load->vars(array(
 			'valuesTopCuisine' => $top_cuisine,
 			'valuesNewRecipe' => $new_recipe,
 			'valuesPopularRecipe' => $popular_recipe,
 			'valuesPopularUser' => $valuesPopularUser,
+			'valuesNewestArticle' => $valuesNewestArticle,
 		));
 
 		$this->render();
@@ -43,12 +51,20 @@ class Pages extends AB_Controller {
 		$this->load->helper('build_data');
 		$this->callDefaultData('search');
 
-		$resArticle = $this->db->query('CALL GetArticle()');
+		$resArticle = $this->db->query('CALL GetNewestArticle(?)', array(
+			NULL
+		));
 		$values = $resArticle->result_array();
 		$resArticle->next_result();
 
 		$this->load->vars(array(
+			'site_title' => 'Artikel',
 			'values' => $values,
+			'sdk' => array(
+				'facebook' => array(
+					'like_page' => true,
+				)
+			)
 		));
 		$this->render();
 	}
@@ -79,10 +95,23 @@ class Pages extends AB_Controller {
 			return redirect($url);
 		}
 
+		$resNewestArticle = $this->db->query('CALL GetNewestArticle(?)', array(
+			$article_id
+		));
+		$valuesNewestArticle = $resNewestArticle->result_array();
+		$resNewestArticle->next_result();
+
 		$this->load->vars(array(
+			'site_title' => $values[0]['ArticleTitle'],
 			'values' => $values,
 			'valuesArticleComment' => $valuesArticleComment,
+			'valuesNewestArticle' => $valuesNewestArticle,
 			'article_id' => $article_id,
+			'sdk' => array(
+				'facebook' => array(
+					'like_share' => true,
+				)
+			),
 			'additional_css' => array(
 				'froala/font-awesome.min',
 				'froala/froala_editor.min',
@@ -104,7 +133,7 @@ class Pages extends AB_Controller {
 				'url' => $this->domain.'/artikel/'.$article_id.'/'.utf8_decode($values[0]['Slug']),
 				'image' => $this->domain.'/resources/images/uploads/article/primary/'.$values[0]['ArticleImage'],
 				'desc' => substr(strip_tags($values[0]['ArticleContent']), 0, 250),
-			)
+			),
 		));
 		$this->render();
 	}
@@ -149,6 +178,9 @@ class Pages extends AB_Controller {
 	}
 
 	public function about_us() {
+		$this->load->vars(array(
+			'site_title' => 'Tentang Kami',
+		));
 		$this->render();
 	}
 
@@ -186,15 +218,25 @@ class Pages extends AB_Controller {
 			}
 		}
 		
+		$this->load->vars(array(
+			'site_title' => 'Kontak Kami',
+		));
+
 		loadMessage($message, $status);
 		$this->render($post);
 	}
 
 	public function terms_of_use() {
+		$this->load->vars(array(
+			'site_title' => 'Tata Cara Penggunaan',
+		));
 		$this->render();
 	}
 
 	public function privacy_policy() {
+		$this->load->vars(array(
+			'site_title' => 'Kebijakan Pribadi',
+		));
 		$this->render();
 	}
 }

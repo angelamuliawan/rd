@@ -1,0 +1,2 @@
+<div class="fb-page" data-href="https://www.facebook.com/cookindo.id/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
+</div>

@@ -16,7 +16,7 @@
 					$cnt_recipe = $value['NumberOfRecipe'];
 					$cnt_recook = $value['NumberOfRecook'];
 
-					$path_image = '/resources/images/uploads/users/'.$userphoto;
+					$path_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
 					$custom_image = $domain.$path_image;
 					if( !file_exists( $webroot.$path_image ) ) {
 						$custom_image = $domain.'/resources/images/64x64.png';
@@ -30,7 +30,7 @@
 					<?php
 							echo tag('img', false, array(
 								'src' => $custom_image,
-								'style' => 'width: 64px; height: 40px;',
+								// 'style' => 'width: 64px; height: 40px;',
 								'wrapTag' => 'a',
 								'wrapAttributes' => array(
 									'href' => $domain.'/users/profile/'.$user_id,

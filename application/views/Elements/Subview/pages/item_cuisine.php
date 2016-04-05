@@ -20,9 +20,13 @@
 					echo tag('span', $cuisine_name, array(
 						'class' => 'wrapper-inner'
 					));
-					echo tag('img', false, array(
-						'src' => $custom_image,
+					echo tag('div', false, array(
+						'class' => 'item-cuisine',
+						'style' => 'background-image:url('.$custom_image.');'
 					));
+					// echo tag('img', false, array(
+					// 	'src' => $custom_image,
+					// ));
 			?>
 			<div class="box-footer cuisine">
 				<?php

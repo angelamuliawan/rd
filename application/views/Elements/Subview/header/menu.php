@@ -23,13 +23,18 @@
 						'href' => $domain,
 						'class' => 'navbar-brand'
 					));
-					
-					echo tag('img', false, array(
-						'src' => $domain.'/resources/images/logos/logo.jpg',
-						'class' => 'hide',
-					));
       		?>
-    	</div>
+      		<!-- <form action="" class="navbar-form navbar-right">
+			   	<div class="input-group">
+			       <input type="Search" placeholder="Search..." class="form-control" />
+			       <div class="input-group-btn">
+			           <button class="btn btn-info">
+			           <span class="glyphicon glyphicon-search"></span>
+			           </button>
+			       </div>
+			   	</div>
+			</form> -->
+      	</div>
     	<div id="navbar" class="collapse navbar-collapse">
       		<ul class="nav navbar-nav navbar-right">
       			<?php
@@ -141,7 +146,7 @@
         		<li class="dropdown">
         			<?php
         					$userphoto = $this->session->userdata('userphoto');
-							$path_image = '/resources/images/uploads/users/'.$userphoto;
+							$path_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
 							$custom_image = $domain.$path_image;
 							if( !file_exists( $webroot.$path_image ) ) {
 								$custom_image = $domain.'/resources/images/64x64.png';

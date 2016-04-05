@@ -34,7 +34,6 @@
 				<?php
 						echo tag('img', false, array(
 			        		'src' => $custom_image,
-			        		'style' => 'width:100%; height:auto; max-height:230px; display:inline-block;',
 			        	));
 				?>
 			</div>

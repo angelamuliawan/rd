@@ -26,7 +26,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div id="article-detail" class="bg-white">
-					<div class="wrapper-background-article" style="position:relative;">
+					<div class="wrapper-background-article">
 						<?php
 								echo tag('div', false, array(
 									'class' => 'bg-holder',
@@ -48,7 +48,12 @@
 					</div>
 					<div class="content with-border pd15">
 						<?php
-								echo $content;
+								loadSubview('common/sdk');
+								loadSubview('common/adsense');
+
+								echo tag('div', $content, array(
+									'class' => 'mt10',
+								));
 						?>
 						<div class="wrapper-social">
 							<div class="wrapper-facebook with-border">
@@ -56,7 +61,7 @@
 								   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
 								   target="_blank" title="Share on Facebook">
 									<div class="wrapper-inner">
-										<span class="fbold">Share to Facebook</span>
+										<span class="fbold">Bagikan ke facebook</span>
 									</div>
 								</a>
 							</div>
@@ -65,6 +70,7 @@
 				</div>
 				<?php
 						loadSubview('article/comment');
+						loadSubview('article/item_article');
 				?>
 			</div>
 		</div>

@@ -12,6 +12,12 @@ class AB_Controller extends CI_Controller {
 		$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
 
 		if( isLoggedIn() ) {
+
+			if( $this->session->userdata('userpassword') == 'def' && strtolower($this->router->method) != 'completion' && strtolower($this->router->method) != 'logout' ) {
+				$this->load->helper('url');
+	            redirect($this->domain.'/users/completion');
+			}
+
 			$resNotification = $this->db->query('CALL GetNotifications(?)', array(
 				$this->session->userdata('userid')
 			));
@@ -35,10 +41,10 @@ class AB_Controller extends CI_Controller {
 	 //        $this->saveUserLog( $browser, $ip, $device );
 	 //    }
 
-	    $this->webroot = $_SERVER['DOCUMENT_ROOT'].'/rd/';
+	    $this->webroot = $_SERVER['DOCUMENT_ROOT'].'/cookindo/';
 		$this->load->vars(array(
 			'domain' => $this->domain,
-			'webroot' => $_SERVER['DOCUMENT_ROOT'].'/rd/',
+			'webroot' => $_SERVER['DOCUMENT_ROOT'].'/cookindo/',
 		));
 	}
 
@@ -279,6 +285,19 @@ class AB_Controller extends CI_Controller {
 			'totalRowData' => $totalRowData,
 			'currentPage' => $page,
 		));
+	}
+
+	function seoURL($string) {
+	    //Lower case everything
+	    $string = strtolower($string);
+	    //Make alphanumeric (removes all other characters)
+	    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+	    //Clean up multiple dashes or whitespaces
+	    $string = preg_replace("/[\s-]+/", " ", $string);
+	    //Convert whitespaces and underscore to dash
+	    $string = preg_replace("/[\s_]/", "-", $string);
+	    
+	    return $string;
 	}
 
 	function getBrowser() {

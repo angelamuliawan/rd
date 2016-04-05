@@ -53,6 +53,18 @@ class Ajax extends AB_Controller {
 					    );
 					    $this->load->library('image_lib', $config_resize);
 					    $this->image_lib->resize();
+		        	} else if( $path == 'users' ) {
+		        		$fInfo = $this->upload->data();
+						$config_resize = array(
+							'source_image' => $fInfo['full_path'],
+							'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
+							'maintain_ratio' => true,
+							'width' => 100,
+							'height' => 100,
+							'quality' => '100%',
+					    );
+					    $this->load->library('image_lib', $config_resize);
+					    $this->image_lib->resize();
 		        	}
 
 		        	$result = tag('img', false, array(

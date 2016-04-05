@@ -42,6 +42,8 @@
 
 		// Recipe Recook
 		$valueRecipeRecook = isset($valuesRecipeRecook[0]) ? $valuesRecipeRecook[0] : false;
+
+		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
 ?>
 
 <div class="container mt20">
@@ -60,7 +62,7 @@
 			<div class="col-sm-3 print-floright">
 				<div class="wrapper pd10 taright">
 					<?php
-							echo tag('p', 'Originally cooked by:');
+							echo tag('p', 'Dibuat oleh:');
 							echo tag('a', $username, array(
 								'href' => $domain.'/users/profile/'.$user_id,
 								'wrapTag' => 'p',
@@ -313,6 +315,17 @@
 								?>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="wrapper-social pd15">
+					<div class="wrapper-facebook with-border">
+						<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>&t=<?php echo $slug; ?>"
+						   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+						   target="_blank" title="Share on Facebook">
+							<div class="wrapper-inner">
+								<span class="fbold">Bagikan ke facebook</span>
+							</div>
+						</a>
 					</div>
 				</div>
 				<?php

@@ -12,8 +12,9 @@
 					</div>
 					<div class="content">
 						<p>
-							Untuk hal-hal yang berkaitan dengan bisnis, pemasangan iklan, penawaran kerja sama ataupun investasi dapat 
-							menghubungi kami melalui <b>admin@cookindo.com</b> atau melalui form dibawah ini.
+							Untuk hal-hal yang berkaitan dengan bisnis, pemasangan iklan, penawaran kerja sama, investasi, ataupun jika Anda mengalami masalah ketika
+							menggunakan sistem kami, dapat menghubungi kami melalui 
+							<b>admin@cookindo.com</b> / <b>angela@cookindo.com</b> atau melalui form dibawah ini.
 						</p>
 					</div>
 

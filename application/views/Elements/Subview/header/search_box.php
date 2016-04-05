@@ -21,12 +21,12 @@
 							<div class="row row-centered">
 								<div class="col-sm-2 col-xs-8 col-centered">
 									<?php
-											echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple"');
+											echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="Masakan"');
 									?>
 								</div>
 								<div class="col-sm-2 col-xs-8 col-centered">
 									<?php
-											echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple"');
+											echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="Jenis Masakan"');
 									?>
 								</div>
 								<div class="col-sm-6 col-xs-8 col-centered">

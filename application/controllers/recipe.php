@@ -28,6 +28,7 @@ class Recipe extends AB_Controller {
 		$data = $resMyRecipe->result_array();
 
 		$this->load->vars(array(
+			'site_title' => 'Resep Saya',
 			'values' => $data,
 		));
 		$this->render($post);
@@ -41,6 +42,9 @@ class Recipe extends AB_Controller {
 		$this->callDefaultData('create', true);
 		$this->callSearchRecipe($post, $page);
 
+		$this->load->vars(array(
+			'site_title' => 'Cari Resep',
+		));
 		$this->render($post);
 	}
 
@@ -125,6 +129,7 @@ class Recipe extends AB_Controller {
 			'valuesRelatedByAuthor' => $valuesRelatedByAuthor,
 			'valuesRelatedRecipe' => $valuesRelatedRecipe,
 			'recipe_id' => $recipe_id,
+			'site_title' => $valuesRecipeHeader[0]['RecipeName'],
 			'og_meta' => array(
 				'title' => $valuesRecipeHeader[0]['RecipeName'],
 				'url' => $this->domain.'/resep-masak/'.$recipe_id.'/'.utf8_decode($valuesRecipeHeader[0]['Slug']),
@@ -309,6 +314,10 @@ class Recipe extends AB_Controller {
 		} else {
 			loadMessage($message, $status);
 		}
+
+		$this->load->vars(array(
+			'site_title' => 'Tulis Resep',
+		));
 		$this->render($post);
 	}
 
@@ -551,6 +560,10 @@ class Recipe extends AB_Controller {
 			}
 		}
 
+		$this->load->vars(array(
+			'site_title' => 'Edit Resep',
+		));
+
 		loadMessage($message, $status);
 		$this->render($post, 'Recipe/add');
 	}
@@ -571,6 +584,7 @@ class Recipe extends AB_Controller {
 		$data = $resRecook->result_array();
 
 		$this->load->vars(array(
+			'site_title' => 'Recook',
 			'values' => $data,
 		));
 		$this->render($post);
@@ -594,6 +608,7 @@ class Recipe extends AB_Controller {
 		$data = $resCookmark->result_array();
 
 		$this->load->vars(array(
+			'site_title' => 'Cookmark',
 			'values' => $data,
 		));
 		$this->render($post);
@@ -820,6 +835,9 @@ class Recipe extends AB_Controller {
 		$this->load->helper('build_data');
 
 		$this->callDefaultData();
+		$this->load->vars(array(
+			'site_title' => 'Kontes Masak',
+		));
 		$this->render();
 	}
 
@@ -830,6 +848,9 @@ class Recipe extends AB_Controller {
 		$this->load->helper('build_data');
 
 		$this->callDefaultData();
+		$this->load->vars(array(
+			'site_title' => 'Kontes Saya',
+		));
 		$this->render(false, 'coming_soon');
 	}
 }

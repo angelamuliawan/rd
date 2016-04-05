@@ -16,7 +16,7 @@
 		$totalComment = tag('span', $cnt_comment);
 		$totalRecook = tag('span', $cnt_recook);
 
-		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
+		$path_image = '/resources/images/uploads/recipe/primary/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
@@ -34,6 +34,13 @@
 						'class' => 'box-header',
 					),
 				));
+				// echo tag('div', false, array(
+				// 	'style' => 'background-image:url('.$custom_image.'); width:100%; height:170px; background-size: cover; background-position: center;',
+				// 	'wrapTag' => 'div',
+				// 	'wrapAttributes' => array(
+				// 		'class' => 'box-header',
+				// 	),					
+				// ));
 				echo tag('h4', $title, array(
 					'wrapTag' => 'div',
 					'wrapAttributes' => array(

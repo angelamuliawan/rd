@@ -15,17 +15,22 @@
 
 		$url = $domain.'/artikel/'.$article_id.'/'.$slug;
 ?>
-<li class="no-ul-type wrapper-ajax-link">
+<li class="no-ul-type wrapper-ajax-link item-article">
 	<div class="row">
-		<div class="col-sm-4 left-side">
+		<div class="col-md-4 left-side">
 			<a href="<?php echo $url; ?>">
 				<?php
-						echo tag('img', false, array(
-							'src' => $custom_image,
-							'wrapTag' => 'div',
-							'wrapAttributes' => array(
-								'class' => 'box-header',
-							),
+						// echo tag('img', false, array(
+						// 	'src' => $custom_image,
+						// 	'wrapTag' => 'div',
+						// 	'wrapAttributes' => array(
+						// 		'class' => 'box-header',
+						// 	),
+						// ));
+
+						echo tag('div', false, array(
+							'class' => 'bg-holder',
+							'style' => 'background-image:url('.$custom_image.');'
 						));
 
 						if( isLoggedIn() && $this->session->userdata('userrole') == 1 ) {
@@ -42,7 +47,7 @@
 				?>
 			</a>
 		</div>
-		<div class="col-sm-8 right-side">
+		<div class="col-md-8 right-side">
 			<div class="box-description">
 				<?php
 						echo tag('h2', $title, array(
@@ -59,7 +64,7 @@
 							'style' => 'line-height: 2rem;',
 						));
 				?>
-				<div class="wrapper-button taright">
+				<!-- <div class="wrapper-button taright">
 					<?php
 							echo tag('a', 'Selengkapnya', array(
 								'title' => 'Selengkapnya',
@@ -78,7 +83,7 @@
 						   Share
 						</a>
 					</div>
-				</div>
+				</div> -->
 				<?php
 						echo tag('p', $date, array(
 							'class' => 'pull-right mt10',

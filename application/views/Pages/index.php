@@ -17,7 +17,7 @@
 							));
 					?>
 				</div>
-				<div class="wrapper-food-list bg-white">
+				<div class="wrapper-food-list cuisine bg-white">
 					<div class="header">
 						<?php
 								echo tag('h3', 'Top Cuisines', array(
@@ -25,7 +25,7 @@
 								));
 						?>
 					</div>
-					<div class="content with-border">
+					<div class="content">
 						<ul>
 							<?php
 									if( !empty($valuesTopCuisine) ) {
@@ -40,7 +40,7 @@
 												'cuisine_name' => $name,
 												'image' => $photo,
 												'cnt' => $cnt,
-												'style' => 'height:170px;',
+												'style' => 'height:170px; width: 100%;',
 											));
 										}
 									} else {
@@ -54,7 +54,7 @@
 							?>
 						</ul>
 					</div>
-					<div class="header custom mobile-only">
+					<!-- <div class="header custom mobile-only">
 						<?php
 								echo tag('a', 'Tampilkan Semua ' .tag('span', false, array('class' => 'glyphicon glyphicon-chevron-down')), array(
 									'class' => 'btn btn-default full-width',
@@ -62,7 +62,7 @@
 									'role' => 'button',
 								));
 						?>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="wrapper-food-list bg-white">
@@ -78,7 +78,7 @@
 								));
 						?>
 					</div>
-					<div class="content with-border">
+					<div class="content">
 						<ul>
 							<?php
 									if( !empty($valuesNewRecipe) ) {
@@ -135,7 +135,7 @@
 								));
 						?>
 					</div>
-					<div class="content with-border">
+					<div class="content">
 						<ul>
 							<?php
 									if( !empty($valuesPopularRecipe) ) {
@@ -189,6 +189,11 @@
 						// loadSubview('common/ads');
 				?>
 			</div>
+		</div>
+		<div class="row">
+			<?php
+					loadSubview('article/item_article');
+			?>
 		</div>
 	</div>
 </div>

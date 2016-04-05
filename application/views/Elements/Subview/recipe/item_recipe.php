@@ -8,6 +8,9 @@
 		$food_type = isset($food_type)?$food_type:false;
 		$recipe_intro = isset($recipe_intro)?$recipe_intro:false;
 
+		$user_id = isset($user_id)?$user_id:false;
+		$username = isset($username)?$username:false;
+
 		$cnt_comment = isset($cnt_comment)?$cnt_comment:false;
 		$cnt_recook = isset($cnt_recook)?$cnt_recook:false;
 
@@ -18,6 +21,10 @@
 		$iconFoodType = tag('img', false, array(
 			'style' => 'width:15px;',
 			'src' => $domain.'/resources/icons/flag.png',
+		));
+		$iconCreator = tag('img', false, array(
+			'style' => 'width:15px;',
+			'src' => $domain.'/resources/icons/user.png',
 		));
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment.png',
@@ -36,6 +43,7 @@
 		$totalRecook = tag('span', $cnt_recook);
 
 		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		$userURL = $domain.'/users/profile/'.$user_id;
 ?>
 <li class="no-ul-type">
 	<div class="row">
@@ -72,6 +80,8 @@
 							'wrapTag' => 'a',
 							'wrapAttributes' => array(
 								'href' => $url,
+								'title' => $title,
+								'class' => 'mb5',
 							),
 						));
 						echo $iconFoodType.tag('p', $cuisine, array(
@@ -79,6 +89,12 @@
 						));
 						echo '<br>';
 						echo $iconCuisine.tag('p', $food_type, array(
+							'class' => 'fbold ml5 dpinlineblock'
+						));
+						echo '<br>';
+						echo $iconCreator.tag('a', $username, array(
+							'href' => $userURL,
+							'title' => $username,
 							'class' => 'fbold ml5 dpinlineblock'
 						));
 						echo tag('p', $recipe_intro, array(

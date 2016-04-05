@@ -203,6 +203,7 @@ $.ajaxForm = function() {
         var form_id = '#' + self.attr('id');
         var form_action = self.attr('action');
         var data_reload = self.attr('data-reload');
+        var data_redirect = self.attr('data-redirect');
         $.ajax({
             url: serviceUri + form_action,
             type: 'POST',
@@ -219,7 +220,9 @@ $.ajaxForm = function() {
                     self.closest('.ajax-wrapper-form').replaceWith(result);
                 }
                 if (status == 'success') {
-                    if (data_reload == 'true') {
+                    if( data_redirect !== undefined ) {
+                        window.location.replace(serviceUri+data_redirect);
+                    } else if (data_reload == 'true') {
                         window.location.reload();
                     }
                 }

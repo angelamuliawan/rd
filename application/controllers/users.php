@@ -16,6 +16,7 @@ class Users extends AB_Controller {
 		$valuesUserAccount = $resUserAccount->result_array();
 
 		$this->load->vars(array(
+			'site_title' => 'Pengaturan Akun',
 			'valuesUserAccount' => $valuesUserAccount,
 		));
 		$this->render();
@@ -44,6 +45,7 @@ class Users extends AB_Controller {
 		));
 		$values = $resNotif->result_array();
 		$this->load->vars(array(
+			'site_title' => 'Notifikasi',
 			'values' => $values,
 		));
 
@@ -99,7 +101,7 @@ class Users extends AB_Controller {
 	public function updatePassword(){
 		$post = $this->input->post();
 		$message = false;
-		$status = false;		
+		$status = false;
 
 		if( !empty($post) ) {
 			
@@ -239,6 +241,9 @@ class Users extends AB_Controller {
 			loadMessage($message, $status);
 			loadModal('login');
 		} else {
+			$this->load->vars(array(
+				'site_title' => 'Login',
+			));
 			$this->render($post);
 		}
 	}
@@ -289,6 +294,9 @@ class Users extends AB_Controller {
 			loadMessage($message, $status);
 			loadModal('login');
 		} else {
+			$this->load->vars(array(
+				'site_title' => 'Daftar',
+			));
 			$this->render($post);
 		}
 	}
@@ -338,6 +346,9 @@ class Users extends AB_Controller {
 			loadMessage($message, $status);
 			loadModal('login');
 		} else {
+			$this->load->vars(array(
+				'site_title' => 'Lupa Password',
+			));
 			$this->render($post);
 		}
 	}
@@ -447,10 +458,10 @@ class Users extends AB_Controller {
 							'maintain_ratio' => false,
 							'width' => 275,
 							'height' => 168,
-							'quality' => '50%',
+							'quality' => '80%',
 					    );
 					    $this->load->library('image_lib', $config_resize);
-					    $this->image_lib->resize(); 
+					    $this->image_lib->resize();
 			        }
 			    } else {
 			    	if( $field_name == 'photo' && ( !isset($post['photo_preview']) ) ) {
@@ -657,22 +668,24 @@ class Users extends AB_Controller {
 				$profile_pic = $datauser['id'].'.jpg';
 
 		      	copy($sourceURL, $_SERVER['DOCUMENT_ROOT'].'/resources/images/uploads/users/'.$profile_pic);
+		      	copy($sourceURL, $_SERVER['DOCUMENT_ROOT'].'/resources/images/uploads/users/thumbs/'.$profile_pic);
 
 		        $res = $this->db->query('CALL RegisterFacebook(?,?,?,?,?)', array(
 					$datauser['name'],
 					$datauser['email'],
-					sha1('cookindo'),
+					'def',
 					$profile_pic,
 					$datauser['id'],
 				));
 				$result = $res->result()[0];
 				
 				$this->session->set_userdata('loggedin', true);
-				$this->session->set_userdata('userid', $result ->UserID);
+				$this->session->set_userdata('userid', $result->UserID);
 				$this->session->set_userdata('username', $datauser['name']);
 				$this->session->set_userdata('useremail', $datauser['email']);
+				$this->session->set_userdata('userpassword', $result->UserPassword);
 				$this->session->set_userdata('userrole', 0);
-				$this->session->set_userdata('userphoto', $result ->UserPhoto);
+				$this->session->set_userdata('userphoto', $result->UserPhoto);
 				
             } catch (FacebookApiException $e) {
                 $user = null;
@@ -699,6 +712,14 @@ class Users extends AB_Controller {
 		$resUserAccount->next_result();
 
 		if( !empty($valuesUserAccount) ) {
+
+			$slug = $this->uri->segment(4);
+			if( $slug == '' ) {
+				$this->load->helper('url');
+				$url = $this->domain.'/users/profile/'.$user_id.'/'.$this->seoURL($valuesUserAccount[0]['UserName']);
+
+				return redirect($url);
+			}
 			
 			// Get Related Popular User
 			$resRelatedPopularUser = $this->db->query('CALL GetRelatedPopularUser(?)', array(
@@ -739,6 +760,7 @@ class Users extends AB_Controller {
 			$resCookmark->next_result();
 
 			$this->load->vars(array(
+				'site_title' => $valuesUserAccount[0]['UserName'],
 				'valuesUserAccount' => $valuesUserAccount,
 				'valuesRelatedPopularUser' => $valuesRelatedPopularUser,
 				'valuesMyRecipe' => $valuesMyRecipe,
@@ -749,5 +771,68 @@ class Users extends AB_Controller {
 		} else {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
+    }
+
+    function completion() {
+    	$this->validateUserLogin();
+    	$message = false;
+		$status = false;
+
+    	$post = $this->input->post();
+    	if( !empty($post) ) {
+    		$this->form_validation->set_rules('email', 'Email', 'required');
+    		$this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|max_length[20]');
+			$this->form_validation->set_rules('confirmPassword', 'Confirmation Password', 'required|min_length[5]|max_length[20]|matches[password]');
+
+			if ( $this->form_validation->run() == TRUE ) {
+
+				$res = $this->db->query('CALL UpdateUserDataCompletion(?,?,?)', array(
+					$post['email'],
+					sha1($post['password']),
+					$this->session->userdata('userid'),
+				));
+				$data = $res->result()[0];
+
+				if( $data->result == -1 ) {
+					$message = 'Gagal melengkapi data Anda';
+					$status = 'error';
+
+					$this->setCustomError('email', 'Email telah terdaftar.');
+				} else if( $data->result == -2 ) {
+					$message = 'Gagal melengkapi data Anda';
+					$status = 'error';
+				} else {
+					$message = 'Sukses melengkapi data Anda';
+					$status = 'success';
+
+					$this->session->set_userdata('useremail', $data->UserEmail);
+					$this->session->set_userdata('userpassword', sha1($post['password']));
+
+					$this->session->set_flashdata('flash_message', array(
+						'message' => $message,
+						'status' => $status,
+					));
+				}
+			} else {
+				$message = 'Gagal melengkapi data Anda';
+				$status = 'error';
+			}
+    	} else {
+    		$resUserAccount = $this->db->query('CALL GetSettingUserData(?)', array(
+				$this->session->userdata('userid'),
+			));
+			$valuesUserAccount = $resUserAccount->result_array();
+			$resUserAccount->next_result();
+
+    		$post = array(
+				'email' => $valuesUserAccount[0]['UserEmail'],
+			);
+    	}
+
+		$this->load->vars(array(
+			'site_title' => 'Lengkapi Data',
+		));
+		loadMessage($message, $status, true);
+    	$this->render($post);
     }
 }

@@ -66,6 +66,15 @@
 								));
 							}
 						}
+
+						if( !isLoggedIn() ) {
+							echo tag('a', 'Login untuk mengomentari', array(
+								'title' => 'Login',
+								'data-title' => 'Login',
+								'href' => $domain.'/users/login',
+			  					'class' => 'btn btn-orange mt10 ajax-modal',
+			  				));
+						}
 				?>
 			</div>
 		</div>

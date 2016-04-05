@@ -118,6 +118,9 @@
 											$food_type = $value['FoodTypeName'];
 											$recipe_intro = $value['RecipeIntro'];
 
+											$user_id = $value['UserID'];
+											$username = $value['UserName'];
+
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
 
@@ -134,6 +137,8 @@
 												'cuisine' => $cuisine,
 												'food_type' => $food_type,
 												'recipe_intro' => $recipe_intro,
+												'user_id' => $user_id,
+												'username' => $username,
 												'cnt_comment' => $cnt_comment,
 												'cnt_recook' => $cnt_recook,
 												'flag_cookmark' => $flag_cookmark,

@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:fb="http://ogp.me/ns/fb#">
 	<head>
+		<?php
+				$site_title = isset($site_title) ? $site_title.' - ' : '';
+				echo tag('title', $site_title.'Direktori Resep Online - Cookindo.com');
+		?>
 		<!-- <meta charset="utf-8" /> -->
 		<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index,follow" />
 		
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<meta name="keywords" content="cookindo, resep masak, resep enak, makanan enak, makanan lezat, masak apa hari ini, masakan enak, masakan murah, masakan lezat" />
@@ -38,6 +43,7 @@
 				}
 		?>
 
+		<link rel="canonical" href="http://www.cookindo.com/" />
 		<link rel="shortcut icon" href="<?php echo $domain.'/resources/images/logos/favicon.ico'; ?>" type="image/x-icon">
 		<link rel="icon" href="<?php echo $domain.'/resources/images/logos/favicon.ico'; ?>" type="image/x-icon">
 
@@ -90,6 +96,10 @@
 				loadSubview('header/menu');
 				loadSubview('flash_message');
 
+				if( isset($sdk) ) {
+					loadSubview('sdk/script/facebook');
+				}
+
 		  		if( isset($content_view)  ) {
 		  			echo $content_view;
 		  		}
@@ -114,16 +124,16 @@
 
 				
 				load_script(array(
-					// 'jquery/jquery.min',
-					// 'bootstrap/bootstrap.min',
-					// 'bootstrap/typeahead',
-					// 'bootstrap/bootstrap-multiselect',
-					// 'fileupload/jquery.ui.widget',
-					// 'fileupload/jquery.fileupload',
-					// 'fileupload/jquery.iframe-transport',
-					// 'magicsuggest/magicsuggest',
-					// 'functions',
-					'defer',
+					'jquery/jquery.min',
+					'bootstrap/bootstrap.min',
+					'bootstrap/typeahead',
+					'bootstrap/bootstrap-multiselect',
+					'fileupload/jquery.ui.widget',
+					'fileupload/jquery.fileupload',
+					'fileupload/jquery.iframe-transport',
+					'magicsuggest/magicsuggest',
+					'functions',
+					// 'defer',
 				));
 
 				if(isset($additional_js) && !empty($additional_js)) {

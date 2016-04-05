@@ -49,5 +49,7 @@ $route['artikel/(:num)/(:any)'] = 'pages/article_detail/$1/$2';
 
 $route['kontes-masak/(:num)/(:any)'] = 'recipe/contest/$1/$2';
 
+$route['users/profile/(:num)/(:any)'] = 'users/profile/$1/$2';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

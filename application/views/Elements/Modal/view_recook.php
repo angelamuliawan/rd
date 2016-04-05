@@ -21,11 +21,11 @@
 	      	<div class="modal-header">
 	        	<button type="button" class="close close-modal" data-dismiss="modal" aria-hidden="true">&times;</button>
 	        	<?php
-	        			echo tag('h3', sprintf('Recook from %s', $recipe), array(
+	        			echo tag('h3', sprintf('Recook %s', $recipe), array(
 	        				'id' => 'myModalLabel',
 	        				'class' => 'modal-title',
 	        			));
-	        			echo tag('span', 'by ');
+	        			echo tag('span', 'oleh ');
 	        			echo tag('a', $recook_username, array(
 	        				'title' => $recook_username,
 	        				'href' => $domain.'/users/profile/'.$recook_user_id,

@@ -240,7 +240,11 @@
                     return this.disabledText;
                 }
                 else if (options.length === 0) {
-                    return this.nonSelectedText;
+                    var nonSelectedText = this.nonSelectedText;
+                    if( select.attr('whenNonSelected') !== undefined ) {
+                        nonSelectedText = select.attr('whenNonSelected');
+                    }
+                    return nonSelectedText;
                 }
                 else if (this.allSelectedText 
                         && options.length === $('option', $(select)).length 

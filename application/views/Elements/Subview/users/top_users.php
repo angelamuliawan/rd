@@ -21,7 +21,7 @@
 					$cnt_recipe = $value['NumberOfRecipe'];
 					$cnt_recook = $value['NumberOfRecook'];
 
-					$path_image = '/resources/images/uploads/users/'.$image;
+					$path_image = '/resources/images/uploads/users/thumbs/'.$image;
 					$custom_image = $domain.$path_image;
 					if( !file_exists( $webroot.$path_image ) ) {
 						$custom_image = $domain.'/resources/images/default.png';
