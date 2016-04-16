@@ -106,7 +106,7 @@
 			</div>
 			<div class="col-sm-3">
 				<?php
-						loadSubview('common/ads');
+						loadSubview('common/sdk');
 				?>
 			</div>
 		</div>

@@ -33,7 +33,7 @@
 								// 'style' => 'width: 64px; height: 40px;',
 								'wrapTag' => 'a',
 								'wrapAttributes' => array(
-									'href' => $domain.'/users/profile/'.$user_id,
+									'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
 								),
 							));
 					?>
@@ -41,7 +41,7 @@
 				<div class="col-sm-9">
 					<?php
 							echo tag('a', $username, array(
-								'href' => $domain.'/users/profile/'.$user_id,
+								'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
 							));
 							echo tag('p', sprintf('%s Resep, %s Recook', $cnt_recipe, $cnt_recook), array(
 								'class' => 'stats',

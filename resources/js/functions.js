@@ -140,12 +140,21 @@ $.customFunction = function() {
         e.preventDefault();
         window.print();
     });
-    $(".ddlMeasureSize").length && $("body").on("change", ".ddlMeasureSize", function() {
-        var e = $(this), l = e.val(); 9 == l || 10 == l ? e.closest(".holder-template").find(".freeField").val(1).css({
-            "background-color": "#efefef",
-            "pointer-events": "none"
-        }) : e.closest(".holder-template").find(".freeField").val("").removeAttr("style")
-    });
+    if( $(".ddlMeasureSize").length ) {
+        $("body").on("change", ".ddlMeasureSize", function() {
+            var e = $(this);
+            var value = e.val();
+
+            if( value == 9 || value == 10 ) {
+                e.closest(".holder-template").find(".freeField").val(1).css({
+                    "background-color": "#efefef",
+                    "pointer-events": "none"
+                });
+            } else {
+                e.closest(".holder-template").find(".freeField").removeAttr("style")
+            }
+        });
+    }
 }
 $.carousel = function() {
     $('#recook-carousel').carousel({

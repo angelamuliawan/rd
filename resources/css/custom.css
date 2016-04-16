@@ -1254,6 +1254,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 #contest > .content ol li {
 	padding: 5px 0;
+	margin: 0px 0 50px;
 }
 #contest > .content.custom-pd {
 	padding: 5px 35px;
@@ -1268,6 +1269,114 @@ h1,h2,h3,h4,h5,h6 {
 	width: 30px; 
 	height: 30px;
 	margin-right: 10px;
+}
+
+/* CONTEST DETAIL */
+.wrapper-contest > .header {
+	height:50px; 
+	padding:5px 10px;
+}
+.wrapper-contest > .header.custom {
+	height:50px; 
+	padding: 5px 65px;
+	text-align: center;
+}
+.wrapper-contest > .content {
+	width:100%; 
+	height:auto; 
+	display:block;
+}
+.wrapper-contest > .content > ol {
+	padding:10px 5px 10px 15px;
+}
+.wrapper-contest > .content > ol > li {
+	width:auto;
+	height:auto; 
+	margin:12px; 
+	border-radius:3px;
+}
+.wrapper-contest > .content > ol > li a {
+	color: #D9660D;
+	font-weight: bold;
+}
+.wrapper-contest > .content > ol > li .box-header {
+	width:100%; 
+	height:170px; 
+	display:block; 
+	border-bottom:1px solid #efefef;
+	position:relative;
+}
+.wrapper-contest > .content > ol > li .box-header:hover {
+	transition: .25s ease-out all;
+    -moz-transition: .25s ease-out all;
+    -webkit-transition: .25s ease-out all;
+    -o-transition: .25s ease-out all;
+    filter: brightness(50%);
+	-webkit-filter: brightness(90%);
+    -moz-filter: brightness(90%);
+    -o-filter: brightness(90%);
+    -ms-filter: brightness(90%);
+    cursor: pointer;
+}
+/*.wrapper-contest > .content > ol > li .box-header:hover > span {
+	display: block;
+}*/
+.wrapper-contest > .content > ol > li .box-header .wrapper-inner {
+	position: absolute;
+	z-index: 1; 
+	color: #fff; 
+	left: 0; 
+	right: 0; 
+	top: 70px; 
+	bottom: 70px; 
+	font-weight: 
+	bold; 
+	font-size: 16px; 
+	left: 5px; 
+	right: 5px;
+}
+.wrapper-contest > .content > ol > li .box-header.cuisine .item-cuisine {
+	width:100%; 
+    height:170px; 
+    background-size: cover; 
+    background-position: center;
+}
+.wrapper-contest > .content > ol > li .box-content {
+	width:100%; 
+	height:56px; 
+	display:flex; 
+	padding:10px;
+	color: #000000;
+	text-align: left;
+	overflow: hidden;
+    text-overflow: ellipsis;
+}
+.wrapper-contest > .content > ol > li .box-content > h4 {
+	line-height:2.2rem;
+}
+.wrapper-contest > .content > ol > li .box-footer {
+	width:100%; 
+	height:40px; 
+	display:block; 
+	padding:10px; 
+	border-top:1px solid #efefef;
+	color: #000000;
+	/*position: absolute;
+    bottom: 0px;*/
+}
+.wrapper-contest > .content > ol > li .box-footer.cuisine {
+	position:absolute; 
+	bottom: 0; 
+	border:none;
+}
+.wrapper-contest > .content > ol > li .box-footer img {
+	width:20px; 
+	height:15px; 
+	display:inline;
+}
+.wrapper-contest > .content > ol > li .box-footer span {
+	display: inline;
+	padding-left: 3px;
 }
 
 /* PAGE DETAIL - CAROUSEL LEFT SIDE */

@@ -9,6 +9,7 @@
 
 		$cnt_comment = isset($cnt_comment)?$cnt_comment:false;
 		$cnt_recook = isset($cnt_recook)?$cnt_recook:false;
+		$cnt_view = isset($cnt_view)?$cnt_view:false;
 
 		$iconCuisine = tag('img', false, array(
 			'style' => 'width:15px;',
@@ -24,6 +25,9 @@
 		$iconRecook = tag('img', false, array(
 			'src' => $domain.'/resources/icons/retweet.png',
 		));
+		$iconView = tag('img', false, array(
+			'src' => $domain.'/resources/icons/view.png',
+		));
 
 		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 		$custom_image = $domain.$path_image;
@@ -33,6 +37,7 @@
 
 		$totalComment = tag('span', $cnt_comment);
 		$totalRecook = tag('span', $cnt_recook);
+		$totalView = tag('span', $cnt_view);
 
 		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
 ?>
@@ -61,6 +66,10 @@
 							'class' => 'pull-right mr10',
 							'title' => 'Jumlah Recook',
 						));
+						// echo tag('div', $iconView.$totalView, array(
+						// 	'class' => 'pull-right mr10',
+						// 	'title' => 'Jumlah View',
+						// ));
 				?>
 			</div>
 		</div>

@@ -7,7 +7,7 @@
 	<div class="big-wrapper">
 		<div class="row">
 			<div class="col-sm-10">
-				<div class="wrapper-banner hidden-print mt10">
+				<!-- <div class="wrapper-banner hidden-print mt10">
 					<?php
 							echo tag('a', tag('img', false, array(
 								'src' => $domain.'/resources/images/uploads/banner/banner.jpg',
@@ -16,7 +16,7 @@
 								'href' => $domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
 							));
 					?>
-				</div>
+				</div> -->
 				<div class="wrapper-food-list cuisine bg-white">
 					<div class="header">
 						<?php
@@ -90,6 +90,7 @@
 											$recipe_intro = $value['RecipeIntro'];
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
+											$cnt_view = 0;
 
 											loadSubview('pages/item_recipe', array(
 												'recipe_id' => $id,
@@ -98,6 +99,7 @@
 												'title' => $title,
 												'cnt_comment' => $cnt_comment,
 												'cnt_recook' => $cnt_recook,
+												'cnt_view' => $cnt_view,
 											));
 										}
 									} else {
@@ -147,6 +149,7 @@
 											$recipe_intro = $value['RecipeIntro'];
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
+											$cnt_view = 0;
 
 											loadSubview('pages/item_recipe', array(
 												'recipe_id' => $id,
@@ -155,6 +158,7 @@
 												'title' => $title,
 												'cnt_comment' => $cnt_comment,
 												'cnt_recook' => $cnt_recook,
+												'cnt_view' => $cnt_view,
 											));
 										}
 									} else {

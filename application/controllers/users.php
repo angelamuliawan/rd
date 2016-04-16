@@ -704,6 +704,9 @@ class Users extends AB_Controller {
 
     function profile( $user_id = false ) {
     	$this->load->helper('url');
+    	$this->load->helper('form');
+		$this->load->helper('build_data');
+		$this->callDefaultData('search');
 
     	$resUserAccount = $this->db->query('CALL GetSettingUserData(?)', array(
 			$user_id,
@@ -716,7 +719,7 @@ class Users extends AB_Controller {
 			$slug = $this->uri->segment(4);
 			if( $slug == '' ) {
 				$this->load->helper('url');
-				$url = $this->domain.'/users/profile/'.$user_id.'/'.$this->seoURL($valuesUserAccount[0]['UserName']);
+				$url = $this->domain.'/users/profile/'.$user_id.'/'.seoURL($valuesUserAccount[0]['UserName']);
 
 				return redirect($url);
 			}

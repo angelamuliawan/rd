@@ -23,6 +23,7 @@
 
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
+											$cnt_view = 0;
 
 											$flag_recook = $value['FlagRecook'];
 											
@@ -40,6 +41,7 @@
 												'recipe_intro' => $recipe_intro,
 												'cnt_comment' => $cnt_comment,
 												'cnt_recook' => $cnt_recook,
+												'cnt_view' => $cnt_view,
 												'flag_recook' => $flag_recook,
 												'cooked_by_id' => $cooked_by_id,
 												'cooked_by' => $cooked_by,

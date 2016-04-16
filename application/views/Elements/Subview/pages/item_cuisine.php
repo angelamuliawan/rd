@@ -28,14 +28,14 @@
 					// 	'src' => $custom_image,
 					// ));
 			?>
-			<div class="box-footer cuisine">
+			<!-- <div class="box-footer cuisine">
 				<?php
 						echo tag('div', $cnt . ' Cuisines', array(
 							'class' => 'pull-right mr5',
 							'title' => 'Jumlah Komentar',
 						));
 				?>
-			</div>
+			</div> -->
 		</div>
 	</a>
 </li>

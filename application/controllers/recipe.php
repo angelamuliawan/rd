@@ -77,6 +77,22 @@ class Recipe extends AB_Controller {
 			return redirect($url);
 		}
 
+		// Save recipe log
+		$device = $this->getDevice();
+		if( $device['ip'] != '114.121.134.202' && $device['ip'] != '202.62.16.200' ) {
+			$resRecipeLog = $this->db->query('CALL InsertRecipeLog(?,?,?,?,?,?,?)', array(
+				$recipe_id,
+				$device['browser'],
+				$device['version'],
+				$device['ip'],
+				$device['device'],
+				$device['os'],
+				$this->session->userdata('userid'),
+			));
+			$query_result = $resRecipeLog->result();
+			$resRecipeLog->next_result();
+		}
+
 		// Recipe Recook
 		$resRecipeRecook = $this->db->query('CALL GetRecipeDetailRecook(?)', array(
 			$recipe_id,
@@ -837,6 +853,12 @@ class Recipe extends AB_Controller {
 		$this->callDefaultData();
 		$this->load->vars(array(
 			'site_title' => 'Kontes Masak',
+			'og_meta' => array(
+				'title' => 'Lomba Masak Kreatif berhadiah Microwave Oven, Stand Mixer, Blender',
+				'url' => $this->domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
+				'image' => $this->domain.'/resources/images/uploads/poster/poster-lomba.jpg',
+				'desc' => 'Hai, Cookindo Lovers! Bersamaan dengan launching website, www.cookindo.com mengadakan lomba menulis resep kreatif berhadiah jutaan rupiah loh… Ikutan yuk! Caranya gampang, yaitu...',
+			),
 		));
 		$this->render();
 	}

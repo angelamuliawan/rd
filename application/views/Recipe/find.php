@@ -123,6 +123,7 @@
 
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
+											$cnt_view = 0;
 
 											$flag_cookmark = $value['FlagCookmark'];
 											$flag_recook = $value['FlagRecook'];
@@ -141,6 +142,7 @@
 												'username' => $username,
 												'cnt_comment' => $cnt_comment,
 												'cnt_recook' => $cnt_recook,
+												'cnt_view' => $cnt_view,
 												'flag_cookmark' => $flag_cookmark,
 												'flag_recook' => $flag_recook,
 												'flag_creator' => $flag_creator,

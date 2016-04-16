@@ -21,7 +21,7 @@
 					$cnt_recipe = $value['NumberOfRecipe'];
 					$cnt_recook = $value['NumberOfRecook'];
 
-					$path_image = '/resources/images/uploads/users/thumbs/'.$image;
+					$path_image = '/resources/images/uploads/users/'.$image;
 					$custom_image = $domain.$path_image;
 					if( !file_exists( $webroot.$path_image ) ) {
 						$custom_image = $domain.'/resources/images/default.png';
@@ -38,14 +38,14 @@
 								'wrapTag' => 'a',
 								'wrapAttributes' => array(
 									'title' => $username,
-									'href' => $domain.'/users/profile/'.$user_id,
+									'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
 								),
 							));
 							echo '<br>';
 							echo tag('a', $username, array(
 								'title' => $username,
 								'class' => 'fbold',
-								'href' => $domain.'/users/profile/'.$user_id,
+								'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
 							));
 
 							$text_stats = $cnt_recipe.' Resep';

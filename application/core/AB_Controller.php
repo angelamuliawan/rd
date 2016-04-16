@@ -48,6 +48,23 @@ class AB_Controller extends CI_Controller {
 		));
 	}
 
+	function getDevice(){
+		$browser = $this->getBrowser();
+		$ip = $this->getRealUserIp();
+		$device = 'Desktop';
+		if( $this->isMobile() ) {
+			$device = 'Mobile';
+		}
+
+		return array(
+			'browser' => ( isset($browser['browser']) ? $browser['browser'] : false ),
+			'version' => ( isset($browser['version']) ? $browser['browser'] : false ),
+			'ip' => ( !empty($ip) ? $ip : false ),
+			'device' => ( !empty($device) ? $device : false ),
+			'os' => ( isset($browser['os']) ? $browser['os'] : false ),
+		);
+	}
+
 	function validateUserLogin(){
 		if( empty($this->session->userdata('loggedin')) ) {
 			$this->load->helper('url');
@@ -285,19 +302,6 @@ class AB_Controller extends CI_Controller {
 			'totalRowData' => $totalRowData,
 			'currentPage' => $page,
 		));
-	}
-
-	function seoURL($string) {
-	    //Lower case everything
-	    $string = strtolower($string);
-	    //Make alphanumeric (removes all other characters)
-	    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
-	    //Clean up multiple dashes or whitespaces
-	    $string = preg_replace("/[\s-]+/", " ", $string);
-	    //Convert whitespaces and underscore to dash
-	    $string = preg_replace("/[\s_]/", "-", $string);
-	    
-	    return $string;
 	}
 
 	function getBrowser() {

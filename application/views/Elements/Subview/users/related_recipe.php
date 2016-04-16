@@ -18,6 +18,7 @@
 					$recipe_id = $value['RecipeID'];
 					$title = $value['RecipeName'];
 					$image = $value['PrimaryPhoto'];
+					$slug = $value['Slug'];
 					$cnt_recook = $value['NumberOfRecook'];
 					$cnt_comment = $value['NumberOfComment'];
 
@@ -37,7 +38,7 @@
 								'src' => $custom_image,
 								'wrapTag' => 'a',
 								'wrapAttributes' => array(
-									'href' => $domain.'/resep-masak/'.$recipe_id.'/',
+									'href' => $domain.'/resep-masak/'.$recipe_id.'/'.$slug,
 								),
 							));
 					?>
@@ -45,7 +46,7 @@
 				<div class="col-sm-9">
 					<?php
 							echo tag('a', $title, array(
-								'href' => $domain.'/resep-masak/'.$recipe_id.'/',
+								'href' => $domain.'/resep-masak/'.$recipe_id.'/'.$slug,
 							));
 							echo tag('p', sprintf('%s Comment, %s Recook', $cnt_comment, $cnt_recook), array(
 								'class' => 'stats',

@@ -95,6 +95,22 @@ class Pages extends AB_Controller {
 			return redirect($url);
 		}
 
+		// Save article log
+		$device = $this->getDevice();
+		if( $device['ip'] != '114.121.134.202' && $device['ip'] != '202.62.16.200' ) {
+			$resArticleLog = $this->db->query('CALL InsertArticleLog(?,?,?,?,?,?,?)', array(
+				$article_id,
+				$device['browser'],
+				$device['version'],
+				$device['ip'],
+				$device['device'],
+				$device['os'],
+				$this->session->userdata('userid'),
+			));
+			$query_result = $resArticleLog->result();
+			$resArticleLog->next_result();
+		}
+
 		$resNewestArticle = $this->db->query('CALL GetNewestArticle(?)', array(
 			$article_id
 		));

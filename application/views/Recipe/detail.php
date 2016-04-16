@@ -10,6 +10,7 @@
 		$recipe_intro = isset($valueRecipeHeader['RecipeIntro']) ? $valueRecipeHeader['RecipeIntro'] : false;
 		$cnt_comment = isset($valueRecipeHeader['NumberOfComment']) ? $valueRecipeHeader['NumberOfComment'] : false;
 		$cnt_recook = isset($valueRecipeHeader['NumberOfRecook']) ? $valueRecipeHeader['NumberOfRecook'] : false;
+		$cnt_view = 0;
 
 		$flag_cookmark = isset($valueRecipeHeader['FlagCookmark']) ? $valueRecipeHeader['FlagCookmark'] : false;
 		$flag_recook = isset($valueRecipeHeader['FlagRecook']) ? $valueRecipeHeader['FlagRecook'] : false;
@@ -29,6 +30,9 @@
 		));
 		$iconRecook = tag('img', false, array(
 			'src' => $domain.'/resources/icons/retweet.png',
+		));
+		$iconView = tag('img', false, array(
+			'src' => $domain.'/resources/icons/view.png',
 		));
 
 		$path_image = '/resources/images/uploads/recipe/primary/'.$image;
@@ -70,6 +74,9 @@
 									'class' => 'mb5'
 								)
 							));
+
+							// echo $iconView;
+							// echo tag('span', $cnt_view);
 
 							echo $iconRecook;
 							echo tag('span', $cnt_recook);
@@ -182,31 +189,31 @@
 													'icon' => 'flag.png',
 													'value' => $cuisine_name,
 													'style' => 'padding: 15px 5px;',
-													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+													'desc_style' => 'position: absolute; top: 14px; bottom: 14px;',
 												));
 												loadSubview('common/recipe_summary', array(
 													'icon' => 'spoon.png',
 													'value' => $food_type_name,
 													'style' => 'padding: 15px 5px;',
-													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+													'desc_style' => 'position: absolute; top: 16px; bottom: 16px;',
 												));
 												loadSubview('common/recipe_summary', array(
 													'icon' => 'people.png',
 													'value' => $est_people,
 													'style' => 'padding: 15px 5px;',
-													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+													'desc_style' => 'position: absolute; top: 14px; bottom: 14px;',
 												));
 												loadSubview('common/recipe_summary', array(
 													'icon' => 'clock.png',
 													'value' => sprintf('%s Menit', $est_time),
 													'style' => 'padding: 15px 5px;',
-													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+													'desc_style' => 'position: absolute; top: 14px; bottom: 14px;',
 												));
 												loadSubview('common/recipe_summary', array(
 													'icon' => 'oven.png',
 													'value' => $food_process_name,
 													'style' => 'padding: 15px 5px;',
-													'desc_style' => 'position: absolute; top: 18px; bottom: 18px;',
+													'desc_style' => 'position: absolute; top: 14px; bottom: 14px;',
 												));
 										?>
 									</ul>
@@ -245,7 +252,7 @@
 							</div>
 						</div>
 						<div class="col-sm-8">
-							<div class="wrapper pd15">
+							<div class="wrapper pd15" style="font-size:16px;">
 								<?php
 										echo tag('p', $recipe_intro);
 										echo tag('h3', 'Bahan');

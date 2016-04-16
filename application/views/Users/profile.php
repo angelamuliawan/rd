@@ -6,7 +6,6 @@
 		$cntRecook = count($valuesRecook);
 		$cntCookmark = count($valuesCookmark);
 ?>
-
 <div class="container">
 	<div class="big-wrapper bg-white pd20" style="min-height:500px;">
 		<div class="row">
