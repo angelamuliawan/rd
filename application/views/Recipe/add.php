@@ -8,6 +8,13 @@
 		?>
 		<div class="wrapper-create-recipe">
 			<form class="form-horizontal mt20" enctype="multipart/form-data" role="form" method="post" accept-charset="utf-8">
+			  	<?php
+			  			if( !empty($contest_name) ) {
+			  				echo tag('p', sprintf('Resep ini akan diikutsertakan ke dalam kontes : %s', $contest_name), array(
+			  					'class' => 'text-success',
+			  				));
+			  			}
+			  	?>
 			  	<div class="form-group">
 			  		<?php
 			  				echo tag('label', 'Judul Resep', array(

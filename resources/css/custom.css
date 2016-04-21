@@ -1,5 +1,39 @@
 /* CUSTOM BOOTSTRAP */
 
+/* CUSTOM ORDERED LIST */
+ol.simple-list {
+    list-style-type: none;
+    list-style-type: decimal !ie; /*IE 7- hack*/
+     
+    margin: 0;
+    margin-left: 2em;
+    padding: 0;
+     
+    counter-reset: li-counter;
+}
+ol.simple-list > li{
+    position: relative;
+    /*margin-bottom: 20px;*/
+    padding-left: 0.5em;
+    min-height: 3em;
+    border-left: 2px solid #CCCCCC;
+}
+ol.simple-list > li:before {
+    position: absolute;
+    top: 0;
+    left: -1.5em;
+    width: 0.8em;
+     
+    font-size: 26px;
+    line-height: 1;
+    font-weight: bold;
+    text-align: right;
+    color: #464646;
+ 
+    content: counter(li-counter);
+    counter-increment: li-counter;
+}
+
 /* @group Blink */
 
 .blink {
@@ -46,6 +80,14 @@
 }
 
 /* @end */
+
+/* COLOR */
+.text-orange {
+	color: #E66909;
+}
+.text-white {
+	color: #ffffff;
+}
 
 /* BANNER */
 .wrapper-banner a:hover {
@@ -929,11 +971,11 @@ h1,h2,h3,h4,h5,h6 {
 	height:300px; 
 	background-size: cover; 
 	background-position:center; 
-	filter: brightness(75%);
+	/*filter: brightness(75%);
 	-webkit-filter: brightness(75%); 
 	-moz-filter: brightness(75%); 
 	-o-filter: brightness(75%); 
-	-ms-filter: brightness(75%);
+	-ms-filter: brightness(75%);*/
 }
 #article-detail .wrapper-background-article .article-title {
 	position:absolute; 
@@ -1248,31 +1290,71 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 /* CONTEST */
-#contest > .content img {
+#contest.wrapper-food-list-vertical > .content .right-side a {
+	display: inline-block;
+	color: #E66909;
+}
+#contest.wrapper-food-list-vertical > .content .right-side a.btn-orange {
+	color: #ffffff;
+}
+
+/* CONTEST DETAIL */
+/*#contest-detail > .content img {
 	max-width: 100%;
 	height: auto;
 }
-#contest > .content ol li {
+#contest-detail > .content ol li {
 	padding: 5px 0;
 	margin: 0px 0 50px;
 }
-#contest > .content.custom-pd {
+#contest-detail > .content.custom-pd {
 	padding: 5px 35px;
 }
-#contest > .content > .social-media a {
+#contest-detail > .content > .social-media a {
 	cursor: pointer;
 	display: block;
 	padding: 5px 0;
 	color: #000000;
 }
-#contest > .content > .social-media img {
+#contest-detail > .content > .social-media img {
 	width: 30px; 
 	height: 30px;
 	margin-right: 10px;
+}*/
+#article-detail.wrapper-contest .contest-title {
+	/*position:absolute; */
+	/*float:left; */
+	/*left: 10px; */
+	/*top:95px;
+	bottom:95px; 
+	width:100%;*/
+	text-align: center;
+	/*max-width: 800px;*/
+}
+#article-detail.wrapper-contest .contest-title {
+	/*color: #ffffff;*/
+}
+#article-detail.wrapper-contest .contest-title h2 {
+	font-size: 28px;
+}
+#article-detail.wrapper-contest .contest-title a {
+	letter-spacing: 1px;
+	font-size: 20px;
+}
+#article-detail.wrapper-contest .wrapper-background-article .bg-holder {
+	width:100%; 
+	height:300px; 
+	background-size: cover; 
+	background-position:top left;
+	/*filter: brightness(50%);
+	-webkit-filter: brightness(50%); 
+	-moz-filter: brightness(50%); 
+	-o-filter: brightness(50%); 
+	-ms-filter: brightness(50%);*/
 }
 
 /* CONTEST DETAIL */
-.wrapper-contest > .header {
+/*.wrapper-contest > .header {
 	height:50px; 
 	padding:5px 10px;
 }
@@ -1317,7 +1399,7 @@ h1,h2,h3,h4,h5,h6 {
     -o-filter: brightness(90%);
     -ms-filter: brightness(90%);
     cursor: pointer;
-}
+}*/
 /*.wrapper-contest > .content > ol > li .box-header:hover > span {
 	display: block;
 }*/
@@ -1377,6 +1459,15 @@ h1,h2,h3,h4,h5,h6 {
 .wrapper-contest > .content > ol > li .box-footer span {
 	display: inline;
 	padding-left: 3px;
+}
+
+/* CONTEST RECIPE */
+.wrapper-food-list.wrapper-recipe-contest ul li .box-footer .username {
+	color: #ffffff;
+}
+.wrapper-food-list.wrapper-recipe-contest ul li .box-footer .username:hover {
+	color: #ffffff;
+	opacity: 0.8;
 }
 
 /* PAGE DETAIL - CAROUSEL LEFT SIDE */
@@ -1511,6 +1602,9 @@ ul.pagination {
 	}
 	#article-list #article-detail .wrapper-background-article .article-title {
 		max-width: 250px;
+	}
+	#article-detail.wrapper-contest .wrapper-background-article .contest-title h2 {
+		font-size: 20px;
 	}
 }
 
@@ -1649,9 +1743,16 @@ ul.pagination {
 	.wrapper-food-list .content {
 		text-align: center;
 	}
+	.wrapper-food-list.wrapper-recipe-contest .content {
+		text-align: left;
+	}
 	.wrapper-food-list .content ul li {
 		max-width: 260px;
 		width: 260px;
+	}
+	.wrapper-food-list.wrapper-recipe-contest .content ul li {
+		max-width: 255px;
+		width: 255px;
 	}
 
 	.wrapper-food-list-vertical > .content > ul > li .box-header > img {

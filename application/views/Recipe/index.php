@@ -1,11 +1,7 @@
-<?php
-		loadSubview('header/search_box');
-?>
-
-<div class="container mt20">
+<div class="container">
 	<div class="big-wrapper">
 		<div class="row">
-			<div class="col-sm-10">
+			<div class="col-sm-12">
 				<div id="my-recipe" class="wrapper-food-list-vertical">
 					<div class="content with-border">
 						<ul>
@@ -19,10 +15,11 @@
 											$cuisine = $value['CuisineName'];
 											$food_type = $value['FoodTypeName'];
 											$recipe_intro = $value['RecipeIntro'];
+											$contest_id = $value['ContestID'];
 
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
-											$cnt_view = 0;
+											$cnt_view = $value['NumberOfView'];;
 
 											loadSubview('recipe/my_item_recipe', array(
 												'recipe_id' => $id,
@@ -32,6 +29,7 @@
 												'cuisine' => $cuisine,
 												'food_type' => $food_type,
 												'recipe_intro' => $recipe_intro,
+												'contest_id' => $contest_id,
 												'cnt_comment' => $cnt_comment,
 												'cnt_recook' => $cnt_recook,
 												'cnt_view' => $cnt_view,
@@ -50,11 +48,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-2">
+			<!-- <div class="col-sm-2">
 				<?php
 						loadSubview('common/ads');
 				?>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>

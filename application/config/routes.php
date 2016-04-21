@@ -47,7 +47,9 @@ $route['resep-masak/(:num)/(:any)'] = 'recipe/detail/$1/$2';
 $route['artikel/(:num)'] = 'pages/article_detail/$1';
 $route['artikel/(:num)/(:any)'] = 'pages/article_detail/$1/$2';
 
-$route['kontes-masak/(:num)/(:any)'] = 'recipe/contest/$1/$2';
+$route['kontes-masak/(:num)/(:any)'] = 'recipe/contest_detail/$1/$2';
+
+$route['resep-kontes/(:num)/(:any)'] = 'recipe/contest_recipe/$1/$2';
 
 $route['users/profile/(:num)/(:any)'] = 'users/profile/$1/$2';
 

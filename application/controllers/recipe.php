@@ -157,7 +157,7 @@ class Recipe extends AB_Controller {
 		$this->render();
 	}
 
-	public function add() {
+	public function add( $contest_id = NULL ) {
 		$this->validateUserLogin();
 
 		$this->load->helper('form');
@@ -168,6 +168,17 @@ class Recipe extends AB_Controller {
 		$status = false;
 
 		$this->callDefaultData('create');
+
+		$contest_name = false;
+		if( !empty($contest_id) ) {
+			$resContest = $this->db->query('CALL GetContestDetail(?)', array(
+				$contest_id,
+			));
+			$valuesContest = $resContest->result_array();
+			$resContest->next_result();
+
+			$contest_name = $valuesContest[0]['ContestName'];
+		}
 
 		if( !empty($post) ) {
 
@@ -257,7 +268,7 @@ class Recipe extends AB_Controller {
 					$post['EstTime'],
 					( isset($post['PrimaryPhoto']) ? $post['PrimaryPhoto'] : $post['PrimaryPhoto_preview'] ),
 					$this->session->userdata('userid'),
-					NULL,
+					$contest_id,
 					$cuisine[0],
 					$cuisine[1]
 				));
@@ -321,23 +332,24 @@ class Recipe extends AB_Controller {
 		}
 
 		if( $status == 'success' ) {
-			$this->session->set_flashdata('flash_message', array(
-				'message' => $message,
-				'status' => $status,
-			));
+			// $this->session->set_flashdata('flash_message', array(
+			// 	'message' => $message,
+			// 	'status' => $status,
+			// ));
 			$this->load->helper('url');
-			redirect($this->domain.'/recipe/add');
+			redirect($this->domain.'/recipe');
 		} else {
 			loadMessage($message, $status);
 		}
 
 		$this->load->vars(array(
 			'site_title' => 'Tulis Resep',
+			'contest_name' => $contest_name,
 		));
 		$this->render($post);
 	}
 
-	public function edit( $recipe_id = false ) {
+	public function edit( $recipe_id = false, $contest_id = NULL ) {
 		$this->validateUserLogin();
 
 		$this->load->helper('form');
@@ -348,6 +360,17 @@ class Recipe extends AB_Controller {
 		$status = false;
 
 		$this->callDefaultData('create');
+
+		$contest_name = false;
+		if( !empty($contest_id) ) {
+			$resContest = $this->db->query('CALL GetContestDetail(?)', array(
+				$contest_id,
+			));
+			$valuesContest = $resContest->result_array();
+			$resContest->next_result();
+
+			$contest_name = $valuesContest[0]['ContestName'];
+		}
 
 		if( !empty($post) ) {
 
@@ -438,7 +461,7 @@ class Recipe extends AB_Controller {
 					$post['EstTime'],
 					( isset($post['PrimaryPhoto']) ? $post['PrimaryPhoto'] : $post['PrimaryPhoto_preview'] ),
 					$this->session->userdata('userid'),
-					NULL,
+					$contest_id,
 					$cuisine[0],
 					$cuisine[1]
 				));
@@ -578,6 +601,7 @@ class Recipe extends AB_Controller {
 
 		$this->load->vars(array(
 			'site_title' => 'Edit Resep',
+			'contest_name' => $contest_name,
 		));
 
 		loadMessage($message, $status);
@@ -849,16 +873,20 @@ class Recipe extends AB_Controller {
 	public function contest() {
 		$this->load->helper('form');
 		$this->load->helper('build_data');
+		$this->callDefaultData('search');
 
-		$this->callDefaultData();
+		$resContest = $this->db->query('CALL GetAllContest()');
+		$values = $resContest->result_array();
+		$resContest->next_result();
+
 		$this->load->vars(array(
-			'site_title' => 'Kontes Masak',
-			'og_meta' => array(
-				'title' => 'Lomba Masak Kreatif berhadiah Microwave Oven, Stand Mixer, Blender',
-				'url' => $this->domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
-				'image' => $this->domain.'/resources/images/uploads/poster/poster-lomba.jpg',
-				'desc' => 'Hai, Cookindo Lovers! Bersamaan dengan launching website, www.cookindo.com mengadakan lomba menulis resep kreatif berhadiah jutaan rupiah loh… Ikutan yuk! Caranya gampang, yaitu...',
-			),
+			'site_title' => 'Kontes',
+			'values' => $values,
+				// 'sdk' => array(
+				// 	'facebook' => array(
+				// 		'like_page' => true,
+				// 	)
+				// )
 		));
 		$this->render();
 	}
@@ -874,5 +902,79 @@ class Recipe extends AB_Controller {
 			'site_title' => 'Kontes Saya',
 		));
 		$this->render(false, 'coming_soon');
+	}
+
+	public function contest_detail( $contest_id ) {
+		$resContest = $this->db->query('CALL GetContestDetail(?)', array(
+			$contest_id,
+		));
+		$values = $resContest->result_array();
+		$resContest->next_result();
+
+		$this->load->vars(array(
+			'site_title' => $values[0]['ContestName'],
+			'values' => $values,
+			'additional_css' => array(
+				'froala/font-awesome.min',
+				'froala/froala_editor.min',
+				'froala/froala_style.min',
+			),
+			'additional_js' => array(
+				'froala/froala_editor.min',
+				'froala/plugins/tables.min',
+				'froala/plugins/colors.min',
+				'froala/plugins/media_manager.min',
+				'froala/plugins/font_family.min',
+				'froala/plugins/font_size.min',
+				'froala/plugins/block_styles.min',
+				'froala/plugins/video.min',
+				'froala/plugins/lists.min',
+			),
+			'og_meta' => array(
+				'title' => $values[0]['ContestName'],
+				'url' => $this->domain.'/kontes-masak/'.$contest_id.'/'.utf8_decode($values[0]['Slug']),
+				'image' => $this->domain.'/resources/images/uploads/banner/horizontal/'.$values[0]['ContestBanner'],
+				'desc' => substr(strip_tags($values[0]['ContestDesc']), 0, 250),
+			),
+		));
+		$this->render();
+	}
+
+	public function contest_recipe( $contest_id = false ) {
+		$this->load->helper('form');
+		$this->load->helper('build_data');
+		$this->callDefaultData('search');
+
+		$resContest = $this->db->query('CALL GetContestDetail(?)', array(
+			$contest_id,
+		));
+		$valuesContestDetail = $resContest->result_array();
+		$resContest->next_result();
+
+		$post = $this->input->post();
+		$page = 1;
+		if( !empty($post) && $this->input->is_ajax_request() ) {
+			$page = $post['next_page'];
+		}
+		$resContestRecipe = $this->db->query('CALL GetContestRecipe(?,?,?)', array(
+			$contest_id,
+			16,
+			($page-1) * 16,
+		));
+		$valuesContestRecipe = $resContestRecipe->result_array();
+		$resContestRecipe->next_result();
+
+		$this->load->vars(array(
+			'site_title' => 'Kontes',
+			'contest_name' => $valuesContestDetail[0]['ContestName'],
+			'contest_id' => $contest_id,
+			'page' => $page,
+			'valuesContestRecipe' => $valuesContestRecipe,
+		));
+		$this->render();
+	}
+
+	public function contest_winner() {
+		loadModal('contest_winner');
 	}
 }

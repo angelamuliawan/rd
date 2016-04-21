@@ -37,7 +37,7 @@
 			));
 			echo tag('a', $edit, array(
 				'title' => 'Edit',
-				'href' => $domain.'/recipe/edit/'.$recipe_id,
+				'href' => $domain.'/recipe/edit/'.$recipe_id.( !empty( $contest_id ) ? '/'.$contest_id : false ),
 				'class' => 'mr10',
 			));
 			echo tag('a', $delete, array(

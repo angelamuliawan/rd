@@ -1,12 +1,17 @@
 var source_data = {};
-var serviceUri = 'http://localhost/rd/';
+var serviceUri = 'http://localhost/cookindo/';
+var finished_ajax = true;
 
 $(document).ready(function() {
 
 	$(document).ajaxStart(function() {
-		$('.overlay').css('visibility', 'visible');
+        finished_ajax = false;
+        if( !$(document).find('.disable-overlay').length ) {
+            $('.overlay').css('visibility', 'visible');
+        }
 	});
 	$(document).ajaxComplete(function() {
+        finished_ajax = true;
 		$('.overlay').css('visibility', 'hidden');
 	});
     $(document).submit(function(e) {
@@ -155,6 +160,14 @@ $.customFunction = function() {
             }
         });
     }
+
+    if ( $('.ajax-load-more').length ) {
+        $(window).scroll(function() {
+           if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+               $('.ajax-form').submit();
+           }
+        });
+    }
 }
 $.carousel = function() {
     $('#recook-carousel').carousel({
@@ -207,42 +220,52 @@ $.ajaxLink = function() {
 }
 $.ajaxForm = function() {
     $('body').on('submit', '.ajax-form', function(e) {
-        var self = $(this);
-        var form_data = self.serialize();
-        var form_id = '#' + self.attr('id');
-        var form_action = self.attr('action');
-        var data_reload = self.attr('data-reload');
-        var data_redirect = self.attr('data-redirect');
-        $.ajax({
-            url: serviceUri + form_action,
-            type: 'POST',
-            dataType: 'html',
-            data: form_data,
-            success: function(result) {
-                var message = $(result).find('#msg-text').html();
-                var status = $(result).find('#msg-status').html();
-                var contentHTML = '';
-                if ($(result).find(form_id).length) {
-                    contentHTML = $(result).find(form_id).html();
-                    $(form_id).html(contentHTML);
-                } else {
-                    self.closest('.ajax-wrapper-form').replaceWith(result);
-                }
-                if (status == 'success') {
-                    if( data_redirect !== undefined ) {
-                        window.location.replace(serviceUri+data_redirect);
-                    } else if (data_reload == 'true') {
-                        window.location.reload();
+        e.preventDefault();
+        if( finished_ajax ) {
+            var self = $(this);
+            var form_data = self.serialize();
+            var form_id = '#' + self.attr('id');
+            var form_action = self.attr('action');
+            var data_reload = self.attr('data-reload');
+            var data_redirect = self.attr('data-redirect');
+            var selector_target = self.attr('selector-target');
+
+            $.ajax({
+                url: serviceUri + form_action,
+                type: 'POST',
+                dataType: 'html',
+                data: form_data,
+                success: function(result) {
+                    var message = $(result).find('#msg-text').html();
+                    var status = $(result).find('#msg-status').html();
+                    var contentHTML = '';
+                    if( $(result).find(selector_target).length ) {
+                        contentHTML = $(result).find(selector_target).html();
+                        $(selector_target).append(contentHTML);
+                    } 
+
+                    if ($(result).find(form_id).length) {
+                        contentHTML = $(result).find(form_id).html();
+                        $(form_id).html(contentHTML);
+                    } else {
+                        self.closest('.ajax-wrapper-form').replaceWith(result);
                     }
+                    if (status == 'success') {
+                        if( data_redirect !== undefined ) {
+                            window.location.replace(serviceUri+data_redirect);
+                        } else if (data_reload == 'true') {
+                            window.location.reload();
+                        }
+                    }
+                    $.fileUpload();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
+                    return false;
                 }
-                $.fileUpload();
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
-                return false;
-            }
-        });
-        return false;
+            });
+            return false;
+        }
     });
 }
 $.cloneButton = function() {

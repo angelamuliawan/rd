@@ -1,4 +1,4 @@
-<form id="formRegister" role="form" action="users/register" data-reload="true" class="ajax-form" method="post" accept-charset="utf-8">
+<form id="formRegister" role="form" action="users/register<?php echo isset($redirect_after) ? '?redirect_after='.$redirect_after : false; ?>" data-reload="true" class="ajax-form" method="post" accept-charset="utf-8">
 	<?php
   			if( isset($alert) ) {
 				echo $alert;

@@ -50,7 +50,7 @@
 							));
       					} else {
       						echo tag('a', 'Tulis Resep', array(
-								'href' => $domain.'/users/login',
+								'href' => $domain.'/users/login?redirect_after=recipe/add',
 		        				'data-title' => 'Login',
 		        				'class' => 'ajax-modal',
 		        				'wrapTag' => 'li',
@@ -63,9 +63,8 @@
 						));
       					
 						echo tag('a', 'Kontes', array(
-							'href' => $domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
+							'href' => $domain.'/recipe/contest',
 							'wrapTag' => 'li',
-							// 'class' => 'blink',
 						));
 
 		     			if( isLoggedIn() ) { 

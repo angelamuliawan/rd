@@ -60,6 +60,7 @@
 
 												$cnt_comment = $value['NumberOfComment'];
 												$cnt_recook = $value['NumberOfRecook'];
+												$cnt_view = $value['NumberOfView'];
 
 												$flag_cookmark = $value['FlagCookmark'];
 												$flag_recook = $value['FlagRecook'];
@@ -75,6 +76,7 @@
 													'recipe_intro' => $recipe_intro,
 													'cnt_comment' => $cnt_comment,
 													'cnt_recook' => $cnt_recook,
+													'cnt_view' => $cnt_view,
 													'flag_cookmark' => $flag_cookmark,
 													'flag_recook' => $flag_recook,
 													'flag_creator' => $flag_creator,

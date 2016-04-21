@@ -23,7 +23,7 @@
 
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
-											$cnt_view = 0;
+											$cnt_view = $value['NumberOfView'];
 
 											$flag_recook = $value['FlagRecook'];
 											

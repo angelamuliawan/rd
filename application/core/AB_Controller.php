@@ -2,7 +2,7 @@
 
 class AB_Controller extends CI_Controller {
 
-	public $domain = 'http://localhost/rd';
+	public $domain = 'http://localhost/cookindo';
 
 	public function __construct() {
 		parent::__construct();
@@ -26,6 +26,16 @@ class AB_Controller extends CI_Controller {
 			$this->load->vars(array(
 				'notifications' => $notifications,
 			));
+		}
+
+		if( $this->session->userdata('redirect_now') == true ) {
+			$this->session->set_userdata('redirect_now', false);
+			if( !empty($this->session->userdata('redirect_after')) ) {
+				$redirect_after = $this->session->userdata('redirect_after');
+				$this->session->set_userdata('redirect_after', false);
+				$this->load->helper('url');
+	            redirect($this->domain.'/'.$redirect_after);
+			}
 		}
 
 		// $browser = $this->getBrowser();

@@ -75,10 +75,10 @@
 							'class' => 'pull-right mr10',
 							'title' => 'Jumlah Recook',
 						));
-						// echo tag('div', $iconView.$totalView, array(
-						// 	'class' => 'pull-right mr10',
-						// 	'title' => 'Jumlah View',
-						// ));
+						echo tag('div', $iconView.$totalView, array(
+							'class' => 'pull-right mr10',
+							'title' => 'Jumlah View',
+						));
 				?>
 			</div>
 		</div>

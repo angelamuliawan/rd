@@ -1,6 +1,5 @@
 <?php
 		loadSubview('header/search_box');
-
 		// Recipe Header
 		$valueRecipeHeader = isset($valuesRecipeHeader[0]) ? $valuesRecipeHeader[0] : false;
 		$recipe_id = isset($valueRecipeHeader['RecipeID']) ? $valueRecipeHeader['RecipeID'] : false;
@@ -10,7 +9,7 @@
 		$recipe_intro = isset($valueRecipeHeader['RecipeIntro']) ? $valueRecipeHeader['RecipeIntro'] : false;
 		$cnt_comment = isset($valueRecipeHeader['NumberOfComment']) ? $valueRecipeHeader['NumberOfComment'] : false;
 		$cnt_recook = isset($valueRecipeHeader['NumberOfRecook']) ? $valueRecipeHeader['NumberOfRecook'] : false;
-		$cnt_view = 0;
+		$cnt_view = isset($valueRecipeHeader['NumberOfView']) ? $valueRecipeHeader['NumberOfView'] : false;;
 
 		$flag_cookmark = isset($valueRecipeHeader['FlagCookmark']) ? $valueRecipeHeader['FlagCookmark'] : false;
 		$flag_recook = isset($valueRecipeHeader['FlagRecook']) ? $valueRecipeHeader['FlagRecook'] : false;
@@ -75,8 +74,8 @@
 								)
 							));
 
-							// echo $iconView;
-							// echo tag('span', $cnt_view);
+							echo $iconView;
+							echo tag('span', $cnt_view);
 
 							echo $iconRecook;
 							echo tag('span', $cnt_recook);
@@ -252,7 +251,7 @@
 							</div>
 						</div>
 						<div class="col-sm-8">
-							<div class="wrapper pd15" style="font-size:16px;">
+							<div class="wrapper pd15" style="font-size: 16px;">
 								<?php
 										echo tag('p', $recipe_intro);
 										echo tag('h3', 'Bahan');
@@ -287,7 +286,7 @@
 
 										if( !empty($valuesRecipeStep) ) {
 								?>
-								<ol style="padding:0 20px;">
+								<ol class="simple-list">
 									<?php
 											foreach( $valuesRecipeStep as $key => $value ) {
 												$food_step = $value['FoodStepName'];

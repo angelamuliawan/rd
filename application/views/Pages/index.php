@@ -7,16 +7,16 @@
 	<div class="big-wrapper">
 		<div class="row">
 			<div class="col-sm-10">
-				<!-- <div class="wrapper-banner hidden-print mt10">
+				<div class="wrapper-banner hidden-print mt10">
 					<?php
-							echo tag('a', tag('img', false, array(
-								'src' => $domain.'/resources/images/uploads/banner/banner.jpg',
-								'style' => 'max-width: 100%',
-							)), array(
-								'href' => $domain.'/kontes-masak/1/lomba-masak-kreatif-berhadiah-microwave-oven-stand-mixer-blender',
-							));
+							// echo tag('a', tag('img', false, array(
+							// 	'src' => $domain.'/resources/images/uploads/banner/horizontal/contest-2.jpg',
+							// 	'style' => 'max-width: 100%',
+							// )), array(
+							// 	'href' => $domain.'/kontes-masak/3/lomba-menulis-resep-kreatif-cookindo-berhadiah-microwave-oven-stand-mixer-dan-blender',
+							// ));
 					?>
-				</div> -->
+				</div>
 				<div class="wrapper-food-list cuisine bg-white">
 					<div class="header">
 						<?php
@@ -90,7 +90,7 @@
 											$recipe_intro = $value['RecipeIntro'];
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
-											$cnt_view = 0;
+											$cnt_view = $value['NumberOfView'];
 
 											loadSubview('pages/item_recipe', array(
 												'recipe_id' => $id,
@@ -103,7 +103,7 @@
 											));
 										}
 									} else {
-										echo tag('h4', 'Recipe tidak tersedia', array(
+										echo tag('h4', 'Resep tidak tersedia', array(
 											'wrapTag' => 'li',
 											'wrapAttributes' => array(
 												'class' => 'no-border'
@@ -149,7 +149,7 @@
 											$recipe_intro = $value['RecipeIntro'];
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
-											$cnt_view = 0;
+											$cnt_view = $value['NumberOfView'];
 
 											loadSubview('pages/item_recipe', array(
 												'recipe_id' => $id,
@@ -162,7 +162,7 @@
 											));
 										}
 									} else {
-										echo tag('h4', 'Recipe tidak tersedia', array(
+										echo tag('h4', 'Resep tidak tersedia', array(
 											'wrapTag' => 'li',
 											'wrapAttributes' => array(
 												'class' => 'no-border'
@@ -190,7 +190,7 @@
 							'values' => $valuesPopularUser,
 						));
 
-						// loadSubview('common/ads');
+						loadSubview('common/ads');
 				?>
 			</div>
 		</div>

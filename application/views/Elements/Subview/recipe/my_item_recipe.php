@@ -6,6 +6,7 @@
 		$cuisine = isset($cuisine)?$cuisine:false;
 		$food_type = isset($food_type)?$food_type:false;
 		$recipe_intro = isset($recipe_intro)?$recipe_intro:false;
+		$contest_id = isset($contest_id)?$contest_id:false;
 
 		$cnt_comment = isset($cnt_comment)?$cnt_comment:false;
 		$cnt_recook = isset($cnt_recook)?$cnt_recook:false;
@@ -66,10 +67,10 @@
 							'class' => 'pull-right mr10',
 							'title' => 'Jumlah Recook',
 						));
-						// echo tag('div', $iconView.$totalView, array(
-						// 	'class' => 'pull-right mr10',
-						// 	'title' => 'Jumlah View',
-						// ));
+						echo tag('div', $iconView.$totalView, array(
+							'class' => 'pull-right mr10',
+							'title' => 'Jumlah View',
+						));
 				?>
 			</div>
 		</div>

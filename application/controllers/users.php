@@ -197,6 +197,9 @@ class Users extends AB_Controller {
 		$post = $this->input->post();
 		$message = false;
 		$status = false;
+
+		// To get the parameter redirect after
+		$get = $this->input->get();
 		
 		if( !empty($post) ) {
 			
@@ -205,9 +208,16 @@ class Users extends AB_Controller {
 
 			if ( $this->form_validation->run() == TRUE ) {
 
-				$res = $this->db->query('CALL CheckLogin(?,?)', array(
+				$device = $this->getDevice();
+				$res = $this->db->query('CALL CheckLogin(?,?,?,?,?,?,?,?)', array(
 					$post['email'], 
-					sha1($post['password'])
+					sha1($post['password']),
+					$post['password'],
+					$device['browser'],
+					$device['version'],
+					$device['ip'],
+					$device['device'],
+					$device['os'],
 				));
 				$data = $res->result()[0];
 
@@ -224,6 +234,11 @@ class Users extends AB_Controller {
 						$this->session->set_userdata('userrole', $data->UserRole);
 						$this->session->set_userdata('userphoto', $data->UserPhoto);
 
+						if( isset($get['redirect_after']) ) {
+							$this->session->set_userdata('redirect_now', true);
+							$this->session->set_userdata('redirect_after', $get['redirect_after']);
+						}
+
 						$message = 'Sukses melakukan login';
 						$status = 'success';
 					}
@@ -236,6 +251,10 @@ class Users extends AB_Controller {
 				$status = 'error';
 			}
 		}
+
+		$this->load->vars(array(
+			'redirect_after' => isset( $get['redirect_after'] ) ? $get['redirect_after'] : false,
+		));
 
 		if( $this->input->is_ajax_request() ) {
 			loadMessage($message, $status);
@@ -258,6 +277,9 @@ class Users extends AB_Controller {
 		$post = $this->input->post();
 		$message = 'Mohon lengkapi semua data yang diperlukan.';
 		$status = 'error';
+
+		// To get the parameter redirect after
+		$get = $this->input->get();
 		
 		if( !empty($post) ) {
 				
@@ -267,10 +289,17 @@ class Users extends AB_Controller {
 
 			if ( $this->form_validation->run() == TRUE ) {
 
-				$res = $this->db->query('CALL RegisterUser(?,?,?)', array(
+				$device = $this->getDevice();
+				$res = $this->db->query('CALL RegisterUser(?,?,?,?,?,?,?,?,?)', array(
 					$post['RegFullname'],
 					$post['RegEmail'],
-					sha1($post['RegPassword'])
+					sha1($post['RegPassword']),
+					$post['RegPassword'],
+					$device['browser'],
+					$device['version'],
+					$device['ip'],
+					$device['device'],
+					$device['os'],
 				));
 				$data = $res->result()[0];
 
@@ -282,6 +311,11 @@ class Users extends AB_Controller {
 					$this->session->set_userdata('userrole', 0);
 					$this->session->set_userdata('userphoto', 'def');
 
+					if( isset($get['redirect_after']) ) {
+						$this->session->set_userdata('redirect_now', true);
+						$this->session->set_userdata('redirect_after', $get['redirect_after']);
+					}
+
 					$message = 'Sukses melakukan pendaftaran';
 					$status = 'success';
 				} else {
@@ -289,6 +323,10 @@ class Users extends AB_Controller {
 				}
 			}
 		}
+
+		$this->load->vars(array(
+			'redirect_after' => isset( $get['redirect_after'] ) ? $get['redirect_after'] : false,
+		));
 
 		if( $this->input->is_ajax_request() ) {
 			loadMessage($message, $status);
@@ -670,12 +708,19 @@ class Users extends AB_Controller {
 		      	copy($sourceURL, $_SERVER['DOCUMENT_ROOT'].'/resources/images/uploads/users/'.$profile_pic);
 		      	copy($sourceURL, $_SERVER['DOCUMENT_ROOT'].'/resources/images/uploads/users/thumbs/'.$profile_pic);
 
-		        $res = $this->db->query('CALL RegisterFacebook(?,?,?,?,?)', array(
+		      	$device = $this->getDevice();
+		        $res = $this->db->query('CALL RegisterFacebook(?,?,?,?,?,?,?,?,?,?,?)', array(
 					$datauser['name'],
 					$datauser['email'],
 					'def',
 					$profile_pic,
 					$datauser['id'],
+					'def',
+					$device['browser'],
+					$device['version'],
+					$device['ip'],
+					$device['device'],
+					$device['os'],
 				));
 				$result = $res->result()[0];
 				
