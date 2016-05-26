@@ -158,10 +158,11 @@ class Users extends AB_Controller {
 
 			if ( $this->form_validation->run() == TRUE ) {
 
-				$res = $this->db->query('CALL ChangeUserData(?,?,?,?)', array(
+				$res = $this->db->query('CALL ChangeUserData(?,?,?,?,?)', array(
 					$post['username'], 
 					$post['city'],
 					$post['country'],
+					$post['description'],
 					$this->session->userdata('userid'),
 				));
 

@@ -12,7 +12,7 @@
 					</div>
 					<div class="content">
 						<p>
-							Jika ada informasi lain yang belum dicantumkan pada halaman ini maka anda dapat menghubungi kami di support@cookindo.com.
+							Jika ada informasi lain yang belum dicantumkan pada halaman ini maka anda dapat menghubungi kami di admin@cookindo.com.
 						</p>
 
 						<br>

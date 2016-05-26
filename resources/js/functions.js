@@ -13,6 +13,7 @@ $(document).ready(function() {
 	$(document).ajaxComplete(function() {
         finished_ajax = true;
 		$('.overlay').css('visibility', 'hidden');
+        $('input[type=submit], button[type=submit]').attr('disabled', false);
 	});
     $(document).submit(function(e) {
         $('input[type=submit], button[type=submit]').attr('disabled', true);
@@ -102,7 +103,29 @@ $.customFunction = function() {
         e.preventDefault();
         var self = $(this);
         var _class = self.attr('slide-toggle-on-click');
-        $(_class).slideToggle();
+
+        if( self.attr('toggle-oveflow') == 'true' ) {
+            if( $('body').css('overflow') == 'visible' ) {
+                $('body').css('overflow', 'hidden');
+            } else {
+                $('body').css('overflow', 'visible');
+            }
+        }
+        $(_class).stop().slideToggle();
+    });
+    $('body').on('click', '*[toggle-on-click]', function(e) {
+        e.preventDefault();
+        var self = $(this);
+        var _class = self.attr('toggle-on-click');
+
+        if( self.attr('toggle-oveflow') == 'true' ) {
+            if( $('body').css('overflow') == 'visible' ) {
+                $('body').css('overflow', 'hidden');
+            } else {
+                $('body').css('overflow', 'visible');
+            }
+        }
+        $(_class).toggle();
     });
     $('body').on('click', '*[show-on-click]', function(e) {
         e.preventDefault();
@@ -163,9 +186,9 @@ $.customFunction = function() {
 
     if ( $('.ajax-load-more').length ) {
         $(window).scroll(function() {
-           if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-               $('.ajax-form').submit();
-           }
+            if($(window).scrollTop() + $(window).height() > ($(document).height()/2) + 300 ) {
+                $('.ajax-form').submit();
+            }
         });
     }
 }
@@ -275,7 +298,9 @@ $.cloneButton = function() {
         var parent = $('.' + target).closest('.parent-template');
         var model = parent.attr('model');
         var template = $('.' + target).clone().removeClass(target).removeClass('hide').removeClass('wrapper-template');
-        var total_children = parent.children().length;
+        var total_children = parent.children('div').length;
+        var max_step = self.attr('max-step');
+
         template.find('.template-order').text(total_children);
         $('.inputField', template).each(function() {
             var _self = $(this);
@@ -295,6 +320,11 @@ $.cloneButton = function() {
                 _self.attr('id', custom_id);
             }
         });
+
+        if( max_step !== undefined && total_children == max_step ) {
+            self.hide();
+        }
+
         parent.append(template);
         $.autocomplete(template);
     });
@@ -380,6 +410,9 @@ $.reorderData = function() {
 }
 $.rebuildTemplate = function(parent) {
     var model = parent.attr('model');
+    var total_children = 0;
+    var max_step = parent.attr('max-step');
+
     $('.holder-template:visible', parent).each(function(index) {
         var _self = $(this);
         if (index == 0) {
@@ -404,7 +437,13 @@ $.rebuildTemplate = function(parent) {
                 }
             }
         });
+
+        total_children++;
     });
+
+    if( max_step !== undefined && total_children < max_step ) {
+        parent.parent().next().find('.clone-button').removeClass('hide').show();
+    }
 }
 $.autocomplete = function(objcontainer) {
     objcontainer = (typeof objcontainer != 'undefined') ? objcontainer : $('body');

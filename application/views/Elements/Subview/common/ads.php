@@ -1,16 +1,16 @@
 <div class="wrapper-ads hidden-print">
 	<ul class="no-pd">
 		<?php
-				echo tag('a', tag('img', false, array(
-					'src' => $domain.'/resources/images/uploads/banner/vertical/contest-2.jpg',
-					'style' => 'height: 100%; width: auto; max-width:100%;',
-				)), array(
-					'href' => $domain.'/kontes-masak/3/lomba-kreasi-memasak-demi-cinta-bersama-cookindo-dengan-hadiah-jutaan-rupiah',
-					'wrapTag' => 'li',
-					'wrapAttributes' => array(
-						'class' => 'no-ul-type mb20 wrapper-banner',
-					),
-				));
+				// echo tag('a', tag('img', false, array(
+				// 	'src' => $domain.'/resources/images/uploads/banner/vertical/contest-2.jpg',
+				// 	'style' => 'height: 100%; width: auto; max-width:100%;',
+				// )), array(
+				// 	'href' => $domain.'/kontes-masak/3/lomba-kreasi-memasak-demi-cinta-bersama-cookindo-dengan-hadiah-jutaan-rupiah',
+				// 	'wrapTag' => 'li',
+				// 	'wrapAttributes' => array(
+				// 		'class' => 'no-ul-type mb20 wrapper-banner',
+				// 	),
+				// ));
 
 				// loadSubview('common/sdk');
 

@@ -38,7 +38,7 @@
   	</div>
   	<div class="checkbox">
 	    <label>
-	      	<input type="checkbox"> Remember me on this device
+	      	<input type="checkbox"> Ingat saya
 	    </label>
 	</div>
   	<div class="form-group">
@@ -55,13 +55,13 @@
     			$direct_link = isset( $direct_link ) ? $direct_link : false;
 
     			if( !empty($direct_link) ) {
-    				echo tag('a', 'Forgot your password?', array(
+    				echo tag('a', 'Lupa password?', array(
 	    				'href' => $domain.'/users/forgot_password',
 	    			));
     			} else {
-	    			echo tag('a', 'Forgot your password?', array(
+	    			echo tag('a', 'Lupa password?', array(
 	    				'href' => '#tabs-forgot-password',
-	    				'text-value' => 'Forgot Password',
+	    				'text-value' => 'Lupa Password',
 	    				'class' => 'custom-nav-tabs replace-text',
 						'text-target' => '.modal-title',
 						'hide-on-click' => '.nav.nav-tabs',

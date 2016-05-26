@@ -4,7 +4,7 @@
 				if( isset($alert) ) {
 					echo $alert;
 				}
-				echo tag('h2', 'Forgot Password', array(
+				echo tag('h2', 'Lupa Password', array(
 					'class' => 'tacenter mb10',
 				));
 		?>

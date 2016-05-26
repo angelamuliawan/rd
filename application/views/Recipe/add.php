@@ -11,7 +11,7 @@
 			  	<?php
 			  			if( !empty($contest_name) ) {
 			  				echo tag('p', sprintf('Resep ini akan diikutsertakan ke dalam kontes : %s', $contest_name), array(
-			  					'class' => 'text-success',
+			  					'class' => 'text-orange',
 			  				));
 			  			}
 			  	?>
@@ -233,8 +233,12 @@
 								'class' => 'col-sm-2 control-label'
 							));
 					?>
-					<div class="col-sm-7 parent-template" model="FoodProcess">
+					<div class="col-sm-7 parent-template" model="FoodProcess" max-step="18">
 						<?php
+								echo tag('p', 'Maksimum langkah yang dapat dibuat adalah sebanyak 18 langkah', array(
+									'class' => 'text-orange'
+								));
+
 								loadSubview('recipe/custom_step', array(
 									'type' => 'init',
 									'counter' => '',
@@ -244,10 +248,12 @@
 								if( !empty($request['FoodProcess']) ) {
 									foreach( $request['FoodProcess'] as $key => $value ) {
 										$step = $value['FoodStepName'];
+										$step_vid = $value['FoodStepVideo'];
 										
 										loadSubview('recipe/custom_step', array(
 											'type' => 'load',
 											'step' => $step,
+											'step_vid' => $step_vid,
 											'counter' => $counter,
 										));
 										$counter++;
@@ -262,7 +268,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-7 col-sm-offset-2 clone-button cpointer" data-clone="clone-template-step">
+					<div class="col-sm-7 col-sm-offset-2 clone-button cpointer <?php echo ( $counter >= 18 ) ? 'hide' : ''; ?>" data-clone="clone-template-step" max-step="8">
 						<?php
 								echo tag('span', false, array(
 									'class' => 'glyphicon glyphicon-plus'

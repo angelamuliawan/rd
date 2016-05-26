@@ -15,8 +15,15 @@
 					<div class="wrapper-right">
 						<ul class="nav nav-tabs">
 							<?php
-									echo tag('a', 'Statistik', array(
-										'href' => '#tabs-statistic',
+									// echo tag('a', 'Statistik', array(
+									// 	'href' => '#tabs-statistic',
+									// 	'wrapTag' => 'li',
+									// 	'wrapAttributes' => array(
+									// 		'class' => 'active',
+									// 	)
+									// ));
+									echo tag('a', 'Akun', array(
+										'href' => '#tabs-account',
 										'wrapTag' => 'li',
 										'wrapAttributes' => array(
 											'class' => 'active',
@@ -26,30 +33,26 @@
 										'href' => '#tabs-change-password',
 										'wrapTag' => 'li',
 									));
-									echo tag('a', 'Akun', array(
-										'href' => '#tabs-account',
-										'wrapTag' => 'li',
-									));
 							?>
 						</ul>
 
 						<div class="tab-content pd15">
-							<div class="tab-pane active" id="tabs-statistic">
+							<!-- <div class="tab-pane active" id="tabs-statistic">
 								<?php
 										echo tag('h2', 'Statistik');
 										loadSubview('users/tabs/statistic');
+								?>
+							</div> -->
+							<div class="tab-pane active" id="tabs-account">
+								<?php
+										echo tag('h2', 'Akun');
+										loadSubview('users/tabs/account');
 								?>
 							</div>
 							<div class="tab-pane" id="tabs-change-password">
 								<?php
 										echo tag('h2', 'Kata Sandi');
 										loadSubview('users/tabs/password');
-								?>
-							</div>
-							<div class="tab-pane" id="tabs-account">
-								<?php
-										echo tag('h2', 'Akun');
-										loadSubview('users/tabs/account');
 								?>
 							</div>
 						</div>

@@ -142,3 +142,44 @@ if ( ! function_exists('seoURL')) {
 	    return $string;
 	}
 }
+
+if ( ! function_exists('getYoutubeIDFromURL')) {
+
+	function getYoutubeIDFromURL( $url ) {
+	    $parts = parse_url($url);
+	    if(isset($parts['query'])){
+	        parse_str($parts['query'], $qs);
+	        if(isset($qs['v'])){
+	            return $qs['v'];
+	        }else if(isset($qs['vi'])){
+	            return $qs['vi'];
+	        }
+	    }
+	    if(isset($parts['path'])){
+	        $path = explode('/', trim($parts['path'], '/'));
+	        return $path[count($path)-1];
+	    }
+	    return false;
+	}
+}
+
+if ( ! function_exists('isExistsYoutubeVideo')) {
+	
+	function isExistsYoutubeVideo( $videoID ) {
+	    $theURL = "http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=$videoID&format=json";
+	    $headers = get_headers($theURL);
+
+	    if (substr($headers[0], 9, 3) !== "404") {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+}
+
+if ( ! function_exists('isMobile')) {
+	
+	function isMobile() {
+	    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+	}
+}

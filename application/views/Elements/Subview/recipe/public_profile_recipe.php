@@ -21,7 +21,9 @@
 			'src' => $domain.'/resources/icons/view.png',
 		));
 
-		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
+		$type = isset( $type ) ? $type : 'primary';
+
+		$path_image = '/resources/images/uploads/recipe/'.$type.'/thumbs/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
@@ -53,14 +55,19 @@
 							'class' => 'pull-right mr5',
 							'title' => 'Jumlah Komentar',
 						));
-						echo tag('div', $iconRecook.$totalRecook, array(
-							'class' => 'pull-right mr10',
-							'title' => 'Jumlah Recook',
-						));
-						echo tag('div', $iconView.$totalView, array(
-							'class' => 'pull-right mr10',
-							'title' => 'Jumlah View',
-						));
+						if( $type != 'recook' ) {
+							echo tag('div', $iconRecook.$totalRecook, array(
+								'class' => 'pull-right mr10',
+								'title' => 'Jumlah Recook',
+							));
+						}
+
+						if( $type != 'recook' ) {
+							echo tag('div', $iconView.$totalView, array(
+								'class' => 'pull-right mr10',
+								'title' => 'Jumlah View',
+							));
+						}
 				?>
 			</div>
 		</div>

@@ -4,13 +4,16 @@
 
 		$counter = isset($counter)?$counter:'';
 		$step = !empty($step)?$step:false;
+		$step_vid = !empty($step_vid)?$step_vid:false;
 
 		$step_name = 'FoodProcess['.$counter.'][FoodStepName]';
+		$step_video = 'FoodProcess['.$counter.'][FoodStepVideo]';
 		// $step_sequence = 'FoodProcess['.$counter.'][FoodStepSequence]';
 
 		if( $type == 'init' ) {
 			$class = 'clone-template-step hide wrapper-template';
 			$step_name = 'FoodStepName';
+			$step_video = 'FoodStepVideo';
 			// $step_sequence = 'FoodStepSequence';
 		}
 ?>
@@ -34,11 +37,23 @@
 					'data-model' => 'FoodStepName',
 					'maxlength' => 1200,
 				));
-				echo form_error($step_name); 
+				echo form_error($step_name);
+
+				echo tag('input', false, array(
+					'id' => 'FoodStepVideo'.$counter,
+					'value' => ( !empty($step_vid) ) ? $step_vid : set_value($step_video),
+					'name' => $step_video,
+					'class' => 'form-control mb10 mt10 inputField template-field',
+					'placeholder' => 'Masukkan URL video youtube (optional).',
+					'data-model' => 'FoodStepVideo',
+				));
 
 				if( isset($request['FoodProcess'][$counter]['FoodStepImage_preview']) ) {
-					$custom_image = $domain.'/resources/images/uploads/recipe/step/'.$request['FoodProcess'][$counter]['FoodStepImage_preview'];
-					if( @getimagesize($custom_image) ) {
+
+					$path_image = '/resources/images/uploads/recipe/step/'.$request['FoodProcess'][$counter]['FoodStepImage_preview'];
+					$custom_image = $domain.$path_image;
+
+					if( file_exists( $webroot.$path_image ) ) {
 						echo tag('img', false, array(
 							'src' => $custom_image,
 							'style' => 'width: 100%; max-width: 200px;',
@@ -51,10 +66,28 @@
 					}
 				}
 
+				if( !empty($step_vid) ) {
+					$videoID = getYoutubeIDFromURL($step_vid);
+					if( isExistsYoutubeVideo($videoID) ) {
+						echo tag('iframe', false, array(
+							'width' => 258,
+							'height' => 170,
+							'src' => 'https://www.youtube.com/embed/'.$videoID,
+							'frameborder' => 0,
+							'allowfullscreen' => 'allowfullscreen',
+							'wrapTag' => 'div',
+							'wrapAttributes' => array(
+								'class' => 'wrapper-video'
+							),
+						));
+					}
+					echo form_error($step_video);
+				}
+
 				echo tag('input', false, array(
 					'id' => 'imageStep'.$counter,
 					'type' => 'file',
-					'class' => 'inputField template-field',
+					'class' => 'mt5 inputField template-field',
 					'match-name-with-id' => true,
 					'name' => 'imageStep'.$counter,
 					'data-model' => 'imageStep',

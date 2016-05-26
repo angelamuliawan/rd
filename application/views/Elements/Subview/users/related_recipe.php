@@ -48,7 +48,7 @@
 							echo tag('a', $title, array(
 								'href' => $domain.'/resep-masak/'.$recipe_id.'/'.$slug,
 							));
-							echo tag('p', sprintf('%s Comment, %s Recook', $cnt_comment, $cnt_recook), array(
+							echo tag('p', sprintf('%s Komentar, %s Recook', $cnt_comment, $cnt_recook), array(
 								'class' => 'stats',
 							));
 					?>

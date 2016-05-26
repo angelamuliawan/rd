@@ -20,7 +20,7 @@
 				<div class="wrapper-food-list cuisine bg-white">
 					<div class="header">
 						<?php
-								echo tag('h3', 'Top Cuisines', array(
+								echo tag('h3', 'Jenis Masakan Populer', array(
 									'class' => 'pull-left mt5 wrapper-text'
 								));
 						?>
@@ -44,7 +44,7 @@
 											));
 										}
 									} else {
-										echo tag('h4', 'Top cuisine tidak tersedia', array(
+										echo tag('h4', 'Data tidak tersedia', array(
 											'wrapTag' => 'li',
 											'wrapAttributes' => array(
 												'class' => 'no-border'
@@ -186,7 +186,7 @@
 			<div class="col-sm-2">
 				<?php
 						loadSubview('users/top_users', array(
-							'heading' => 'Top Chef',
+							'heading' => 'Chef Populer',
 							'values' => $valuesPopularUser,
 						));
 

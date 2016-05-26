@@ -123,14 +123,14 @@
 						<?php
 								if( !empty($is_active) ) {
 									if( isLoggedIn() ) {
-										echo tag('a', 'Tulis Resep Sekarang', array(
-											'title' => 'Tulis Resep Sekarang',
+										echo tag('a', 'Tulis Resep', array(
+											'title' => 'Tulis Resep',
 											'href' => $domain.'/recipe/add/'.$contest_id,
 											'class' => 'btn btn-orange',
 										));
 									} else {
-										echo tag('a', 'Tulis Resep Sekarang', array(
-											'title' => 'Tulis Resep Sekarang',
+										echo tag('a', 'Tulis Resep', array(
+											'title' => 'Tulis Resep',
 											'href' => $domain.'/users/login?redirect_after=recipe/add/'.$contest_id,
 											'class' => 'btn btn-orange ajax-modal',
 										));
@@ -138,7 +138,7 @@
 								} else {
 									echo tag('a', 'Lihat Pemenang', array(
 										'title' => 'Lihat Pemenang',
-										'href' => $domain.'/recipe/contest_winner',
+										'href' => $domain.'/recipe/contest_winner/'.$contest_id,
 										'class' => 'btn btn-orange ajax-modal',
 									));
 								}

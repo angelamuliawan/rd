@@ -37,7 +37,7 @@
 			'src' => $domain.'/resources/icons/view.png',
 		));
 
-		$path_image = '/resources/images/uploads/recipe/primary/'.$image;
+		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
@@ -53,18 +53,18 @@
 <li class="no-ul-type">
 	<div class="row">
 		<div class="col-sm-4 left-side">
-			<a href="<?php echo $url; ?>">
+			<div class="box-header">
 				<?php
 						echo tag('img', false, array(
 							'src' => $custom_image,
-							'wrapTag' => 'div',
+							'wrapTag' => 'a',
 							'wrapAttributes' => array(
-								'class' => 'box-header',
+								'href' => $url,
 							),
 						));
 
 				?>
-			</a>
+			</div>
 			<div class="box-footer">
 				<?php
 						echo tag('div', $iconComment.$totalComment, array(

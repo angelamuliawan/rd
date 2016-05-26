@@ -34,18 +34,28 @@ class Recipe extends AB_Controller {
 		$this->render($post);
 	}
 
-	public function find( $page = 1 ) {
+	public function find() {
+		$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->helper('build_data');
 
-		$post = $this->input->get();
+		$get = $this->input->get();
+		$post = $this->input->post(); 
+
+		$page = 1;
+		if( !empty($post) && $this->input->is_ajax_request() ) {
+			$page = $post['next_page'];
+		}
+
 		$this->callDefaultData('create', true);
-		$this->callSearchRecipe($post, $page);
+		$this->callSearchRecipe($get, $page);
 
 		$this->load->vars(array(
 			'site_title' => 'Cari Resep',
+			'page' => $page,
+			'param_get' => $this->input->server('QUERY_STRING'),
 		));
-		$this->render($post);
+		$this->render($get);
 	}
 
 	public function detail( $recipe_id = false ) {
@@ -79,19 +89,17 @@ class Recipe extends AB_Controller {
 
 		// Save recipe log
 		$device = $this->getDevice();
-		if( $device['ip'] != '114.121.134.202' && $device['ip'] != '202.62.16.200' ) {
-			$resRecipeLog = $this->db->query('CALL InsertRecipeLog(?,?,?,?,?,?,?)', array(
-				$recipe_id,
-				$device['browser'],
-				$device['version'],
-				$device['ip'],
-				$device['device'],
-				$device['os'],
-				$this->session->userdata('userid'),
-			));
-			$query_result = $resRecipeLog->result();
-			$resRecipeLog->next_result();
-		}
+		$resRecipeLog = $this->db->query('CALL InsertRecipeLog(?,?,?,?,?,?,?)', array(
+			$recipe_id,
+			$device['browser'],
+			$device['version'],
+			$device['ip'],
+			$device['device'],
+			$device['os'],
+			$this->session->userdata('userid'),
+		));
+		$query_result = $resRecipeLog->result();
+		$resRecipeLog->next_result();
 
 		// Recipe Recook
 		$resRecipeRecook = $this->db->query('CALL GetRecipeDetailRecook(?)', array(
@@ -248,6 +256,13 @@ class Recipe extends AB_Controller {
 
 			foreach( $post['FoodProcess'] as $key => $value ) {
 				$this->form_validation->set_rules('FoodProcess['.$key.'][FoodStepName]', 'Food Step', 'required');
+
+				if( !empty($post['FoodProcess'][$key]['FoodStepVideo']) ) {
+					$videoID = getYoutubeIDFromURL($post['FoodProcess'][$key]['FoodStepVideo']);
+					if( !isExistsYoutubeVideo($videoID) ) {
+						$this->setCustomError('FoodProcess['.$key.'][FoodStepVideo]', 'Invalid video URL.');
+					}
+				}
 			}
 
 			if ( $this->form_validation->run() == TRUE && $valid_photo == true ) {
@@ -299,21 +314,21 @@ class Recipe extends AB_Controller {
 						$resInsertFoodComposition->next_result();
 					}
 				}
-
-				// debug($post); die();
 				
 				if( isset($post['FoodProcess']) ) {
 					foreach( $post['FoodProcess'] as $key => $value ) {
 						$step = nl2br($value['FoodStepName']);
+						$step_video = $value['FoodStepVideo'];
 						$step_image = isset($value['FoodStepImage']) ? $value['FoodStepImage'] : NULL;
 						if( $step_image == NULL && isset($post['FoodProcess'][$key]['FoodStepImage_preview']) ) {
 							$step_image = $post['FoodProcess'][$key]['FoodStepImage_preview'];
 						}
 
-						$resInsertFoodStep = $this->db->query('CALL InsertFoodStep(?,?,?,?,?)', array(
+						$resInsertFoodStep = $this->db->query('CALL InsertFoodStep(?,?,?,?,?,?)', array(
 							($key+1), 
 							$step,
 							$step_image,
+							$step_video,
 							$recipe_id,
 							$this->session->userdata('userid'),
 						));
@@ -322,6 +337,20 @@ class Recipe extends AB_Controller {
 						$resInsertFoodStep->next_result();
 					}
 				}
+
+				// Save recipe log
+				$device = $this->getDevice();
+				$resRecipeLog = $this->db->query('CALL InsertRecipeLog(?,?,?,?,?,?,?)', array(
+					$recipe_id,
+					$device['browser'],
+					$device['version'],
+					$device['ip'],
+					$device['device'],
+					$device['os'],
+					$this->session->userdata('userid'),
+				));
+				$query_result = $resRecipeLog->result();
+				$resRecipeLog->next_result();
 
 				$message = 'Sukses menyimpan resep';
 				$status = 'success';
@@ -440,6 +469,13 @@ class Recipe extends AB_Controller {
 
 			foreach( $post['FoodProcess'] as $key => $value ) {
 				$this->form_validation->set_rules('FoodProcess['.$key.'][FoodStepName]', 'Food Step', 'required');
+
+				if( !empty($post['FoodProcess'][$key]['FoodStepVideo']) ) {
+					$videoID = getYoutubeIDFromURL($post['FoodProcess'][$key]['FoodStepVideo']);
+					if( !isExistsYoutubeVideo($videoID) ) {
+						$this->setCustomError('FoodProcess['.$key.'][FoodStepVideo]', 'Invalid video URL.');
+					}
+				}
 			}
 
 			if ( $this->form_validation->run() == TRUE && $valid_photo == true ) {
@@ -513,15 +549,17 @@ class Recipe extends AB_Controller {
 
 					foreach( $post['FoodProcess'] as $key => $value ) {
 						$step = nl2br($value['FoodStepName']);
+						$step_video = $value['FoodStepVideo'];
 						$step_image = isset($value['FoodStepImage']) ? $value['FoodStepImage'] : NULL;
 						if( $step_image == NULL && isset($post['FoodProcess'][$key]['FoodStepImage_preview']) ) {
 							$step_image = $post['FoodProcess'][$key]['FoodStepImage_preview'];
 						}
 
-						$resUpdateFoodStep = $this->db->query('CALL UpdateFoodStep(?,?,?,?,?)', array(
+						$resUpdateFoodStep = $this->db->query('CALL UpdateFoodStep(?,?,?,?,?,?)', array(
 							($key+1), 
 							$step,
 							$step_image,
+							$step_video,
 							$recipe_id,
 							$this->session->userdata('userid'),
 						));
@@ -591,6 +629,7 @@ class Recipe extends AB_Controller {
 			foreach( $valuesFoodStep as $row ) {
 				$step_arr = array(
 					'FoodStepName' => strip_tags($row['FoodStepName']),
+					'FoodStepVideo' => $row['FoodStepVideoURL'],
 				);
 				if( !empty($row['FoodStepImage']) ) {
 					$step_arr['FoodStepImage_preview'] = $row['FoodStepImage'];
@@ -974,7 +1013,10 @@ class Recipe extends AB_Controller {
 		$this->render();
 	}
 
-	public function contest_winner() {
+	public function contest_winner( $contest_id = NULL ) {
+		$this->load->vars(array(
+			'contest_id' => $contest_id,
+		));
 		loadModal('contest_winner');
 	}
 }

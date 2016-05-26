@@ -4,6 +4,11 @@
 			<div class="col-sm-12">
 				<div id="my-recipe" class="wrapper-food-list-vertical">
 					<div class="content with-border">
+						<?php
+								echo tag('h2', 'Resep Saya', array(
+									'class' => 'pd20 with-border-bottom	'
+								));
+						?>
 						<ul>
 							<?php
 									if( !empty($values) ) {

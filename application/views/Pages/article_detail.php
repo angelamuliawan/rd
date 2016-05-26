@@ -7,10 +7,10 @@
 		$content = $value['ArticleContent'];
 		$date = $value['ArticleDate'];
 
-		$comment = tag('img', false, array(
-			'src' => $domain.'/resources/icons/comment_w.png',
-		));
-		$total_comment = count($valuesArticleComment);
+		// $comment = tag('img', false, array(
+		// 	'src' => $domain.'/resources/icons/comment_w.png',
+		// ));
+		// $total_comment = count($valuesArticleComment);
 
 		$url = $domain.'/artikel/'.$id.'/'.$slug;
 
@@ -39,12 +39,12 @@
 									),
 								));
 						?>
-						<div class="right-side">
+						<!-- <div class="right-side">
 							<?php
 									echo $comment;
 									echo tag('span', $total_comment);
 							?>
-						</div>
+						</div> -->
 					</div>
 					<div class="content with-border pd15">
 						<?php

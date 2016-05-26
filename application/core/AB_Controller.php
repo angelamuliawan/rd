@@ -9,7 +9,7 @@ class AB_Controller extends CI_Controller {
 
 		$this->load->library('rest');
 		$this->load->helper('common');
-		$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+		// $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
 
 		if( isLoggedIn() ) {
 
@@ -62,7 +62,7 @@ class AB_Controller extends CI_Controller {
 		$browser = $this->getBrowser();
 		$ip = $this->getRealUserIp();
 		$device = 'Desktop';
-		if( $this->isMobile() ) {
+		if( isMobile() ) {
 			$device = 'Mobile';
 		}
 
@@ -114,7 +114,7 @@ class AB_Controller extends CI_Controller {
 		$browser = $this->getBrowser();
 		$ip = $this->getRealUserIp();
 		$device = 'Desktop';
-		if( $this->isMobile() ) {
+		if( isMobile() ) {
 			$device = 'Mobile';
 		}
 

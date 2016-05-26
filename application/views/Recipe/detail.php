@@ -291,12 +291,15 @@
 											foreach( $valuesRecipeStep as $key => $value ) {
 												$food_step = $value['FoodStepName'];
 												$food_step_image = $value['FoodStepImage'];
+												$food_step_video = $value['FoodStepVideoURL'];
 
 												$content = tag('p', $food_step);
 												if( !empty($food_step_image) ) {
 
-													$custom_image = $domain.'/resources/images/uploads/recipe/step/'.$food_step_image;
-													if( !@getimagesize($custom_image) ) {
+													$path_image = '/resources/images/uploads/recipe/step/'.$food_step_image;
+													$custom_image = $domain.$path_image;
+
+													if( !file_exists( $webroot.$path_image ) ) {
 														$custom_image = $domain.'/resources/images/default.png';
 													}
 
@@ -307,6 +310,24 @@
 															'class' => 'tacenter',
 														)
 													));
+												}
+
+												if( !empty($food_step_video) ) {
+
+													$videoID = getYoutubeIDFromURL($food_step_video);
+													if( isExistsYoutubeVideo($videoID) ) {
+														$content .= tag('iframe', false, array(
+															'width' => 258,
+															'height' => 170,
+															'src' => 'https://www.youtube.com/embed/'.$videoID,
+															'frameborder' => 0,
+															'allowfullscreen' => 'allowfullscreen',
+															'wrapTag' => 'div',
+															'wrapAttributes' => array(
+																'class' => 'wrapper-video'
+															),
+														));
+													}
 												}
 
 												echo tag('li', $content);

@@ -51,9 +51,7 @@ class Pages extends AB_Controller {
 		$this->load->helper('build_data');
 		$this->callDefaultData('search');
 
-		$resArticle = $this->db->query('CALL GetNewestArticle(?)', array(
-			NULL
-		));
+		$resArticle = $this->db->query('CALL GetAllArticle()');
 		$values = $resArticle->result_array();
 		$resArticle->next_result();
 

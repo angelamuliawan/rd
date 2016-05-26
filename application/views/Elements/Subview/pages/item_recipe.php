@@ -21,7 +21,7 @@
 		$totalRecook = tag('span', $cnt_recook);
 		$totalView = tag('span', $cnt_view);
 
-		$path_image = '/resources/images/uploads/recipe/primary/'.$image;
+		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';

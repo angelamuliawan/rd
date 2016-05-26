@@ -8,6 +8,11 @@
 			<div class="col-sm-10">
 				<div id="cookmark" class="wrapper-food-list-vertical">
 					<div class="content with-border">
+						<?php
+								echo tag('h2', 'Cookmark', array(
+									'class' => 'pd20 with-border-bottom	'
+								));
+						?>
 						<ul>
 							<?php
 									if( !empty($values) ) {

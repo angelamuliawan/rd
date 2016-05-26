@@ -8,7 +8,7 @@
 		<div class="form-group">
 	  		<?php
 	  				echo tag('label', 'Password Lama', array(
-	  					'class' => 'col-sm-3 control-label taleft',
+	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'oldPassword',
 	  				));
 	  		?>
@@ -29,7 +29,7 @@
 	  	<div class="form-group">
 	  		<?php
 	  				echo tag('label', 'Password baru', array(
-	  					'class' => 'col-sm-3 control-label taleft',
+	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'newPassword',
 	  				));
 	  		?>
@@ -50,7 +50,7 @@
 	  	<div class="form-group">
 	  		<?php
 	  				echo tag('label', 'Konfirmasi Password', array(
-	  					'class' => 'col-sm-3 control-label taleft',
+	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'confirmPassword',
 	  				));
 	  		?>
@@ -75,7 +75,7 @@
 	  					'type' => 'submit',
 	  					'wrapTag' => 'div',
 	  					'wrapAttributes' => array(
-	  						'class' => 'col-sm-offset-3 col-sm-2'
+	  						'class' => 'col-sm-offset-2 col-sm-2'
 	  					)
 	  				));
 	  		?>

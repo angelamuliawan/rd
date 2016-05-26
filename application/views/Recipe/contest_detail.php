@@ -41,14 +41,14 @@
 
 									if( !empty($is_active) ) {
 										if( isLoggedIn() ) {
-											echo tag('a', 'Tulis Resep Sekarang', array(
-												'title' => 'Tulis Resep Sekarang',
+											echo tag('a', 'Tulis Resep', array(
+												'title' => 'Tulis Resep',
 												'href' => $domain.'/recipe/add/'.$contest_id,
 												'class' => 'btn btn-orange mt10'
 											));
 										} else {
-											echo tag('a', 'Tulis Resep Sekarang', array(
-												'title' => 'Tulis Resep Sekarangg',
+											echo tag('a', 'Tulis Resep', array(
+												'title' => 'Tulis Resep',
 												'href' => $domain.'/users/login?redirect_after=recipe/add/'.$contest_id,
 												'class' => 'btn btn-orange mt10 ajax-modal'
 											));
@@ -69,14 +69,14 @@
 
 								if( !empty($is_active) ) {
 									if( isLoggedIn() ) {
-										echo tag('a', 'Tulis Resep Sekarang', array(
-											'title' => 'Tulis Resep Sekarang',
+										echo tag('a', 'Tulis Resep', array(
+											'title' => 'Tulis Resep',
 											'href' => $domain.'/recipe/add/'.$contest_id,
 											'class' => 'btn btn-orange mb5 fbold full-width mb5'
 										));
 									} else {
-										echo tag('a', 'Tulis Resep Sekarang', array(
-											'title' => 'Tulis Resep Sekarang',
+										echo tag('a', 'Tulis Resep', array(
+											'title' => 'Tulis Resep',
 											'href' => $domain.'/users/login?redirect_after=recipe/add/'.$contest_id,
 											'class' => 'btn btn-orange fbold full-width mb5 ajax-modal'
 										));
