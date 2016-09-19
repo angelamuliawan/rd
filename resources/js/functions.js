@@ -1,5 +1,6 @@
 var source_data = {};
 var serviceUri = 'http://localhost/cookindo/';
+// var serviceUri = 'http://'+document.domain+'/';
 var finished_ajax = true;
 
 $(document).ready(function() {
@@ -35,6 +36,7 @@ $(document).ready(function() {
     $.carousel();
 
     $.froala();
+    $.unveil();
 
     $.oauthpopup = function (options) {
         options.windowName = options.windowName || 'ConnectWithOAuth';
@@ -64,6 +66,17 @@ $(document).ready(function() {
         }); 
     });
 });
+
+$.unveil = function(){
+    $("img").unveil(300, function() {
+        $(this).load(function() {
+            this.style.opacity = 1;
+        });
+    });
+    $("div[is-progressive='1']").unveil(300, function() {
+        $(this).css('opacity', 1);
+    });
+}
 
 $.froala = function(){
     if( $('.fr-custom-textarea').length ) {
@@ -221,16 +234,27 @@ $.ajaxLink = function() {
                 dataType: 'html',
                 success: function(result) {
                     var contentHTML = '';
-                    if ($(result).find(wrapper_class).length) {
+                    if (self.attr('remove') !== undefined) {
+                        self.closest('.wrapper-ajax-link').slideUp(1500, function(){
+                            self.closest('.wrapper-ajax-link').html('<div class="alert alert-success temp-alert">'+
+                                '<a href="#" class="close" data-dismiss="alert" title="Tutup">×</a>'+
+                                '<p>Data berhasil dihapus</p>'+
+                            '</div>').slideDown();
+
+                            setTimeout(function(){
+                                $('.temp-alert').slideUp(1500, function(){
+                                    $('.temp-alert').remove();
+                                });
+                            }, 5000);
+                        });
+                    } else if ($(result).find(wrapper_class).length) {
                         contentHTML = $(result).find(wrapper_class).html();
                         $(wrapper_class).html(contentHTML);
                     } else {
-                        if (self.attr('remove') !== undefined) {
-                            self.closest('.wrapper-ajax-link').remove();
-                        } else {
-                            self.closest('.wrapper-ajax-link').replaceWith(result);
-                        }
+                        self.closest('.wrapper-ajax-link').replaceWith(result);
                     }
+
+                    $.unveil();
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
@@ -281,6 +305,7 @@ $.ajaxForm = function() {
                         }
                     }
                     $.fileUpload();
+                    $.unveil();
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
@@ -386,6 +411,8 @@ $.fileUpload = function() {
                 var target_class = $('#fileupload').attr('data-show');
                 $(target_class).show();
             }
+
+            $.unveil();
         },
         progressall: function(e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);

@@ -13,6 +13,7 @@
 		$iconCalendar = tag('img', false, array(
 			'style' => 'width:15px;',
 			'src' => $domain.'/resources/icons/calendar.png',
+			'disable_progressive' => true,
 		));
 
 		$path_image = '/resources/images/uploads/banner/horizontal/'.$image;
@@ -29,34 +30,18 @@
 			<a href="<?php echo $url; ?>" title="<?php echo $title; ?>">
 				<?php
 						echo tag('div', false, array(
-							'style' => 'background-image:url("'.$custom_image.'"); width:100%; height:170px; background-size: cover; background-position: left top;',
+							'style' => 'width:100%; height:170px; background-size: cover; background-position: left top;',
+							'data-src' => $custom_image,
 							'wrapTag' => 'div',
 							'wrapAttributes' => array(
 								'class' => 'box-header',
-							),					
+							),
+							'is-progressive' => true,
 						));
 				?>
 			</a>
 			<div class="box-footer">
 				<?php
-						// echo tag('div', $iconComment.$totalComment, array(
-						// 	'class' => 'pull-right mr5',
-						// 	'title' => 'Jumlah Komentar',
-						// ));
-						// echo tag('div', $iconRecook.$totalRecook, array(
-						// 	'class' => 'pull-right mr10',
-						// 	'title' => 'Jumlah Recook',
-						// ));
-						// echo tag('div', $iconView.$totalView, array(
-						// 	'class' => 'pull-right mr10',
-						// 	'title' => 'Jumlah View',
-						// ));
-
-						// echo tag('div', '08 : 43 : 12', array(
-							// 'class' => 'pull-right mr5 fbold',
-							// 'title' => 'Jumlah Komentar',
-						// ));
-
 						echo tag('p', (( $is_active == 1 ) ? 'Kontes Sedang Berlangsung' : 'Kontes Telah Berakhir'), array(
 							'class' => 'pull-right mr5 fbold',
 						));
@@ -74,6 +59,7 @@
 								'class' => 'mb5 text-orange',
 							),
 						));
+						echo '<br>';
 						echo $iconCalendar.tag('p', sprintf('%s - %s', $start_date, $end_date), array(
 							'class' => 'fbold ml5 dpinline'
 						));
@@ -81,15 +67,6 @@
 						echo tag('p', $short_desc, array(
 							'class' => 'mt5 description'
 						));
-						// echo tag('a', 'Selengkapnya', array(
-						// 	'href' => $url,
-						// 	'class' => 'btn btn-orange mt5',
-						// 	'wrapTag' => 'div',
-						// 	'wrapAttributes' => array(
-						// 		'class' => 'taright mb5'
-						// 	)
-						// ));
-						// loadSubview('common/action_bottom_contest');
 				?>
 				<div class="pull-left mr10 mt5">
 					<span>

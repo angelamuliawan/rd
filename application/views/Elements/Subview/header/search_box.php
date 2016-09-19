@@ -1,9 +1,11 @@
 <?php
 		$_class = isset($_class)?$_class:'';
 		$_with_text = isset($_with_text)?$_with_text:false;
+
+		$header_img = $domain.'/resources/images/background/bg.jpg';
 ?>
 
-<div class="wrapper-background hidden-print <?php echo $_class; ?>">
+<div class="wrapper-background hidden-print <?php echo $_class; ?>" data-src="<?php echo $header_img; ?>" is-progressive="1">
 	<div class="container">
 		<div class="search-box">
 			<div class="row">

@@ -2,7 +2,7 @@
 		$valuesUserAccount = isset( $valuesUserAccount[0] ) ? $valuesUserAccount[0] : false;
 ?>
 
-<div class="container">
+<div class="container bg-white">
 	<div class="big-wrapper bg-white pd20" style="min-height:500px;">
 		<div class="row">
 			<div class="wrapper-profile">

@@ -100,6 +100,7 @@
 								'data-toggle' => 'dropdown',
 								'aria-hashpopup' => 'true',
 								'aria-expanded' => 'false',
+								'style' => 'height: 50px;',
 		     				));
         			?>
 	        		<div id="notif-panel" class="dropdown-menu">
@@ -142,7 +143,7 @@
 						</div>
 					</div>
 				</li>
-        		<li class="dropdown">
+        		<li id="user-menu-dropdown" class="dropdown">
         			<?php
         					$userphoto = $this->session->userdata('userphoto');
 							$path_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
@@ -151,10 +152,11 @@
 								$custom_image = $domain.'/resources/images/64x64.png';
 							}
 
-        					$userImage = tag('img', $this->session->userdata('username'), array(
-        						'class' => 'pull-left _mt7 mr5',
+        					$userImage = tag('img', strtok($this->session->userdata('username'), " "), array(
+        						'class' => 'pull-left _mt7 mr5 img-circle',
         						'src' => $custom_image,
         						'style' => 'width: 35px; height: 35px;',
+        						'img-progressive-type' => 'users',
         					));
         					$caret = tag('b', false, array(
         						'class' => 'caret',
@@ -168,16 +170,22 @@
         			?>
 		          	<ul class="dropdown-menu">
 		          		<?php
+		          				$url = $domain.'/users/profile/'.$this->session->userdata('userid').'/'.seoURL($this->session->userdata('username'));
+
+		          				echo tag('a', 'Profil Saya', array(
+		          					'href' => $url,
+		          					'wrapTag' => 'li',
+		          				));
 		          				echo tag('a', 'Resep Saya', array(
-		          					'href' => $domain.'/recipe/',
+		          					'href' => $url.'?param=InsertRecipe',
 		          					'wrapTag' => 'li',
 		          				));
 		          				echo tag('a', 'Recook', array(
-		          					'href' => $domain.'/recipe/recook',
+		          					'href' => $url.'?param=Recook',
 		          					'wrapTag' => 'li',
 		          				));
 		          				echo tag('a', 'Cookmark', array(
-		          					'href' => $domain.'/recipe/cookmark',
+		          					'href' => $url.'?param=Cookmark',
 		          					'wrapTag' => 'li',
 		          				));
 		          				echo divider();

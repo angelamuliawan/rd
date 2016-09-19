@@ -1,11 +1,15 @@
 <?php
-		loadSubview('header/search_box');
+		loadSubview('header/search_box', array(
+			'_class' => 'pd10'
+		));
+		
 		// Recipe Header
 		$valueRecipeHeader = isset($valuesRecipeHeader[0]) ? $valuesRecipeHeader[0] : false;
 		$recipe_id = isset($valueRecipeHeader['RecipeID']) ? $valueRecipeHeader['RecipeID'] : false;
 		$slug = isset($valueRecipeHeader['Slug']) ? $valueRecipeHeader['Slug'] : false;
 		$image = isset($valueRecipeHeader['PrimaryPhoto']) ? $valueRecipeHeader['PrimaryPhoto'] : false;
 		$title = isset($valueRecipeHeader['RecipeName']) ? $valueRecipeHeader['RecipeName'] : false;
+		$created_date = isset($valueRecipeHeader['CreatedDate']) ? $valueRecipeHeader['CreatedDate'] : false;
 		$recipe_intro = isset($valueRecipeHeader['RecipeIntro']) ? $valueRecipeHeader['RecipeIntro'] : false;
 		$cnt_comment = isset($valueRecipeHeader['NumberOfComment']) ? $valueRecipeHeader['NumberOfComment'] : false;
 		$cnt_recook = isset($valueRecipeHeader['NumberOfRecook']) ? $valueRecipeHeader['NumberOfRecook'] : false;
@@ -24,20 +28,32 @@
 
 		$user_id = isset($valueRecipeHeader['UserID']) ? $valueRecipeHeader['UserID'] : false;
 		$username = isset($valueRecipeHeader['UserName']) ? $valueRecipeHeader['UserName'] : false;
+		$userphoto = isset($valueRecipeHeader['UserPhoto']) ? $valueRecipeHeader['UserPhoto'] : false;
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment.png',
+			'disable_progressive' => true,
 		));
 		$iconRecook = tag('img', false, array(
 			'src' => $domain.'/resources/icons/retweet.png',
+			'disable_progressive' => true,
 		));
 		$iconView = tag('img', false, array(
 			'src' => $domain.'/resources/icons/view.png',
+			'disable_progressive' => true,
 		));
 
+		// Check for recipe
 		$path_image = '/resources/images/uploads/recipe/primary/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';
+		}
+
+		// Check for users
+		$path_user_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
+		$custom_user_image = $domain.$path_user_image;
+		if( !file_exists( $webroot.$path_user_image ) ) {
+			$custom_user_image = $domain.'/resources/images/default.png';
 		}
 
 		// Recipe Composition
@@ -49,18 +65,18 @@
 		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
 ?>
 
-<div class="container mt20">
-	<div class="detail-recipe-header with-border bg-white">
+<div class="container bg-white">
+	<div class="detail-recipe-header bg-white">
 		<div class="row">
 			<div class="col-sm-9 print-floleft">
-				<?php
-						echo tag('h1', $title, array(
-							'wrapTag' => 'div',
-							'wrapAttributes' => array(
-								'class' => 'wrapper pd15'
-							)
-						));
-				?>
+				<div class="pd15 pb0">
+					<?php
+							echo tag('h1', $title);
+							echo tag('p', $created_date, array(
+								'class' => 'mt5',
+							));
+					?>
+				</div>
 			</div>
 			<div class="col-sm-3 print-floright">
 				<div class="wrapper pd10 taright">
@@ -68,6 +84,8 @@
 							echo tag('p', 'Dibuat oleh:');
 							echo tag('a', $username, array(
 								'href' => $domain.'/users/profile/'.$user_id,
+								'class' => 'fbold',
+								'title' => $username,
 								'wrapTag' => 'p',
 								'wrapAttributes' => array(
 									'class' => 'mb5'
@@ -97,7 +115,7 @@
 								'src' => $custom_image,
 								'wrapTag' => 'div',
 								'wrapAttributes' => array(
-									'class' => 'wrapper-banner with-border'
+									'class' => 'wrapper-banner'
 								)
 							));
 							loadSubview('common/action_bottom_find', array(
@@ -122,7 +140,7 @@
 												$cntRecookPhoto = count($valuesRecipeRecook);
 
 												echo tag('h3', $cntRecookPhoto);
-												echo tag('p', 'Recook Photos');
+												echo tag('p', 'Foto Recook');
 											
 									?>
 									<div class="carousel slide" id="recook-carousel">
@@ -132,10 +150,12 @@
 									  				foreach( $valuesRecipeRecook as $value ) {
 														$recook_id = $value['RecookID'];
 														$recook_photo = $value['RecookPhoto'];
+														$recook_slug = $value['Slug'];
 
 														loadSubview('recipe/carousel_recook', array(
 															'recook_id' => $recook_id,
 															'recook_photo' => $recook_photo,
+															'recook_slug' => $recook_slug,
 															'counter' => $counter,
 														));
 														$counter++;
@@ -255,7 +275,9 @@
 								<?php
 										echo tag('p', $recipe_intro);
 										echo tag('h3', 'Bahan');
-										echo tag('hr');
+										echo tag('hr', false, array(
+											'class' => 'mt5 mb10'
+										));
 
 										if( !empty($valuesRecipeComposition) ) {
 								?>
@@ -282,7 +304,9 @@
 										}
 
 										echo tag('h3', 'Langkah');
-										echo tag('hr');
+										echo tag('hr', false, array(
+											'class' => 'mt5 mb10'
+										));
 
 										if( !empty($valuesRecipeStep) ) {
 								?>
@@ -291,7 +315,6 @@
 											foreach( $valuesRecipeStep as $key => $value ) {
 												$food_step = $value['FoodStepName'];
 												$food_step_image = $value['FoodStepImage'];
-												$food_step_video = $value['FoodStepVideoURL'];
 
 												$content = tag('p', $food_step);
 												if( !empty($food_step_image) ) {
@@ -310,24 +333,6 @@
 															'class' => 'tacenter',
 														)
 													));
-												}
-
-												if( !empty($food_step_video) ) {
-
-													$videoID = getYoutubeIDFromURL($food_step_video);
-													if( isExistsYoutubeVideo($videoID) ) {
-														$content .= tag('iframe', false, array(
-															'width' => 258,
-															'height' => 170,
-															'src' => 'https://www.youtube.com/embed/'.$videoID,
-															'frameborder' => 0,
-															'allowfullscreen' => 'allowfullscreen',
-															'wrapTag' => 'div',
-															'wrapAttributes' => array(
-																'class' => 'wrapper-video'
-															),
-														));
-													}
 												}
 
 												echo tag('li', $content);
@@ -350,10 +355,24 @@
 						   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
 						   target="_blank" title="Share on Facebook">
 							<div class="wrapper-inner">
-								<span class="fbold">Bagikan ke facebook</span>
+								<span>Bagikan ke facebook</span>
 							</div>
 						</a>
 					</div>
+					<?php
+							if( isLoggedIn() ) {
+	      						echo tag('a', 'Tulis Resep', array(
+	      							'class' => 'btn btn-success full-width mt5',
+									'href' => $domain.'/recipe/add',
+								));
+	      					} else {
+	      						echo tag('a', 'Tulis Resep', array(
+									'href' => $domain.'/users/login?redirect_after=recipe/add',
+			        				'data-title' => 'Login',
+			        				'class' => 'ajax-modal btn btn-success full-width mt5',
+								));
+	      					}
+					?>
 				</div>
 				<?php
 						loadSubview('recipe/comment');
@@ -362,11 +381,11 @@
 			<div class="col-sm-3">
 				<?php
 						loadSubview('users/related_recipe', array(
-							'heading' => 'Same Author',
+							'heading' => 'Chef yang Sama',
 							'values' => $valuesRelatedByAuthor,
 						));
 						loadSubview('users/related_recipe', array(
-							'heading' => 'Related Recipe',
+							'heading' => 'Resep Terkait',
 							'values' => $valuesRelatedRecipe,
 						));
 

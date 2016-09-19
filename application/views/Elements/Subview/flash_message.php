@@ -14,7 +14,7 @@
 				'title' => 'Tutup',
 			));
 ?>
-<div class="container">
+<div class="container bg-white">
 	<div class="bg-white" style="padding:20px 20px 0;"> 
 		<div class="row"> 
 			<div class="col-sm-12">

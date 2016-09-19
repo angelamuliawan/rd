@@ -132,6 +132,7 @@
 					'fileupload/jquery.fileupload',
 					'fileupload/jquery.iframe-transport',
 					'magicsuggest/magicsuggest',
+					'unveil/jquery.unveil',
 					'functions',
 					// 'defer',
 				));

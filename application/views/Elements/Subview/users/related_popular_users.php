@@ -1,6 +1,6 @@
 <div class="wrapper-popular-user">
 	<?php
-			echo tag('h4', 'Related User', array(
+			echo tag('h3', 'Chef Terkait', array(
 				'class' => 'mb20'
 			));
 
@@ -35,12 +35,15 @@
 								'wrapAttributes' => array(
 									'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
 								),
+								'img-progressive-type' => 'users',
 							));
 					?>
 				</div>
 				<div class="col-sm-9">
 					<?php
 							echo tag('a', $username, array(
+								'class' => 'fbold',
+								'title' => $username,
 								'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
 							));
 							echo tag('p', sprintf('%s Resep, %s Recook', $cnt_recipe, $cnt_recook), array(

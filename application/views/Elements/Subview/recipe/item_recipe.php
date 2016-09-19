@@ -18,23 +18,29 @@
 		$iconCuisine = tag('img', false, array(
 			'style' => 'width:15px;',
 			'src' => $domain.'/resources/icons/spoon.png',
+			'disable_progressive' => true,
 		));
 		$iconFoodType = tag('img', false, array(
 			'style' => 'width:15px;',
 			'src' => $domain.'/resources/icons/flag.png',
+			'disable_progressive' => true,
 		));
 		$iconCreator = tag('img', false, array(
 			'style' => 'width:15px;',
 			'src' => $domain.'/resources/icons/user.png',
+			'disable_progressive' => true,
 		));
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment.png',
+			'disable_progressive' => true,
 		));
 		$iconRecook = tag('img', false, array(
 			'src' => $domain.'/resources/icons/retweet.png',
+			'disable_progressive' => true,
 		));
 		$iconView = tag('img', false, array(
 			'src' => $domain.'/resources/icons/view.png',
+			'disable_progressive' => true,
 		));
 
 		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;

@@ -4,7 +4,7 @@
 		));
 ?>
 
-<div class="container mt20">
+<div class="container bg-white">
 	<div class="big-wrapper">
 		<div class="row bg-white no-mg">
 			<div class="col-sm-12 no-pd">

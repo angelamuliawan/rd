@@ -30,7 +30,8 @@
 
 						echo tag('div', false, array(
 							'class' => 'bg-holder',
-							'style' => 'background-image:url('.$custom_image.');'
+							'data-src' => $custom_image,
+							'is-progressive' => true,
 						));
 
 						if( isLoggedIn() && $this->session->userdata('userrole') == 1 ) {

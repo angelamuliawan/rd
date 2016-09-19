@@ -1,7 +1,7 @@
 <?php
 		$cuisine_id = isset($cuisine_id)?$cuisine_id:false;
 		$cuisine_name = isset($cuisine_name)?$cuisine_name:false;
-		$photo = isset($photo)?$photo:false;
+		$image = isset($image)?$image:false;
 		$cnt = isset($cnt)?$cnt:false;
 		$style = isset($style)?$style:false;
 
@@ -22,7 +22,8 @@
 					));
 					echo tag('div', false, array(
 						'class' => 'item-cuisine',
-						'style' => 'background-image:url('.$custom_image.');'
+						'data-src' => $custom_image,
+						'is-progressive' => true,
 					));
 					// echo tag('img', false, array(
 					// 	'src' => $custom_image,

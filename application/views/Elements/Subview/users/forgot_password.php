@@ -30,7 +30,7 @@
   				echo tag('input', false, array(
   					'type' => 'submit',
   					'value' => 'Reset Password',
-  					'class' => 'btn btn-success col-sm-12 col-xs-12',
+  					'class' => 'btn btn-success full-width',
   				));
   		?>
     </div>

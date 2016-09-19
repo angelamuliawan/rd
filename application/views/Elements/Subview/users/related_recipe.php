@@ -22,7 +22,7 @@
 					$cnt_recook = $value['NumberOfRecook'];
 					$cnt_comment = $value['NumberOfComment'];
 
-					$path_image = '/resources/images/uploads/recipe/primary/'.$image;
+					$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 					$custom_image = $domain.$path_image;
 					if( !file_exists( $webroot.$path_image ) ) {
 						$custom_image = $domain.'/resources/images/default.png';
@@ -39,6 +39,7 @@
 								'wrapTag' => 'a',
 								'wrapAttributes' => array(
 									'href' => $domain.'/resep-masak/'.$recipe_id.'/'.$slug,
+									'title' => $title,
 								),
 							));
 					?>
@@ -47,6 +48,8 @@
 					<?php
 							echo tag('a', $title, array(
 								'href' => $domain.'/resep-masak/'.$recipe_id.'/'.$slug,
+								'title' => $title,
+								'class' => 'fbold',
 							));
 							echo tag('p', sprintf('%s Komentar, %s Recook', $cnt_comment, $cnt_recook), array(
 								'class' => 'stats',

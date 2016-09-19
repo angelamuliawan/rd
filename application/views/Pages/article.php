@@ -8,7 +8,7 @@
 		}
 ?>
 
-<div class="container">
+<div class="container bg-white">
 	<div class="big-wrapper">
 		<div class="row">
 			<div class="col-sm-9">
@@ -46,7 +46,8 @@
 										<?php
 												echo tag('div', false, array(
 													'class' => 'bg-holder',
-													'style' => 'background-image:url('.$custom_image.')',
+													'data-src' => $custom_image,
+													'is-progressive' => true,
 												));
 										?>
 										<div class="article-title">

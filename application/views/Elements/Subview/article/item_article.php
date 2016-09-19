@@ -23,9 +23,13 @@
 							<li class="no-ul-type">
 								<a href="<?php echo $url; ?>" title="<?php echo $title; ?>">
 								<?php
-										echo tag('div', false, array(
+										// echo tag('div', false, array(
+										// 	'class' => 'bg-holder',
+										// 	'style' => 'background-image:url('.$custom_image.');',
+										// ));
+										echo tag('img', false, array(
+											'src' => $custom_image,
 											'class' => 'bg-holder',
-											'style' => 'background-image:url('.$custom_image.');',
 										));
 										echo tag('p', $title, array(
 											'class' => 'article-title',

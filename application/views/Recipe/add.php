@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container bg-white">
 	<div class="big-wrapper bg-white pd20">
 		<?php
 				if( isset($alert) ) {
@@ -65,10 +65,18 @@
 					<div class="col-sm-7">
 						<?php
 								if( isset($request['PrimaryPhoto_preview']) ) {
-									$custom_image = $domain.'/resources/images/uploads/recipe/primary/'.$request['PrimaryPhoto_preview'];
-									if( @getimagesize($custom_image) ) {
+									$path_image = '/resources/images/uploads/recipe/primary/'.$request['PrimaryPhoto_preview'];
+									$custom_image = $domain.$path_image;
+									$exist_image = true;
+
+									if( !file_exists( $webroot.$path_image ) ) {
+										$exist_image = false;
+										$custom_image = $domain.'/resources/images/64x64.png';
+									}
+
+									if( $exist_image ) {
 										echo tag('img', false, array(
-											'src' => $domain.'/resources/images/uploads/recipe/primary/'.$request['PrimaryPhoto_preview'],
+											'src' => $custom_image,
 											'style' => 'width: 100%; max-width: 200px;',
 										));
 										echo tag('input', false, array(
@@ -82,7 +90,10 @@
 									'type' => 'file',
 									'name' => 'PrimaryPhoto',
 								));
-								echo form_error('PrimaryPhoto'); 
+								echo form_error('PrimaryPhoto');
+								echo tag('p', '* Ukuran file maksimum 2MB', array(
+									'class' => 'text-orange mt5'
+								));
 						?>
 					</div>
 				</div>
@@ -235,7 +246,10 @@
 					?>
 					<div class="col-sm-7 parent-template" model="FoodProcess" max-step="18">
 						<?php
-								echo tag('p', 'Maksimum langkah yang dapat dibuat adalah sebanyak 18 langkah', array(
+								echo tag('p', '* Maksimum langkah yang dapat dibuat adalah sebanyak 18 langkah', array(
+									'class' => 'text-orange mb0'
+								));
+								echo tag('p', '* Ukuran file maksimum 2MB', array(
 									'class' => 'text-orange'
 								));
 
@@ -248,12 +262,10 @@
 								if( !empty($request['FoodProcess']) ) {
 									foreach( $request['FoodProcess'] as $key => $value ) {
 										$step = $value['FoodStepName'];
-										$step_vid = $value['FoodStepVideo'];
 										
 										loadSubview('recipe/custom_step', array(
 											'type' => 'load',
 											'step' => $step,
-											'step_vid' => $step_vid,
 											'counter' => $counter,
 										));
 										$counter++;

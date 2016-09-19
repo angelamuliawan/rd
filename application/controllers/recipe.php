@@ -8,32 +8,6 @@ class Recipe extends AB_Controller {
         $this->session->keep_flashdata('flash_message');
     }
 
-	public function index() {
-		$this->validateUserLogin();
-
-		$this->load->helper('form');
-		$this->load->helper('build_data');
-
-		$post = $this->input->get();
-		$this->callDefaultData('search', true);
-
-		$sortBy = isset($post['Sorting']) ? $post['Sorting'] : 1;
-		$resMyRecipe = $this->db->query('CALL GetMyRecipe(?,?,?,?,?)', array(
-			$this->session->userdata('userid'),
-			$sortBy,
-			10,
-			0,
-			$this->session->userdata('userid'),
-		));
-		$data = $resMyRecipe->result_array();
-
-		$this->load->vars(array(
-			'site_title' => 'Resep Saya',
-			'values' => $data,
-		));
-		$this->render($post);
-	}
-
 	public function find() {
 		$this->load->helper('url');
 		$this->load->helper('form');
@@ -201,7 +175,10 @@ class Recipe extends AB_Controller {
 			foreach ($_FILES as $field_name => $file_object) {
 				$config = $this->getConfigImage('recipe/step');
 
-			    if ( !empty($file_object['name']) ) {
+			    if ( $file_object['size'] > 2097152 ) {
+		    		$this->setCustomError($field_name, 'Max file size is 2MB.');
+					$valid_photo = false;
+				} else if ( !empty($file_object['name']) ) {
 			    	
 			    	$file_name = $file_object['name'];
 			    	$ext = pathinfo($file_name, PATHINFO_EXTENSION);
@@ -232,9 +209,9 @@ class Recipe extends AB_Controller {
 								'source_image' => $fInfo['full_path'],
 								'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
 								'maintain_ratio' => false,
-								'width' => 258,
-								'height' => 170,
-								'quality' => '50%',
+								'width' => 450,
+								'height' => 300,
+								'quality' => '100%',
 						    );
 						    $this->load->library('image_lib', $config_resize);
 						    $this->image_lib->resize();
@@ -256,13 +233,6 @@ class Recipe extends AB_Controller {
 
 			foreach( $post['FoodProcess'] as $key => $value ) {
 				$this->form_validation->set_rules('FoodProcess['.$key.'][FoodStepName]', 'Food Step', 'required');
-
-				if( !empty($post['FoodProcess'][$key]['FoodStepVideo']) ) {
-					$videoID = getYoutubeIDFromURL($post['FoodProcess'][$key]['FoodStepVideo']);
-					if( !isExistsYoutubeVideo($videoID) ) {
-						$this->setCustomError('FoodProcess['.$key.'][FoodStepVideo]', 'Invalid video URL.');
-					}
-				}
 			}
 
 			if ( $this->form_validation->run() == TRUE && $valid_photo == true ) {
@@ -318,17 +288,15 @@ class Recipe extends AB_Controller {
 				if( isset($post['FoodProcess']) ) {
 					foreach( $post['FoodProcess'] as $key => $value ) {
 						$step = nl2br($value['FoodStepName']);
-						$step_video = $value['FoodStepVideo'];
 						$step_image = isset($value['FoodStepImage']) ? $value['FoodStepImage'] : NULL;
 						if( $step_image == NULL && isset($post['FoodProcess'][$key]['FoodStepImage_preview']) ) {
 							$step_image = $post['FoodProcess'][$key]['FoodStepImage_preview'];
 						}
 
-						$resInsertFoodStep = $this->db->query('CALL InsertFoodStep(?,?,?,?,?,?)', array(
+						$resInsertFoodStep = $this->db->query('CALL InsertFoodStep(?,?,?,?,?)', array(
 							($key+1), 
 							$step,
 							$step_image,
-							$step_video,
 							$recipe_id,
 							$this->session->userdata('userid'),
 						));
@@ -366,7 +334,7 @@ class Recipe extends AB_Controller {
 			// 	'status' => $status,
 			// ));
 			$this->load->helper('url');
-			redirect($this->domain.'/recipe');
+			redirect($this->domain.'/users/profile/'.$this->session->userdata('userid').'/'.seoURL($this->session->userdata('username')));
 		} else {
 			loadMessage($message, $status);
 		}
@@ -414,7 +382,10 @@ class Recipe extends AB_Controller {
 			foreach ($_FILES as $field_name => $file_object) {
 				$config = $this->getConfigImage('recipe/step');
 				
-			    if ( !empty($file_object['name']) ) {
+			    if ( $file_object['size'] > 2097152 ) {
+		    		$this->setCustomError($field_name, 'Max file size is 2MB.');
+					$valid_photo = false;
+				} else if ( !empty($file_object['name']) ) {
 			    	
 			    	$file_name = $file_object['name'];
 			    	$ext = pathinfo($file_name, PATHINFO_EXTENSION);
@@ -445,9 +416,9 @@ class Recipe extends AB_Controller {
 								'source_image' => $fInfo['full_path'],
 								'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
 								'maintain_ratio' => false,
-								'width' => 258,
-								'height' => 170,
-								'quality' => '50%',
+								'width' => 450,
+								'height' => 300,
+								'quality' => '100%',
 						    );
 						    $this->load->library('image_lib', $config_resize);
 						    $this->image_lib->resize();
@@ -469,13 +440,6 @@ class Recipe extends AB_Controller {
 
 			foreach( $post['FoodProcess'] as $key => $value ) {
 				$this->form_validation->set_rules('FoodProcess['.$key.'][FoodStepName]', 'Food Step', 'required');
-
-				if( !empty($post['FoodProcess'][$key]['FoodStepVideo']) ) {
-					$videoID = getYoutubeIDFromURL($post['FoodProcess'][$key]['FoodStepVideo']);
-					if( !isExistsYoutubeVideo($videoID) ) {
-						$this->setCustomError('FoodProcess['.$key.'][FoodStepVideo]', 'Invalid video URL.');
-					}
-				}
 			}
 
 			if ( $this->form_validation->run() == TRUE && $valid_photo == true ) {
@@ -549,17 +513,15 @@ class Recipe extends AB_Controller {
 
 					foreach( $post['FoodProcess'] as $key => $value ) {
 						$step = nl2br($value['FoodStepName']);
-						$step_video = $value['FoodStepVideo'];
 						$step_image = isset($value['FoodStepImage']) ? $value['FoodStepImage'] : NULL;
 						if( $step_image == NULL && isset($post['FoodProcess'][$key]['FoodStepImage_preview']) ) {
 							$step_image = $post['FoodProcess'][$key]['FoodStepImage_preview'];
 						}
 
-						$resUpdateFoodStep = $this->db->query('CALL UpdateFoodStep(?,?,?,?,?,?)', array(
+						$resUpdateFoodStep = $this->db->query('CALL UpdateFoodStep(?,?,?,?,?)', array(
 							($key+1), 
 							$step,
 							$step_image,
-							$step_video,
 							$recipe_id,
 							$this->session->userdata('userid'),
 						));
@@ -629,13 +591,20 @@ class Recipe extends AB_Controller {
 			foreach( $valuesFoodStep as $row ) {
 				$step_arr = array(
 					'FoodStepName' => strip_tags($row['FoodStepName']),
-					'FoodStepVideo' => $row['FoodStepVideoURL'],
 				);
 				if( !empty($row['FoodStepImage']) ) {
 					$step_arr['FoodStepImage_preview'] = $row['FoodStepImage'];
 				}
 				$post['FoodProcess'][] = $step_arr;
 			}
+		}
+
+
+		if( $status == 'success' ) {
+			$this->load->helper('url');
+			redirect($this->domain.'/users/profile/'.$this->session->userdata('userid').'/'.seoURL($this->session->userdata('username')));
+		} else {
+			loadMessage($message, $status);
 		}
 
 		$this->load->vars(array(
@@ -645,52 +614,6 @@ class Recipe extends AB_Controller {
 
 		loadMessage($message, $status);
 		$this->render($post, 'Recipe/add');
-	}
-
-	public function recook() {
-		$this->load->helper('form');
-		$this->load->helper('build_data');
-
-		$post = $this->input->get();
-		$this->callDefaultData();
-
-		$resRecook = $this->db->query('CALL GetMyRecook(?,?,?,?)', array(
-			$this->session->userdata('userid'),
-			10,
-			0,
-			$this->session->userdata('userid'),
-		));
-		$data = $resRecook->result_array();
-
-		$this->load->vars(array(
-			'site_title' => 'Recook',
-			'values' => $data,
-		));
-		$this->render($post);
-	}
-
-	public function cookmark() {
-		$this->validateUserLogin();
-
-		$this->load->helper('form');
-		$this->load->helper('build_data');
-
-		$post = $this->input->get();
-		$this->callDefaultData();
-
-		$resCookmark = $this->db->query('CALL GetMyCookmark(?,?,?,?)', array(
-			$this->session->userdata('userid'),
-			10,
-			0,
-			$this->session->userdata('userid'),
-		));
-		$data = $resCookmark->result_array();
-
-		$this->load->vars(array(
-			'site_title' => 'Cookmark',
-			'values' => $data,
-		));
-		$this->render($post);
 	}
 
 	public function recook_item( $recipe_id = false ) {
@@ -712,6 +635,36 @@ class Recipe extends AB_Controller {
 					$post['RecookDesc'],
 					$post['photo'],
 				));
+
+				$valuesRecook = $res->result_array()[0];
+				$res->next_result();
+				$recook_id = $valuesRecook['RecookID'];
+
+				// Send email to the recipe owner, notify his recipe is commented
+				$resRecipeOwner = $this->db->query('CALL GetRecipeDetailHeader(?,?)', array(
+					$recipe_id,
+					NULL
+				));
+				$valuesRecipeOwner = $resRecipeOwner->result_array()[0];
+				$resRecipeOwner->next_result();
+
+				if( $this->session->userdata('userid') != $valuesRecipeOwner['UserID'] ) {
+					$this->_sendEmail(array(
+			    		'email_view' => 'recook',
+			    		'subject' => $valuesRecipeOwner['RecipeName'] . ' - Recooked',
+			    		'to' => $valuesRecipeOwner['UserEmail'],
+			    		'to_name' => $valuesRecipeOwner['UserName'],
+			    		'data' => array(
+			    			'recook_desc' => $post['RecookDesc'],
+			    			'recipe_id' => $recipe_id,
+			    			'recipe_name' => $valuesRecipeOwner['RecipeName'],
+			    			'slug' => $valuesRecipeOwner['Slug'],
+			    			'user_id' => $this->session->userdata('userid'),
+			    			'username' => $this->session->userdata('username'),
+			    			'recook_id' => $recook_id,
+			    		),
+			    	));
+				}
 
 				$message = 'Sukses menyimpan data recook';
 				$status = 'success';
@@ -738,8 +691,11 @@ class Recipe extends AB_Controller {
 		loadModal('recook');
 	}
 
-	public function view_recook_item( $recook_id = false ) {
-		
+	public function view_recook( $recook_id = false ) {
+		$this->load->helper('form');
+		$this->load->helper('build_data');
+		$this->callDefaultData();
+
 		$post = $this->input->post();
 		
 		if( !empty($post) ) {
@@ -769,13 +725,20 @@ class Recipe extends AB_Controller {
 		$resRecookComment->next_result();
 
 		$this->load->vars(array(
-			'request' => $post,
 			'valuesRecipeRecook' => $valuesRecipeRecook,
 			'valuesRecookComment' => $valuesRecookComment,
 			'recook_id' => $recook_id,
+			'site_title' => $valuesRecipeRecook[0]['RecipeName'],
+			'og_meta' => array(
+				'title' => $valuesRecipeRecook[0]['RecipeName'],
+				'url' => $this->domain.'/recipe/view_recook/'.$recook_id.'/'.utf8_decode($valuesRecipeRecook[0]['Slug']),
+				'image' => $this->domain.'/resources/images/uploads/recipe/recook/'.$valuesRecipeRecook[0]['RecookPhoto'],
+				'desc' => $valuesRecipeRecook[0]['RecookDesc'],
+			)
 		));
 
-		loadModal('view_recook');
+		$this->render($post);
+		// loadModal('view_recook');
 	}
 
 	public function recipe_comment( $recipe_id = false ) {
@@ -792,6 +755,31 @@ class Recipe extends AB_Controller {
 				));
 				$res->next_result();
 
+				// Send email to the recipe owner, notify his recipe is commented
+				$resRecipeOwner = $this->db->query('CALL GetRecipeDetailHeader(?,?)', array(
+					$recipe_id,
+					NULL
+				));
+				$valuesRecipeOwner = $resRecipeOwner->result_array()[0];
+				$resRecipeOwner->next_result();
+
+				if( $this->session->userdata('userid') != $valuesRecipeOwner['UserID'] ) {
+					$this->_sendEmail(array(
+			    		'email_view' => 'recipe_comment',
+			    		'subject' => 'Komentar Resep',
+			    		'to' => $valuesRecipeOwner['UserEmail'],
+			    		'to_name' => $valuesRecipeOwner['UserName'],
+			    		'data' => array(
+			    			'comment' => $post['comment'],
+			    			'recipe_id' => $valuesRecipeOwner['RecipeID'],
+			    			'recipe_name' => $valuesRecipeOwner['RecipeName'],
+			    			'slug' => $valuesRecipeOwner['Slug'],
+			    			'user_id' => $this->session->userdata('userid'),
+			    			'username' => $this->session->userdata('username'),
+			    		),
+			    	));
+				}
+
 				$post['comment'] = false;
 			}
 		}
@@ -806,6 +794,7 @@ class Recipe extends AB_Controller {
 		$this->load->vars(array(
 			'valuesRecipeComment' => $valuesRecipeComment,
 			'recipe_id' => $recipe_id,
+			'comment' => $post['comment'],
 		));
 		loadSubview('recipe/comment');
 	}
@@ -813,6 +802,75 @@ class Recipe extends AB_Controller {
 	public function delete_recipe_comment( $comment_id = false ) {
 		$res = $this->db->query('CALL DeleteRecipeComment(?,?)', array(
 			$comment_id,
+			$this->session->userdata('userid'),
+		));
+	}
+
+	public function recook_comment( $recook_id = false ) {
+		
+		$post = $this->input->post();
+		if( !empty($post) ) {
+			
+			$this->form_validation->set_rules('comment', 'Comment', 'required');
+			if ( $this->form_validation->run() == TRUE ) {
+				$res = $this->db->query('CALL InsertRecookComment(?,?,?)', array(
+					$post['comment'],
+					$this->session->userdata('userid'),
+					$recook_id,
+				));
+				$res->next_result();
+
+				// Send email to the recipe owner, notify his recipe is commented
+				$resRecookOwner = $this->db->query('CALL GetRecookHeader(?)', array(
+					$recook_id
+				));
+				$valuesRecookOwner = $resRecookOwner->result_array()[0];
+				$resRecookOwner->next_result();
+
+				if( $this->session->userdata('userid') != $valuesRecookOwner['UserID'] ) {
+					$this->_sendEmail(array(
+			    		'email_view' => 'recook_comment',
+			    		'subject' => 'Komentar Recook',
+			    		'to' => $valuesRecookOwner['UserEmail'],
+			    		'to_name' => $valuesRecookOwner['UserName'],
+			    		'data' => array(
+			    			'comment' => $post['comment'],
+			    			'recipe_name' => $valuesRecookOwner['RecipeName'],
+			    			'slug' => $valuesRecookOwner['Slug'],
+			    			'user_id' => $this->session->userdata('userid'),
+			    			'username' => $this->session->userdata('username'),
+			    			'recook_id' => $recook_id,
+			    		),
+			    	));
+				}
+
+				$post['comment'] = false;
+			}
+		}
+
+		// Recipe Comment
+		$resRecookComment = $this->db->query('CALL GetRecookComment(?)', array(
+			$recook_id
+		));
+		$valuesRecookComment = $resRecookComment->result_array();
+		$resRecookComment->next_result();
+
+		$this->load->vars(array(
+			'valuesRecipeComment' => $valuesRecookComment,
+			'recipe_id' => $recook_id,
+			'comment' => $post['comment'],
+			'_with_padding' => false,
+			'_show_title' => false,
+			'_show_empty' => false,
+			'_url' => 'recipe/recook_comment/',
+			'_type' => 'recook',
+		));
+		loadSubview('recipe/comment');
+	}
+
+	public function delete_recook( $recook_id = false ) {
+		$res = $this->db->query('CALL DeleteRecook(?,?)', array(
+			$recook_id,
 			$this->session->userdata('userid'),
 		));
 	}

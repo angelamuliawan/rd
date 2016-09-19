@@ -23,6 +23,29 @@ if ( ! function_exists('tag')) {
 		$wrapTag = false;
 		$stringify_wrapper_attributes = '';
 
+		if( $tag == 'img' && empty($attributes['disable_progressive']) ) {
+			$CI = get_instance();
+
+			$attributes['data-src'] = $attributes['src'];
+			$attributes['src'] = $CI->domain.'/resources/images/placeholder/recipe.jpg';
+
+			if( isset($attributes['img-progressive-loading']) ) {
+				$attributes['src'] = $attributes['img-progressive-loading'];
+			} else if( isset($attributes['img-progressive-type']) ) {
+				if( $attributes['img-progressive-type'] == 'users' ) {
+					$attributes['src'] = $CI->domain.'/resources/images/placeholder/users.jpg';
+					unset($attributes['img-progressive-type']);
+				}
+			}
+		} else if( $tag == 'div' && !empty($attributes['is-progressive']) ) {
+			$CI = get_instance();
+			if( isset($attributes['style']) ) {
+				$attributes['style'] .= "background-image:url(".$CI->domain."/resources/images/placeholder/recipe.jpg)";
+			} else {
+				$attributes['style'] = "background-image:url(".$CI->domain."/resources/images/placeholder/recipe.jpg)";
+			}
+		}
+
 		if( !empty($attributes) ) {
 			foreach ($attributes as $attribute => $value) {
 				if( $attribute == 'wrapTag' ) {
@@ -41,6 +64,7 @@ if ( ! function_exists('tag')) {
 		if( !empty($wrapTag) ) {
 			$tag = "<$wrapTag" . $stringify_wrapper_attributes . ">$tag</$wrapTag>";
 		}
+
 	    return $tag;
 	}
 }

@@ -6,7 +6,7 @@
 		$username = isset($username)?$username:false;
 		$user_id = isset($user_id)?$user_id:false;
 
-		$path_image = '/resources/images/uploads/recipe/primary/'.$image;
+		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
 			$custom_image = $domain.'/resources/images/default.png';

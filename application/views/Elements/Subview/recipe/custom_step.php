@@ -4,16 +4,13 @@
 
 		$counter = isset($counter)?$counter:'';
 		$step = !empty($step)?$step:false;
-		$step_vid = !empty($step_vid)?$step_vid:false;
 
 		$step_name = 'FoodProcess['.$counter.'][FoodStepName]';
-		$step_video = 'FoodProcess['.$counter.'][FoodStepVideo]';
 		// $step_sequence = 'FoodProcess['.$counter.'][FoodStepSequence]';
 
 		if( $type == 'init' ) {
 			$class = 'clone-template-step hide wrapper-template';
 			$step_name = 'FoodStepName';
-			$step_video = 'FoodStepVideo';
 			// $step_sequence = 'FoodStepSequence';
 		}
 ?>
@@ -39,15 +36,6 @@
 				));
 				echo form_error($step_name);
 
-				echo tag('input', false, array(
-					'id' => 'FoodStepVideo'.$counter,
-					'value' => ( !empty($step_vid) ) ? $step_vid : set_value($step_video),
-					'name' => $step_video,
-					'class' => 'form-control mb10 mt10 inputField template-field',
-					'placeholder' => 'Masukkan URL video youtube (optional).',
-					'data-model' => 'FoodStepVideo',
-				));
-
 				if( isset($request['FoodProcess'][$counter]['FoodStepImage_preview']) ) {
 
 					$path_image = '/resources/images/uploads/recipe/step/'.$request['FoodProcess'][$counter]['FoodStepImage_preview'];
@@ -64,24 +52,6 @@
 							'value' => $request['FoodProcess'][$counter]['FoodStepImage_preview'],
 						));	
 					}
-				}
-
-				if( !empty($step_vid) ) {
-					$videoID = getYoutubeIDFromURL($step_vid);
-					if( isExistsYoutubeVideo($videoID) ) {
-						echo tag('iframe', false, array(
-							'width' => 258,
-							'height' => 170,
-							'src' => 'https://www.youtube.com/embed/'.$videoID,
-							'frameborder' => 0,
-							'allowfullscreen' => 'allowfullscreen',
-							'wrapTag' => 'div',
-							'wrapAttributes' => array(
-								'class' => 'wrapper-video'
-							),
-						));
-					}
-					echo form_error($step_video);
 				}
 
 				echo tag('input', false, array(

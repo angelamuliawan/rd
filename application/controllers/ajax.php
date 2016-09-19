@@ -47,9 +47,9 @@ class Ajax extends AB_Controller {
 							'source_image' => $fInfo['full_path'],
 							'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
 							'maintain_ratio' => false,
-							'width' => 275,
-							'height' => 168,
-							'quality' => '50%',
+							'width' => 450,
+							'height' => 300,
+							'quality' => '100%',
 					    );
 					    $this->load->library('image_lib', $config_resize);
 					    $this->image_lib->resize();
@@ -58,9 +58,9 @@ class Ajax extends AB_Controller {
 						$config_resize = array(
 							'source_image' => $fInfo['full_path'],
 							'new_image' => $this->webroot.$config['upload_path'].'/thumbs',
-							'maintain_ratio' => true,
-							'width' => 100,
-							'height' => 100,
+							'maintain_ratio' => false,
+							'width' => 450,
+							'height' => 300,
 							'quality' => '100%',
 					    );
 					    $this->load->library('image_lib', $config_resize);

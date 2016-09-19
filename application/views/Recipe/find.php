@@ -1,17 +1,17 @@
 <?php
-		if(!isMobile()) {
+		if( !isMobile() ) {
 			loadSubview('header/search_box', array(
 				'_class' => 'pd10'
 			));
 		}
 ?>
 
-<div class="container mt20">
+<div class="container bg-white">
 	<div class="big-wrapper">
 		<div class="row bg-white no-mg">
 			<div class="col-sm-3" style="padding: 20px 20px 0px;">
 				<?php
-						if( false ) {
+						if( !isMobile() ) {
 				?>
 							<form class="desktop-only" role="form" action="<?php echo $domain; ?>/recipe/find" method="GET" accept-charset="utf-8">
 							  	<div class="wrapper-adv-search">
@@ -169,7 +169,7 @@
 </div>
 
 <?php
-		if( true ) {
+		if( isMobile() ) {
 ?>
 <div class="wrapper-adv-search-mobile">
 	<div class="custom-navbar-header">

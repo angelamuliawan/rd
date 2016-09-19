@@ -9,12 +9,15 @@
 
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment_w.png',
+			'disable_progressive' => true,
 		));
 		$iconRecook = tag('img', false, array(
 			'src' => $domain.'/resources/icons/retweet_w.png',
+			'disable_progressive' => true,
 		));
 		$iconView = tag('img', false, array(
 			'src' => $domain.'/resources/icons/view_w.png',
+			'disable_progressive' => true,
 		));
 
 		$totalComment = tag('span', $cnt_comment);

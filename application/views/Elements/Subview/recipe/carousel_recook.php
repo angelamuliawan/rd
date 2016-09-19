@@ -1,6 +1,7 @@
 <?php
 		$recook_id = isset( $recook_id ) ? $recook_id : false;
 		$recook_photo = isset( $recook_photo ) ? $recook_photo : false;
+		$recook_slug = isset( $recook_slug ) ? $recook_slug : false;
 
 		$counter = isset( $counter ) ? $counter : false;
 		$is_first_item = ( $counter == 0 ) ? 'active' : '';
@@ -20,8 +21,8 @@
   					'style' => 'width:86px; height:64px;',
   					'wrapTag' => 'a',
   					'wrapAttributes' => array(
-  						'href' => $domain.'/recipe/view_recook_item/'.$recook_id,
-  						'class' => 'ajax-modal',
+  						'href' => $domain.'/recipe/view_recook/'.$recook_id.'/'.$recook_slug,
+  						// 'class' => 'ajax-modal',
   					)
   				));
   		?>

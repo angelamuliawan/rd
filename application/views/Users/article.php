@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container bg-white">
 	<div class="big-wrapper bg-white pd20">
 		<?php
 				if( isset($alert) ) {

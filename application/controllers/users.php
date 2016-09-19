@@ -14,10 +14,45 @@ class Users extends AB_Controller {
 			$this->session->userdata('userid'),
 		));
 		$valuesUserAccount = $resUserAccount->result_array();
+		$resUserAccount->next_result();
+
+		// Get user own recipe
+		$resMyRecipe = $this->db->query('CALL GetCountRecipe(?,?)', array(
+			$this->session->userdata('userid'),
+			$this->session->userdata('userid'),
+		));
+		$valuesMyRecipe = $resMyRecipe->result_array();
+		$resMyRecipe->next_result();
+
+		// Get user recook
+		$resRecook = $this->db->query('CALL GetCountRecook(?,?)', array(
+			$this->session->userdata('userid'),
+			$this->session->userdata('userid'),
+		));
+		$valuesRecook = $resRecook->result_array();
+		$resRecook->next_result();
+
+		// Get user cookmark
+		$resCookmark = $this->db->query('CALL GetCountCookmark(?,?)', array(
+			$this->session->userdata('userid'),
+			$this->session->userdata('userid'),
+		));
+		$valuesCookmark = $resCookmark->result_array();
+		$resCookmark->next_result();
 
 		$this->load->vars(array(
 			'site_title' => 'Pengaturan Akun',
 			'valuesUserAccount' => $valuesUserAccount,
+			'valuesMyRecipe' => $valuesMyRecipe,
+			'valuesRecook' => $valuesRecook,
+			'valuesCookmark' => $valuesCookmark,
+			'additional_css' => array(
+				'datedropper/datedropper.min',
+			),
+			'additional_js' => array(
+				'datedropper/datedropper.min',
+				'datedropper/custom',
+			),
 		));
 		$this->render();
 	}
@@ -158,11 +193,13 @@ class Users extends AB_Controller {
 
 			if ( $this->form_validation->run() == TRUE ) {
 
-				$res = $this->db->query('CALL ChangeUserData(?,?,?,?,?)', array(
+				$res = $this->db->query('CALL ChangeUserData(?,?,?,?,?,?,?)', array(
 					$post['username'], 
 					$post['city'],
 					$post['country'],
 					$post['description'],
+					$post['birthday'],
+					( isset($post['gender']) ? $post['gender'] : NULL ),
 					$this->session->userdata('userid'),
 				));
 
@@ -497,7 +534,7 @@ class Users extends AB_Controller {
 							'maintain_ratio' => false,
 							'width' => 275,
 							'height' => 168,
-							'quality' => '80%',
+							'quality' => '100%',
 					    );
 					    $this->load->library('image_lib', $config_resize);
 					    $this->image_lib->resize();
@@ -558,6 +595,11 @@ class Users extends AB_Controller {
 	}
 
 	function edit_article( $article_id = false ) {
+		if( $this->session->userdata('userrole') != 1 ) {
+			$this->load->helper('url');
+			redirect($this->domain);
+		}
+
 		$this->load->helper('form');
 
 		$post = $this->input->post();
@@ -598,7 +640,7 @@ class Users extends AB_Controller {
 							'maintain_ratio' => false,
 							'width' => 275,
 							'height' => 168,
-							'quality' => '50%',
+							'quality' => '100%',
 					    );
 					    $this->load->library('image_lib', $config_resize);
 					    $this->image_lib->resize(); 
@@ -677,6 +719,11 @@ class Users extends AB_Controller {
 	}
 
 	function delete_article( $article_id = false ) {
+		if( $this->session->userdata('userrole') != 1 ) {
+			$this->load->helper('url');
+			redirect($this->domain);
+		}
+		
 		$res = $this->db->query('CALL DeleteArticle(?,?)', array(
 			$article_id,
 			$this->session->userdata('userid'),
@@ -769,6 +816,9 @@ class Users extends AB_Controller {
 
 				return redirect($url);
 			}
+
+			$get = $this->input->get();
+			$filter_view = isset( $get['param'] ) ? $get['param'] : NULL;
 			
 			// Get Related Popular User
 			$resRelatedPopularUser = $this->db->query('CALL GetRelatedPopularUser(?)', array(
@@ -778,43 +828,47 @@ class Users extends AB_Controller {
 			$resRelatedPopularUser->next_result();
 
 			// Get user own recipe
-			$resMyRecipe = $this->db->query('CALL GetMyRecipe(?,?,?,?,?)', array(
+			$resMyRecipe = $this->db->query('CALL GetCountRecipe(?,?)', array(
 				$user_id,
-				1,
-				100,
-				0,
 				$this->session->userdata('userid'),
 			));
 			$valuesMyRecipe = $resMyRecipe->result_array();
 			$resMyRecipe->next_result();
 
 			// Get user recook
-			$resRecook = $this->db->query('CALL GetMyRecook(?,?,?,?)', array(
+			$resRecook = $this->db->query('CALL GetCountRecook(?,?)', array(
 				$user_id,
-				100,
-				0,
 				$this->session->userdata('userid'),
 			));
 			$valuesRecook = $resRecook->result_array();
 			$resRecook->next_result();
 
 			// Get user cookmark
-			$resCookmark = $this->db->query('CALL GetMyCookmark(?,?,?,?)', array(
+			$resCookmark = $this->db->query('CALL GetCountCookmark(?,?)', array(
 				$user_id,
-				100,
-				0,
 				$this->session->userdata('userid'),
 			));
 			$valuesCookmark = $resCookmark->result_array();
 			$resCookmark->next_result();
 
+			// Get user timeline
+			$resTimeline = $this->db->query('CALL GetUserTimeline(?,?,?)', array(
+				$user_id,
+				$this->session->userdata('userid'),
+				$filter_view,
+			));
+			$valuesTimeline = $resTimeline->result_array();
+			$resTimeline->next_result();
+
 			$this->load->vars(array(
 				'site_title' => $valuesUserAccount[0]['UserName'],
+				'user_id_viewer' => $user_id,
 				'valuesUserAccount' => $valuesUserAccount,
 				'valuesRelatedPopularUser' => $valuesRelatedPopularUser,
 				'valuesMyRecipe' => $valuesMyRecipe,
 				'valuesRecook' => $valuesRecook,
 				'valuesCookmark' => $valuesCookmark,
+				'valuesTimeline' => $valuesTimeline,
 			));
 	    	$this->render();
 		} else {

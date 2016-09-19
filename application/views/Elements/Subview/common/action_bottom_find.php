@@ -1,5 +1,6 @@
 <?php
 		$recipe_id = isset( $recipe_id ) ? $recipe_id : false;
+		$recook_id = isset( $recook_id ) ? $recook_id : false;
 		$slug = isset( $slug ) ? $slug : false;
 		$flag_cookmark = isset($flag_cookmark)?$flag_cookmark:false;
 		$flag_recook = isset($flag_recook)?$flag_recook:false;
@@ -7,15 +8,19 @@
 
 		$recook = tag('img', false, array(
 			'src' => $domain.'/resources/icons/retweet.png',
+			'disable_progressive' => true,
 		));
 		$share = tag('img', false, array(
 			'src' => $domain.'/resources/icons/facebook.png',
+			'disable_progressive' => true,
 		));
 		$cookmark = tag('img', false, array(
 			'src' => $domain.'/resources/icons/cookmark.png',
+			'disable_progressive' => true,
 		));
 		$print = tag('img', false, array(
 			'src' => $domain.'/resources/icons/print.png',
+			'disable_progressive' => true,
 		));
 
 		$textRecook = 'Recook';
@@ -24,11 +29,19 @@
 		if( isLoggedIn() ) {
 			if( !empty($flag_recook) ) {
 				$textRecook = 'Recooked';
+				$recook = tag('img', false, array(
+					'src' => $domain.'/resources/icons/retweet_o.png',
+					'disable_progressive' => true,
+				));
 			}
 			if( !empty($flag_creator) ) {
 				$textCookmark = '';
 			} else if( !empty($flag_cookmark) ) {
 				$textCookmark = 'Uncookmark';
+				$cookmark = tag('img', false, array(
+					'src' => $domain.'/resources/icons/cookmark_o.png',
+					'disable_progressive' => true,
+				));
 			}
 		}
 
@@ -80,12 +93,19 @@
 
 
 		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		if( !empty($recook_id) ) {
+			$url = $domain.'/recipe/view_recook/'.$recook_id.'/'.$slug;
+		}
 ?>
 
 <div class="action-bottom mt15 tacenter wrapper-ajax-link">
 	<?php
 			if( !empty($flag_recook) ) {
-				echo $recook;
+				echo tag('a', $recook, array(
+					'title' => 'Recooked',
+					'href' => '#',
+					'style' => 'pointer-events:none;'
+				));
 			} else if( empty($flag_creator) ) {
 				echo tag('a', $recook, array(
 					'title' => 'Recook',
@@ -101,7 +121,9 @@
 			   <?php echo $share; ?>
 			</a>
 	<?php
-			echo $cookmark;
+			if( empty($recook_id) ) {
+				echo $cookmark;
+			}
 
 			if( !empty($_print) ) {
 				echo tag('a', $print, array(

@@ -1,8 +1,8 @@
 RewriteEngine On
-RewriteBase /rd/
+RewriteBase /cookindo/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /rd/index.php/$1 [L]
+RewriteRule ^(.*)$ /cookindo/index.php/$1 [L]
 
 <IfModule mod_gzip.c>
     mod_gzip_on       Yes

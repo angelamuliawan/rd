@@ -30,7 +30,8 @@
 						<?php
 								echo tag('div', false, array(
 									'class' => 'bg-holder',
-									'style' => 'background-image:url("'.$custom_image.'");'
+									'data-src' => $custom_image,
+									'is-progressive' => true,
 								));
 								echo tag('h1', $title, array(
 									'wrapTag' => 'div',
@@ -61,7 +62,7 @@
 								   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
 								   target="_blank" title="Share on Facebook">
 									<div class="wrapper-inner">
-										<span class="fbold">Bagikan ke facebook</span>
+										<span>Bagikan ke facebook</span>
 									</div>
 								</a>
 							</div>

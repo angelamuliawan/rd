@@ -21,7 +21,7 @@
 					$cnt_recipe = $value['NumberOfRecipe'];
 					$cnt_recook = $value['NumberOfRecook'];
 
-					$path_image = '/resources/images/uploads/users/'.$image;
+					$path_image = '/resources/images/uploads/users/thumbs/'.$image;
 					$custom_image = $domain.$path_image;
 					if( !file_exists( $webroot.$path_image ) ) {
 						$custom_image = $domain.'/resources/images/default.png';
@@ -40,6 +40,7 @@
 									'title' => $username,
 									'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
 								),
+								'img-progressive-type' => 'users',
 							));
 							echo '<br>';
 							echo tag('a', $username, array(

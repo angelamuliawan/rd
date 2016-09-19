@@ -7,6 +7,8 @@ class AB_Controller extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 
+		ini_set('memory_limit', '-1');
+
 		$this->load->library('rest');
 		$this->load->helper('common');
 		// $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
@@ -415,16 +417,16 @@ class AB_Controller extends CI_Controller {
 
 	function _sendEmail( $params = array() ) {
     	if( !empty($params) ) {
-    		$config = array(
-				'protocol' => 'smtp',
-				'smtp_host' => 'ssl://smtp.gmail.com',
-				'smtp_port' => 465,
-				'smtp_user' => 'cookindo.official@gmail.com',
-				'smtp_pass' => 'cookindo123',
-				'mailtype' => 'html',
-				'charset' => 'utf-8',
-				'wordwrap' => TRUE
-			);
+   //  		$config = array(
+			// 	'protocol' => 'smtp',
+			// 	'smtp_host' => 'ssl://smtp.gmail.com',
+			// 	'smtp_port' => 465,
+			// 	'smtp_user' => 'cookindo.official@gmail.com',
+			// 	'smtp_pass' => 'cookindo123',
+			// 	'mailtype' => 'html',
+			// 	'charset' => 'utf-8',
+			// 	'wordwrap' => TRUE
+			// );
 
     		$view 		= isset($params['email_view']) ? $params['email_view'] : false;
     		$data 		= isset($params['data']) ? $params['data'] : false;
@@ -440,7 +442,7 @@ class AB_Controller extends CI_Controller {
 					'to_name' => $to_name,
 				), true);
 
-				// echo $mail_body;
+				// echo $mail_body; die;
 				
 				// To send HTML mail, the Content-type header must be set
 				$headers  = 'MIME-Version: 1.0' . "\r\n";

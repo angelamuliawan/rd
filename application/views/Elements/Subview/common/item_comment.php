@@ -6,6 +6,7 @@
 		$comment_id = isset($comment_id) ? $comment_id : false;
 		$comment_date = isset($comment_date) ? $comment_date : false;
 
+		$urlUser = $domain.'/users/profile/'.$user_id.'/'.seoURL($username);
 		$urlDelete = isset($urlDelete) ? $urlDelete : '/recipe/delete_recipe_comment/';
 ?>
 <div class="media wrapper-ajax-link"> 
@@ -17,7 +18,8 @@
 					'style' => 'width: 64px; height: 64px;',
 					'wrapTag' => 'a',
 					'wrapAttributes' => array(
-						'href' => '#',
+						'href' => $urlUser,
+						'title' => $username,
 					),
 				));
 		?>
@@ -26,6 +28,11 @@
 		<?php
 				echo tag('h4', $username, array(
 					'class' => 'media-heading fbold',
+					'wrapTag' => 'a',
+					'wrapAttributes' => array(
+						'href' => $urlUser,
+						'title' => $username,
+					),
 				));
 				echo tag('p', $comment, array(
 					'class' => 'tajustify comment wrapper-comment',

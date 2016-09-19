@@ -1,14 +1,20 @@
 <?php
 		$valuesUserAccount = isset( $valuesUserAccount[0] ) ? $valuesUserAccount[0] : false;
+		$user_id = isset( $valuesUserAccount['UserID'] ) ? $valuesUserAccount['UserID'] : false;
 		$username = isset( $valuesUserAccount['UserName'] ) ? $valuesUserAccount['UserName'] : false;
 		$email = isset( $valuesUserAccount['UserEmail'] ) ? $valuesUserAccount['UserEmail'] : false;
 		$photo = isset( $valuesUserAccount['UserPhoto'] ) ? $valuesUserAccount['UserPhoto'] : false;
 		$city = isset( $valuesUserAccount['CityName'] ) ? $valuesUserAccount['CityName'] : false;
 		$country = isset( $valuesUserAccount['CountryName'] ) ? $valuesUserAccount['CountryName'] : false;
 		$description = isset( $valuesUserAccount['Description'] ) ? $valuesUserAccount['Description'] : false;
+		$birthday = isset( $valuesUserAccount['CustomBirthday'] ) ? $valuesUserAccount['CustomBirthday'] : false;
 		$curLevel = isset( $valuesUserAccount['LevelName'] ) ? $valuesUserAccount['LevelName'] : false;
 		$curLevelNick = isset( $valuesUserAccount['LevelNickName'] ) ? $valuesUserAccount['LevelNickName'] : false;
 		$_allow_upload = isset( $_allow_upload ) ? $_allow_upload : true;
+
+		$cntMyRecipe = isset( $valuesMyRecipe[0]['CountRecipe'] ) ? $valuesMyRecipe[0]['CountRecipe'] : 0;
+		$cntRecook = isset( $valuesRecook[0]['CountRecook'] ) ? $valuesRecook[0]['CountRecook'] : 0;
+		$cntCookmark = isset( $valuesCookmark[0]['CountCookmark'] ) ? $valuesCookmark[0]['CountCookmark'] : 0;
 
 		$customLevel = false;
 		if( !empty($curLevel) && !empty($curLevelNick) ) {
@@ -24,6 +30,19 @@
 				$custom_image = $domain.'/resources/images/default.png';
 			}
 		}
+
+		$url = $domain.'/users/profile/'.$user_id.'/'.seoURL($username);
+
+		$show_acc_setting = false;
+		if( $this->session->userdata('userid') != NULL ) {
+			$show_acc_setting = true;
+		}
+
+		if( isset( $user_id_viewer ) && $this->session->userdata('userid') != $user_id_viewer ) {
+			$show_acc_setting = false;
+		}
+
+		$method_name = $this->router->method;
 ?>
 <div class="wrapper">
 	<form id="formProfilePhoto" role="form" action="users/update_photo" data-reload="true" class="ajax-form" enctype="multipart/form-data" method="post" accept-charset="utf-8">
@@ -38,6 +57,7 @@
 					<?php
 							echo tag('img', false, array(
 				        		'src' => $custom_image,
+				        		'img-progressive-type' => 'users',
 				        	));
 					?>
 				</div>
@@ -64,102 +84,102 @@
 						echo tag('p', $description, array(
 							'class' => 'mt10 mobile-only'
 						));
-						// echo tag('p', $email, array(
-						// 	'class' => 'mt5',
-						// 	'style' => 'word-wrap: break-word;'
-						// ));
-						// echo tag('p', $customLevel, array(
-						// 	'href' => '#'
-						// ));
 
-						// if( empty($_allow_upload) ) {
-						// 	$country = isset( $valuesUserAccount['CountryName'] ) ? $valuesUserAccount['CountryName'] : false;
-						// 	$city = isset( $valuesUserAccount['CityName'] ) ? $valuesUserAccount['CityName'] : false;
-
-						// 	if( !empty($city) ) {
-						// 		echo $city;
-						// 	}
-						// 	if( !empty($country) ) {
-						// 		echo ', '.$country;
-						// 	}
-						// }
-
-						echo tag('input', false, array(
-		    				'id' => 'fuHiddenField',
-		    				'name' => 'photo',
-		    				'value' => set_value('photo'),
-		    				'type' => 'hidden',
-		    			));
+						if( !empty($_allow_upload) ) {
+							echo tag('input', false, array(
+			    				'id' => 'fuHiddenField',
+			    				'name' => 'photo',
+			    				'value' => set_value('photo'),
+			    				'type' => 'hidden',
+			    			));
+			    		}
 				?>
 			</div>
 			<div class="simple-bio">
 				<br>
-				<p class="pd10">
-					<span class="glyphicon glyphicon-map-marker"></span> &nbsp;
-					<?php
-							$country = isset( $valuesUserAccount['CountryName'] ) ? $valuesUserAccount['CountryName'] : false;
-							$city = isset( $valuesUserAccount['CityName'] ) ? $valuesUserAccount['CityName'] : false;
+				<?php
+						$country_city = false;
+						$country = isset( $valuesUserAccount['CountryName'] ) ? $valuesUserAccount['CountryName'] : false;
+						$city = isset( $valuesUserAccount['CityName'] ) ? $valuesUserAccount['CityName'] : false;
 
-							if( !empty($city) ) {
-								echo $city;
-							}
-							if( !empty($country) ) {
-								echo ', '.$country;
-							}
-					?>
-				</p>
-				<!-- <p>
-					<span class="glyphicon glyphicon-envelope"></span> &nbsp;
-					<?php
-							echo $email;
-					?>
-				</p> -->
-				<style>
-					.simple-bio ul {
-						margin: 10px 0 40px;
-					}
-					.simple-bio ul li {
-						padding: 10px;
-						border-top: 1px solid #efefef;
-						border-bottom: 1px solid #efefef;
-					}
-					.simple-bio ul li:hover {
-						background-color: #E66909;
-						color: #ffffff;
-						cursor: pointer;
-						transition: .25s ease-out all;
-						-moz-transition: .25s ease-out all;
-						-webkit-transition: .25s ease-out all;
-						-o-transition: .25s ease-out all;
-					}
-					.simple-bio ul li span:nth-child(2) {
-						margin-left: 6px;
-					}
-					.simple-bio ul li span:nth-child(3) {
-						float: right;
-					}
-				</style>
+						if( !empty($city) ) {
+							$country_city = $city;
+						}
+						if( !empty($country) ) {
+							$country_city .= ', '.$country;
+						}
+
+						if( !empty($country_city) ) {
+				?>
+						<p class="pd10 no-mg">
+							<span class="glyphicon glyphicon-map-marker"></span> &nbsp;
+				<?php
+								echo $country_city;
+				?>
+						</p>
+				<?php
+						}
+
+						if( !empty($birthday) ) {
+				?>
+						<p class="pd10 no-mg">
+							<span class="glyphicon glyphicon-calendar"></span> &nbsp;
+				<?php
+								echo $birthday;
+				?>
+						</p>
+				<?php
+						}
+				?>
+
 				<ul class="no-ul-type left-side-bio" style="padding:0;">
-					<li>
-						<span class="glyphicon glyphicon-road"></span>
-						<span class="fbold">Timeline</span>
-						<span class="glyphicon glyphicon-chevron-right"></span>
-					</li>
-					<li>
-						<span class="glyphicon glyphicon-book"></span>
-						<span class="fbold">Resep Saya (30)</span>
-						<span class="glyphicon glyphicon-chevron-right"></span>
-					</li>
-					<li>
-						<span class="glyphicon glyphicon-retweet"></span>
-						<span class="fbold">Recook (4)</span>
-						<span class="glyphicon glyphicon-chevron-right"></span>
-					</li>
-					<li>
-						<span class="glyphicon glyphicon-bookmark"></span>
-						<span class="fbold">Cookmark (45)</span>
-						<span class="glyphicon glyphicon-chevron-right"></span>
-					</li>
+					<?php
+							if( !empty($show_acc_setting) ) {
+					?>					
+								<a href="<?php echo $domain.'/users'; ?>">
+									<li>
+										<span class="glyphicon glyphicon-cog"></span>
+										<span>Pengaturan Akun</span>
+										<span class="glyphicon glyphicon-chevron-right"></span>
+									</li>
+								</a>
+					<?php
+							}
+					?>
+					<a class="<?php echo ( $method_name != 'index') ? 'ajax-link' : ''; ?>" target-wrapper="timeline" href="<?php echo $url; ?>">
+						<li>
+							<span class="glyphicon glyphicon-road"></span>
+							<span>Timeline</span>
+							<span class="glyphicon glyphicon-chevron-right"></span>
+						</li>
+					</a>
+					<a class="<?php echo ( $method_name != 'index') ? 'ajax-link' : ''; ?>" target-wrapper="timeline" href="<?php echo $url.'?param=InsertRecipe'; ?>">
+						<li>
+							<span class="glyphicon glyphicon-book"></span>
+							<?php
+									echo tag('span', sprintf('Resep Saya (%s)', $cntMyRecipe));
+							?>
+							<span class="glyphicon glyphicon-chevron-right"></span>
+						</li>
+					</a>
+					<a class="<?php echo ( $method_name != 'index') ? 'ajax-link' : ''; ?>" target-wrapper="timeline" href="<?php echo $url.'?param=Recook'; ?>">
+						<li>
+							<span class="glyphicon glyphicon-retweet"></span>
+							<?php
+									echo tag('span', sprintf('Recook (%s)', $cntRecook));
+							?>
+							<span class="glyphicon glyphicon-chevron-right"></span>
+						</li>
+					</a>
+					<a class="<?php echo ( $method_name != 'index') ? 'ajax-link' : ''; ?>" target-wrapper="timeline" href="<?php echo $url.'?param=Cookmark'; ?>">
+						<li>
+							<span class="glyphicon glyphicon-bookmark"></span>
+							<?php
+									echo tag('span', sprintf('Cookmark (%s)', $cntCookmark));
+							?>
+							<span class="glyphicon glyphicon-chevron-right"></span>
+						</li>
+					</a>
 				</ul>
 			</div>
 		</div>
