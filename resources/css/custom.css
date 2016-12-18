@@ -56,6 +56,9 @@ img.fr-fin.fr-tag, img.fr-fin {
 	font-size: 14px;
 	min-width: 75px;
 }
+.dropdown-menu.custom-recipe-detail {
+	left: -135px;
+}
 
 /* CUSTOM ORDERED LIST */
 ol.simple-list {
@@ -1390,6 +1393,19 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 /* RECIPE DETAIL */
+.detail-recipe-header .top-side {
+	padding: 15px;
+	padding-bottom: 0;
+}
+.detail-recipe-header .top-side .pull-left {
+	max-width: 95%;
+	word-wrap: break-word;
+}
+.detail-recipe-header .top-side .pull-right {
+	max-width: 5%;
+	margin-top: 5px;
+}
+
 .detail-recipe-header .wrapper img {
 	width:20px; 
 	height:15px; 

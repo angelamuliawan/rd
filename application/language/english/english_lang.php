@@ -4,6 +4,11 @@
 			'site_keyword' => 'cookindo, recipe, delicious recipe, what dish for today, cheap dish, delicious dish',
 			'site_description' => 'Cookindo is an online recipe directory from Indonesia that allowing user to search for any kind of recipes according to their needs. To find the recipes, cookindo providing a complete search filter, whether it is filtered by price range, number of people, or any kind of composition.',
 
+			'edit' => 'Edit',
+        	'delete' => 'Delete',
+
+        	'confirm_delete' => 'Delete this item?',
+
 			'home' => 'Home',
 			'search_recipe' => 'Search Recipe',
 			'create_recipe' => 'Create Recipe',

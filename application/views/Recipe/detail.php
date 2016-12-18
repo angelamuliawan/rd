@@ -24,7 +24,8 @@
 
 		$cuisine_name = isset($valueRecipeHeader['CuisineName']) ? $valueRecipeHeader['CuisineName'] : false;
 		$food_type_name = isset($valueRecipeHeader['FoodTypeName']) ? $valueRecipeHeader['FoodTypeName'] : false;
-		$food_process_name = isset($valueRecipeHeader['FoodProcessName']) ? $valueRecipeHeader['FoodProcessName'] : false;
+		$food_process_name = isset($food_process[$valueRecipeHeader['FoodProcessID']]) ? $food_process[$valueRecipeHeader['FoodProcessID']] : false;
+
 		$est_people = isset($valueRecipeHeader['EstPeople']) ? $valueRecipeHeader['EstPeople'] : false;
 		$est_time = isset($valueRecipeHeader['TimeEst']) ? $valueRecipeHeader['TimeEst'] : false;
 		$est_price = isset($valueRecipeHeader['EstPrice']) ? $valueRecipeHeader['EstPrice'] : false;
@@ -87,28 +88,64 @@
 	<div class="detail-recipe-header bg-white">
 		<div class="row">
 			<div class="col-sm-9 print-floleft">
-				<div class="wrapper pd15 pb0">
+				<div class="wrapper top-side">
+					<div class="pull-left left-side">
+						<?php
+								echo tag('h1', $title);
+								echo tag('p', $created_date, array(
+									'class' => 'mt5 mb10',
+								));
+						?>
+								<div class="mb10">
+						<?php
+									echo $iconView;
+									echo tag('span', $cnt_view);
+
+									echo $iconLove;
+									echo tag('span', $cnt_love);
+
+									echo $iconComment;
+									echo tag('span', $cnt_comment);
+
+									echo $iconRecook;
+									echo tag('span', $cnt_recook);
+						?>
+								</div>
+					</div>
+
 					<?php
-							echo tag('h1', $title);
-							echo tag('p', $created_date, array(
-								'class' => 'mt5 mb10',
-							));
+							if( isLoggedIn() && $user_id == $this->session->userdata('userid') ) {
 					?>
-							<div class="mb10">
+								<div class="pull-right">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default dropdown-toggle no-pd" data-toggle="dropdown" style="border-color: rgb(255, 255, 255);">
+											<span class="glyphicon glyphicon-chevron-down"></span>
+										</button>
+										<ul class="dropdown-menu custom-recipe-detail">
+											<?php
+													echo tag('a', lang('edit'), array(
+														'href' => $domain.'/recipe/edit/' . $recipe_id,
+														'title' => lang('edit'),
+														'wrapTag' => 'li',
+													));
+
+													echo tag('a', lang('delete'), array(
+														'href' => $domain.'/recipe/delete/' . $recipe_id,
+														'title' => lang('delete'),
+														'class' => 'ajax-link',
+														'with-confirm' => lang('confirm_delete'),
+														'data-redirect' => 'users/profile/' . $user_id,
+														'wrapTag' => 'li',
+													));
+											?>
+										</ul>
+									</div>
+								</div>
 					<?php
-								echo $iconView;
-								echo tag('span', $cnt_view);
-
-								echo $iconLove;
-								echo tag('span', $cnt_love);
-
-								echo $iconComment;
-								echo tag('span', $cnt_comment);
-
-								echo $iconRecook;
-								echo tag('span', $cnt_recook);
+							}
 					?>
-							</div>
+
+					<div class="clearfix"></div>
 				</div>
 			</div>
 			<div class="col-sm-3 print-floright">
@@ -148,6 +185,7 @@
 		<div class="row">
 			<div class="col-sm-9">
 				<div class="wrapper pd15 mb5 tacenter">
+
 					<?php
 							echo tag('img', false, array(
 								'src' => $custom_image,
@@ -156,7 +194,7 @@
 									'class' => 'wrapper-banner'
 								)
 							));
-							
+
 							loadSubview('common/action_bottom_find', array(
 								'recipe_id' => $recipe_id,
 								'slug' => $slug,
@@ -167,6 +205,21 @@
 								'_print' => true,
 							));
 					?>
+
+					<!-- <div class="row">
+						<div class="col-sm-offset-8 col-sm-2">
+							<button type="submit" class="btn btn-orange btn-block">
+								<span class="glyphicon glyphicon-pencil"></span>
+								Edit
+							</button>
+						</div>
+						<div class="col-sm-2">
+							<button type="submit" class="btn btn-orange btn-block">
+								<span class="glyphicon glyphicon-trash"></span>
+								Delete
+							</button>
+						</div>
+					</div> -->
 				</div>
 				<div class="detail-recipe-content bg-white">
 					<div class="row">

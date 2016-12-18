@@ -47,20 +47,47 @@
 	<div class="detail-recipe-header">
 		<div class="row">
 			<div class="col-sm-12 print-floleft">
-				<div class="pd15 pb0">
+				<div class="pd15 pb0 top-side">
+					<div class="pull-left">
+						<?php
+								echo tag('h1', $recipe, array(
+									'class' => 'mb5',
+								));
+			        			echo tag('span', sprintf('%s ', lang('recooked_by')));
+			        			echo tag('a', $recook_username, array(
+			        				'class' => 'fbold',
+			        				'title' => $recook_username,
+			        				'href' => $domain.'/users/profile/'.$recook_user_id,
+			        			));
+								echo tag('p', $recook_date, array(
+									'class' => 'mt5',
+								));
+						?>
+					</div>
 					<?php
-							echo tag('h1', $recipe, array(
-								'class' => 'mb5',
-							));
-		        			echo tag('span', sprintf('%s ', lang('recooked_by')));
-		        			echo tag('a', $recook_username, array(
-		        				'class' => 'fbold',
-		        				'title' => $recook_username,
-		        				'href' => $domain.'/users/profile/'.$recook_user_id,
-		        			));
-							echo tag('p', $recook_date, array(
-								'class' => 'mt5',
-							));
+							if( isLoggedIn() && $recook_user_id == $this->session->userdata('userid') ) {
+					?>
+								<div class="pull-right">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default dropdown-toggle no-pd" data-toggle="dropdown" style="border-color: rgb(255, 255, 255);">
+											<span class="glyphicon glyphicon-chevron-down"></span>
+										</button>
+										<ul class="dropdown-menu custom-recipe-detail">
+											<?php
+													echo tag('a', lang('delete'), array(
+														'href' => $domain.'/recipe/delete_recook/' . $recook_id,
+														'title' => lang('delete'),
+														'class' => 'ajax-link',
+														'with-confirm' => lang('confirm_delete'),
+														'data-redirect' => 'users/profile/' . $recook_user_id,
+														'wrapTag' => 'li',
+													));
+											?>
+										</ul>
+									</div>
+								</div>
+					<?php
+							}
 					?>
 				</div>
 			</div>

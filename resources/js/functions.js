@@ -311,6 +311,7 @@ $.ajaxLink = function() {
     $('body').on('click', '.ajax-link', function(e) {
         var self = $(this);
         var data_url = self.attr('href');
+        var data_redirect = self.attr('data-redirect');
         var wrapper_class = '.' + self.attr('target-wrapper');
         var with_confirm = self.attr('with-confirm');
         var blockScreen = ( self.attr('data-block-screen') !== undefined ) ? true : false;
@@ -325,7 +326,7 @@ $.ajaxLink = function() {
                 dataType: 'html',
                 global: blockScreen,
                 success: function(result) {
-                    var contentHTML = '';
+                    var contentHTML = '';                    
                     if (self.attr('remove') !== undefined) {
                         self.closest('.wrapper-ajax-link').slideUp(1500, function(){
                             self.closest('.wrapper-ajax-link').html('<div class="alert alert-success temp-alert">'+
@@ -342,8 +343,14 @@ $.ajaxLink = function() {
                     } else if ($(result).find(wrapper_class).length) {
                         contentHTML = $(result).find(wrapper_class).html();
                         $(wrapper_class).html(contentHTML);
-                    } else {
+                    } else if( result ) {
                         self.closest('.wrapper-ajax-link').replaceWith(result);
+                    } else {
+                        if( data_redirect !== undefined ) {
+                            window.location.replace(serviceUri+data_redirect);
+                        } else {
+                            window.location.reload();
+                        }
                     }
 
                     $.unveil();

@@ -4,6 +4,11 @@
 			'site_keyword' => 'cookindo, resep masak, resep enak, makanan enak, makanan lezat, masak apa hari ini, masakan enak, masakan murah, masakan lezat',
 			'site_description' => 'Cookindo adalah direktori resep online dari Indonesia yang memungkinkan user untuk mencari resep sesuai dengan kebutuhan mereka. Untuk mendapatkan resep yang user inginkan, cookindo menyediakan fitur pencarian yang lengkap mulai dari estimasi harga, orang, maupun bahan-bahan masakan yang dimiliki oleh user.',
 
+			'edit' => 'Ubah',
+        	'delete' => 'Hapus',
+
+        	'confirm_delete' => 'Yakin ingin menghapus?',
+
 			'home' => 'Beranda',
 			'search_recipe' => 'Cari Resep',
 			'create_recipe' => 'Tulis Resep',
