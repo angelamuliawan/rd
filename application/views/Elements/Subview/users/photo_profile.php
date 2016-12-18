@@ -142,16 +142,9 @@
 			<div class="simple-bio">
 				<br>
 				<?php
-						$country_city = false;
 						$country = isset( $valuesUserAccount['CountryName'] ) ? $valuesUserAccount['CountryName'] : false;
 						$city = isset( $valuesUserAccount['CityName'] ) ? $valuesUserAccount['CityName'] : false;
-
-						if( !empty($city) ) {
-							$country_city = $city;
-						}
-						if( !empty($country) ) {
-							$country_city .= ', '.$country;
-						}
+						$country_city = customConcat($city, $country);
 
 						if( !empty($country_city) ) {
 				?>

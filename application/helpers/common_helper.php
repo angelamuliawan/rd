@@ -223,3 +223,22 @@ if ( ! function_exists('isMobile')) {
 	    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 	}
 }
+
+if ( ! function_exists('customConcat')) {
+	
+	function customConcat( $str1, $str2 ) {
+		$result = false;
+
+		if( !empty($str1) ) {
+			$result = $str1;
+		}
+
+		if( !empty($str2) && !empty($str1) ) {
+			$result .= ', '.$str2;
+		} else if( !empty($str2) ) {
+			$result = $str2;
+		}
+
+		return $result;
+	}
+}

@@ -19,8 +19,10 @@
 					$title = $value['RecipeName'];
 					$image = $value['PrimaryPhoto'];
 					$slug = $value['Slug'];
-					$cnt_recook = $value['NumberOfRecook'];
-					$cnt_comment = $value['NumberOfComment'];
+
+					$cnt_recook = !empty( $value['NumberOfRecook'] ) ? sprintf('%s %s', $value['NumberOfRecook'], lang('recook')) : false;
+					$cnt_comment = !empty( $value['NumberOfComment'] ) ? sprintf('%s %s', $value['NumberOfComment'], lang('comment')) : false;
+					$concat_recook_comment = customConcat($cnt_recook, $cnt_comment);
 
 					$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 					$custom_image = $domain.$path_image;
@@ -51,9 +53,10 @@
 								'title' => $title,
 								'class' => 'fbold',
 							));
-							// echo tag('p', sprintf('%s Komentar, %s Recook', $cnt_comment, $cnt_recook), array(
-							// 	'class' => 'stats',
-							// ));
+
+							echo tag('p', $concat_recook_comment, array(
+								'class' => 'stats',
+							));
 					?>
 				</div>
 			</div>

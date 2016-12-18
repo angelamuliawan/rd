@@ -11,7 +11,7 @@
 			
 			if( !isLoggedIn() ) {
 	?>
-				<a title="Follow" href="<?php echo $domain.'/users/login/'; ?>" class="ajax-modal">
+				<a title="Follow" href="<?php echo $domain.'/users/login'; ?>" class="ajax-modal">
 					<button class="btn btn-orange follow-button" type="button">
 						<span class="glyphicon glyphicon-plus"></span>
 						Follow

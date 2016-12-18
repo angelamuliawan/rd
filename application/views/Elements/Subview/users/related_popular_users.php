@@ -12,8 +12,10 @@
 					$user_id = $value['UserID'];
 					$username = $value['UserName'];
 					$userphoto = $value['UserPhoto'];
-					$cnt_recipe = $value['NumberOfRecipe'];
-					$cnt_recook = $value['NumberOfRecook'];
+
+					$cnt_follower = !empty( $value['NumberOfFollower'] ) ? sprintf('%s %s', $value['NumberOfFollower'], 'Follower') : false;
+					$cnt_recipe = !empty( $value['NumberOfRecipe'] ) ? sprintf('%s %s', $value['NumberOfRecipe'], lang('recipe')) : false;
+					$concat_follower_recipe = customConcat($cnt_follower, $cnt_recipe);
 
 					$path_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
 					$custom_image = $domain.$path_image;
@@ -40,37 +42,37 @@
 						));
 					}
 		?>
-		<li>
-			<div class="row">
-				<div class="col-sm-3">
-					<?php
-							echo $userImage;
-					?>
-				</div>
-				<div class="col-sm-9">
-					<?php
-							echo tag('a', $username, array(
-								'class' => 'fbold',
-								'title' => $username,
-								'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
-							));
+					<li>
+						<div class="row">
+							<div class="col-sm-3">
+								<?php
+										echo $userImage;
+								?>
+							</div>
+							<div class="col-sm-9">
+								<?php
+										echo tag('a', $username, array(
+											'class' => 'fbold',
+											'title' => $username,
+											'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
+										));
 
-							// echo tag('p', sprintf('%s Resep, %s Recook', $cnt_recipe, $cnt_recook), array(
-							// 	'class' => 'stats',
-							// ));
-					?>
+										echo tag('p', $concat_follower_recipe, array(
+											'class' => 'stats',
+										));
+								?>
 
-					<div class="mt5">
-						<?php
-								loadSubview('common/action_follow', array(
-									'user_id_viewer' => $user_id,
-									'follow_status' => '0',
-								));
-						?>
-					</div>
-				</div>
-			</div>
-		</li>
+								<div class="mt5">
+									<?php
+											loadSubview('common/action_follow', array(
+												'user_id_viewer' => $user_id,
+												'follow_status' => '0',
+											));
+									?>
+								</div>
+							</div>
+						</div>
+					</li>
 		<?php
 				}
 		?>

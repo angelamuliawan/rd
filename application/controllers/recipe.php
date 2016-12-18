@@ -96,13 +96,6 @@ class Recipe extends AB_Controller {
 		$valuesRecipeStep = $resRecipeStep->result_array();
 		$resRecipeStep->next_result();
 
-		// Recipe Comment
-		// $resRecipeComment = $this->db->query('CALL GetRecipeComment(?)', array(
-		// 	$recipe_id
-		// ));
-		// $valuesRecipeComment = $resRecipeComment->result_array();
-		// $resRecipeComment->next_result();
-
 		// related recipe by authors
 		$resRelatedByAuthor = $this->db->query('CALL GetRelatedRecipeByAuthor(?,?)', array(
 			$recipe_id,
@@ -131,7 +124,6 @@ class Recipe extends AB_Controller {
 			'valuesRecipeRecook' => $valuesRecipeRecook,
 			'valuesRecipeComposition' => $valuesRecipeComposition,
 			'valuesRecipeStep' => $valuesRecipeStep,
-			// 'valuesRecipeComment' => $valuesRecipeComment,
 			'valuesRelatedByAuthor' => $valuesRelatedByAuthor,
 			'valuesRelatedRecipe' => $valuesRelatedRecipe,
 			'valuesUserFollowStatus' => $valuesUserFollowStatus[0]['RESULT'],

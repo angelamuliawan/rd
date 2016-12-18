@@ -205,21 +205,6 @@
 								'_print' => true,
 							));
 					?>
-
-					<!-- <div class="row">
-						<div class="col-sm-offset-8 col-sm-2">
-							<button type="submit" class="btn btn-orange btn-block">
-								<span class="glyphicon glyphicon-pencil"></span>
-								Edit
-							</button>
-						</div>
-						<div class="col-sm-2">
-							<button type="submit" class="btn btn-orange btn-block">
-								<span class="glyphicon glyphicon-trash"></span>
-								Delete
-							</button>
-						</div>
-					</div> -->
 				</div>
 				<div class="detail-recipe-content bg-white">
 					<div class="row">
