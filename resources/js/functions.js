@@ -1,9 +1,9 @@
 var source_data = {};
-// var apiUri = 'http://localhost/ckn/public/api/';
-// var serviceUri = 'http://localhost/cookindo/';
+var apiUri = 'http://localhost/ckn/public/api/';
+var serviceUri = 'http://localhost/cookindo/';
 
-var apiUri = 'http://api.cookindo.com/public/api/';
-var serviceUri = 'http://'+document.domain+'/';
+// var apiUri = 'http://api.cookindo.com/public/api/';
+// var serviceUri = 'http://'+document.domain+'/';
 
 var finished_ajax = true;
 var arrTranslate = {
