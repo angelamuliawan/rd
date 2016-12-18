@@ -11,6 +11,7 @@
 		$user_id = isset($user_id)?$user_id:false;
 		$username = isset($username)?$username:false;
 
+		$cnt_love = isset($cnt_love)?$cnt_love:false;
 		$cnt_comment = isset($cnt_comment)?$cnt_comment:false;
 		$cnt_recook = isset($cnt_recook)?$cnt_recook:false;
 		$cnt_view = isset($cnt_view)?$cnt_view:false;
@@ -18,37 +19,44 @@
 		$iconCuisine = tag('img', false, array(
 			'style' => 'width:15px;',
 			'src' => $domain.'/resources/icons/spoon.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 		$iconFoodType = tag('img', false, array(
 			'style' => 'width:15px;',
 			'src' => $domain.'/resources/icons/flag.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 		$iconCreator = tag('img', false, array(
 			'style' => 'width:15px;',
 			'src' => $domain.'/resources/icons/user.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
+		));
+
+		$iconLove = tag('img', false, array(
+			'src' => $domain.'/resources/icons/love.png',
+			'data-disable-progressive' => true,
+			'style' => 'height: 20px;',
 		));
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 		$iconRecook = tag('img', false, array(
 			'src' => $domain.'/resources/icons/retweet.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 		$iconView = tag('img', false, array(
 			'src' => $domain.'/resources/icons/view.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 
 		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
-			$custom_image = $domain.'/resources/images/default.png';
+			$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 		}
 
+		$totalLove = tag('span', $cnt_love);
 		$totalComment = tag('span', $cnt_comment);
 		$totalRecook = tag('span', $cnt_recook);
 		$totalView = tag('span', $cnt_view);
@@ -75,15 +83,17 @@
 				<?php
 						echo tag('div', $iconComment.$totalComment, array(
 							'class' => 'pull-right mr5',
-							'title' => 'Jumlah Komentar',
+							'title' => lang('total_comment'),
 						));
-						echo tag('div', $iconRecook.$totalRecook, array(
+						
+						echo tag('div', $iconLove.$totalLove, array(
 							'class' => 'pull-right mr10',
-							'title' => 'Jumlah Recook',
+							'title' => lang('total_like'),
 						));
+						
 						echo tag('div', $iconView.$totalView, array(
 							'class' => 'pull-right mr10',
-							'title' => 'Jumlah View',
+							'title' => lang('total_view'),
 						));
 				?>
 			</div>
@@ -115,7 +125,7 @@
 						echo tag('p', $recipe_intro, array(
 							'class' => 'mt10 description'
 						));
-						echo tag('a', 'Selengkapnya', array(
+						echo tag('a', lang('view_detail'), array(
 							'href' => $url,
 							'class' => 'btn btn-orange mt5',
 							'wrapTag' => 'div',
@@ -123,6 +133,7 @@
 								'class' => 'taright mb5'
 							)
 						));
+
 						loadSubview('common/action_bottom_find');
 				?>
 			</div>

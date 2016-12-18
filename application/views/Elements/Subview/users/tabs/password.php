@@ -7,7 +7,7 @@
 		?>
 		<div class="form-group">
 	  		<?php
-	  				echo tag('label', 'Password Lama', array(
+	  				echo tag('label', lang('old_password'), array(
 	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'oldPassword',
 	  				));
@@ -18,7 +18,7 @@
 		    				'type' => 'password',
 		    				'class' => 'form-control',
 		    				'name' => 'oldPassword',
-		    				'placeholder' => 'Password lama &hellip;',
+		    				'placeholder' => lang('old_password') .' &hellip;',
 		    				'value' => set_value('oldPassword'),
 		    				'maxlength' => 20,
 		    			));
@@ -28,7 +28,7 @@
 	  	</div>
 	  	<div class="form-group">
 	  		<?php
-	  				echo tag('label', 'Password baru', array(
+	  				echo tag('label', lang('new_password'), array(
 	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'newPassword',
 	  				));
@@ -39,7 +39,7 @@
 		    				'type' => 'password',
 		    				'class' => 'form-control',
 		    				'name' => 'newPassword',
-		    				'placeholder' => 'Password baru &hellip;',
+		    				'placeholder' => lang('new_password') .' &hellip;',
 		    				'value' => set_value('newPassword'),
 		    				'maxlength' => 20,
 		    			));
@@ -49,7 +49,7 @@
 	  	</div>
 	  	<div class="form-group">
 	  		<?php
-	  				echo tag('label', 'Konfirmasi Password', array(
+	  				echo tag('label', lang('confirm_password'), array(
 	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'confirmPassword',
 	  				));
@@ -60,7 +60,7 @@
 		    				'type' => 'password',
 		    				'class' => 'form-control',
 		    				'name' => 'confirmPassword',
-		    				'placeholder' => 'Konfirmasi password &hellip;',
+		    				'placeholder' => lang('confirm_password') .' &hellip;',
 		    				'value' => set_value('confirmPassword'),
 		    				'maxlength' => 20,
 		    			));
@@ -70,8 +70,8 @@
 	  	</div>
 	  	<div class="form-group">
 	  		<?php
-	  				echo tag('button', 'Simpan', array(
-	  					'class' => 'btn btn-orange',
+	  				echo tag('button', lang('save'), array(
+	  					'class' => 'btn btn-orange with-loading',
 	  					'type' => 'submit',
 	  					'wrapTag' => 'div',
 	  					'wrapAttributes' => array(

@@ -25,7 +25,7 @@
 			if (source) {
 				if( this.tagName == 'img' || this.tagName == 'IMG' ) {
 					this.setAttribute("src", source);
-				} else if ( (this.tagName == 'div' || this.tagName == 'DIV') && this.hasAttribute('is-progressive') ) {
+				} else if ( (this.tagName == 'div' || this.tagName == 'DIV') && this.hasAttribute('data-is-progressive') ) {
 					this.style.backgroundImage = "url("+source+")";
 				}
 				

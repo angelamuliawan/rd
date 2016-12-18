@@ -152,50 +152,12 @@ class Pages extends AB_Controller {
 		$this->render();
 	}
 
-	public function article_comment( $article_id = false ) {
-		
-		$post = $this->input->post();
-		if( !empty($post) ) {
-			
-			$this->form_validation->set_rules('comment', 'Comment', 'required');
-			if ( $this->form_validation->run() == TRUE ) {
-				$res = $this->db->query('CALL InsertArticleComment(?,?,?)', array(
-					$post['comment'],
-					$this->session->userdata('userid'),
-					$article_id,
-				));
-				$res->next_result();
-
-				$post['comment'] = false;
-			}
-		}
-
-		// Recipe Comment
-		$resArticleComment = $this->db->query('CALL GetArticleComment(?)', array(
-			$article_id
-		));
-		$valuesArticleComment = $resArticleComment->result_array();
-		$resArticleComment->next_result();
-
-		$this->load->vars(array(
-			'valuesArticleComment' => $valuesArticleComment,
-			'article_id' => $article_id,
-		));
-		loadSubview('article/comment');
-	}
-
-	public function delete_article_comment( $comment_id = false ) {
-		$res = $this->db->query('CALL DeleteArticleComment(?,?)', array(
-			$comment_id,
-			$this->session->userdata('userid'),
-		));
-	}
-
 	public function about_us() {
 		$this->load->vars(array(
-			'site_title' => 'Tentang Kami',
+			'site_title' => lang('about_us'),
 		));
-		$this->render();
+
+		$this->render(false, 'Pages/' . $this->site_lang . '/about_us');
 	}
 
 	public function contact_us() {
@@ -237,20 +199,20 @@ class Pages extends AB_Controller {
 		));
 
 		loadMessage($message, $status);
-		$this->render($post);
+		$this->render($post, 'Pages/' . $this->site_lang . '/contact_us');
 	}
 
 	public function terms_of_use() {
 		$this->load->vars(array(
 			'site_title' => 'Tata Cara Penggunaan',
 		));
-		$this->render();
+		$this->render(false, 'Pages/' . $this->site_lang . '/terms_of_use');
 	}
 
 	public function privacy_policy() {
 		$this->load->vars(array(
 			'site_title' => 'Kebijakan Pribadi',
 		));
-		$this->render();
+		$this->render(false, 'Pages/' . $this->site_lang . '/privacy_policy');
 	}
 }

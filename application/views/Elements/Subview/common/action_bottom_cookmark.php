@@ -22,13 +22,13 @@
 		}
 
 		$recook .= tag('span', $textRecook, array(
-			'class' => 'ml5'
+			'class' => 'ml5 iconText'
 		));
 		$share .= tag('span', 'Share', array(
-			'class' => 'ml5 mr10'
+			'class' => 'ml5 mr10 iconText'
 		));
 		$cookmark .= tag('span', 'Uncookmark', array(
-			'class' => 'ml5 mr10'
+			'class' => 'ml5 mr10 iconText'
 		));
 
 		$urlRecook = false;

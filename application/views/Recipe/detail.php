@@ -11,10 +11,13 @@
 		$title = isset($valueRecipeHeader['RecipeName']) ? $valueRecipeHeader['RecipeName'] : false;
 		$created_date = isset($valueRecipeHeader['CreatedDate']) ? $valueRecipeHeader['CreatedDate'] : false;
 		$recipe_intro = isset($valueRecipeHeader['RecipeIntro']) ? $valueRecipeHeader['RecipeIntro'] : false;
+
+		$cnt_love = isset($valueRecipeHeader['NumberOfLove']) ? $valueRecipeHeader['NumberOfLove'] : false;
 		$cnt_comment = isset($valueRecipeHeader['NumberOfComment']) ? $valueRecipeHeader['NumberOfComment'] : false;
 		$cnt_recook = isset($valueRecipeHeader['NumberOfRecook']) ? $valueRecipeHeader['NumberOfRecook'] : false;
 		$cnt_view = isset($valueRecipeHeader['NumberOfView']) ? $valueRecipeHeader['NumberOfView'] : false;;
 
+		$flag_love = isset($valueRecipeHeader['FlagLove']) ? $valueRecipeHeader['FlagLove'] : false;
 		$flag_cookmark = isset($valueRecipeHeader['FlagCookmark']) ? $valueRecipeHeader['FlagCookmark'] : false;
 		$flag_recook = isset($valueRecipeHeader['FlagRecook']) ? $valueRecipeHeader['FlagRecook'] : false;
 		$flag_creator = isset($valueRecipeHeader['FlagCreator']) ? $valueRecipeHeader['FlagCreator'] : false;
@@ -29,31 +32,46 @@
 		$user_id = isset($valueRecipeHeader['UserID']) ? $valueRecipeHeader['UserID'] : false;
 		$username = isset($valueRecipeHeader['UserName']) ? $valueRecipeHeader['UserName'] : false;
 		$userphoto = isset($valueRecipeHeader['UserPhoto']) ? $valueRecipeHeader['UserPhoto'] : false;
+
+		// Check for user image
+		$path_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
+		$custom_image = $domain.$path_image;
+
+		if( !file_exists( $webroot.$path_image ) ) {
+			$firstLetter =  !empty( $username ) ? strtoupper($username[0]) : false;
+			$userImage = tag('div', $firstLetter, array(
+				'class' => 'alphabet-placeholder',
+			));
+		} else {
+			$userImage = tag('img', false, array(
+				'src' => $custom_image,
+				'data-disable-progressive' => 1,
+			));
+		}
+
+		$iconLove = tag('img', false, array(
+			'src' => $domain.'/resources/icons/love.png',
+			'data-disable-progressive' => true,
+			'style' => 'height: 20px;',
+		));
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 		$iconRecook = tag('img', false, array(
 			'src' => $domain.'/resources/icons/retweet.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 		$iconView = tag('img', false, array(
 			'src' => $domain.'/resources/icons/view.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 
 		// Check for recipe
 		$path_image = '/resources/images/uploads/recipe/primary/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
-			$custom_image = $domain.'/resources/images/default.png';
-		}
-
-		// Check for users
-		$path_user_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
-		$custom_user_image = $domain.$path_user_image;
-		if( !file_exists( $webroot.$path_user_image ) ) {
-			$custom_user_image = $domain.'/resources/images/default.png';
+			$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 		}
 
 		// Recipe Composition
@@ -69,38 +87,58 @@
 	<div class="detail-recipe-header bg-white">
 		<div class="row">
 			<div class="col-sm-9 print-floleft">
-				<div class="pd15 pb0">
+				<div class="wrapper pd15 pb0">
 					<?php
 							echo tag('h1', $title);
 							echo tag('p', $created_date, array(
-								'class' => 'mt5',
+								'class' => 'mt5 mb10',
 							));
 					?>
+							<div class="mb10">
+					<?php
+								echo $iconView;
+								echo tag('span', $cnt_view);
+
+								echo $iconLove;
+								echo tag('span', $cnt_love);
+
+								echo $iconComment;
+								echo tag('span', $cnt_comment);
+
+								echo $iconRecook;
+								echo tag('span', $cnt_recook);
+					?>
+							</div>
 				</div>
 			</div>
 			<div class="col-sm-3 print-floright">
-				<div class="wrapper pd10 taright">
-					<?php
-							echo tag('p', 'Dibuat oleh:');
-							echo tag('a', $username, array(
-								'href' => $domain.'/users/profile/'.$user_id,
-								'class' => 'fbold',
-								'title' => $username,
-								'wrapTag' => 'p',
-								'wrapAttributes' => array(
-									'class' => 'mb5'
-								)
-							));
+				<div class="wrapper wrapper-right-side">
+					<div class="pull-left">
+						<a title="<?php echo $username; ?>" href="<?php echo $domain.'/users/profile/'.$user_id; ?>">
+							<?php
+									echo $userImage;
+							?>
+						</a>
+					</div>
+					<div class="pull-left ml10">
+						<?php
+								echo tag('p', sprintf('%s:', lang('created_by')));
+								echo tag('a', $username, array(
+									'href' => $domain.'/users/profile/'.$user_id,
+									'class' => 'fbold',
+									'title' => $username,
+									'wrapTag' => 'p',
+									'wrapAttributes' => array(
+										'class' => 'mb5'
+									)
+								));
 
-							echo $iconView;
-							echo tag('span', $cnt_view);
-
-							echo $iconRecook;
-							echo tag('span', $cnt_recook);
-
-							echo $iconComment;
-							echo tag('span', $cnt_comment);
-					?>
+								loadSubview('common/action_follow', array(
+									'user_id_viewer' => $user_id,
+									'follow_status' => $valuesUserFollowStatus,
+								));
+						?>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -109,7 +147,7 @@
 	<div class="detail-recipe-banner with-border bg-white">
 		<div class="row">
 			<div class="col-sm-9">
-				<div class="wrapper pd15 tacenter">
+				<div class="wrapper pd15 mb5 tacenter">
 					<?php
 							echo tag('img', false, array(
 								'src' => $custom_image,
@@ -118,9 +156,11 @@
 									'class' => 'wrapper-banner'
 								)
 							));
+							
 							loadSubview('common/action_bottom_find', array(
 								'recipe_id' => $recipe_id,
 								'slug' => $slug,
+								'flag_love' => $flag_love,
 								'flag_cookmark' => $flag_cookmark,
 								'flag_recook' => $flag_recook,
 								'flag_creator' => $flag_creator,
@@ -218,13 +258,13 @@
 												));
 												loadSubview('common/recipe_summary', array(
 													'icon' => 'people.png',
-													'value' => $est_people,
+													'value' => sprintf('%s %s', $est_people, lang('people')),
 													'style' => 'padding: 15px 5px;',
 													'desc_style' => 'position: absolute; top: 14px; bottom: 14px;',
 												));
 												loadSubview('common/recipe_summary', array(
 													'icon' => 'clock.png',
-													'value' => sprintf('%s Menit', $est_time),
+													'value' => sprintf('%s %s', $est_time, lang('minute')),
 													'style' => 'padding: 15px 5px;',
 													'desc_style' => 'position: absolute; top: 14px; bottom: 14px;',
 												));
@@ -273,8 +313,10 @@
 						<div class="col-sm-8">
 							<div class="wrapper pd15" style="font-size: 16px;">
 								<?php
-										echo tag('p', $recipe_intro);
-										echo tag('h3', 'Bahan');
+										echo tag('p', $recipe_intro, array(
+											'id' => 'recipeIntro'
+										));
+										echo tag('h3', lang('composition'));
 										echo tag('hr', false, array(
 											'class' => 'mt5 mb10'
 										));
@@ -303,7 +345,7 @@
 											echo tag('br');
 										}
 
-										echo tag('h3', 'Langkah');
+										echo tag('h3', lang('step'));
 										echo tag('hr', false, array(
 											'class' => 'mt5 mb10'
 										));
@@ -323,7 +365,7 @@
 													$custom_image = $domain.$path_image;
 
 													if( !file_exists( $webroot.$path_image ) ) {
-														$custom_image = $domain.'/resources/images/default.png';
+														$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 													}
 
 													$content .= tag('img', false, array(
@@ -349,24 +391,26 @@
 						</div>
 					</div>
 				</div>
-				<div class="wrapper-social pd15">
+				<div class="wrapper-social pd15 hidden-print">
 					<div class="wrapper-facebook with-border">
 						<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>&t=<?php echo $slug; ?>"
 						   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-						   target="_blank" title="Share on Facebook">
+						   target="_blank" title="<?php echo lang('share_to_facebook'); ?>">
 							<div class="wrapper-inner">
-								<span>Bagikan ke facebook</span>
+								<?php
+									echo tag('span', lang('share_to_facebook'));
+								?>
 							</div>
 						</a>
 					</div>
 					<?php
 							if( isLoggedIn() ) {
-	      						echo tag('a', 'Tulis Resep', array(
+	      						echo tag('a', lang('create_recipe'), array(
 	      							'class' => 'btn btn-success full-width mt5',
 									'href' => $domain.'/recipe/add',
 								));
 	      					} else {
-	      						echo tag('a', 'Tulis Resep', array(
+	      						echo tag('a', lang('create_recipe'), array(
 									'href' => $domain.'/users/login?redirect_after=recipe/add',
 			        				'data-title' => 'Login',
 			        				'class' => 'ajax-modal btn btn-success full-width mt5',
@@ -374,18 +418,22 @@
 	      					}
 					?>
 				</div>
-				<?php
-						loadSubview('recipe/comment');
-				?>
+				<div id="comment-container" class="hidden-print">
+					<div class="mt20 ml15">
+						<?php
+								loadSubview('common/background_masker/comment');
+						?>
+					</div>
+				</div>
 			</div>
 			<div class="col-sm-3">
 				<?php
+						// loadSubview('users/related_recipe', array(
+						// 	'heading' => 'Chef yang Sama',
+						// 	'values' => $valuesRelatedByAuthor,
+						// ));
 						loadSubview('users/related_recipe', array(
-							'heading' => 'Chef yang Sama',
-							'values' => $valuesRelatedByAuthor,
-						));
-						loadSubview('users/related_recipe', array(
-							'heading' => 'Resep Terkait',
+							'heading' => lang('related_recipe'),
 							'values' => $valuesRelatedRecipe,
 						));
 
@@ -395,3 +443,5 @@
 		</div>
 	</div>
 </div>
+
+<input type="hidden" id="recipeId" value="<?php echo $recipe_id; ?>" />

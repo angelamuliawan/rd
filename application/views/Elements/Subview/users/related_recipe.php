@@ -5,7 +5,7 @@
 		if( !empty($values) ) {
 ?>
 
-<div class="wrapper-popular-user hidden-print">
+<div class="wrapper-popular-user wrapper-popular-recipe hidden-print" data-spy="affix" data-offset-top="180" data-offset-bottom="150">
 	<?php
 			echo tag('h3', $heading, array(
 				'class' => 'mb10 mt20'
@@ -25,7 +25,7 @@
 					$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 					$custom_image = $domain.$path_image;
 					if( !file_exists( $webroot.$path_image ) ) {
-						$custom_image = $domain.'/resources/images/default.png';
+						$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 					}
 
 					$counter++;
@@ -51,9 +51,9 @@
 								'title' => $title,
 								'class' => 'fbold',
 							));
-							echo tag('p', sprintf('%s Komentar, %s Recook', $cnt_comment, $cnt_recook), array(
-								'class' => 'stats',
-							));
+							// echo tag('p', sprintf('%s Komentar, %s Recook', $cnt_comment, $cnt_recook), array(
+							// 	'class' => 'stats',
+							// ));
 					?>
 				</div>
 			</div>

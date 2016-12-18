@@ -5,17 +5,19 @@
 		$header_img = $domain.'/resources/images/background/bg.jpg';
 ?>
 
-<div class="wrapper-background hidden-print <?php echo $_class; ?>" data-src="<?php echo $header_img; ?>" is-progressive="1">
-	<div class="container">
+<div class="wrapper-background hidden-print <?php echo $_class; ?>" data-src="<?php echo $header_img; ?>" data-is-progressive="1">
+	<div class="container no-pd">
 		<div class="search-box">
 			<div class="row">
 				<div class="col-sm-12">
-					<div class="mt10 mb20 tacenter">
+					<div class="mt10 mb20">
 						<?php
 								if( !empty($_with_text) ) {
-									echo tag('h3', 'Cari Resep Terbaikmu Disini !');
-									echo tag('p', false, array(
-										'class' => 'mt10'
+									echo tag('h3', sprintf('%s !', lang('find_best_recipe')), array(
+										'wrapTag' => 'div',
+										'wrapAttributes' => array(
+											'class' => 'tacenter mb10'
+										)
 									));
 								}
 						?>
@@ -23,28 +25,40 @@
 							<div class="row row-centered">
 								<div class="col-sm-2 col-xs-8 col-centered">
 									<?php
-											echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="Masakan"');
+											echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('cuisine').'"');
 									?>
 								</div>
 								<div class="col-sm-2 col-xs-8 col-centered">
 									<?php
-											echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="Jenis Masakan"');
+											echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('cuisine_type').'"');
 									?>
 								</div>
 								<div class="col-sm-6 col-xs-8 col-centered">
 									<?php
 											echo tag('input', false, array(
 							    				'type' => 'text',
-							    				'class' => 'form-control',
+							    				'class' => 'form-control autocomplete',
 							    				'name' => 'keyword',
-							    				'placeholder' => 'Ketik kata kunci masakan &hellip;',
-							    				'value' => $this->input->get('keyword'),
+							    				'placeholder' => lang('type_search_keyword'). ' &hellip;',
+							    				'value' => !empty( $this->input->get('keyword') ) ? $this->input->get('keyword') : (isset( $request['RecipeName'] ) ? $request['RecipeName'] : false),
 							    				'maxlength' => 200,
+							    				'autocomplete' => 'off',
+							    				'data-class' => 'acpRecipe',
+												'data-provide' => 'typeahead',
+												'data-url' => $domain.'/ajax/list_recipe',
+												'data-path' => 'resources/images/uploads/recipe/primary/thumbs/',
+												'redirect-on-selected-path' => 'resep-masak/',
 							    			));
 									?>
 								</div>
 								<div class="col-sm-2 col-xs-8 col-centered">
-									<input type="submit" class="btn btn-orange btn-block" value="Cari" />
+									<?php
+											echo tag('input', false, array(
+												'type' => 'submit',
+												'class' => 'btn btn-orange btn-block with-loading',
+												'value' => lang('search'),
+											));
+									?>
 								</div>
 							</div>
 						</form>

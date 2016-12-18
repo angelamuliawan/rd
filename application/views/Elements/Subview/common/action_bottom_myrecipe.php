@@ -13,16 +13,16 @@
 		));
 
 		$view .= tag('span', 'Selengkapnya', array(
-			'class' => 'ml5'
+			'class' => 'ml5 iconText'
 		));
 		$edit .= tag('span', 'Edit', array(
-			'class' => 'ml5'
+			'class' => 'ml5 iconText'
 		));
 		$delete .= tag('span', 'Delete', array(
-			'class' => 'ml5'
+			'class' => 'ml5 iconText'
 		));
 		$share .= tag('span', 'Share', array(
-			'class' => 'ml5 mr10'
+			'class' => 'ml5 mr10 iconText'
 		));
 
 		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;

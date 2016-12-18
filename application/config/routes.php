@@ -48,10 +48,9 @@ $route['artikel/(:num)'] = 'pages/article_detail/$1';
 $route['artikel/(:num)/(:any)'] = 'pages/article_detail/$1/$2';
 
 $route['kontes-masak/(:num)/(:any)'] = 'recipe/contest_detail/$1/$2';
-
 $route['resep-kontes/(:num)/(:any)'] = 'recipe/contest_recipe/$1/$2';
-
 $route['users/profile/(:num)/(:any)'] = 'users/profile/$1/$2';
+$route['recipe/view_recook/(:num)/(:any)'] = 'recipe/view_recook/$1/$2';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

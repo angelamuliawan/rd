@@ -15,22 +15,36 @@
 				?>
 							<form class="desktop-only" role="form" action="<?php echo $domain; ?>/recipe/find" method="GET" accept-charset="utf-8">
 							  	<div class="wrapper-adv-search">
-								 	<div class="form-group">
-										<label for="txtKeyword">Kata Kunci</label>
+								 	<div class="form-group autocomplete-small">
+										<label for="txtKeyword">
+											<?php
+													echo lang('keyword');
+											?>
+										</label>
 										<?php
 												echo tag('input', false, array(
 													'id' => 'txtKeyword',
 								    				'type' => 'text',
-								    				'class' => 'form-control',
+								    				'class' => 'form-control autocomplete',
 								    				'name' => 'keyword',
-								    				'placeholder' => 'Ketik kata kunci masakan &hellip;',
+								    				'placeholder' => lang('type_search_keyword'). ' &hellip;',
 								    				'value' => $this->input->get('keyword'),
 								    				'maxlength' => 200,
+								    				'autocomplete' => 'off',
+								    				'data-class' => 'acpRecipe',
+													'data-provide' => 'typeahead',
+													'data-url' => $domain.'/ajax/list_recipe',
+													'data-path' => 'resources/images/uploads/recipe/primary/thumbs/',
+													'redirect-on-selected-path' => 'resep-masak/',
 								    			));
 										?>
 								  	</div>
 								  	<div class="form-group">
-										<label for="Composition">Bahan Baku</label>
+										<label for="Composition">
+											<?php
+													echo lang('composition');
+											?>
+										</label>
 										<?php
 												echo tag('div', false, array(
 													'class' => 'ms-custom form-control'
@@ -45,50 +59,74 @@
 													'type' => 'hidden',
 													'id' => 'hdnSubmittedMsValue',
 													'name' => 'hdnSubmittedMsValue',
-													'value' => (isset($request['CompositionID'])? implode($request['CompositionID'], ','):false)
+													'value' => (isset($request['CompositionID'])? implode($request['CompositionID'], ','):false),
 												));
 										?>
 								  	</div>
 									<div class="form-group">
-										<label for="CuisineID">Masakan</label>
+										<label for="CuisineID">
+											<?php
+													echo lang('cuisine');
+											?>
+										</label>
 										<?php
-												echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple"');
+												echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
 										?>
 									</div>
 									<div class="form-group">
-										<label for="FoodTypeID">Jenis</label>
+										<label for="FoodTypeID">
+											<?php
+													echo lang('cuisine_type');
+											?>
+										</label>
 										<?php
-												echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple"');
+												echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
 										?>
 									</div>
 									<div class="form-group">
-										<label for="FoodProcessID">Proses Masak</label>
+										<label for="FoodProcessID">
+											<?php
+													echo lang('cooking_process');
+											?>
+										</label>
 										<?php
-												echo form_dropdown('FoodProcessID', $food_process, (isset($request['FoodProcessID'])?$request['FoodProcessID']:false), 'class="form-control multiple-select" multiple="multiple"');
+												echo form_dropdown('FoodProcessID', $food_process, (isset($request['FoodProcessID'])?$request['FoodProcessID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
 										?>
 									</div>
 									<div class="form-group">
-										<label for="PriceRangeID">Estimasi Biaya</label>
+										<label for="PriceRangeID">
+											<?php
+													echo lang('price_estimation');
+											?>
+										</label>
 										<?php
-												echo form_dropdown('PriceRangeID', $price_ranges, (isset($request['PriceRangeID'])?$request['PriceRangeID']:false), 'class="form-control multiple-select" multiple="multiple"');
+												echo form_dropdown('PriceRangeID', $price_ranges, (isset($request['PriceRangeID'])?$request['PriceRangeID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
 										?>
 									</div>
 									<div class="form-group">
-										<label for="EstPeopleID">Estimasi Orang</label>
+										<label for="EstPeopleID">
+											<?php
+													echo lang('people_estimation');
+											?>
+										</label>
 										<?php
-												echo form_dropdown('EstPeopleID', $estimation_peoples, (isset($request['EstPeopleID'])?$request['EstPeopleID']:false), 'class="form-control multiple-select" multiple="multiple"');
+												echo form_dropdown('EstPeopleID', $estimation_peoples, (isset($request['EstPeopleID'])?$request['EstPeopleID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
 										?>
 									</div>
 									<div class="form-group">
-										<label for="Sorting">Urutkan Berdasarkan</label>
+										<label for="Sorting">
+											<?php
+													echo lang('sort_by');
+											?>
+										</label>
 										<?php
 												echo form_dropdown('Sorting', $sorts, (isset($request['Sorting'])?$request['Sorting']:false), 'class="form-control"');
 										?>
 									</div>
 									<div class="form-group">
 								  		<?php
-								  				echo tag('button', 'Cari', array(
-								  					'class' => 'btn btn-orange full-width',
+								  				echo tag('button', lang('search'), array(
+								  					'class' => 'btn btn-orange full-width with-loading',
 								  					'type' => 'submit',
 								  				));
 								  		?>
@@ -118,10 +156,12 @@
 											$user_id = $value['UserID'];
 											$username = $value['UserName'];
 
+											$cnt_love = $value['NumberOfLove'];
 											$cnt_comment = $value['NumberOfComment'];
 											$cnt_recook = $value['NumberOfRecook'];
 											$cnt_view = $value['NumberOfView'];
 
+											$flag_love = $value['FlagLove'];
 											$flag_cookmark = $value['FlagCookmark'];
 											$flag_recook = $value['FlagRecook'];
 											$flag_creator = $value['FlagCreator'];
@@ -137,9 +177,11 @@
 												'recipe_intro' => $recipe_intro,
 												'user_id' => $user_id,
 												'username' => $username,
+												'cnt_love' => $cnt_love,
 												'cnt_comment' => $cnt_comment,
 												'cnt_recook' => $cnt_recook,
 												'cnt_view' => $cnt_view,
+												'flag_love' => $flag_love,
 												'flag_cookmark' => $flag_cookmark,
 												'flag_recook' => $flag_recook,
 												'flag_creator' => $flag_creator,
@@ -171,113 +213,145 @@
 <?php
 		if( isMobile() ) {
 ?>
-<div class="wrapper-adv-search-mobile">
-	<div class="custom-navbar-header">
-		<?php
-				echo tag('div', 'Filter', array(
-					'class' => 'left-side'
-				));
-				echo tag('span', false, array(
-					'class' => 'glyphicon glyphicon-remove',
-					'wrapTag' => 'div',
-					'wrapAttributes' => array(
-						'class' => 'right-side',
-						'toggle-oveflow' => 'true',
-						'toggle-on-click' => '.wrapper-adv-search-mobile',
-					),
-				));
-		?>
-	</div>
+			<div class="wrapper-adv-search-mobile">
+				<div class="custom-navbar-header">
+					<?php
+							echo tag('div', 'Filter', array(
+								'class' => 'left-side'
+							));
+							echo tag('span', false, array(
+								'class' => 'glyphicon glyphicon-remove',
+								'wrapTag' => 'div',
+								'wrapAttributes' => array(
+									'class' => 'right-side',
+									'toggle-oveflow' => 'true',
+									'toggle-on-click' => '.wrapper-adv-search-mobile',
+								),
+							));
+					?>
+				</div>
 
-	<div class="row no-mg" style="padding: 20px 10px 35px;">
-		<div class="col-sm-12">
-			<form role="form" action="<?php echo $domain; ?>/recipe/find" method="GET" accept-charset="utf-8">
-			 	<div class="form-group">
-					<label for="txtKeyword">Kata Kunci</label>
-					<?php
-							echo tag('input', false, array(
-								'id' => 'txtKeyword',
-			    				'type' => 'text',
-			    				'class' => 'form-control',
-			    				'name' => 'keyword',
-			    				'placeholder' => 'Ketik kata kunci masakan &hellip;',
-			    				'value' => $this->input->get('keyword'),
-			    				'maxlength' => 200,
-			    			));
-					?>
-			  	</div>
-			  	<div class="form-group">
-					<label for="Composition">Bahan Baku</label>
-					<?php
-							echo tag('div', false, array(
-								'class' => 'ms-custom form-control'
-							));
-							echo tag('input', false, array(
-								'type' => 'hidden',
-								'id' => 'hdnSuggestValue',
-								'name' => 'hdnSuggestValue',
-								'value' => $compositions,
-							));
-							echo tag('input', false, array(
-								'type' => 'hidden',
-								'id' => 'hdnSubmittedMsValue',
-								'name' => 'hdnSubmittedMsValue',
-								'value' => (isset($request['CompositionID'])? implode($request['CompositionID'], ','):false)
-							));
-					?>
-			  	</div>
-				<div class="form-group">
-					<label for="CuisineID">Masakan</label>
-					<?php
-							echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple"');
-					?>
+				<div class="row no-mg" style="padding: 20px 10px 35px;">
+					<div class="col-sm-12">
+						<form role="form" action="<?php echo $domain; ?>/recipe/find" method="GET" accept-charset="utf-8">
+						 	<div class="form-group">
+								<label for="txtKeyword">
+									<?php
+											echo lang('keyword');
+									?>
+								</label>
+								<?php
+										echo tag('input', false, array(
+											'id' => 'txtKeyword',
+						    				'type' => 'text',
+						    				'class' => 'form-control',
+						    				'name' => 'keyword',
+						    				'placeholder' => lang('type_search_keyword') . ' &hellip;',
+						    				'value' => $this->input->get('keyword'),
+						    				'maxlength' => 200,
+						    			));
+								?>
+						  	</div>
+						  	<div class="form-group">
+								<label for="Composition">
+									<?php
+											echo lang('composition');
+									?>
+								</label>
+								<?php
+										echo tag('div', false, array(
+											'class' => 'ms-custom form-control'
+										));
+										echo tag('input', false, array(
+											'type' => 'hidden',
+											'id' => 'hdnSuggestValue',
+											'name' => 'hdnSuggestValue',
+											'value' => $compositions,
+										));
+										echo tag('input', false, array(
+											'type' => 'hidden',
+											'id' => 'hdnSubmittedMsValue',
+											'name' => 'hdnSubmittedMsValue',
+											'value' => (isset($request['CompositionID'])? implode($request['CompositionID'], ','):false)
+										));
+								?>
+						  	</div>
+							<div class="form-group">
+								<label for="CuisineID">
+									<?php
+											echo lang('cuisine');
+									?>
+								</label>
+								<?php
+										echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
+								?>
+							</div>
+							<div class="form-group">
+								<label for="FoodTypeID">
+									<?php
+											echo lang('cuisine_type');
+									?>
+								</label>
+								<?php
+										echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
+								?>
+							</div>
+							<div class="form-group">
+								<label for="FoodProcessID">
+									<?php
+											echo lang('cooking_process');
+									?>
+								</label>
+								<?php
+										echo form_dropdown('FoodProcessID', $food_process, (isset($request['FoodProcessID'])?$request['FoodProcessID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
+								?>
+							</div>
+							<div class="form-group">
+								<label for="PriceRangeID">
+									<?php
+											echo lang('price_estimation');
+									?>
+								</label>
+								<?php
+										echo form_dropdown('PriceRangeID', $price_ranges, (isset($request['PriceRangeID'])?$request['PriceRangeID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
+								?>
+							</div>
+							<div class="form-group">
+								<label for="EstPeopleID">
+									<?php
+											echo lang('people_estimation');
+									?>
+								</label>
+								<?php
+										echo form_dropdown('EstPeopleID', $estimation_peoples, (isset($request['EstPeopleID'])?$request['EstPeopleID']:false), 'class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
+								?>
+							</div>
+							<div class="form-group">
+								<label for="Sorting">
+									<?php
+											echo lang('sort_by');
+									?>
+								</label>
+								<?php
+										echo form_dropdown('Sorting', $sorts, (isset($request['Sorting'])?$request['Sorting']:false), 'class="form-control"');
+								?>
+							</div>
+							<div class="form-group">
+						  		<?php
+						  				echo tag('button', lang('search'), array(
+						  					'class' => 'btn btn-orange full-width with-loading',
+						  					'type' => 'submit',
+						  				));
+						  		?>
+						  	</div>
+						</form>
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="FoodTypeID">Jenis</label>
-					<?php
-							echo form_dropdown('FoodTypeID', $food_types, (isset($request['FoodTypeID'])?$request['FoodTypeID']:false), 'class="form-control multiple-select" multiple="multiple"');
-					?>
-				</div>
-				<div class="form-group">
-					<label for="FoodProcessID">Proses Masak</label>
-					<?php
-							echo form_dropdown('FoodProcessID', $food_process, (isset($request['FoodProcessID'])?$request['FoodProcessID']:false), 'class="form-control multiple-select" multiple="multiple"');
-					?>
-				</div>
-				<div class="form-group">
-					<label for="PriceRangeID">Estimasi Biaya</label>
-					<?php
-							echo form_dropdown('PriceRangeID', $price_ranges, (isset($request['PriceRangeID'])?$request['PriceRangeID']:false), 'class="form-control multiple-select" multiple="multiple"');
-					?>
-				</div>
-				<div class="form-group">
-					<label for="EstPeopleID">Estimasi Orang</label>
-					<?php
-							echo form_dropdown('EstPeopleID', $estimation_peoples, (isset($request['EstPeopleID'])?$request['EstPeopleID']:false), 'class="form-control multiple-select" multiple="multiple"');
-					?>
-				</div>
-				<div class="form-group">
-					<label for="Sorting">Urutkan Berdasarkan</label>
-					<?php
-							echo form_dropdown('Sorting', $sorts, (isset($request['Sorting'])?$request['Sorting']:false), 'class="form-control"');
-					?>
-				</div>
-				<div class="form-group">
-			  		<?php
-			  				echo tag('button', 'Cari', array(
-			  					'class' => 'btn btn-orange full-width',
-			  					'type' => 'submit',
-			  				));
-			  		?>
-			  	</div>
-			</form>
-		</div>
-	</div>
-</div>
+			</div>
 
-<div class="wrapper-search-icon-mobile mobile-only" toggle-oveflow="true" toggle-on-click=".wrapper-adv-search-mobile">
-	<span class="glyphicon glyphicon-search"></span>
-</div>
+			<div class="wrapper-search-icon-mobile mobile-only" toggle-oveflow="true" toggle-on-click=".wrapper-adv-search-mobile">
+				<span class="glyphicon glyphicon-search"></span>
+			</div>
 
 <?php
 		}

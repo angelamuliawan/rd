@@ -3,7 +3,7 @@
 	<head>
 		<?php
 				$site_title = isset($site_title) ? $site_title.' - ' : '';
-				echo tag('title', $site_title.'Direktori Resep Online - Cookindo.com');
+				echo tag('title', $site_title . lang('site_title') . ' - Cookindo.com');
 		?>
 		<!-- <meta charset="utf-8" /> -->
 		<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
@@ -12,8 +12,8 @@
 		<meta name="robots" content="index,follow" />
 		
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<meta name="keywords" content="cookindo, resep masak, resep enak, makanan enak, makanan lezat, masak apa hari ini, masakan enak, masakan murah, masakan lezat" />
-		<meta name="description" content="Cookindo adalah direktori resep online dari Indonesia yang memungkinkan user untuk mencari resep sesuai dengan kebutuhan mereka. Untuk mendapatkan resep yang user inginkan, cookindo menyediakan fitur pencarian yang lengkap mulai dari estimasi harga, orang, maupun bahan-bahan masakan yang dimiliki oleh user." />
+		<meta name="keywords" content="<?php echo lang('site_keyword') ?>" />
+		<meta name="description" content="<?php echo lang('site_description') ?>" />
 		<meta name="author" content="Cookindo" />
 		<meta name="copyright" content="cookindo.com" />
 		<meta name="application-name" content="cookindo" />
@@ -22,7 +22,7 @@
 		<?php
 				if( !empty($og_meta) ) {
 					if( !empty($og_meta['title']) ) {
-						echo '<meta property="og:title" content="'.htmlspecialchars($og_meta['title']).'" />';
+						echo '<meta property="og:title" content="'.htmlspecialchars($og_meta['title'], ENT_QUOTES).'" />';
 					}
 					if( !empty($og_meta['url']) ) {
 						echo '<meta property="og:url" content="'.utf8_encode($og_meta['url']).'" />';
@@ -31,14 +31,14 @@
 						echo '<meta property="og:image" content="'.$og_meta['image'].'" />';
 					}
 					if( !empty($og_meta['desc']) ) {
-						echo '<meta property="og:description" content="'.strip_tags($og_meta['desc']).'" />';
+						echo '<meta property="og:description" content="'.htmlspecialchars(strip_tags($og_meta['desc']), ENT_QUOTES).'" />';
 					}
 				} else {
 		?>
-		<meta property="og:title" content="Cookindo" />
-		<meta property="og:url" content="http://cookindo.com" />
-		<meta property="og:image" content="http://cookindo.com/resources/images/logos/logo.jpg" />
-		<meta property="og:description" content="Cookindo adalah direktori resep online dari Indonesia yang memungkinkan user untuk mencari resep sesuai dengan kebutuhan mereka. Untuk mendapatkan resep yang user inginkan, cookindo menyediakan fitur pencarian yang lengkap mulai dari estimasi harga, orang, maupun bahan-bahan masakan yang dimiliki oleh user." />
+					<meta property="og:title" content="Cookindo" />
+					<meta property="og:url" content="http://cookindo.com" />
+					<meta property="og:image" content="http://cookindo.com/resources/images/logos/logo.jpg" />
+					<meta property="og:description" content="<?php echo lang('site_description') ?>" />
 		<?php
 				}
 		?>
@@ -46,6 +46,9 @@
 		<link rel="canonical" href="http://www.cookindo.com/" />
 		<link rel="shortcut icon" href="<?php echo $domain.'/resources/images/logos/favicon.ico'; ?>" type="image/x-icon">
 		<link rel="icon" href="<?php echo $domain.'/resources/images/logos/favicon.ico'; ?>" type="image/x-icon">
+
+		<input type="hidden" id="sid" value="<?php echo $this->session->userdata('session_id'); ?>" />
+		<input type="hidden" id="site_lang" value="<?php echo $site_lang; ?>" />
 
 		<style>
 			@charset "UTF-8";
@@ -112,7 +115,7 @@
 				));
 				$imageLoading = tag('img', 'Loading...', array(
 					'src' => $domain.'/resources/images/reload.gif',
-					'style' => 'width:25px; height:auto; display:block; margin: 0 12px;',
+					'class' => 'loading-icon',
 					'wrapTag' => 'div',
 					'wrapAttributes' => array(
 						'style' => 'position:absolute; left:47%; top:45%; color:white;',
@@ -139,6 +142,9 @@
 
 				if(isset($additional_js) && !empty($additional_js)) {
 	                load_script($additional_js);
+	            }
+	            if(isset($additional_jsx) && !empty($additional_jsx)) {
+	                load_jsx($additional_jsx);
 	            }
 		?>
 

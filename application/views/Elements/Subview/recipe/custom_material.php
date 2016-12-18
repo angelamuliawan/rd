@@ -37,7 +37,7 @@
 					'type' => 'text',
 					'value' => ( !empty($measure) ) ? $measure : set_value($measure_name),
 					'class' => 'form-control inputField template-field freeField',
-					'placeholder' => 'contoh: 100',
+					'placeholder' => lang('example_composition'),
 					'data-model' => 'Measure',
 					'style' => ( $measure_size == 9 || $measure_size == 10 && $type == 'load' ) ? 'pointer-events:none; background-color:#efefef;' : '',
 				));
@@ -49,20 +49,21 @@
 				echo form_dropdown($measure_size_name, $measure_sizes, $measure_size, 'id="ddlMeasureSize" class="form-control inputField ddlMeasureSize"');
 		?>
 	</div>
-	<div class="col-sm-3 col-xs-2 no-pd custom-field">
+	<div class="col-sm-4 col-xs-2 no-pd custom-field">
 		<?php
 				echo form_input(array(
 					'id' => 'Composition'.$counter,
 					'name' => $composition_name,
-					'data-class' => 'acpComposition',
 					'type' => 'text',
-					'data-provide' => 'typeahead',
-					'data-url' => $domain.'/ajax/list_composition',
 					'value' => ( !empty($composition) ) ? $composition : set_value($composition_name),
 					'class' => 'form-control inputField autocomplete template-field',
 					'autocomplete' => 'off',
-					'data-model' => 'CompositionName',
 					'maxlength' => 100,
+					'data-class' => 'acpComposition',
+					'data-provide' => 'typeahead',
+					'data-url' => $domain.'/ajax/list_composition',
+					'data-model' => 'CompositionName',
+					'data-block-screen' => true,
 				));
 				echo form_error($composition_name);
 		
@@ -76,7 +77,7 @@
 				));
 		?>
 	</div>
-	<div class="col-sm-3 col-xs-4">
+	<div class="col-sm-2 col-xs-4">
 		<div class="icon-holder">
 			<?php
 					$hideActionDelete = ' hide';
@@ -84,12 +85,6 @@
 						$hideActionDelete = '';
 					}
 
-					// echo tag('span', false, array(
-					// 	'class' => 'glyphicon glyphicon-circle-arrow-up reorder-data move-data-up'
-					// ));
-					// echo tag('span', false, array(
-					// 	'class' => 'glyphicon glyphicon-circle-arrow-down reorder-data move-data-down'
-					// ));
 					echo tag('span', false, array(
 						'class' => 'glyphicon glyphicon-trash reorder-data remove-data'.$hideActionDelete
 					));

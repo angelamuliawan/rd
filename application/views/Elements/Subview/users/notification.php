@@ -22,7 +22,7 @@
 					));
 
 					if( empty($isRead) ) {
-						echo tag('span', 'Baru', array(
+						echo tag('span', lang('new'), array(
 							'class' => 'pull-right label label-success mt20',
 							'wrapTag' => 'div',
 							'wrapAttributes' => array(

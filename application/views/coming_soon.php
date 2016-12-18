@@ -9,8 +9,8 @@
 				<div id="cookmark" class="wrapper-food-list-vertical">
 					<div class="content with-border pd15 tacenter mb20">
 						<?php
-								echo tag('h2', 'Coming Soon');
-								echo tag('p', 'Fitur ini sedang kami kembangkan.', array(
+								echo tag('h2', lang('coming_soon'));
+								echo tag('p', lang('under_development_feature'), array(
 									'class' => 'mt10'
 								));
 						?>

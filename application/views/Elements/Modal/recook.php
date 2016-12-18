@@ -10,7 +10,11 @@
 	    <div class="modal-content">
 	      	<div class="modal-header">
 	        	<button type="button" class="close close-modal" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        	<h3 id="myModalLabel" class="modal-title">Recook</h3>
+	        	<h3 id="myModalLabel" class="modal-title">
+	        		<?php
+	        				echo lang('recook');
+	        		?>
+	        	</h3>
 	      	</div>
 	      	<div class="modal-body pd15">
 	      		<div class="row">
@@ -42,16 +46,15 @@
 					        			?>
 					        		</div>
 					        		<div class="text-wrapper">
-					        			<p>Drag & Drop</p>
-					        			<p>
-					        				Letakkan dokumen Anda disini untuk melakukan proses unggah
-					        			</p>
-
-					        			<!-- The fileinput-button span is used to style the file input field as button -->
+					        			<?php
+					        					echo tag('p', 'Drag & Drop');
+					        					echo tag('p', lang('drag_to_upload'));
+					        			?>
 									    <span class="btn btn-primary fileinput-button">
 									        <i class="glyphicon glyphicon-plus"></i>
-									        <span>Upload Foto Recook</span>
-									        <!-- The file input field used as target for the file upload widget -->
+									        <?php
+									        		echo tag('span', lang('upload_recook_photo'));
+									        ?>
 									        <input id="fileupload" type="file" name="files" />
 									    </span>
 									    <?php
@@ -59,11 +62,6 @@
 								        ?>
 									    <br>
 									    <br>
-									    <!-- The global progress bar -->
-									    <!-- <div id="progress" class="progress">
-									        <div class="progress-bar progress-bar-success"></div>
-									    </div> -->
-									    <!-- The container for the uploaded files -->
 									    <div id="files" class="files"></div>
 					        		</div>
 					        	</div>
@@ -78,24 +76,24 @@
 						    				'rows' => 4,
 						    				'class' => 'form-control mt15',
 						    				'name' => 'RecookDesc',
-						    				'placeholder' => 'Cerita recook kamu. Apakah kamu menambahkan atau mengurangi bahan? Apakah masakan kamu berhasil?',
+						    				'placeholder' => lang('describe_recook_story'),
 						    				'maxlength' => 500,
 						    			));
 										echo form_error('RecookDesc'); 
 					        	?>
 				        		<div class="form-group mt20 taright">
-							  		<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-							  		<input type="submit" class="btn btn-primary" value="Kirim" />
+							  		<button type="button" class="btn btn-default" data-dismiss="modal">
+							  			<?php
+							  					echo lang('cancel');
+							  			?>
+							  		</button>
+							  		<input type="submit" class="btn btn-primary" value="<?php echo lang('save'); ?>" />
 							    </div>
 		      				</form>
 		      			</div>
 		      		</div>
 	      		</div>
 	      	</div>
-	      	<!-- <div class="modal-footer">
-	        	<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-	        	<button type="button" class="btn btn-primary">Kirim</button>
-	      	</div> -->
 	    </div>
   	</div>
 </div>

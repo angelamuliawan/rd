@@ -31,7 +31,7 @@
 								echo tag('div', false, array(
 									'class' => 'bg-holder',
 									'data-src' => $custom_image,
-									'is-progressive' => true,
+									'data-is-progressive' => true,
 								));
 								echo tag('h1', $title, array(
 									'wrapTag' => 'div',
@@ -60,17 +60,19 @@
 							<div class="wrapper-facebook with-border">
 								<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>&t=<?php echo $slug; ?>"
 								   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-								   target="_blank" title="Share on Facebook">
+								   target="_blank" title="<?php echo lang('share_to_facebook'); ?>">
 									<div class="wrapper-inner">
-										<span>Bagikan ke facebook</span>
+										<?php
+												echo tag('span', lang('share_to_facebook'));
+										?>
 									</div>
 								</a>
 							</div>
 						</div>
+						<div class="fb-comments" data-href="<?php echo('http://'.$_SERVER['HTTP_HOST'].$_SERVER['PATH_INFO']); ?>" data-numposts="10" data-width="100%"></div>
 					</div>
-				</div>
+				</div>			
 				<?php
-						loadSubview('article/comment');
 						loadSubview('article/item_article');
 				?>
 			</div>

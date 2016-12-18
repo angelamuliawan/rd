@@ -23,8 +23,30 @@
 
 					$path_image = '/resources/images/uploads/users/thumbs/'.$image;
 					$custom_image = $domain.$path_image;
+					
 					if( !file_exists( $webroot.$path_image ) ) {
-						$custom_image = $domain.'/resources/images/default.png';
+						$firstLetter =  !empty( $username[0] ) ? strtoupper($username[0]) : false;
+						$userImage = tag('div', $firstLetter, array(
+							'class' => 'alphabet-placeholder',
+							'style' => 'width: 64px; height: 64px; line-height: 68px; font-size: 32px; margin: 0 auto 10px;',
+							'wrapTag' => 'a',
+							'wrapAttributes' => array(
+								'title' => $username,
+								'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
+							),
+						));
+					} else {
+						$userImage = tag('img', false, array(
+							'src' => $custom_image,
+							'wrapTag' => 'a',
+							'wrapAttributes' => array(
+								'title' => $username,
+								'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
+							),
+							'img-progressive-type' => 'users',
+						));
+
+						$userImage .= '<br>';
 					}
 
 					$counter++;
@@ -33,23 +55,14 @@
 			<div class="row">
 				<div class="col-sm-12 wrapper-desc">
 					<?php
-							echo tag('img', false, array(
-								'src' => $custom_image,
-								'wrapTag' => 'a',
-								'wrapAttributes' => array(
-									'title' => $username,
-									'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
-								),
-								'img-progressive-type' => 'users',
-							));
-							echo '<br>';
+							echo $userImage;
 							echo tag('a', $username, array(
 								'title' => $username,
 								'class' => 'fbold',
 								'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
 							));
 
-							$text_stats = $cnt_recipe.' Resep';
+							$text_stats = sprintf('%s %s', $cnt_recipe, lang('recipe'));
 							if( !empty($cnt_recook) ) {
 								$text_stats .= ', '.$cnt_recook.' Recook';
 							}

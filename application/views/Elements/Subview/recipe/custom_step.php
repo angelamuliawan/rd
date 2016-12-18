@@ -6,12 +6,10 @@
 		$step = !empty($step)?$step:false;
 
 		$step_name = 'FoodProcess['.$counter.'][FoodStepName]';
-		// $step_sequence = 'FoodProcess['.$counter.'][FoodStepSequence]';
 
 		if( $type == 'init' ) {
 			$class = 'clone-template-step hide wrapper-template';
 			$step_name = 'FoodStepName';
-			// $step_sequence = 'FoodStepSequence';
 		}
 ?>
 
@@ -30,7 +28,7 @@
 					'rows' => 4,
 					'name' => $step_name,
 					'class' => 'form-control mb5 inputField template-field',
-					'placeholder' => 'Masukkan deskripsi langkah apa yang Anda lakukan pada tahap ini secara detil. Contoh: Tuangkan 100mg air ke dalam botol lalu kocok 5 kali.',
+					'placeholder' => lang('example_step'),
 					'data-model' => 'FoodStepName',
 					'maxlength' => 1200,
 				));

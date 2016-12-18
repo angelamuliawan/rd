@@ -23,7 +23,7 @@ if ( ! function_exists('tag')) {
 		$wrapTag = false;
 		$stringify_wrapper_attributes = '';
 
-		if( $tag == 'img' && empty($attributes['disable_progressive']) ) {
+		if( $tag == 'img' && empty($attributes['data-disable-progressive']) ) {
 			$CI = get_instance();
 
 			$attributes['data-src'] = $attributes['src'];
@@ -37,7 +37,7 @@ if ( ! function_exists('tag')) {
 					unset($attributes['img-progressive-type']);
 				}
 			}
-		} else if( $tag == 'div' && !empty($attributes['is-progressive']) ) {
+		} else if( $tag == 'div' && !empty($attributes['data-is-progressive']) ) {
 			$CI = get_instance();
 			if( isset($attributes['style']) ) {
 				$attributes['style'] .= "background-image:url(".$CI->domain."/resources/images/placeholder/recipe.jpg)";
@@ -78,6 +78,22 @@ if ( ! function_exists('load_script')) {
 		if( !empty($scripts) ) {
 			foreach ($scripts as $script) {
 				$stringify_script .= "<script type='text/javascript' src='".$CI->domain.'/resources/js/'.$script.".js'></script>";
+		    }
+		}
+	    
+	    echo $stringify_script;
+	}
+}
+
+if ( ! function_exists('load_jsx')) {
+
+	function load_jsx( $scripts = array() ) {
+		$stringify_script = '';
+		$CI = get_instance();
+
+		if( !empty($scripts) ) {
+			foreach ($scripts as $script) {
+				$stringify_script .= "<script type='text/babel' src='".$CI->domain.'/resources/jsx/'.$script.".jsx'></script>";
 		    }
 		}
 	    

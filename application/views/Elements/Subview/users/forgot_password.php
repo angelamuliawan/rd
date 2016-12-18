@@ -4,7 +4,7 @@
 				echo $alert;
 			}
 
-			echo tag('p', 'Masukkan alamat email Anda dan kami akan mengirimkan instruksi untuk mengganti password Anda.', array(
+			echo tag('p', lang('forgot_password_description'), array(
 				'class' => 'tajustify',
 				'wrapTag' => 'label',
 			));

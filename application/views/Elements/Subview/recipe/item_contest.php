@@ -13,7 +13,7 @@
 		$iconCalendar = tag('img', false, array(
 			'style' => 'width:15px;',
 			'src' => $domain.'/resources/icons/calendar.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 
 		$path_image = '/resources/images/uploads/banner/horizontal/'.$image;
@@ -36,13 +36,13 @@
 							'wrapAttributes' => array(
 								'class' => 'box-header',
 							),
-							'is-progressive' => true,
+							'data-is-progressive' => true,
 						));
 				?>
 			</a>
 			<div class="box-footer">
 				<?php
-						echo tag('p', (( $is_active == 1 ) ? 'Kontes Sedang Berlangsung' : 'Kontes Telah Berakhir'), array(
+						echo tag('p', (( $is_active == 1 ) ? lang('contest_ongoing') : lang('contest_ended')), array(
 							'class' => 'pull-right mr5 fbold',
 						));
 				?>
@@ -71,8 +71,8 @@
 				<div class="pull-left mr10 mt5">
 					<span>
 						<?php
-								echo tag('a', sprintf('%s Resep', $cnt_recipe), array(
-									'title' => sprintf('%s Resep', $cnt_recipe),
+								echo tag('a', sprintf('%s %s', $cnt_recipe, lang('recipe')), array(
+									'title' => sprintf('%s %s', $cnt_recipe, lang('recipe')),
 									'href' => $domain.'/resep-kontes/'.$contest_id.'/'.$slug,
 									'class' => 'fbold mt5',
 								));
@@ -83,8 +83,8 @@
 				<div class="pull-left mr10 mt5">
 					<span>
 						<?php
-								echo tag('a', 'Lihat Detail', array(
-									'title' => 'Lihat Detail',
+								echo tag('a', lang('view_detail'), array(
+									'title' => lang('view_detail'),
 									'href' => $domain.'/kontes-masak/'.$contest_id.'/'.$slug,
 									'class' => 'fbold mt5',
 								));
@@ -100,21 +100,21 @@
 						<?php
 								if( !empty($is_active) ) {
 									if( isLoggedIn() ) {
-										echo tag('a', 'Tulis Resep', array(
-											'title' => 'Tulis Resep',
+										echo tag('a', lang('create_recipe'), array(
+											'title' => lang('create_recipe'),
 											'href' => $domain.'/recipe/add/'.$contest_id,
 											'class' => 'btn btn-orange',
 										));
 									} else {
-										echo tag('a', 'Tulis Resep', array(
-											'title' => 'Tulis Resep',
+										echo tag('a', lang('create_recipe'), array(
+											'title' => lang('create_recipe'),
 											'href' => $domain.'/users/login?redirect_after=recipe/add/'.$contest_id,
 											'class' => 'btn btn-orange ajax-modal',
 										));
 									}
 								} else {
-									echo tag('a', 'Lihat Pemenang', array(
-										'title' => 'Lihat Pemenang',
+									echo tag('a', lang('view_winner'), array(
+										'title' => lang('view_winner'),
 										'href' => $domain.'/recipe/contest_winner/'.$contest_id,
 										'class' => 'btn btn-orange ajax-modal',
 									));

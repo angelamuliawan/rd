@@ -8,7 +8,7 @@
 		$path_image = '/resources/images/uploads/cuisine/primary/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
-			$custom_image = $domain.'/resources/images/default.png';
+			$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 		}
 
 		$url = $domain.'/recipe/find?CuisineID='.$cuisine_id.'&CuisineID'.urlencode('[]').'='.$cuisine_id;
@@ -23,7 +23,7 @@
 					echo tag('div', false, array(
 						'class' => 'item-cuisine',
 						'data-src' => $custom_image,
-						'is-progressive' => true,
+						'data-is-progressive' => true,
 					));
 					// echo tag('img', false, array(
 					// 	'src' => $custom_image,

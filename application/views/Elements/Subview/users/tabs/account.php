@@ -25,7 +25,7 @@
 	  	?>
 	  	<div class="form-group">
 	  		<?php
-	  				echo tag('label', 'Nama Lengkap', array(
+	  				echo tag('label', lang('fullname'), array(
 	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'username',
 	  				));
@@ -45,7 +45,7 @@
 	  	</div>
 	  	<div class="form-group">
 			<?php
-					echo tag('label', 'Deskripsi Diri', array(
+					echo tag('label', lang('describe_yourself'), array(
 	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'city',
 	  				));
@@ -57,7 +57,7 @@
 		    				'class' => 'form-control',
 		    				'name' => 'description',
 		    				'value' => isset( $request['description'] ) ? set_value('description') : $description,
-		    				'maxlength' => 100,
+		    				'maxlength' => 150,
 		    			));
 		    			echo form_error('description');
 				?>
@@ -65,7 +65,7 @@
 		</div>
 		<div class="form-group">
 			<?php
-					echo tag('label', 'Tanggal Lahir', array(
+					echo tag('label', lang('birthday'), array(
 	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'birthday',
 	  				));
@@ -89,24 +89,30 @@
 		</div>
 		<div class="form-group">
 			<?php
-					echo tag('label', 'Gender', array(
+					echo tag('label', lang('gender'), array(
 	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'gender',
 	  				));
 			?>
 			<div class="col-sm-6">
 				<label for="female">
-					<input type="radio" id="female" name="gender" value="1" <?php echo ($gender == 1) ? 'checked' : ''; ?> > Perempuan
+					<input type="radio" id="female" name="gender" value="1" <?php echo ($gender == 1) ? 'checked' : ''; ?> >
+					<?php
+							echo lang('female');
+					?>
 				</label>
 				&ensp;
 				<label for="male">
-					<input type="radio" id="male" name="gender" value="2" <?php echo ($gender == 2) ? 'checked' : ''; ?> > Laki - Laki
+					<input type="radio" id="male" name="gender" value="2" <?php echo ($gender == 2) ? 'checked' : ''; ?> >
+					<?php
+							echo lang('male');
+					?>
 				</label>
 		    </div>
 		</div>
 		<div class="form-group">
 			<?php
-					echo tag('label', 'Negara', array(
+					echo tag('label', lang('country'), array(
 	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'country',
 	  				));
@@ -126,7 +132,7 @@
 		</div>
 		<div class="form-group">
 			<?php
-					echo tag('label', 'Kota', array(
+					echo tag('label', lang('city'), array(
 	  					'class' => 'col-sm-2 control-label taleft',
 	  					'for' => 'city',
 	  				));
@@ -146,8 +152,8 @@
 		</div>
 		<div class="form-group">
 	  		<?php
-	  				echo tag('button', 'Simpan', array(
-	  					'class' => 'btn btn-orange',
+	  				echo tag('button', lang('save'), array(
+	  					'class' => 'btn btn-orange with-loading',
 	  					'type' => 'submit',
 	  					'wrapTag' => 'div',
 	  					'wrapAttributes' => array(

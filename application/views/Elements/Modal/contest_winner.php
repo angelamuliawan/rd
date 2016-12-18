@@ -4,7 +4,11 @@
 	    <div class="modal-content">
 	      	<div class="modal-header">
 	        	<button type="button" class="close close-modal" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        	<h3 id="myModalLabel" class="modal-title">Informasi Pemenang Lomba</h3>
+	        	<h3 id="myModalLabel" class="modal-title">
+					<?php
+							echo lang('contest_winner_announcement');
+					?>
+				</h3>
 	      	</div>
 	      	<div class="modal-body pd15 pb20">
 	      		<div class="row">
@@ -29,11 +33,15 @@
 		      				<br>
 
 		      				<a title="Kastengel Cinta" target="_blank" href="http://www.cookindo.com/resep-masak/263/kastengel-cinta">
-		      					<img disable_progressive="1" disable_progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160505_08_03_14_78.jpg">
+		      					<img data-disable-progressive="1" data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160505_08_03_14_78.jpg">
 		      				</a>
 		      				<br><br>
 
-		      				<span> oleh </span>
+		      				<span>
+								<?php
+										echo lang('by');
+								?>
+							</span>
 		      				<a target="_blank" href="http://www.cookindo.com/users/profile/157/ayu-diana">Ayu Diana</a><br>
 		      				<hr>
 		      			</div>
@@ -43,11 +51,15 @@
 		      				<br>
 
 		      				<a title="Japanese Condensed Milk Bread" target="_blank" href="http://www.cookindo.com/resep-masak/277/japanese-condensed-milk-bread">
-		      					<img disable_progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160510_09_42_00_69.jpeg">
+		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160510_09_42_00_69.jpeg">
 		      				</a>
 		      				<br><br>
 
-		      				<span> oleh </span>
+		      				<span>
+								<?php
+										echo lang('by');
+								?>  
+							</span>
 		      				<a target="_blank" href="http://www.cookindo.com/users/profile/182/safira-devina-guissevina">Safira Devina Guissevina</a><br>
 		      				<hr>
 		      			</div>
@@ -57,11 +69,15 @@
 		      				<br>
 
 		      				<a title="Fancy Cake Pop" target="_blank" href="http://www.cookindo.com/resep-masak/295/fancy-cake-pop">
-		      					<img disable_progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160515_09_10_23_64.jpg">
+		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160515_09_10_23_64.jpg">
 		      				</a>
 		      				<br><br>
 
-		      				<span> oleh </span>
+		      				<span>
+							  	<?php
+										echo lang('by');
+								?>
+							</span>
 		      				<a target="_blank" href="http://www.cookindo.com/users/profile/168/chika-afandi">Chika Afandi</a><br>
 		      				<hr>
 		      			</div>
@@ -85,11 +101,15 @@
 		      				<br>
 
 		      				<a title="Nasi Pelangi Barbie" target="_blank" href="http://www.cookindo.com/resep-masak/132/nasi-pelangi-barbie">
-		      					<img disable_progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160407_15_34_45_61.jpg">
+		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160407_15_34_45_61.jpg">
 		      				</a>
 		      				<br><br>
 
-		      				<span> oleh </span>
+		      				<span>
+								<?php
+										echo lang('by');
+								?>  
+							</span>
 		      				<a target="_blank" href="http://www.cookindo.com/users/profile/100/rara">Rara</a><br>
 		      				<hr>
 		      			</div>
@@ -99,11 +119,15 @@
 		      				<br>
 
 		      				<a title="Perkedel Bakso" target="_blank" href="http://www.cookindo.com/resep-masak/199/perkedel-bakso">
-		      					<img disable_progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160414_10_50_57_55.jpg">
+		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160414_10_50_57_55.jpg">
 		      				</a>
 		      				<br><br>
 
-		      				<span> oleh </span>
+		      				<span>
+								<?php
+										echo lang('by');
+								?>  
+							</span>
 		      				<a target="_blank" href="http://www.cookindo.com/users/profile/104/tri-eko-setiyowati">Tri Eko Setiyowati</a><br>
 		      				<hr>
 		      			</div>
@@ -113,11 +137,15 @@
 		      				<br>
 
 		      				<a title="Colorful Mug Cake" target="_blank" href="http://www.cookindo.com/resep-masak/212/colorful-mug-cake">
-		      					<img disable_progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160414_15_14_55_69.jpg">
+		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160414_15_14_55_69.jpg">
 		      				</a>
 		      				<br><br>
 
-		      				<span> oleh </span>
+		      				<span>
+								<?php
+										echo lang('by');
+								?>  
+							</span>
 		      				<a target="_blank" href="http://www.cookindo.com/users/profile/125/fideliapryana">Fideliapryana</a><br>
 		      				<hr>
 		      			</div>

@@ -23,20 +23,28 @@
 		$path_image = '/resources/images/uploads/recipe/recook/'.$recook_photo;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
-			$custom_image = $domain.'/resources/images/default.png';
+			$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 		}
 
 		$recipe_path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$recipe_photo;
 		$recipe_custom_image = $domain.$recipe_path_image;
 		if( !file_exists( $webroot.$recipe_path_image ) ) {
-			$recipe_custom_image = $domain.'/resources/images/default.png';
+			$recipe_custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 		}
+
+		$cnt_love = isset($valuesRecipeRecook['NumberOfLove']) ? $valuesRecipeRecook['NumberOfLove'] : false;
+		$flag_love = isset($valuesRecipeRecook['FlagRecookLove']) ? $valuesRecipeRecook['FlagRecookLove'] : false;
+		$iconLove = tag('img', false, array(
+			'src' => $domain.'/resources/icons/love.png',
+			'data-disable-progressive' => true,
+			'style' => 'height: 20px;',
+		));
 
 		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
 ?>
 
-<div class="container mt20">
-	<div class="detail-recipe-header with-border bg-white">
+<div class="container bg-white">
+	<div class="detail-recipe-header">
 		<div class="row">
 			<div class="col-sm-12 print-floleft">
 				<div class="pd15 pb0">
@@ -44,7 +52,7 @@
 							echo tag('h1', $recipe, array(
 								'class' => 'mb5',
 							));
-		        			echo tag('span', 'di Recook oleh ');
+		        			echo tag('span', sprintf('%s ', lang('recooked_by')));
 		        			echo tag('a', $recook_username, array(
 		        				'class' => 'fbold',
 		        				'title' => $recook_username,
@@ -59,7 +67,7 @@
 		</div>
 	</div>
 
-	<div class="with-border bg-white">
+	<div class="detail-recipe-banner with-border">
 		<div class="row">
 			<div class="col-sm-5">
 				<div class="wrapper pd15 tacenter">
@@ -67,6 +75,15 @@
 							echo tag('img', false, array(
 								'src' => $custom_image,
 								'style' => 'width:100%; height:auto;',
+							));
+
+							loadSubview('common/action_bottom_find', array(
+								'recipe_id' => $recipe_id,
+								'recook_id' => $recook_id,
+								'slug' => $slug,
+								'flag_love' => $flag_love,
+								'flag_recook' => 1,
+								'flag_creator' => 1,
 							));
 					?>
 				</div>
@@ -86,7 +103,7 @@
 					</div>
 					<div class="media-body">
 						<?php
-								echo tag('p', 'Hasil recook dari :', array(
+								echo tag('p', sprintf('%s :', lang('recooked_from_recipe')), array(
 									'class' => 'tajustify comment wrapper-comment',
 									'style' => 'font-size:13px; margin-bottom: 5px;'
 								));
@@ -98,7 +115,7 @@
 									),
 								));
 
-								echo tag('span', 'oleh ', array(
+								echo tag('span', sprintf('%s ', lang('by')), array(
 									'class' => 'tajustify',
 									'style' => 'font-size:13px;',
 								));
@@ -112,28 +129,27 @@
 				</div>
 			</div>
 			<div class="col-sm-7">
-				<div class="detail-recipe-content bg-white pd15">
+				<div class="detail-recipe-content pd15">
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="wrapper" style="font-size: 14px;">
 								<?php
-										echo tag('p', $recook_desc);
+										echo tag('p', $recook_desc, array(
+											'id' => 'recookDesc',
+											'class' => 'fs16',
+										));
 										echo tag('hr', false, array(
 											'class' => 'no-mg'
 										));
 								?>
 							</div>
-							<?php
-									loadSubview('recipe/comment', array(
-										'recipe_id' => $recook_id,
-										'valuesRecipeComment' => $valuesRecookComment,
-										'_with_padding' => false,
-										'_show_title' => false,
-										'_show_empty' => false,
-										'_url' => 'recipe/recook_comment/',
-										'_type' => 'recook',
-									));
-							?>
+							<div id="comment-container">
+								<div class="mt10">
+									<?php
+											loadSubview('common/background_masker/comment');
+									?>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -141,3 +157,5 @@
 		</div>
 	</div>
 </div>
+
+<input type="hidden" id="recookId" value="<?php echo $recook_id; ?>" />

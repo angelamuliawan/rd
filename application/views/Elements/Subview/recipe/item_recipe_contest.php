@@ -9,7 +9,7 @@
 		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
-			$custom_image = $domain.'/resources/images/default.png';
+			$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 		}
 
 		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
@@ -33,53 +33,17 @@
 		?>
 		<div class="box-footer bg-orange">
 			<?php
-					// echo tag('div', $iconComment.$totalComment, array(
-					// 	'class' => 'pull-right mr5',
-					// 	'title' => 'Jumlah Komentar',
-					// ));
-					// echo tag('div', $iconRecook.$totalRecook, array(
-					// 	'class' => 'pull-right mr10',
-					// 	'title' => 'Jumlah Recook',
-					// ));
-					// echo tag('div', $iconView.$totalView, array(
-					// 	'class' => 'pull-right mr10',
-					// 	'title' => 'Jumlah View',
-					// ));
 					echo tag('a', $username, array(
 						'title' => $username,
 						'href' => $domain.'/users/profile/'.$user_id.'/'.seoURL($username),
 						'class' => 'pull-right mr5 username',
 						'target' => '_blank',
 					));
-					echo tag('div', 'oleh ', array(
+					echo tag('div', sprintf('%s ', lang('by')), array(
 						'class' => 'pull-right mr5',
 						'title' => 'Jumlah Komentar',
 					));
 			?>
 		</div>
 	</a>
-	<!-- <a href="<?php echo $url; ?>">
-	    <div class="box-header">
-			<?php
-					echo tag('span', $title, array(
-						'class' => 'wrapper-inner'
-					));
-					echo tag('img', false, array(
-						'src' => $custom_image,
-					));
-			?>
-			<div class="box-footer">
-				<?php
-						echo tag('div', $iconComment.$totalComment, array(
-							'class' => 'pull-right mr5',
-							'title' => 'Jumlah Komentar',
-						));
-						echo tag('div', $iconRecook.$totalRecook, array(
-							'class' => 'pull-right mr10',
-							'title' => 'Jumlah Recook',
-						));
-				?>
-			</div>
-		</div>
-	</a> -->
 </li>

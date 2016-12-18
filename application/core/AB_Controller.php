@@ -2,16 +2,19 @@
 
 class AB_Controller extends CI_Controller {
 
-	public $domain = 'http://localhost/cookindo';
+	public $domain;
+	public $site_lang;
+	public $allowSendEmail = false;
 
 	public function __construct() {
 		parent::__construct();
-
 		ini_set('memory_limit', '-1');
 
-		$this->load->library('rest');
-		$this->load->helper('common');
-		// $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+		$this->domain = 'http://localhost/cookindo';
+		$this->webroot = $_SERVER['DOCUMENT_ROOT'].'/cookindo/';
+
+		// $this->domain = 'http://'.$_SERVER['SERVER_NAME'];
+		// $this->webroot = $_SERVER['DOCUMENT_ROOT'];
 
 		if( isLoggedIn() ) {
 
@@ -40,23 +43,12 @@ class AB_Controller extends CI_Controller {
 			}
 		}
 
-		// $browser = $this->getBrowser();
-		// $ip = $this->getRealUserIp();
-		// $device = 'Desktop';
-		// if( $this->isMobile() ) {
-		// 	$device = 'Mobile';
-		// }
-		// $this->savePageViewLog($browser, $ip, $device);
-
-		// if ( !$this->cache->get('cache_visitor') ) {
-	 //        $this->cache->save('cache_visitor', 'visitor', 100);
-	 //        $this->saveUserLog( $browser, $ip, $device );
-	 //    }
-
-	    $this->webroot = $_SERVER['DOCUMENT_ROOT'].'/cookindo/';
+		$this->site_lang = ( get_cookie('site_lang') ) ? get_cookie('site_lang') : 'indonesian';
+		$this->lang->load($this->site_lang, $this->site_lang);
 		$this->load->vars(array(
 			'domain' => $this->domain,
-			'webroot' => $_SERVER['DOCUMENT_ROOT'].'/cookindo/',
+			'webroot' => $this->webroot,
+			'site_lang' => $this->site_lang,
 		));
 	}
 
@@ -214,6 +206,12 @@ class AB_Controller extends CI_Controller {
 			$estimation_peoples = $this->db->query('CALL GetAllEstPeople()');
 			$estimation_peoples = buildDataDropdown($estimation_peoples, 'EstPeopleID', 'EstPeopleName');
 
+			// Add word 'People', need to do it here for translation purpose
+			$lengthEP = count($estimation_peoples);
+			for( $n = 1; $n <= $lengthEP; $n++ ){
+				$estimation_peoples[$n] = sprintf('%s %s', $estimation_peoples[$n], $this->lang->line('people'));
+			}
+
 			$measure_sizes = $this->db->query('CALL GetAllMeasureSize()');
 			$measure_sizes = buildDataDropdown($measure_sizes, 'MeasureSizeID', 'MeasureSizeName');
 
@@ -223,9 +221,9 @@ class AB_Controller extends CI_Controller {
 
 		if( !empty($with_sort) ) {
 			$sorts = array(
-				0 => 'Abjad',
-				1 => 'Resep Terbaru',
-				2 => 'Resep Populer'
+				0 => $this->lang->line('alphabet'),
+				1 => $this->lang->line('latest_recipe'),
+				2 => $this->lang->line('popular_recipe')
 			);
 		}
 

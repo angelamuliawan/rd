@@ -27,7 +27,7 @@
 		} else {
 			$custom_image = $domain.'/resources/images/uploads/users/'.$photo;
 			if( !file_exists($webroot.'/resources/images/uploads/users/'.$photo) ) {
-				$custom_image = $domain.'/resources/images/default.png';
+				$custom_image = $domain.'/resources/images/placeholder/users.jpg';
 			}
 		}
 
@@ -62,10 +62,27 @@
 					?>
 				</div>
 				<?php
+						$method_name = ucwords($this->router->method);
+
+	        			if( $method_name == 'Profile' ) {
+	        	?>
+	        				<div class="mt20">
+	        	<?php
+		        				loadSubview('common/action_follow', array(
+									'user_id_viewer' => $user_id_viewer,
+									'follow_status' => $valuesUserFollowStatus,
+								));
+				?>
+							</div>
+				<?php
+						}
+
 						if( !empty($_allow_upload) ) {
 				?>
 							<span class="btn btn-primary mt20 fileinput-button" style="margin:auto;">
-						        <span>Ubah Foto Profil</span>
+						        <?php
+										echo tag('span', lang('change_profile_picture'));
+								?>
 						        <input id="fileupload" data-show=".fu-show-after-upload" action-type="users" type="file" name="files" />
 						    </span>
 			    <?php		
@@ -81,9 +98,17 @@
 						echo tag('h3', $username, array(
 							'class' => 'mt20 mobile-only'
 						));
-						echo tag('p', $description, array(
-							'class' => 'mt10 mobile-only'
-						));
+
+						if( $description ) {
+							echo tag('p', $description, array(
+								'class' => 'mt10 mobile-only'
+							));
+						} else if ( $user_id == $this->session->userdata('userid') ) {
+							echo tag('a', lang('write_self_description'), array(
+								'href' => $domain.'/users',
+								'class' => 'mt10 mobile-only'
+							));
+						}
 
 						if( !empty($_allow_upload) ) {
 							echo tag('input', false, array(
@@ -95,6 +120,25 @@
 			    		}
 				?>
 			</div>
+
+			<div class="tacenter mt10">
+				<?php
+						echo tag('img', false, array(
+							'src' => $domain . '/resources/icons/level.png',
+							'data-disable-progressive' => 1,
+							'style' => 'width: 25px; margin-top: -12px;',
+						));
+				?>
+
+				<span style="font-size: 20px; color: #ED6E0C;">
+					20 SUPER CHEF
+				</span>
+
+				<div style="color: #acb1b8;">
+					12 POINT TO LEVEL UP
+				</div>
+			</div>
+
 			<div class="simple-bio">
 				<br>
 				<?php
@@ -139,43 +183,47 @@
 								<a href="<?php echo $domain.'/users'; ?>">
 									<li>
 										<span class="glyphicon glyphicon-cog"></span>
-										<span>Pengaturan Akun</span>
+										<?php
+												echo tag('span', lang('account_setting'));
+										?>
 										<span class="glyphicon glyphicon-chevron-right"></span>
 									</li>
 								</a>
 					<?php
 							}
 					?>
-					<a class="<?php echo ( $method_name != 'index') ? 'ajax-link' : ''; ?>" target-wrapper="timeline" href="<?php echo $url; ?>">
+					<a class="btn-timeline-navigation" href="<?php echo $url; ?>">
 						<li>
 							<span class="glyphicon glyphicon-road"></span>
-							<span>Timeline</span>
+							<?php
+									echo tag('span', lang('timeline'));
+							?>
 							<span class="glyphicon glyphicon-chevron-right"></span>
 						</li>
 					</a>
-					<a class="<?php echo ( $method_name != 'index') ? 'ajax-link' : ''; ?>" target-wrapper="timeline" href="<?php echo $url.'?param=InsertRecipe'; ?>">
+					<a class="btn-timeline-navigation" data-param="InsertRecipe" href="<?php echo $url.'?param=InsertRecipe'; ?>">
 						<li>
 							<span class="glyphicon glyphicon-book"></span>
 							<?php
-									echo tag('span', sprintf('Resep Saya (%s)', $cntMyRecipe));
+									echo tag('span', sprintf('%s (%s)', lang('recipe'), $cntMyRecipe));
 							?>
 							<span class="glyphicon glyphicon-chevron-right"></span>
 						</li>
 					</a>
-					<a class="<?php echo ( $method_name != 'index') ? 'ajax-link' : ''; ?>" target-wrapper="timeline" href="<?php echo $url.'?param=Recook'; ?>">
+					<a class="btn-timeline-navigation" data-param="Recook" href="<?php echo $url.'?param=Recook'; ?>">
 						<li>
 							<span class="glyphicon glyphicon-retweet"></span>
 							<?php
-									echo tag('span', sprintf('Recook (%s)', $cntRecook));
+									echo tag('span', sprintf('%s (%s)', lang('recook'), $cntRecook));
 							?>
 							<span class="glyphicon glyphicon-chevron-right"></span>
 						</li>
 					</a>
-					<a class="<?php echo ( $method_name != 'index') ? 'ajax-link' : ''; ?>" target-wrapper="timeline" href="<?php echo $url.'?param=Cookmark'; ?>">
+					<a class="btn-timeline-navigation" data-param="Cookmark" href="<?php echo $url.'?param=Cookmark'; ?>">
 						<li>
 							<span class="glyphicon glyphicon-bookmark"></span>
 							<?php
-									echo tag('span', sprintf('Cookmark (%s)', $cntCookmark));
+									echo tag('span', sprintf('%s (%s)', lang('cookmark'), $cntCookmark));
 							?>
 							<span class="glyphicon glyphicon-chevron-right"></span>
 						</li>

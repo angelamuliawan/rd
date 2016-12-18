@@ -54,7 +54,7 @@
 						}
 				?>
 
-				<div class="wrapper-comment" style="padding:10px 0px;">
+				<div class="wrapper-comment">
 					<?php
 							if( !empty($valuesRecipeComment) ) {
 								if( $_type == 'recipe' ) {

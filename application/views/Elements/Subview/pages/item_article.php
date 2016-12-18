@@ -31,7 +31,7 @@
 						echo tag('div', false, array(
 							'class' => 'bg-holder',
 							'data-src' => $custom_image,
-							'is-progressive' => true,
+							'data-is-progressive' => true,
 						));
 
 						if( isLoggedIn() && $this->session->userdata('userrole') == 1 ) {

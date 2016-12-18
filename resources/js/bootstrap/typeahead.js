@@ -392,7 +392,7 @@
       if (!this.focused) {
         this.focused = true;
         if (this.options.showHintOnFocus) {
-          this.lookup('');
+          this.lookup();
         }
       }
     },
@@ -405,7 +405,7 @@
     click: function (e) {
       e.preventDefault();
       this.select();
-      this.$element.focus();
+      // this.$element.focus();
     },
 
     mouseenter: function (e) {

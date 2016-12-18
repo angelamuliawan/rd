@@ -97,11 +97,11 @@ class Recipe extends AB_Controller {
 		$resRecipeStep->next_result();
 
 		// Recipe Comment
-		$resRecipeComment = $this->db->query('CALL GetRecipeComment(?)', array(
-			$recipe_id
-		));
-		$valuesRecipeComment = $resRecipeComment->result_array();
-		$resRecipeComment->next_result();
+		// $resRecipeComment = $this->db->query('CALL GetRecipeComment(?)', array(
+		// 	$recipe_id
+		// ));
+		// $valuesRecipeComment = $resRecipeComment->result_array();
+		// $resRecipeComment->next_result();
 
 		// related recipe by authors
 		$resRelatedByAuthor = $this->db->query('CALL GetRelatedRecipeByAuthor(?,?)', array(
@@ -118,14 +118,23 @@ class Recipe extends AB_Controller {
 		$valuesRelatedRecipe = $resRelatedByRecipe->result_array();
 		$resRelatedByRecipe->next_result();
 
+		// Get user follow status
+		$resUserFollowStatus = $this->db->query('CALL GetFollowStatus(?,?)', array(
+			$this->session->userdata('userid'),
+			$recipe_creator_id,
+		));
+		$valuesUserFollowStatus = $resUserFollowStatus->result_array();
+		$resUserFollowStatus->next_result();
+
 		$this->load->vars(array(
 			'valuesRecipeHeader' => $valuesRecipeHeader,
 			'valuesRecipeRecook' => $valuesRecipeRecook,
 			'valuesRecipeComposition' => $valuesRecipeComposition,
 			'valuesRecipeStep' => $valuesRecipeStep,
-			'valuesRecipeComment' => $valuesRecipeComment,
+			// 'valuesRecipeComment' => $valuesRecipeComment,
 			'valuesRelatedByAuthor' => $valuesRelatedByAuthor,
 			'valuesRelatedRecipe' => $valuesRelatedRecipe,
+			'valuesUserFollowStatus' => $valuesUserFollowStatus[0]['RESULT'],
 			'recipe_id' => $recipe_id,
 			'site_title' => $valuesRecipeHeader[0]['RecipeName'],
 			'og_meta' => array(
@@ -133,10 +142,29 @@ class Recipe extends AB_Controller {
 				'url' => $this->domain.'/resep-masak/'.$recipe_id.'/'.utf8_decode($valuesRecipeHeader[0]['Slug']),
 				'image' => $this->domain.'/resources/images/uploads/recipe/primary/'.$valuesRecipeHeader[0]['PrimaryPhoto'],
 				'desc' => $valuesRecipeHeader[0]['RecipeIntro'],
-			)
+			),
+			'additional_css' => array(
+				'react/transition',
+				'emoticon/emoticons',
+			),
+			'additional_js' => array(
+				'react/react-with-addons',
+				'react/react-dom.min',
+				'react/browser.min',
+				'emoticon/emoticons',
+			),
+			'additional_jsx' => array(
+				'common',
+				'mixins/form',
+				'components/replycomment',
+				'components/comment',
+				'recipe/detail',
+			),
 		));
 
-		$this->render();
+		$this->render(array(
+			'RecipeName' => $valuesRecipeHeader[0]['RecipeName'],
+		));
 	}
 
 	public function add( $contest_id = NULL ) {
@@ -625,14 +653,14 @@ class Recipe extends AB_Controller {
 		if( !empty($post) ) {
 			
 			$this->form_validation->set_rules('photo', 'Recook photo', 'required');
-			$this->form_validation->set_rules('RecookDesc', 'Recook Description', 'required');
+			$this->form_validation->set_rules('RecookDesc', 'Recook Description', 'trim|required');
 
 			if ( $this->form_validation->run() == TRUE ) {
 
 				$res = $this->db->query('CALL InsertRecook(?,?,?,?)', array(
 					$this->session->userdata('userid'),
 					$recipe_id,
-					$post['RecookDesc'],
+					nl2br($post['RecookDesc']),
 					$post['photo'],
 				));
 
@@ -648,7 +676,7 @@ class Recipe extends AB_Controller {
 				$valuesRecipeOwner = $resRecipeOwner->result_array()[0];
 				$resRecipeOwner->next_result();
 
-				if( $this->session->userdata('userid') != $valuesRecipeOwner['UserID'] ) {
+				if( $this->session->userdata('userid') != $valuesRecipeOwner['UserID'] && $this->allowSendEmail ) {
 					$this->_sendEmail(array(
 			    		'email_view' => 'recook',
 			    		'subject' => $valuesRecipeOwner['RecipeName'] . ' - Recooked',
@@ -712,21 +740,22 @@ class Recipe extends AB_Controller {
 			}
 		}
 
-		$resRecipeRecook = $this->db->query('CALL GetRecookHeader(?)', array(
+		$resRecipeRecook = $this->db->query('CALL GetRecookHeader(?,?)', array(
 			$recook_id,
+			$this->session->userdata('userid'),
 		));
 		$valuesRecipeRecook = $resRecipeRecook->result_array();
 		$resRecipeRecook->next_result();
 
-		$resRecookComment = $this->db->query('CALL GetRecookComment(?)', array(
-			$recook_id,
-		));
-		$valuesRecookComment = $resRecookComment->result_array();
-		$resRecookComment->next_result();
+		// $resRecookComment = $this->db->query('CALL GetRecookComment(?)', array(
+		// 	$recook_id,
+		// ));
+		// $valuesRecookComment = $resRecookComment->result_array();
+		// $resRecookComment->next_result();
 
 		$this->load->vars(array(
 			'valuesRecipeRecook' => $valuesRecipeRecook,
-			'valuesRecookComment' => $valuesRecookComment,
+			// 'valuesRecookComment' => $valuesRecookComment,
 			'recook_id' => $recook_id,
 			'site_title' => $valuesRecipeRecook[0]['RecipeName'],
 			'og_meta' => array(
@@ -734,7 +763,24 @@ class Recipe extends AB_Controller {
 				'url' => $this->domain.'/recipe/view_recook/'.$recook_id.'/'.utf8_decode($valuesRecipeRecook[0]['Slug']),
 				'image' => $this->domain.'/resources/images/uploads/recipe/recook/'.$valuesRecipeRecook[0]['RecookPhoto'],
 				'desc' => $valuesRecipeRecook[0]['RecookDesc'],
-			)
+			),
+			'additional_css' => array(
+				'react/transition',
+				'emoticon/emoticons',
+			),
+			'additional_js' => array(
+				'react/react-with-addons',
+				'react/react-dom.min',
+				'react/browser.min',
+				'emoticon/emoticons',
+			),
+			'additional_jsx' => array(
+				'common',
+				'mixins/form',
+				'components/replycomment',
+				'components/comment',
+				'recipe/view_recook',
+			),
 		));
 
 		$this->render($post);
@@ -763,7 +809,7 @@ class Recipe extends AB_Controller {
 				$valuesRecipeOwner = $resRecipeOwner->result_array()[0];
 				$resRecipeOwner->next_result();
 
-				if( $this->session->userdata('userid') != $valuesRecipeOwner['UserID'] ) {
+				if( $this->session->userdata('userid') != $valuesRecipeOwner['UserID'] && $this->allowSendEmail ) {
 					$this->_sendEmail(array(
 			    		'email_view' => 'recipe_comment',
 			    		'subject' => 'Komentar Resep',
@@ -827,7 +873,7 @@ class Recipe extends AB_Controller {
 				$valuesRecookOwner = $resRecookOwner->result_array()[0];
 				$resRecookOwner->next_result();
 
-				if( $this->session->userdata('userid') != $valuesRecookOwner['UserID'] ) {
+				if( $this->session->userdata('userid') != $valuesRecookOwner['UserID'] && $this->allowSendEmail ) {
 					$this->_sendEmail(array(
 			    		'email_view' => 'recook_comment',
 			    		'subject' => 'Komentar Recook',
@@ -913,11 +959,14 @@ class Recipe extends AB_Controller {
 
 			$value = $valuesRecipeHeader[0];
 
+			$flag_love = $value['FlagLove'];
 			$flag_cookmark = $value['FlagCookmark'];
 			$flag_recook = $value['FlagRecook'];
 			$flag_creator = $value['FlagCreator'];
+
 			loadSubview('common/action_bottom_find', array(
 				'recipe_id' => $recipe_id,
+				'flag_love' => $flag_love,
 				'flag_cookmark' => $flag_cookmark,
 				'flag_recook' => $flag_recook,
 				'flag_creator' => $flag_creator,
@@ -952,11 +1001,14 @@ class Recipe extends AB_Controller {
 
 			$value = $valuesRecipeHeader[0];
 
+			$flag_love = $value['FlagLove'];
 			$flag_cookmark = $value['FlagCookmark'];
 			$flag_recook = $value['FlagRecook'];
 			$flag_creator = $value['FlagCreator'];
+
 			loadSubview('common/action_bottom_find', array(
 				'recipe_id' => $recipe_id,
+				'flag_love' => $flag_love,
 				'flag_cookmark' => $flag_cookmark,
 				'flag_recook' => $flag_recook,
 				'flag_creator' => $flag_creator,
@@ -1076,5 +1128,171 @@ class Recipe extends AB_Controller {
 			'contest_id' => $contest_id,
 		));
 		loadModal('contest_winner');
+	}
+
+	public function love_item( $recipe_id = false, $allow_print = false ) {	
+
+		$message = 'Gagal menyimpan data';
+		$status = 'error';
+
+		if( !empty($recipe_id) ) {    		
+			$message = 'Sukses menyimpan data';
+			$status = 'success';
+
+			$resLoveRecipe = $this->db->query('CALL LoveRecipe(?,?)', array(
+				$this->session->userdata('userid'),
+				$recipe_id
+			));
+			$resLoveRecipe->next_result();
+
+			$resRecipeHeader = $this->db->query('CALL GetRecipeDetailHeader(?,?)', array(
+				$recipe_id,
+				$this->session->userdata('userid'),
+			));
+			$valuesRecipeHeader = $resRecipeHeader->result_array();
+			$resRecipeHeader->next_result();
+
+			$value = $valuesRecipeHeader[0];
+
+			$flag_love = $value['FlagLove'];
+			$flag_cookmark = $value['FlagCookmark'];
+			$flag_recook = $value['FlagRecook'];
+			$flag_creator = $value['FlagCreator'];
+
+			loadSubview('common/action_bottom_find', array(
+				'recipe_id' => $recipe_id,
+				'flag_love' => $flag_love,
+				'flag_cookmark' => $flag_cookmark,
+				'flag_recook' => $flag_recook,
+				'flag_creator' => $flag_creator,
+				'_print' => $allow_print,
+			));
+		} else {
+			loadMessage($message, $status);
+		}
+	}
+
+	public function unlove_item( $recipe_id = false, $allow_print = false ) {	
+
+		$message = 'Gagal menyimpan data';
+		$status = 'error';
+
+		if( !empty($recipe_id) ) {    		
+			$message = 'Sukses menyimpan data';
+			$status = 'success';
+
+			$resUnloveRecipe = $this->db->query('CALL UnloveRecipe(?,?)', array(
+				$this->session->userdata('userid'),
+				$recipe_id
+			));
+			$resUnloveRecipe->next_result();
+
+			$resRecipeHeader = $this->db->query('CALL GetRecipeDetailHeader(?,?)', array(
+				$recipe_id,
+				$this->session->userdata('userid'),
+			));
+			$valuesRecipeHeader = $resRecipeHeader->result_array();
+			$resRecipeHeader->next_result();
+
+			$value = $valuesRecipeHeader[0];
+
+			$flag_love = $value['FlagLove'];
+			$flag_cookmark = $value['FlagCookmark'];
+			$flag_recook = $value['FlagRecook'];
+			$flag_creator = $value['FlagCreator'];
+
+			loadSubview('common/action_bottom_find', array(
+				'recipe_id' => $recipe_id,
+				'flag_love' => $flag_love,
+				'flag_cookmark' => $flag_cookmark,
+				'flag_recook' => $flag_recook,
+				'flag_creator' => $flag_creator,
+				'_print' => $allow_print,
+			));
+		} else {
+			loadMessage($message, $status);
+		}
+	}
+
+	public function love_item_recook( $recook_id = false, $allow_print = false ) {	
+
+		$message = 'Gagal menyimpan data';
+		$status = 'error';
+
+		if( !empty($recook_id) ) {    		
+			$message = 'Sukses menyimpan data';
+			$status = 'success';
+
+			$resLoveRecook = $this->db->query('CALL LoveRecook(?,?)', array(
+				$recook_id,
+				$this->session->userdata('userid'),
+			));
+			$resLoveRecook->next_result();
+
+			$resRecookHeader = $this->db->query('CALL GetRecookHeader(?,?)', array(
+				$recook_id,
+				$this->session->userdata('userid'),
+			));
+			$valuesRecookHeader = $resRecookHeader->result_array();
+			$resRecookHeader->next_result();
+
+			$value = $valuesRecookHeader[0];
+
+			$recipe_id 	= $value['RecipeID'];
+			$slug 		= $value['Slug'];
+			$flag_love 	= $value['FlagRecookLove'];
+
+			loadSubview('common/action_bottom_find', array(
+				'recipe_id' => $recipe_id,
+				'recook_id' => $recook_id,
+				'slug' => $slug,
+				'flag_love' => $flag_love,
+				'flag_recook' => 1,
+				'flag_creator' => 1,
+			));
+		} else {
+			loadMessage($message, $status);
+		}
+	}
+
+	public function unlove_item_recook( $recook_id = false, $allow_print = false ) {	
+
+		$message = 'Gagal menyimpan data';
+		$status = 'error';
+
+		if( !empty($recook_id) ) {    		
+			$message = 'Sukses menyimpan data';
+			$status = 'success';
+
+			$resLoveRecook = $this->db->query('CALL UnloveRecook(?,?)', array(
+				$recook_id,
+				$this->session->userdata('userid'),
+			));
+			$resLoveRecook->next_result();
+
+			$resRecookHeader = $this->db->query('CALL GetRecookHeader(?,?)', array(
+				$recook_id,
+				$this->session->userdata('userid'),
+			));
+			$valuesRecookHeader = $resRecookHeader->result_array();
+			$resRecookHeader->next_result();
+
+			$value = $valuesRecookHeader[0];
+
+			$recipe_id 	= $value['RecipeID'];
+			$slug 		= $value['Slug'];
+			$flag_love 	= $value['FlagRecookLove'];
+
+			loadSubview('common/action_bottom_find', array(
+				'recipe_id' => $recipe_id,
+				'recook_id' => $recook_id,
+				'slug' => $slug,
+				'flag_love' => $flag_love,
+				'flag_recook' => 1,
+				'flag_creator' => 1,
+			));
+		} else {
+			loadMessage($message, $status);
+		}
 	}
 }

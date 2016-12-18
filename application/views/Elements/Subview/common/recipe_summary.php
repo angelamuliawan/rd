@@ -14,7 +14,7 @@
 				'wrapAttributes' => array(
 					'class' =>'wrapper-icon',
 				),
-				'disable_progressive' => true,
+				'data-disable-progressive' => true,
 			));
 			echo tag('span', $value, array(
 				'wrapTag' => 'div',

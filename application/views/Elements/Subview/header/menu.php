@@ -19,37 +19,36 @@
       					'aria-expanded' => 'false',
       					'aria-controls' => 'navbar'
       				));
+
       				echo tag('a', 'Cookindo', array(
 						'href' => $domain,
-						'class' => 'navbar-brand'
+						'class' => 'navbar-brand mr15'
 					));
       		?>
-      		<!-- <form action="" class="navbar-form navbar-right">
-			   	<div class="input-group">
-			       <input type="Search" placeholder="Search..." class="form-control" />
-			       <div class="input-group-btn">
-			           <button class="btn btn-info">
-			           <span class="glyphicon glyphicon-search"></span>
-			           </button>
-			       </div>
-			   	</div>
-			</form> -->
       	</div>
     	<div id="navbar" class="collapse navbar-collapse">
-      		<ul class="nav navbar-nav navbar-right">
+
+      		<ul class="nav navbar-nav navbar-right _mr15">
       			<?php
-      					echo tag('a', 'Cari Resep', array(
+      					if( isLoggedIn() ) {
+      						echo tag('a', lang('home'), array(
+								'href' => $domain.'/users/home',
+								'wrapTag' => 'li',
+							));
+      					}
+
+      					echo tag('a', lang('search_recipe'), array(
 							'href' => $domain.'/recipe/find',
 							'wrapTag' => 'li',
 						));
 						
       					if( isLoggedIn() ) {
-      						echo tag('a', 'Tulis Resep', array(
+      						echo tag('a', lang('create_recipe'), array(
 								'href' => $domain.'/recipe/add',
 								'wrapTag' => 'li',
 							));
       					} else {
-      						echo tag('a', 'Tulis Resep', array(
+      						echo tag('a', lang('create_recipe'), array(
 								'href' => $domain.'/users/login?redirect_after=recipe/add',
 		        				'data-title' => 'Login',
 		        				'class' => 'ajax-modal',
@@ -57,12 +56,12 @@
 							));
       					}
 
-      					echo tag('a', 'Artikel', array(
+      					echo tag('a', lang('article'), array(
 							'href' => $domain.'/pages/article',
 							'wrapTag' => 'li',
 						));
       					
-						echo tag('a', 'Kontes', array(
+						echo tag('a', lang('contest'), array(
 							'href' => $domain.'/recipe/contest',
 							'wrapTag' => 'li',
 						));
@@ -87,7 +86,7 @@
 			     				));
 		     				}
 
-		     				echo tag('a', sprintf('Notifikasi %s %s', $spanNotifIcon, $spanNotifCount), array(
+		     				echo tag('a', sprintf('%s %s %s', lang('notification'), $spanNotifIcon, $spanNotifCount), array(
 								'class' => 'mobile-only',
 								'href' => $domain.'/users/notifications',
 								'wrapTag' => 'li',
@@ -105,7 +104,7 @@
         			?>
 	        		<div id="notif-panel" class="dropdown-menu">
 	        			<?php
-	        					echo tag('div', 'Notifikasi', array(
+	        					echo tag('div', lang('notification'), array(
 	        						'class' => 'header'
 	        					));
 	        			?>
@@ -134,7 +133,7 @@
 						</ul>
 						<div class="last">
 							<?php
-									echo tag('a', 'Tampilkan semua', array(
+									echo tag('a', lang('show_all'), array(
 										'href' => $domain.'/users/notifications',
 										'class' => 'btn btn-orange no-radius',
 										'style' => 'display:block; color:#FFFFFF;',
@@ -148,21 +147,28 @@
         					$userphoto = $this->session->userdata('userphoto');
 							$path_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
 							$custom_image = $domain.$path_image;
+
 							if( !file_exists( $webroot.$path_image ) ) {
-								$custom_image = $domain.'/resources/images/64x64.png';
+								$firstLetter =  !empty( $this->session->userdata('username')[0] ) ? strtoupper($this->session->userdata('username')[0]) : false;
+								$userImage = tag('div', $firstLetter, array(
+	        						'class' => 'alphabet-placeholder pull-left _mt7 mr5 img-circle',
+	        						'style' => 'width: 35px; height: 35px; line-height: 40px;',
+	        					));
+							} else {
+								$userImage = tag('img', false, array(
+	        						'class' => 'pull-left _mt7 mr5 img-circle',
+	        						'src' => $custom_image,
+	        						'style' => 'width: 35px; height: 35px;',
+	        						'img-progressive-type' => 'users',
+	        					));
 							}
 
-        					$userImage = tag('img', strtok($this->session->userdata('username'), " "), array(
-        						'class' => 'pull-left _mt7 mr5 img-circle',
-        						'src' => $custom_image,
-        						'style' => 'width: 35px; height: 35px;',
-        						'img-progressive-type' => 'users',
-        					));
+        					
         					$caret = tag('b', false, array(
         						'class' => 'caret',
         					));
 
-        					echo tag('a', $userImage.$caret, array(
+        					echo tag('a', $userImage . strtok($this->session->userdata('username'), " ") . $caret, array(
         						'href' => '#',
         						'class' => 'dropdown-toggle', 
         						'data-toggle' => 'dropdown',
@@ -172,40 +178,40 @@
 		          		<?php
 		          				$url = $domain.'/users/profile/'.$this->session->userdata('userid').'/'.seoURL($this->session->userdata('username'));
 
-		          				echo tag('a', 'Profil Saya', array(
+		          				echo tag('a', lang('profile'), array(
 		          					'href' => $url,
 		          					'wrapTag' => 'li',
 		          				));
-		          				echo tag('a', 'Resep Saya', array(
+		          				echo tag('a', lang('recipe'), array(
 		          					'href' => $url.'?param=InsertRecipe',
 		          					'wrapTag' => 'li',
 		          				));
-		          				echo tag('a', 'Recook', array(
+		          				echo tag('a', lang('recook'), array(
 		          					'href' => $url.'?param=Recook',
 		          					'wrapTag' => 'li',
 		          				));
-		          				echo tag('a', 'Cookmark', array(
+		          				echo tag('a', lang('cookmark'), array(
 		          					'href' => $url.'?param=Cookmark',
 		          					'wrapTag' => 'li',
 		          				));
 		          				echo divider();
-		          				echo tag('a', 'Kontes Saya', array(
+		          				echo tag('a', lang('contest'), array(
 		          					'href' => $domain.'/recipe/my_contest',
 		          					'wrapTag' => 'li',
 		          				));
-		          				echo tag('a', 'Pengaturan Akun', array(
+		          				echo tag('a', lang('account_setting'), array(
 		          					'href' => $domain.'/users/',
 		          					'wrapTag' => 'li',
 		          				));
 		          				echo divider();
 		          				if( $this->session->userdata('userrole') == 1 ) {
-		          					echo tag('a', 'Buat Artikel', array(
+		          					echo tag('a', lang('create-article'), array(
 			          					'href' => $domain.'/users/article',
 			          					'wrapTag' => 'li',
 			          				));
 			          				echo divider();
 		          				}
-		          				echo tag('a', 'Logout', array(
+		          				echo tag('a', lang('logout'), array(
 		          					'href' => $domain.'/users/logout',
 		          					'wrapTag' => 'li',
 		          				));
@@ -225,7 +231,7 @@
 		        				}
 		        			}
 
-		        			echo tag('a', $display_text, array(
+		        			echo tag('a', lang(strtolower($display_text)), array(
 		        				'href' => $domain.'/users/'.strtolower($display_text),
 		        				'data-title' => 'Login',
 		        				'class' => $ajax_login_class,
@@ -233,7 +239,85 @@
 		        			));
 		        		}
 		        ?>
+
+		        <li id="lang-menu-dropdown" class="dropdown">
+			        	<?php
+								$path_image = '/resources/images/flags/'. $site_lang .'.png';
+								$custom_image = $domain.$path_image;
+								$flagImage = tag('img', false, array(
+	        						'src' => $custom_image,
+	        						'data-disable-progressive' => true,
+	        					));
+
+			        			$caret = tag('b', false, array(
+	        						'class' => 'caret',
+	        					));
+
+	        					echo tag('a', $flagImage.$caret, array(
+	        						'href' => '#',
+	        						'class' => 'dropdown-toggle', 
+	        						'data-toggle' => 'dropdown',
+	        					));
+			        	?>
+			        	<ul class="dropdown-menu">
+			          		<?php
+			          				$flagIndonesianImage = tag('img', false, array(
+		        						'src' => $domain.'/resources/images/flags/indonesian.png',
+		        						'data-disable-progressive' => true,
+		        					));
+
+		        					$flagEnglishImage = tag('img', false, array(
+		        						'src' => $domain.'/resources/images/flags/english.png',
+		        						'data-disable-progressive' => true,
+		        					));
+
+			          				echo tag('a', $flagIndonesianImage . 'Indonesian', array(
+			          					'href' => $domain.'/langswitch/switch_language/indonesian',
+			          					'wrapTag' => 'li',
+			          				));
+			          				echo tag('a', $flagEnglishImage . 'English', array(
+			          					'href' => $domain.'/langswitch/switch_language/english',
+			          					'wrapTag' => 'li',
+			          				));
+			          		?>
+			          	</ul>
+			    </li>
       		</ul>
+
+      		<?php
+      				if( isLoggedIn() ) {
+      		?>
+      					<!--
+			      		<form class="navbar-form">
+					        <div class="form-group" style="display:inline;" />
+					          	<div class="input-group">
+					            	<?php
+											// echo tag('input', false, array(
+							    // 				'type' => 'text',
+							    // 				'class' => 'form-control autocomplete',
+							    // 				'name' => 'chef_keyword',
+							    // 				'placeholder' => 'Temukan chef &hellip;',
+							    // 				'value' => isset( $request['UserName'] ) ? $request['UserName'] : false,
+							    // 				'maxlength' => 100,
+							    // 				'autocomplete' => 'off',
+							    // 				'data-class' => 'acpChef',
+											// 	'data-provide' => 'typeahead',
+											// 	'data-url' => $domain.'/ajax/list_user',
+											// 	'data-path' => 'resources/images/uploads/users/thumbs/',
+											// 	'redirect-on-selected-path' => 'users/profile/',
+							    // 			));
+									?>
+									<!--
+					            	<span class="input-group-addon">
+					            		<span class="glyphicon glyphicon-search"></span>
+					            	</span>
+					          	</div>
+					        </div>
+					    </form>
+					    -->
+			<?php
+					}
+			?>
     	</div>
   	</div>
 </nav>

@@ -258,6 +258,7 @@ class Users extends AB_Controller {
 					$device['os'],
 				));
 				$data = $res->result()[0];
+				$res->next_result();
 
 				if( $data->UserID != -1 ) {
 
@@ -265,6 +266,7 @@ class Users extends AB_Controller {
 						$message = 'Untuk sementara waktu anda tidak bisa login. Kemungkinan karena data yang anda input mengandung unsur SARA, PLAGIARISME atau mengurangi kualitas data pada website kami. Untuk info lebih lanjut silahkan email ke admin@cookindo.com';
 						$status = 'error';
 					} else {
+
 						$this->session->set_userdata('loggedin', true);
 						$this->session->set_userdata('userid', $data->UserID);
 						$this->session->set_userdata('username', $data->UserName);
@@ -403,15 +405,17 @@ class Users extends AB_Controller {
 					$message = 'Sukses melakukan reset password. Mohon cek email Anda di menu pesan masuk maupun spam, dan ikuti instruksi yang telah Kami sediakan.';
 					$status = 'success';
 
-					$this->_sendEmail(array(
-			    		'email_view' => 'forgot_password',
-			    		'subject' => 'Reset Password',
-			    		'to' => $post['ForgotEmail'],
-			    		'to_name' => $data->UserName,
-			    		'data' => array(
-			    			'reset_code' => $data->ResetCode,
-			    		),
-			    	));
+					if( $this->allowSendEmail ) {
+						$this->_sendEmail(array(
+				    		'email_view' => 'forgot_password',
+				    		'subject' => 'Reset Password',
+				    		'to' => $post['ForgotEmail'],
+				    		'to_name' => $data->UserName,
+				    		'data' => array(
+				    			'reset_code' => $data->ResetCode,
+				    		),
+				    	));
+					}
 				} else {
 					$this->setCustomError('ForgotEmail', 'Email tidak ditemukan.');
 				}
@@ -733,6 +737,7 @@ class Users extends AB_Controller {
 	function logout(){
 		$this->load->helper('url');
 		$this->session->sess_destroy();
+
 		redirect($this->domain.'/pages');
 	}
 
@@ -795,6 +800,67 @@ class Users extends AB_Controller {
         $this->load->view('Users/login_facebook');
     }
 
+    function home() {
+    	$this->load->helper('url');
+    	$this->load->helper('form');
+		$this->load->helper('build_data');
+		$this->callDefaultData('search');
+
+		if( isLoggedIn() ) {
+
+			$resUserAccount = $this->db->query('CALL GetSettingUserData(?)', array(
+				$this->session->userdata('userid'),
+			));
+			$valuesUserAccount = $resUserAccount->result_array();
+			$resUserAccount->next_result();
+
+			// Get Related Popular User
+			$resRelatedPopularUser = $this->db->query('CALL GetRelatedPopularUser(?)', array(
+				$this->session->userdata('userid'),
+			));
+			$valuesRelatedPopularUser = $resRelatedPopularUser->result_array();
+			$resRelatedPopularUser->next_result();
+
+			// Get user follow status
+			$resUserFollowData = $this->db->query('CALL GetUserFollowData(?)', array(
+				$this->session->userdata('userid'),
+			));
+			$valuesUserFollowData = $resUserFollowData->result_array();
+			$resUserFollowData->next_result();
+
+			$this->load->vars(array(
+				'site_title' => $valuesUserAccount[0]['UserName'],
+				'valuesUserAccount' => $valuesUserAccount,
+				'valuesRelatedPopularUser' => $valuesRelatedPopularUser,
+				// 'valuesTimeline' => $valuesTimeline,
+				'valuesUserFollowData' => $valuesUserFollowData,
+				'additional_css' => array(
+					'react/transition',
+					'emoticon/emoticons',
+				),
+				'additional_js' => array(
+					'react/react-with-addons',
+					'react/react-dom.min',
+					'react/browser.min',
+					'emoticon/emoticons',
+				),
+				'additional_jsx' => array(
+					'common',
+					'mixins/form',
+					'recipe/common',
+					'components/replycomment',
+					'components/comment',
+					'components/timeline',
+					'users/home',
+				),
+			));
+
+	    	$this->render();
+		} else {
+			redirect($this->domain);
+		}
+    }
+
     function profile( $user_id = false ) {
     	$this->load->helper('url');
     	$this->load->helper('form');
@@ -852,13 +918,29 @@ class Users extends AB_Controller {
 			$resCookmark->next_result();
 
 			// Get user timeline
-			$resTimeline = $this->db->query('CALL GetUserTimeline(?,?,?)', array(
-				$user_id,
+			// $resTimeline = $this->db->query('CALL GetUserTimeline(?,?,?,?)', array(
+			// 	$user_id,
+			// 	$this->session->userdata('userid'),
+			// 	$filter_view,
+			// 	100
+			// ));
+			// $valuesTimeline = $resTimeline->result_array();
+			// $resTimeline->next_result();
+
+			// Get user follow status
+			$resUserFollowStatus = $this->db->query('CALL GetFollowStatus(?,?)', array(
 				$this->session->userdata('userid'),
-				$filter_view,
+				$user_id,
 			));
-			$valuesTimeline = $resTimeline->result_array();
-			$resTimeline->next_result();
+			$valuesUserFollowStatus = $resUserFollowStatus->result_array();
+			$resUserFollowStatus->next_result();
+
+			// Get user follow status
+			$resUserFollowData = $this->db->query('CALL GetUserFollowData(?)', array(
+				$user_id,
+			));
+			$valuesUserFollowData = $resUserFollowData->result_array();
+			$resUserFollowData->next_result();
 
 			$this->load->vars(array(
 				'site_title' => $valuesUserAccount[0]['UserName'],
@@ -868,9 +950,33 @@ class Users extends AB_Controller {
 				'valuesMyRecipe' => $valuesMyRecipe,
 				'valuesRecook' => $valuesRecook,
 				'valuesCookmark' => $valuesCookmark,
-				'valuesTimeline' => $valuesTimeline,
+				// 'valuesTimeline' => $valuesTimeline,
+				'valuesUserFollowStatus' => $valuesUserFollowStatus[0]['RESULT'],
+				'valuesUserFollowData' => $valuesUserFollowData,
+				'additional_css' => array(
+					'react/transition',
+					'emoticon/emoticons',
+				),
+				'additional_js' => array(
+					'react/react-with-addons',
+					'react/react-dom.min',
+					'react/browser.min',
+					'emoticon/emoticons',
+				),
+				'additional_jsx' => array(
+					'common',
+					'mixins/form',
+					'recipe/common',
+					'components/replycomment',
+					'components/comment',
+					'components/timeline',
+					'components/thumbnail',
+					'users/profile',
+				),
 			));
-	    	$this->render();
+	    	$this->render(array(
+	    		'UserName' => $valuesUserAccount[0]['UserName'],
+	    	));
 		} else {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
@@ -937,5 +1043,98 @@ class Users extends AB_Controller {
 		));
 		loadMessage($message, $status, true);
     	$this->render($post);
+    }
+
+    function follow( $user_id = false ){
+    	$message = 'Gagal melakukan follow.';
+		$status = 'error';
+
+		if( !empty($user_id) && isLoggedIn() ) { 
+
+			$resFollowUser = $this->db->query('CALL FollowUser(?,?)', array(
+				$this->session->userdata('userid'),
+				$user_id
+			));
+			$resFollowUser->next_result();
+
+			loadSubview('common/action_follow', array(
+				'user_id_viewer' => $user_id,
+				'follow_status' => '1',
+			));
+		} else {
+			loadMessage($message, $status);
+			loadSubview('common/action_follow', array(
+				'user_id_viewer' => $user_id,
+				'follow_status' => '0',
+			));
+		}
+    }
+
+    function unfollow( $user_id = false ){
+    	$message = 'Gagal melakukan unfollow.';
+		$status = 'error';
+
+		if( !empty($user_id) && isLoggedIn() ) {
+			$resUnfollowUser = $this->db->query('CALL UnfollowUser(?,?)', array(
+				$this->session->userdata('userid'),
+				$user_id
+			));
+			$resUnfollowUser->next_result();
+
+			loadSubview('common/action_follow', array(
+				'user_id_viewer' => $user_id,
+				'follow_status' => '0',
+			));
+		} else {
+			loadMessage($message, $status);
+			loadSubview('common/action_follow', array(
+				'user_id_viewer' => $user_id,
+				'follow_status' => '1',
+			));
+		}
+    }
+
+	function following_list( $user_id = false ){
+    	$message = 'Gagal menampilkan daftar following.';
+		$status = 'error';
+
+		if( !empty($user_id) ) { 
+
+			$resFollowingUser = $this->db->query('CALL GetMyFollowingUser(?)', array(
+				$user_id,
+			));
+			$valuesUserFollowing = $resFollowingUser->result_array();
+			$resFollowingUser->next_result();
+
+			$this->load->vars(array(
+				'valuesUserFollowing' => $valuesUserFollowing,
+			));
+			loadModal('following_list');
+		} else {
+			loadMessage($message, $status);
+			loadModal('following_list');
+		}
+    }
+
+    function follower_list( $user_id = false ){
+    	$message = 'Gagal menampilkan daftar following.';
+		$status = 'error';
+
+		if( !empty($user_id) ) { 
+
+			$resFollowerUser = $this->db->query('CALL GetMyFollowerUser(?)', array(
+				$user_id,
+			));
+			$valuesUserFollower = $resFollowerUser->result_array();
+			$resFollowerUser->next_result();
+
+			$this->load->vars(array(
+				'valuesUserFollower' => $valuesUserFollower,
+			));
+			loadModal('follower_list');
+		} else {
+			loadMessage($message, $status);
+			loadModal('follower_list');
+		}
     }
 }

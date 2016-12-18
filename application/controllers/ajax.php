@@ -10,6 +10,22 @@ class Ajax extends AB_Controller {
 		echo json_encode($compositions);
 	}
 
+	public function list_recipe() {
+		$this->load->helper('build_data');
+
+		$recipes = $this->db->query('CALL GetAllRecipe()');
+		$recipes = buildDataAutocomplete($recipes, 'RecipeID', 'RecipeName', 'PrimaryPhoto');
+		echo json_encode($recipes);
+	}
+
+	public function list_user() {
+		$this->load->helper('build_data');
+
+		$recipes = $this->db->query('CALL GetAllUser()');
+		$recipes = buildDataAutocomplete($recipes, 'UserID', 'UserName', 'UserPhoto');
+		echo json_encode($recipes);
+	}
+
 	public function upload_image( $action_type = 'recook' ) {
 		$this->load->library('upload');
 		$path = false;
@@ -26,7 +42,7 @@ class Ajax extends AB_Controller {
 		}
 
 		$config = $this->getConfigImage($path);
-		$result = 'Gagal mengunggah foto. Silahkan coba lagi.';
+		$result = tag('span', 'Gagal mengunggah foto. Silahkan coba lagi.');
 
 		foreach ($_FILES as $field_name => $file_object) {
 		    if ( !empty($file_object['name']) ) {
@@ -68,6 +84,7 @@ class Ajax extends AB_Controller {
 		        	}
 
 		        	$result = tag('img', false, array(
+		        		'data-disable-progressive' => 1,
 		        		'src' => $this->domain.'/'.$config['upload_path'].'/'.$config['file_name'],
 		        		'data-name' => $config['file_name'],
 		        		'style' => $default_style,

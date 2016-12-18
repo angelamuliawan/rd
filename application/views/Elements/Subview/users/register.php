@@ -6,7 +6,7 @@
   	?>
 	<div class="form-group">
 		<?php
-				echo tag('label', 'Nama Lengkap *', array(
+				echo tag('label', sprintf('%s *', lang('fullname')), array(
 					'for' => 'RegFullname',
 					'class' => 'control-label',
 				));
@@ -56,7 +56,7 @@
   		<?php
   				echo tag('input', false, array(
   					'type' => 'submit',
-  					'value' => 'Register',
+  					'value' => lang('register'),
   					'class' => 'btn btn-success full-width',
   				));
   		?>

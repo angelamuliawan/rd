@@ -16,6 +16,7 @@
   					'maxlength' => 100,
   					'value' => set_value('email'),
   					'class' => 'form-control',
+            		'autofocus' => true,
   				));
   				echo form_error('email');
   		?>
@@ -38,7 +39,10 @@
   	</div>
   	<div class="checkbox">
 	    <label>
-	      	<input type="checkbox"> Ingat saya
+	      	<input type="checkbox">
+			<?php
+					echo lang('remember_me');
+			?>
 	    </label>
 	</div>
   	<div class="form-group">
@@ -55,13 +59,13 @@
     			$direct_link = isset( $direct_link ) ? $direct_link : false;
 
     			if( !empty($direct_link) ) {
-    				echo tag('a', 'Lupa password?', array(
+    				echo tag('a', sprintf('%s ?', lang('forgot_password')), array(
 	    				'href' => $domain.'/users/forgot_password',
 	    			));
     			} else {
-	    			echo tag('a', 'Lupa password?', array(
+	    			echo tag('a', sprintf('%s ?', lang('forgot_password')), array(
 	    				'href' => '#tabs-forgot-password',
-	    				'text-value' => 'Lupa Password',
+	    				'text-value' => lang('forgot_password'),
 	    				'class' => 'custom-nav-tabs replace-text',
 						'text-target' => '.modal-title',
 						'hide-on-click' => '.nav.nav-tabs',

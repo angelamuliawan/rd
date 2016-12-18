@@ -4,7 +4,7 @@
 				if( isset($alert) ) {
 					echo $alert;
 				}
-				echo tag('h2', 'Notifikasi');
+				echo tag('h2', lang('notification'));
 		?>
 	</div>
 	<div class="wrapper-notification bg-white">
@@ -25,7 +25,7 @@
 							));
 						}
 					} else {
-						echo tag('h4', 'Notifikasi tidak tersedia', array(
+						echo tag('h4', lang('data_not_available'), array(
 							'wrapTag' => 'li',
 						));
 					}

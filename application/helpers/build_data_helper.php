@@ -21,7 +21,7 @@ if ( ! function_exists('buildDataDropdown')) {
 
 if ( ! function_exists('buildDataAutocomplete')) {
 
-    function buildDataAutocomplete( $data = false, $optionValueName = false, $optionTextName = false ){
+    function buildDataAutocomplete( $data = false, $optionValueName = false, $optionTextName = false, $additional_field = false ){
 		$result = array();
 		if( !empty($data) && !empty($optionValueName) && !empty($optionTextName) ) {
 			$values = $data->result_array();
@@ -32,6 +32,11 @@ if ( ! function_exists('buildDataAutocomplete')) {
 					'id' => $row[$optionValueName],
 					'name' => $row[$optionTextName],
 				);
+
+				if( !empty($additional_field) ) {
+					$arr['custom_field'] = $row[$additional_field];
+				}
+
 				array_push($result, $arr);
 			}
 		}

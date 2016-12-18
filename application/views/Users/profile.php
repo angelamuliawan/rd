@@ -1,10 +1,16 @@
 <?php
 		$valuesUserAccount = isset( $valuesUserAccount[0] ) ? $valuesUserAccount[0] : false;
+		$user_id = isset( $valuesUserAccount['UserID'] ) ? $valuesUserAccount['UserID'] : false;
 		$username = isset( $valuesUserAccount['UserName'] ) ? $valuesUserAccount['UserName'] : false;
 		$description = isset( $valuesUserAccount['Description'] ) ? $valuesUserAccount['Description'] : false;
+
+		$valuesUserFollowData = isset( $valuesUserFollowData[0] ) ? $valuesUserFollowData[0] : false;
+		$total_followers = isset( $valuesUserFollowData['Follower'] ) ? $valuesUserFollowData['Follower'] : false;
+		$total_following = isset( $valuesUserFollowData['Following'] ) ? $valuesUserFollowData['Following'] : false;
 ?>
+
 <div class="container bg-white">
-	<div id="wrapper-outer-profile" class="big-wrapper bg-white pd20" style="min-height:500px;">
+	<div id="wrapper-outer-profile" class="big-wrapper bg-white pd20" style="min-height:600px;">
 		<div class="row">
 			<div class="wrapper-profile">
 				<div class="col-sm-3">
@@ -17,85 +23,80 @@
 				<div class="col-sm-6" style="padding-left: 0;">
 					<?php
 							echo tag('h3', $username, array(
-								'class' => 'mb10 ml20 desktop-only'
-							));
-							echo tag('p', $description, array(
-								'class' => 'mb10 ml20 desktop-only'
+								'class' => 'mb10 ml10 desktop-only'
 							));
 
-							if( $this->session->userdata('userid') == $user_id_viewer ) {
-								echo tag('button', 'Tulis Resep', array(
-									'type' => 'submit',
-									'class' => 'btn btn-orange mb10 ml10',
-									'style' => 'width: auto;',
-									'wrapTag' => 'a',
-									'wrapAttributes' => array(
-										'title' => 'Tulis Resep',
-										'href' => $domain.'/recipe/add',
-									),
+							if( $description ) {
+								echo tag('p', $description, array(
+									'class' => 'mb10 ml10 desktop-only'
+								));
+							} else if ( $user_id == $this->session->userdata('userid') ) {
+								echo tag('a', 'Tulis deskripsi diri', array(
+									'href' => $domain.'/users',
+									'class' => 'ml10 desktop-only'
 								));
 							}
 					?>
 
-					<div class="wrapper-right">
-						<ul class="timeline">
-							<?php
-									if( !empty($valuesTimeline) ) {
+					<!-- <div class="tacenter">
+						<?php
+								echo tag('img', false, array(
+									'src' => $domain . '/resources/icons/level.png',
+									'data-disable-progressive' => 1,
+									'style' => 'width: 25px; margin-top: -12px;',
+								));
+						?>
 
-										foreach( $valuesTimeline as $item ) {
-											$activity = $item['Activity'];
-											$activity_desc = $item['ActivityDesc'];
-											$activity_date = $item['ActivityDate'];
-											$intro = $item['RecipeIntro'];
-											
-											$recipe_id = $item['RecipeID'];
-											$recook_id = $item['RecookID'];
-											$cookmark_id = $item['CookmarkID'];
-											$image = $item['RecipePhoto'];
-											$slug = $item['Slug'];
+						<span style="font-size: 20px; color: #ED6E0C;">
+							20 SUPER CHEF
+						</span>
 
-											$flag_cookmark = $item['FlagCookmark'];
-											$flag_recook = $item['FlagRecook'];
-											$flag_creator = $item['FlagCreator'];
+						<div style="color: #acb1b8;">
+							12 POINT TO LEVEL UP
+						</div>
+					</div> -->
 
-											if( $activity == 'Recook' ) {
-												$intro = $item['RecookIntro'];
-												$image = $item['RecookPhoto'];
-											}
+					<div class="row follower-following-section">
+						<div class="col-sm-4 col-xs-4">
+							<div class="tacenter">
+								<span class="text-title">Followers</span>
+								<p class="text-content">
+									<?php
+											echo tag('a', number_format($total_followers, 0, '.', ','), array(
+												'href' => $domain.'/users/follower_list/'.$user_id_viewer,
+												'class' => 'ajax-modal',
+											));
+									?>
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-4 col-xs-4 middle">
+							<div class="tacenter">
+								<span class="text-title">Following</span>
+								<p class="text-content">
+									<?php
+											echo tag('a', number_format($total_following, 0, '.', ','), array(
+												'href' => $domain.'/users/following_list/'.$user_id_viewer,
+												'class' => 'ajax-modal',
+											));
+									?>
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-4 col-xs-4">
+							<div class="tacenter">
+								<span class="text-title">Level</span>
+								<p class="text-content">
+									-
+								</p>
+							</div>
+						</div>
+					</div>
 
-											$blocked_recipe_reason = $item['BlockedRecipeReason'];
-											$blocked_recook_reason = $item['BlockedRecookReason'];
-
-											if( ( !empty($blocked_recipe_reason) || !empty($blocked_recook_reason)) && $this->session->userdata('userid') != $user_id_viewer ) {
-												// Recipe blocked
-											} else {
-												loadSubview('users/item_timeline', array(
-													'activity' => $activity,
-													'activity_desc' => $activity_desc,
-													'activity_date' => $activity_date,
-													'intro' => $intro,
-													'recipe_id' => $recipe_id,
-													'recook_id' => $recook_id,
-													'cookmark_id' => $cookmark_id,
-													'image' => $image,
-													'slug' => $slug,
-													'flag_cookmark' => $flag_cookmark,
-													'flag_recook' => $flag_recook,
-													'flag_creator' => $flag_creator,
-													'blocked_recipe_reason' => $blocked_recipe_reason,
-													'blocked_recook_reason' => $blocked_recook_reason,
-												));
-											}
-										}
-									} else {
-										echo tag('p', 'Data tidak tersedia', array(
-											'style' => 'margin-left:40px;'
-										));
-									}
-							?>
-				            
-				            <li class="clearfix no-float"></li>
-				        </ul>
+					<div id="profile-container" class="wrapper-right mt10">
+				        <?php
+				        		loadSubview('common/background_masker/timeline');
+				        ?>
 					</div>
 				</div>
 				<div class="col-sm-3">
@@ -107,3 +108,5 @@
 		</div>
 	</div>
 </div>
+
+<input type="hidden" id="userIdViewer" value="<?php echo $user_id_viewer; ?>" />

@@ -4,20 +4,26 @@
 				if( isset($alert) ) {
 					echo $alert;
 				}
-				echo tag('h2', 'Tulis Resep');
+
+				$cur_action = 'create_recipe';
+				if( strtolower($this->router->method) == 'edit' ) {
+					$cur_action = 'edit_recipe';
+				}
+				
+				echo tag('h2', lang($cur_action));
 		?>
 		<div class="wrapper-create-recipe">
 			<form class="form-horizontal mt20" enctype="multipart/form-data" role="form" method="post" accept-charset="utf-8">
 			  	<?php
 			  			if( !empty($contest_name) ) {
-			  				echo tag('p', sprintf('Resep ini akan diikutsertakan ke dalam kontes : %s', $contest_name), array(
+			  				echo tag('p', sprintf('%s : %s', lang('recipe_will_be_contested_in'), $contest_name), array(
 			  					'class' => 'text-orange',
 			  				));
 			  			}
 			  	?>
 			  	<div class="form-group">
 			  		<?php
-			  				echo tag('label', 'Judul Resep', array(
+			  				echo tag('label', lang('recipe_title'), array(
 			  					'for' => 'RecipeName',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -28,7 +34,7 @@
 				    				'type' => 'text',
 				    				'class' => 'form-control',
 				    				'name' => 'RecipeName',
-				    				'placeholder' => 'contoh: Nasi Cumi Cabe Garam, etc',
+				    				'placeholder' => lang('example_recipe_title'),
 				    				'maxlength' => 100,
 				    				'value' => ( isset($request['RecipeName']) ? $request['RecipeName']: set_value('RecipeName') ),
 				    			));
@@ -38,7 +44,7 @@
 			  	</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Cerita dibalik Resep', array(
+			  				echo tag('label', lang('story_behind_recipe'), array(
 			  					'for' => 'RecipeIntro',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -57,7 +63,7 @@
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Gambar Utama', array(
+			  				echo tag('label', lang('main_picture'), array(
 			  					'for' => 'PrimaryPhoto',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -91,7 +97,7 @@
 									'name' => 'PrimaryPhoto',
 								));
 								echo form_error('PrimaryPhoto');
-								echo tag('p', '* Ukuran file maksimum 2MB', array(
+								echo tag('p', sprintf('* %s 2MB', lang('max_file_size')), array(
 									'class' => 'text-orange mt5'
 								));
 						?>
@@ -99,21 +105,21 @@
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Masakan', array(
+			  				echo tag('label', lang('cuisine'), array(
 			  					'for' => 'CuisineID',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
 			  		?>
 					<div class="col-sm-3">
 						<?php
-								echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'id="ddlCuisine" max-selected="2" class="form-control multiple-select" multiple="multiple"');
+								echo form_dropdown('CuisineID', $cuisines, (isset($request['CuisineID'])?$request['CuisineID']:false), 'id="ddlCuisine" max-selected="2" class="form-control multiple-select" multiple="multiple" whenNonSelected="'.lang('choose').'"');
 								echo form_error('CuisineID'); 
 						?>
 					</div>
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Jenis', array(
+			  				echo tag('label', lang('cuisine_type'), array(
 			  					'for' => 'FoodTypeID',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -126,7 +132,7 @@
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Proses Masak', array(
+			  				echo tag('label', lang('cooking_process'), array(
 			  					'for' => 'FoodProcessID',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -139,7 +145,7 @@
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Estimasi Biaya', array(
+			  				echo tag('label', lang('price_estimation'), array(
 			  					'for' => 'PriceRangeID',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -152,7 +158,7 @@
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Estimasi Orang', array(
+			  				echo tag('label', lang('people_estimation'), array(
 			  					'for' => 'EstPeopleID',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -165,7 +171,7 @@
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Estimasi Waktu Membuat', array(
+			  				echo tag('label', lang('cooking_time_estimation'), array(
 			  					'for' => 'EstTime',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -179,8 +185,11 @@
 					    				'name' => 'EstTime',
 					    				'value' => ( isset($request['EstTime']) ? $request['EstTime']: set_value('EstTime') ),
 					    			));
+
+									echo tag('span', lang('minute'), array(
+										'class' => 'input-group-addon',
+									));
 							?>
-							<span class="input-group-addon">Menit</span>
 						</div>
 						<?php
 								echo form_error('EstTime');
@@ -189,7 +198,7 @@
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Bahan', array(
+			  				echo tag('label', lang('composition'), array(
 			  					'class' => 'col-sm-2 control-label',
 			  				));
 			  		?>
@@ -234,24 +243,24 @@
 								echo tag('span', false, array(
 									'class' => 'glyphicon glyphicon-plus'
 								));
-								echo 'Tambah Bahan';
+								echo lang('add_composition');
 						?>
 					</div>
 				</div>
 				<div class="form-group">
 					<?php
-							echo tag('label', 'Langkah', array(
+							echo tag('label', lang('step'), array(
 								'class' => 'col-sm-2 control-label'
 							));
 					?>
 					<div class="col-sm-7 parent-template" model="FoodProcess" max-step="18">
 						<?php
-								echo tag('p', '* Maksimum langkah yang dapat dibuat adalah sebanyak 18 langkah', array(
-									'class' => 'text-orange mb0'
-								));
-								echo tag('p', '* Ukuran file maksimum 2MB', array(
-									'class' => 'text-orange'
-								));
+								// echo tag('p', '* Maksimum langkah yang dapat dibuat adalah sebanyak 18 langkah', array(
+								// 	'class' => 'text-orange mb0'
+								// ));
+								// echo tag('p', '* Ukuran file maksimum 2MB', array(
+								// 	'class' => 'text-orange'
+								// ));
 
 								loadSubview('recipe/custom_step', array(
 									'type' => 'init',
@@ -285,13 +294,13 @@
 								echo tag('span', false, array(
 									'class' => 'glyphicon glyphicon-plus'
 								));
-								echo 'Tambah Langkah';
+								echo lang('add_step');
 						?>
 					</div>
 				</div>
 			  	<div class="form-group">
 			  		<?php
-			  				echo tag('button', 'Simpan Resep', array(
+			  				echo tag('button', sprintf('%s %s', lang('save'), lang('recipe')), array(
 			  					'class' => 'btn btn-orange',
 			  					'type' => 'submit',
 			  					'wrapTag' => 'div',

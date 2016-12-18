@@ -12,7 +12,7 @@
 		      			<div class="big-wrapper wrapper-login">
 				        	<ul class="nav nav-tabs">
 							  	<?php
-							  			echo tag('a', 'Login', array(
+							  			echo tag('a', lang('login'), array(
 							  				'id' => 'liLoginTab',
 							  				'class' => 'tacenter',
 							  				'href' => '#tabs-login',
@@ -23,7 +23,7 @@
 							  					'text-target' => '.modal-title',
 							  				)
 							  			));
-							  			echo tag('a', 'Register', array(
+							  			echo tag('a', lang('register'), array(
 							  				'class' => 'tacenter',
 							  				'href' => '#tabs-register',
 							  				'wrapTag' => 'li',
@@ -36,7 +36,7 @@
 							  	?>
 							</ul>
 							<?php
-									echo tag('a', '< Login', array(
+									echo tag('a', sprintf('< %s', lang('login')), array(
 										'href' => '#',
 										'class' => 'backToLogin hide',
 										'trigger-on-click' => '#liLoginTab',
@@ -67,7 +67,7 @@
 								<div class="wrapper-facebook with-border">
 									<a href="#" class="facebook-link">
 										<?php
-												echo tag('span', 'Sign in with Facebook', array(
+												echo tag('span', lang('login_facebook'), array(
 													'class' => 'fbold',
 													'wrapTag' => 'div',
 													'wrapAttributes' => array(

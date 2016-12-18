@@ -9,7 +9,7 @@
 		$path_image = '/resources/images/uploads/recipe/recook/thumbs/'.$recook_photo;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
-			$custom_image = $domain.'/resources/images/default.png';
+			$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 		}
 ?>
 <div class="item <?php echo $is_first_item; ?>">

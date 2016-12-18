@@ -1,6 +1,6 @@
 <div class="wrapper-item-article bg-white pd15">
 <?php
-		echo tag('h3', 'Artikel Terbaru');
+		echo tag('h3', lang('latest_article'));
 
 		if( !empty($valuesNewestArticle) ) {
 ?>

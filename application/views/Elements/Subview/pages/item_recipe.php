@@ -3,31 +3,35 @@
 		$slug = isset($slug)?$slug:false;
 		$image = isset($image)?$image:false;
 		$title = isset($title)?$title:false;
+
+		$cnt_love = isset($cnt_love)?$cnt_love:false;
 		$cnt_comment = isset($cnt_comment)?$cnt_comment:false;
-		$cnt_recook = isset($cnt_recook)?$cnt_recook:false;
 		$cnt_view = isset($cnt_view)?$cnt_view:false;
+
+		$iconLove = tag('img', false, array(
+			'src' => $domain.'/resources/icons/love_w.png',
+			'data-disable-progressive' => true,
+			'style' => 'height: 20px;',
+		));
 
 		$iconComment = tag('img', false, array(
 			'src' => $domain.'/resources/icons/comment_w.png',
-			'disable_progressive' => true,
-		));
-		$iconRecook = tag('img', false, array(
-			'src' => $domain.'/resources/icons/retweet_w.png',
-			'disable_progressive' => true,
-		));
-		$iconView = tag('img', false, array(
-			'src' => $domain.'/resources/icons/view_w.png',
-			'disable_progressive' => true,
+			'data-disable-progressive' => true,
 		));
 
+		$iconView = tag('img', false, array(
+			'src' => $domain.'/resources/icons/view_w.png',
+			'data-disable-progressive' => true,
+		));
+
+		$totalLove = tag('span', $cnt_love);
 		$totalComment = tag('span', $cnt_comment);
-		$totalRecook = tag('span', $cnt_recook);
 		$totalView = tag('span', $cnt_view);
 
 		$path_image = '/resources/images/uploads/recipe/primary/thumbs/'.$image;
 		$custom_image = $domain.$path_image;
 		if( !file_exists( $webroot.$path_image ) ) {
-			$custom_image = $domain.'/resources/images/default.png';
+			$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 		}
 
 		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
@@ -42,13 +46,7 @@
 						'class' => 'box-header',
 					),
 				));
-				// echo tag('div', false, array(
-				// 	'style' => 'background-image:url('.$custom_image.'); width:100%; height:170px; background-size: cover; background-position: center;',
-				// 	'wrapTag' => 'div',
-				// 	'wrapAttributes' => array(
-				// 		'class' => 'box-header',
-				// 	),					
-				// ));
+
 				echo tag('h4', $title, array(
 					'wrapTag' => 'div',
 					'wrapAttributes' => array(
@@ -60,41 +58,19 @@
 			<?php
 					echo tag('div', $iconComment.$totalComment, array(
 						'class' => 'pull-right mr5',
-						'title' => 'Jumlah Komentar',
+						'title' => lang('total_comment'),
 					));
-					echo tag('div', $iconRecook.$totalRecook, array(
+					
+					echo tag('div', $iconLove.$totalLove, array(
 						'class' => 'pull-right mr10',
-						'title' => 'Jumlah Recook',
+						'title' => lang('total_like'),
 					));
+
 					echo tag('div', $iconView.$totalView, array(
 						'class' => 'pull-right mr10',
-						'title' => 'Jumlah View',
+						'title' => lang('total_view'),
 					));
 			?>
 		</div>
 	</a>
-	<!-- <a href="<?php echo $url; ?>">
-	    <div class="box-header">
-			<?php
-					echo tag('span', $title, array(
-						'class' => 'wrapper-inner'
-					));
-					echo tag('img', false, array(
-						'src' => $custom_image,
-					));
-			?>
-			<div class="box-footer">
-				<?php
-						echo tag('div', $iconComment.$totalComment, array(
-							'class' => 'pull-right mr5',
-							'title' => 'Jumlah Komentar',
-						));
-						echo tag('div', $iconRecook.$totalRecook, array(
-							'class' => 'pull-right mr10',
-							'title' => 'Jumlah Recook',
-						));
-				?>
-			</div>
-		</div>
-	</a> -->
 </li>

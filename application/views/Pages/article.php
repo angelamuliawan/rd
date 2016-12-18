@@ -47,7 +47,7 @@
 												echo tag('div', false, array(
 													'class' => 'bg-holder',
 													'data-src' => $custom_image,
-													'is-progressive' => true,
+													'data-is-progressive' => true,
 												));
 										?>
 										<div class="article-title">
