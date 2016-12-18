@@ -113,6 +113,15 @@
 			'alphabet' => 'Abjad',
 			'people' => 'Orang',
 
+			/* FOOD PROCESS */
+			'grilled' => 'Bakar',
+			'fried' => 'Goreng',
+			'steamed' => 'Kukus',
+			'baked' => 'Panggang',
+			'boiled' => 'Rebus',
+			'not_cooked' => 'Tanpa Masak',
+			'stir_fry' => 'Tumis',
+
 			'describe_recook_story' => 'Cerita recook kamu. Apakah kamu menambahkan atau mengurangi bahan? Apakah masakan kamu berhasil?',
 
 			'contest_winner_announcement' => 'Pengumuman Pemenang Lomba',

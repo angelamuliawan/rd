@@ -190,6 +190,29 @@ class AB_Controller extends CI_Controller {
 		$cuisines = buildDataDropdown($cuisines, 'CuisineID', 'CuisineName');
 
 		$food_process = array();
+		// For translation purpose, we will hardcode Food process from db
+		if( $this->site_lang == 'indonesian' ){
+			$food_process = array(
+			    7 => lang('grilled'),
+			    1 => lang('fried'),
+			    3 => lang('steamed'),
+			    2 => lang('baked'),
+			    5 => lang('boiled'),
+			    6 => lang('not_cooked'),
+			    4 => lang('stir_fry'),
+			);
+		} else if( $this->site_lang == 'english' ) {
+			$food_process = array(
+				2 => lang('baked'),
+				5 => lang('boiled'),
+				1 => lang('fried'),
+			    7 => lang('grilled'),
+			    6 => lang('not_cooked'),
+			    3 => lang('steamed'),
+			    4 => lang('stir_fry'),
+			);
+		}
+		
 		$price_ranges = array();
 		$estimation_peoples = array();
 		$measure_sizes = array();
@@ -197,9 +220,9 @@ class AB_Controller extends CI_Controller {
 		$sorts = array();
 
 		if( $type == 'create' ) {
-			$food_process = $this->db->query('CALL GetAllFoodProcess()');
-			$food_process = buildDataDropdown($food_process, 'FoodProcessID', 'FoodProcessName');
-			
+			// $food_process = $this->db->query('CALL GetAllFoodProcess()');
+			// $food_process = buildDataDropdown($food_process, 'FoodProcessID', 'FoodProcessName');
+
 			$price_ranges = $this->db->query('CALL GetAllPriceRange()');
 			$price_ranges = buildDataDropdown($price_ranges, 'PriceRangeID', 'PriceRangeName');
 			

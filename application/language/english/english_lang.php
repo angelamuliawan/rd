@@ -113,6 +113,15 @@
 			'alphabet' => 'Alphabet',
 			'people' => 'People',
 
+			/* FOOD PROCESS */
+			'grilled' => 'Grilled',
+			'fried' => 'Fried',
+			'steamed' => 'Steamed',
+			'baked' => 'Baked',
+			'boiled' => 'Boiled',
+			'not_cooked' => 'Not Cooked',
+			'stir_fry' => 'Stir-fry',
+
 			'describe_recook_story' => 'Your recook experience. Did you add or lessen the composition? Did you success recooking this recipe?',
 
 			'contest_winner_announcement' => 'Contest Winner Announcement',

@@ -1,7 +1,75 @@
 var source_data = {};
+var apiUri = 'http://localhost/ckn/public/api/';
 var serviceUri = 'http://localhost/cookindo/';
+
+// var apiUri = 'http://api.cookindo.com/public/api/';
 // var serviceUri = 'http://'+document.domain+'/';
+
 var finished_ajax = true;
+var arrTranslate = {
+    'indonesian' : {
+        'cancel' : 'Batal',
+        'edit' : 'Ubah',
+        'delete' : 'Hapus',
+
+        'like' : 'Suka',
+        'unlike' : 'Batal Suka',
+        'reply' : 'Balas',
+        'more' : 'More',
+        'save' : 'Simpan',
+
+        'confirm_delete' : 'Yakin ingin menghapus?',
+
+        'comment' : 'Komentar',
+        'write_comment' : 'Tuliskan komentar Anda',
+        'send_comment' : 'Kirim Komentar',
+        'comment_this_recipe' : 'Komentari Resep Ini',
+        'comment_not_available' : 'Komentari tidak tersedia',
+        'view_more_comment' : 'Lihat komentar lainnya',
+
+        'create_recipe' : 'membuat resep',
+        'recooked' : 'melakukan recook',
+        'cookmark' : 'menyimpan resep',
+        'comment_recipe' : 'mengomentari resep',
+        'comment_recook' : 'mengomentari recook',
+        'join_cookindo' : 'Bergabung di Cookindo',
+
+        /* VALIDATION */
+        'max' : 'Maksimal',
+        'option' : 'opsi',
+    },
+    'english' : {
+        'cancel' : 'Cancel',
+        'edit' : 'Edit',
+        'delete' : 'Delete',
+
+        'like' : 'Like',
+        'unlike' : 'Unlike',
+        'reply' : 'Reply',
+        'more' : 'More',
+        'save' : 'Save',
+
+        'confirm_delete' : 'Delete this item?',
+
+        'comment' : 'Comments',
+        'write_comment' : 'Write a comment',
+        'send_comment' : 'Post Comment',
+        'comment_this_recipe' : 'Comment This Recipe',
+        'comment_not_available' : 'Comment not available',
+        'view_more_comment' : 'View more comment',
+
+        'create_recipe' : 'create recipe',
+        'recooked' : 'recooked',
+        'cookmark' : 'cookmark',
+        'comment_recipe' : 'commented on recipe',
+        'comment_recook' : 'commented on recook',
+        'join_cookindo' : 'joined Cookindo',
+
+        /* VALIDATION */
+        'max' : 'Maximum',
+        'option' : 'option',
+    }
+}
 
 $(document).ready(function() {
 
@@ -14,10 +82,12 @@ $(document).ready(function() {
 	$(document).ajaxComplete(function() {
         finished_ajax = true;
 		$('.overlay').css('visibility', 'hidden');
-        $('input[type=submit], button[type=submit]').attr('disabled', false);
+        $('input[type=submit].with-loading, button[type=submit].with-loading').attr('disabled', false);
 	});
     $(document).submit(function(e) {
-        $('input[type=submit], button[type=submit]').attr('disabled', true);
+        if( finished_ajax ) {
+            $('input[type=submit].with-loading, button[type=submit].with-loading').attr('disabled', true);
+        }
     });
     
     $.customFunction();
@@ -65,6 +135,12 @@ $(document).ready(function() {
             }
         }); 
     });
+
+    $.ajaxSetup({
+        headers: {
+            'Sid': $('#sid').val()
+        }
+    });
 });
 
 $.unveil = function(){
@@ -73,7 +149,7 @@ $.unveil = function(){
             this.style.opacity = 1;
         });
     });
-    $("div[is-progressive='1']").unveil(300, function() {
+    $("div[data-is-progressive='1']").unveil(300, function() {
         $(this).css('opacity', 1);
     });
 }
@@ -205,6 +281,20 @@ $.customFunction = function() {
         });
     }
 }
+$.getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
 $.carousel = function() {
     $('#recook-carousel').carousel({
         interval: 4000
@@ -223,6 +313,7 @@ $.ajaxLink = function() {
         var data_url = self.attr('href');
         var wrapper_class = '.' + self.attr('target-wrapper');
         var with_confirm = self.attr('with-confirm');
+        var blockScreen = ( self.attr('data-block-screen') !== undefined ) ? true : false;
         var conf = true;
         if (with_confirm !== undefined) {
             conf = confirm(with_confirm);
@@ -232,6 +323,7 @@ $.ajaxLink = function() {
                 url: data_url,
                 type: 'GET',
                 dataType: 'html',
+                global: blockScreen,
                 success: function(result) {
                     var contentHTML = '';
                     if (self.attr('remove') !== undefined) {
@@ -365,7 +457,7 @@ $.multipleSelect = function() {
                 var max = self.attr('max-selected');
                 var selected = $('.multiple-select option:selected').length;
                 if (selected == 3) {
-                    alert('Maksimal ' + max + ' opsi');
+                    alert( $.translate('max') + ' ' + max + ' ' + $.translate('option') );
                     var value = $(element[0]).val();
                     $('.multiple-select').multiselect('deselect', value);
                 }
@@ -398,6 +490,7 @@ $.fileUpload = function() {
     if ($('#fileupload').attr('action-type') !== undefined) {
         action_type = $('#fileupload').attr('action-type');
     }
+
     $('#fileupload').fileupload({
         url: serviceUri + 'ajax/upload_image/' + action_type,
         dataType: 'html',
@@ -417,7 +510,7 @@ $.fileUpload = function() {
         progressall: function(e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
             $('#progress .progress-bar').css('width', progress + '%');
-        }
+        },
     }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
 }
 $.reorderData = function() {
@@ -478,6 +571,8 @@ $.autocomplete = function(objcontainer) {
         var self = $(this);
         var url = self.attr('data-url');
         var _class = self.attr('data-class');
+        var blockScreen = ( self.attr('data-block-screen') !== undefined ) ? true : false;
+
         if (source_data.hasOwnProperty(_class)) {
             $.buildAutocomplete(self, _class);
         } else {
@@ -485,6 +580,8 @@ $.autocomplete = function(objcontainer) {
                 url: url,
                 type: 'GET',
                 dataType: 'json',
+                global: blockScreen,
+                async: false,
                 success: function(data) {
                     source_data[_class] = [];
                     for (var i in data) {
@@ -499,10 +596,21 @@ $.autocomplete = function(objcontainer) {
 }
 $.buildAutocomplete = function(obj, _class) {
     var id = obj.attr('id');
+    var redirectOnSelectedPath = obj.attr('redirect-on-selected-path');
+
     obj.typeahead({
         source: source_data[_class],
+        items: 5,
+        minLength: 0,
         highlighter: function(item) {
-            return JSON.parse(item).name;
+
+            var result = '<div>'+JSON.parse(item).name+'</div>';
+            if( JSON.parse(item).hasOwnProperty('custom_field') ) {
+                var image = serviceUri + obj.attr('data-path') + JSON.parse(item).custom_field;
+                result = '<div class="autocomplete-item"> <img src="'+image+'" data-disable-progressive="1" onerror="$.onErrorImageAutocomplete(this)" /> <span class="autocomplete-text">'+JSON.parse(item).name+'</span> <div class="clearfix"></div> </div>';
+            }
+
+            return result;
         },
         matcher: function(item) {
             return JSON.parse(item).name.toLocaleLowerCase().indexOf(this.query.toLocaleLowerCase()) != -1;
@@ -513,8 +621,14 @@ $.buildAutocomplete = function(obj, _class) {
             if (hiddenField.length) {
                 hiddenField.val(objItem.id);
             }
+
+            if( redirectOnSelectedPath !== undefined ) {
+                window.location.href = serviceUri + redirectOnSelectedPath + objItem.id;
+            }
+
             return objItem.name;
-        }
+        },
+        showHintOnFocus: true,
     });
 }
 $.ajaxModal = function(options) {
@@ -528,7 +642,10 @@ $.ajaxModal = function(options) {
             success: function(response, status) {
                 $('#myModal').replaceWith(response);
                 $('#myModal').modal('show');
+
                 $.fileUpload();
+                $.unveil();
+
                 return false;
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -566,4 +683,39 @@ $.replaceText = function() {
 
         $(target).text(text);
     });
+}
+$.slugify = function(text){
+    if( typeof text == 'string' ) {
+        text = text.toString().toLowerCase()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
+    }
+
+    return text;
+}
+$.errorRedirect = function(){
+    window.location.reload();
+}
+$.setCookie = function(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+$.getCookie = function(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+$.ucFirst = function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+$.onErrorImageAutocomplete = function(image){
+    image.onerror = "";
+    image.src = serviceUri + "resources/images/placeholder/recipe.jpg";
+    return true;
+}
+$.translate = function( str ){
+    return arrTranslate[$('#site_lang').val()][str.toLowerCase()];
 }
