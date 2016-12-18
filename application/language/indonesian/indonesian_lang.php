@@ -43,6 +43,34 @@
 			/* VALIDATION */
 			'data_not_available' => 'Data tidak tersedia',
 
+			/* ALERT */
+			'success_save_recipe' => 'Sukses menyimpan resep',
+			'failed_save_recipe' => 'Gagal menyimpan resep. Silahkan coba lagi',
+			'success_save_data' => 'Sukses menyimpan data',
+			'failed_save_data' => 'Gagal menyimpan data. Silahkan coba lagi',
+			'success_save_profile_picture' => 'Sukses menyimpan foto profil',
+			'failed_save_profile_picture' => 'Gagal menyimpan foto profil',
+
+			'success_save_password' => 'Sukses menyimpan kata sandi',
+			'failed_save_password' => 'Gagal menyimpan kata sandi',
+
+			'temporary_cannot_login' => 'Untuk sementara waktu anda tidak bisa login. Kemungkinan karena data yang anda input mengandung unsur SARA, PLAGIARISME atau mengurangi kualitas data pada website kami. Untuk info lebih lanjut silahkan email ke admin@cookindo.com',
+			'success_login' => 'Sukses melakukan login',
+			'invalid_email_or_password' => 'Email atau Password Anda tidak valid. Silahkan coba lagi',
+
+			'please_fill_required_data' => 'Mohon lengkapi semua data yang diperlukan',
+			'success_register' => 'Sukses melakukan registrasi',
+			'email_exists' => 'Email telah terdaftar',
+			'email_not_found' => 'Email tidak ditemukan',
+			'reset_password_instruction' => 'Mohon cek email Anda di menu pesan masuk maupun spam, dan ikuti instruksi yang telah Kami sediakan',
+			'success_reset_password' => 'Sukses melakukan reset password',
+			'expired_reset_password_link' => 'Maaf, link tersebut sudah tidak aktif dikarenakan sudah pernah digunakan sebelumnya',
+
+			'failed_follow' => 'Gagal melakukan follow',
+			'failed_unfollow' => 'Gagal melakukan unfollow',
+			'failed_display_list_following' => 'Gagal menampilkan daftar following',
+			'failed_display_list_follower' => 'Gagal menampilkan daftar follower',
+
 			/* TOTAL */
 			'total_comment' => 'Jumlah Komentar',
 			'total_like' => 'Jumlah yang Menyukai',

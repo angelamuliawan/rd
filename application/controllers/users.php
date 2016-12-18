@@ -41,7 +41,7 @@ class Users extends AB_Controller {
 		$resCookmark->next_result();
 
 		$this->load->vars(array(
-			'site_title' => 'Pengaturan Akun',
+			'site_title' => lang('account_setting'),
 			'valuesUserAccount' => $valuesUserAccount,
 			'valuesMyRecipe' => $valuesMyRecipe,
 			'valuesRecook' => $valuesRecook,
@@ -54,6 +54,7 @@ class Users extends AB_Controller {
 				'datedropper/custom',
 			),
 		));
+
 		$this->render();
 	}
 
@@ -80,7 +81,7 @@ class Users extends AB_Controller {
 		));
 		$values = $resNotif->result_array();
 		$this->load->vars(array(
-			'site_title' => 'Notifikasi',
+			'site_title' => lang('notification'),
 			'values' => $values,
 		));
 
@@ -105,7 +106,7 @@ class Users extends AB_Controller {
 				));
 				$res->next_result();
 
-				$message = 'Sukses menyimpan foto profil';
+				$message = lang('success_save_profile_picture');
 				$status = 'success';
 
 				$this->session->set_userdata('userphoto', $post['photo']);
@@ -114,7 +115,7 @@ class Users extends AB_Controller {
 					'status' => $status,
 				));
 			} else {
-				$message = 'Gagal menyimpan foto profil';
+				$message = lang('failed_save_profile_picture');
 				$status = 'error';
 			}
 		}
@@ -154,12 +155,12 @@ class Users extends AB_Controller {
 				$data = $res->result()[0];
 
 				if( $data->result == -1 ) {
-					$message = 'Gagal memperbarui password Anda';
+					$message = lang('failed_save_password');
 					$status = 'error';
 
 					$this->setCustomError('oldPassword', 'Invalid old password');
 				} else {
-					$message = 'Sukses memperbarui password Anda';
+					$message = lang('success_save_password');
 					$status = 'success';
 
 					$this->session->set_flashdata('flash_message', array(
@@ -168,7 +169,7 @@ class Users extends AB_Controller {
 					));
 				}
 			} else {
-				$message = 'Gagal memperbarui password Anda';
+				$message = lang('failed_save_password');
 				$status = 'error';
 			}
 		}
@@ -176,6 +177,7 @@ class Users extends AB_Controller {
 		$this->load->vars(array(
 			'request' => $post,
 		));
+
 		loadMessage($message, $status, true);
 		loadSubview('users/tabs/password');
 	}
@@ -203,7 +205,7 @@ class Users extends AB_Controller {
 					$this->session->userdata('userid'),
 				));
 
-				$message = 'Sukses memperbarui data Anda';
+				$message = lang('success_save_data');
 				$status = 'success';
 
 				$this->session->set_userdata('username', $post['username']);
@@ -212,7 +214,7 @@ class Users extends AB_Controller {
 					'status' => $status,
 				));
 			} else {
-				$message = 'Gagal memperbarui data Anda';
+				$message = lang('failed_save_data');
 				$status = 'error';
 			}
 		}
@@ -263,7 +265,7 @@ class Users extends AB_Controller {
 				if( $data->UserID != -1 ) {
 
 					if( $data->IsActive == 0 ) {
-						$message = 'Untuk sementara waktu anda tidak bisa login. Kemungkinan karena data yang anda input mengandung unsur SARA, PLAGIARISME atau mengurangi kualitas data pada website kami. Untuk info lebih lanjut silahkan email ke admin@cookindo.com';
+						$message = lang('temporary_cannot_login');
 						$status = 'error';
 					} else {
 
@@ -279,15 +281,15 @@ class Users extends AB_Controller {
 							$this->session->set_userdata('redirect_after', $get['redirect_after']);
 						}
 
-						$message = 'Sukses melakukan login';
+						$message = lang('success_login');
 						$status = 'success';
 					}
 				} else {
-					$message = 'Email atau Password Anda tidak valid. Silahkan coba lagi';
+					$message = lang('invalid_email_or_password');
 					$status = 'error';
 				}
 			} else {
-				$message = 'Email atau Password Anda tidak valid. Silahkan coba lagi';
+				$message = lang('invalid_email_or_password');
 				$status = 'error';
 			}
 		}
@@ -301,8 +303,9 @@ class Users extends AB_Controller {
 			loadModal('login');
 		} else {
 			$this->load->vars(array(
-				'site_title' => 'Login',
+				'site_title' => lang('login'),
 			));
+
 			$this->render($post);
 		}
 	}
@@ -315,7 +318,7 @@ class Users extends AB_Controller {
 		}
 		
 		$post = $this->input->post();
-		$message = 'Mohon lengkapi semua data yang diperlukan.';
+		$message = lang('please_fill_required_data');
 		$status = 'error';
 
 		// To get the parameter redirect after
@@ -356,10 +359,10 @@ class Users extends AB_Controller {
 						$this->session->set_userdata('redirect_after', $get['redirect_after']);
 					}
 
-					$message = 'Sukses melakukan pendaftaran';
+					$message = lang('success_register');
 					$status = 'success';
 				} else {
-					$this->setCustomError('RegEmail', 'Email telah terdaftar.');
+					$this->setCustomError('RegEmail', lang('email_exists'));
 				}
 			}
 		}
@@ -373,7 +376,7 @@ class Users extends AB_Controller {
 			loadModal('login');
 		} else {
 			$this->load->vars(array(
-				'site_title' => 'Daftar',
+				'site_title' => lang('register'),
 			));
 			$this->render($post);
 		}
@@ -387,7 +390,7 @@ class Users extends AB_Controller {
 		}
 		
 		$post = $this->input->post();
-		$message = 'Mohon lengkapi semua data yang diperlukan.';
+		$message = lang('please_fill_required_data');
 		$status = 'error';
 		
 		if( !empty($post) ) {
@@ -402,7 +405,7 @@ class Users extends AB_Controller {
 				$data = $res->result()[0];
 
 				if( $data->UserID != -1 ) {
-					$message = 'Sukses melakukan reset password. Mohon cek email Anda di menu pesan masuk maupun spam, dan ikuti instruksi yang telah Kami sediakan.';
+					$message = lang('reset_password_instruction');
 					$status = 'success';
 
 					if( $this->allowSendEmail ) {
@@ -417,7 +420,7 @@ class Users extends AB_Controller {
 				    	));
 					}
 				} else {
-					$this->setCustomError('ForgotEmail', 'Email tidak ditemukan.');
+					$this->setCustomError('ForgotEmail', lang('email_not_found'));
 				}
 			}
 		}
@@ -427,7 +430,7 @@ class Users extends AB_Controller {
 			loadModal('login');
 		} else {
 			$this->load->vars(array(
-				'site_title' => 'Lupa Password',
+				'site_title' => lang('forgot_password'),
 			));
 			$this->render($post);
 		}
@@ -444,7 +447,7 @@ class Users extends AB_Controller {
 
 		if( $dataUser->UserID == -1 ) {
 			$this->session->set_flashdata('flash_message', array(
-				'message' => 'Maaf, link tersebut sudah tidak aktif dikarenakan sudah pernah digunakan sebelumnya.',
+				'message' => lang('expired_reset_password_link'),
 				'status' => 'error',
 			));
 			$this->load->helper('url');
@@ -452,7 +455,7 @@ class Users extends AB_Controller {
 		}
 		
 		$post = $this->input->post();
-		$message = 'Mohon lengkapi semua data yang diperlukan.';
+		$message = lang('please_fill_required_data');
 		$status = 'error';
 		
 		if( !empty($post) ) {
@@ -476,7 +479,7 @@ class Users extends AB_Controller {
 				$this->session->set_userdata('userphoto', $dataUser->UserPhoto);
 
 				$this->session->set_flashdata('flash_message', array(
-					'message' => 'Sukses melakukan reset password.',
+					'message' => lang('success_reset_password'),
 					'status' => 'success',
 				));
 
@@ -560,10 +563,10 @@ class Users extends AB_Controller {
 					$this->session->userdata('userid'),
 				));
 
-				$message = 'Sukses menyimpan artikel';
+				$message = lang('success_save_data');
 				$status = 'success';
 			} else {
-				$message = 'Gagal menyimpan artikel. Silahkan coba lagi';
+				$message = lang('failed_save_data');
 				$status = 'error';
 			}
 		}
@@ -595,6 +598,7 @@ class Users extends AB_Controller {
 				'froala/plugins/lists.min',
 			),
 		));
+
 		$this->render($post);
 	}
 
@@ -829,7 +833,6 @@ class Users extends AB_Controller {
 			$resUserFollowData->next_result();
 
 			$this->load->vars(array(
-				'site_title' => $valuesUserAccount[0]['UserName'],
 				'valuesUserAccount' => $valuesUserAccount,
 				'valuesRelatedPopularUser' => $valuesRelatedPopularUser,
 				// 'valuesTimeline' => $valuesTimeline,
@@ -1003,15 +1006,15 @@ class Users extends AB_Controller {
 				$data = $res->result()[0];
 
 				if( $data->result == -1 ) {
-					$message = 'Gagal melengkapi data Anda';
+					$message = lang('failed_save_data');
 					$status = 'error';
 
-					$this->setCustomError('email', 'Email telah terdaftar.');
+					$this->setCustomError('email', lang('email_exists'));
 				} else if( $data->result == -2 ) {
-					$message = 'Gagal melengkapi data Anda';
+					$message = lang('failed_save_data');
 					$status = 'error';
 				} else {
-					$message = 'Sukses melengkapi data Anda';
+					$message = lang('success_save_data');
 					$status = 'success';
 
 					$this->session->set_userdata('useremail', $data->UserEmail);
@@ -1023,7 +1026,7 @@ class Users extends AB_Controller {
 					));
 				}
 			} else {
-				$message = 'Gagal melengkapi data Anda';
+				$message = lang('failed_save_data');
 				$status = 'error';
 			}
     	} else {
@@ -1038,15 +1041,12 @@ class Users extends AB_Controller {
 			);
     	}
 
-		$this->load->vars(array(
-			'site_title' => 'Lengkapi Data',
-		));
 		loadMessage($message, $status, true);
     	$this->render($post);
     }
 
     function follow( $user_id = false ){
-    	$message = 'Gagal melakukan follow.';
+    	$message = lang('failed_follow');
 		$status = 'error';
 
 		if( !empty($user_id) && isLoggedIn() ) { 
@@ -1071,7 +1071,7 @@ class Users extends AB_Controller {
     }
 
     function unfollow( $user_id = false ){
-    	$message = 'Gagal melakukan unfollow.';
+    	$message = lang('failed_unfollow');
 		$status = 'error';
 
 		if( !empty($user_id) && isLoggedIn() ) {
@@ -1095,7 +1095,7 @@ class Users extends AB_Controller {
     }
 
 	function following_list( $user_id = false ){
-    	$message = 'Gagal menampilkan daftar following.';
+    	$message = lang('failed_display_list_following');
 		$status = 'error';
 
 		if( !empty($user_id) ) { 
@@ -1117,7 +1117,7 @@ class Users extends AB_Controller {
     }
 
     function follower_list( $user_id = false ){
-    	$message = 'Gagal menampilkan daftar following.';
+    	$message = lang('failed_display_list_follower');
 		$status = 'error';
 
 		if( !empty($user_id) ) { 

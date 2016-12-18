@@ -25,7 +25,7 @@ class Recipe extends AB_Controller {
 		$this->callSearchRecipe($get, $page);
 
 		$this->load->vars(array(
-			'site_title' => 'Cari Resep',
+			'site_title' => lang('search_recipe'),
 			'page' => $page,
 			'param_get' => $this->input->server('QUERY_STRING'),
 		));
@@ -342,10 +342,10 @@ class Recipe extends AB_Controller {
 				$query_result = $resRecipeLog->result();
 				$resRecipeLog->next_result();
 
-				$message = 'Sukses menyimpan resep';
+				$message = lang('success_save_recipe');
 				$status = 'success';
 			} else {
-				$message = 'Gagal menyimpan resep. Silahkan coba lagi';
+				$message = lang('failed_save_recipe');
 				$status = 'error';
 			}
 		}
@@ -362,7 +362,7 @@ class Recipe extends AB_Controller {
 		}
 
 		$this->load->vars(array(
-			'site_title' => 'Tulis Resep',
+			'site_title' => lang('create_recipe'),
 			'contest_name' => $contest_name,
 		));
 		$this->render($post);
@@ -523,7 +523,6 @@ class Recipe extends AB_Controller {
 						$resUpdateFoodComposition->next_result();
 					}
 				}
-
 				
 				if( isset($post['FoodProcess']) ) {
 
@@ -555,10 +554,10 @@ class Recipe extends AB_Controller {
 					}
 				}
 
-				$message = 'Sukses menyimpan resep';
+				$message = lang('success_save_recipe');
 				$status = 'success';
 			} else {
-				$message = 'Gagal menyimpan resep. Silahkan coba lagi';
+				$message = lang('failed_save_recipe');
 				$status = 'error';
 			}
 		} else {
@@ -632,7 +631,7 @@ class Recipe extends AB_Controller {
 		}
 
 		$this->load->vars(array(
-			'site_title' => 'Edit Resep',
+			'site_title' => lang('edit_recipe'),
 			'contest_name' => $contest_name,
 		));
 
@@ -690,10 +689,10 @@ class Recipe extends AB_Controller {
 			    	));
 				}
 
-				$message = 'Sukses menyimpan data recook';
+				$message = lang('success_save_data');
 				$status = 'success';
 			} else {
-				$message = 'Gagal menyimpan data recook. Silahkan coba lagi';
+				$message = lang('failed_save_data');
 				$status = 'error';
 			}
 		}
@@ -743,15 +742,8 @@ class Recipe extends AB_Controller {
 		$valuesRecipeRecook = $resRecipeRecook->result_array();
 		$resRecipeRecook->next_result();
 
-		// $resRecookComment = $this->db->query('CALL GetRecookComment(?)', array(
-		// 	$recook_id,
-		// ));
-		// $valuesRecookComment = $resRecookComment->result_array();
-		// $resRecookComment->next_result();
-
 		$this->load->vars(array(
 			'valuesRecipeRecook' => $valuesRecipeRecook,
-			// 'valuesRecookComment' => $valuesRecookComment,
 			'recook_id' => $recook_id,
 			'site_title' => $valuesRecipeRecook[0]['RecipeName'],
 			'og_meta' => array(
@@ -780,7 +772,6 @@ class Recipe extends AB_Controller {
 		));
 
 		$this->render($post);
-		// loadModal('view_recook');
 	}
 
 	public function recipe_comment( $recipe_id = false ) {
@@ -933,11 +924,11 @@ class Recipe extends AB_Controller {
 
 	public function cookmark_item( $recipe_id = false, $allow_print = false ) {	
 
-		$message = 'Gagal menyimpan data cookmark';
+		$message = lang('failed_save_data');
 		$status = 'error';
 
 		if( !empty($recipe_id) ) {    		
-			$message = 'Sukses menyimpan data cookmark';
+			$message = lang('success_save_data');
 			$status = 'success';
 
 			$resCookmark = $this->db->query('CALL InsertCookmark(?,?)', array(
@@ -975,11 +966,11 @@ class Recipe extends AB_Controller {
 
 	public function uncookmark_item( $recipe_id = false, $cookmark_id = false, $allow_print = false ) {	
 
-		$message = 'Gagal menghapus cookmark';
+		$message = lang('failed_save_data');
 		$status = 'error';
 
 		if( !empty($cookmark_id) ) {    		
-			$message = 'Sukses menghapus data cookmark';
+			$message = lang('success_save_data');
 			$status = 'success';
 
 			$resCookmark = $this->db->query('CALL DeleteCookmark(?,?)', array(
@@ -1041,11 +1032,12 @@ class Recipe extends AB_Controller {
 		
 		$this->load->helper('form');
 		$this->load->helper('build_data');
-
 		$this->callDefaultData();
+
 		$this->load->vars(array(
-			'site_title' => 'Kontes Saya',
+			'site_title' => lang('contest'),
 		));
+
 		$this->render(false, 'coming_soon');
 	}
 
@@ -1082,6 +1074,7 @@ class Recipe extends AB_Controller {
 				'desc' => substr(strip_tags($values[0]['ContestDesc']), 0, 250),
 			),
 		));
+
 		$this->render();
 	}
 
@@ -1110,12 +1103,13 @@ class Recipe extends AB_Controller {
 		$resContestRecipe->next_result();
 
 		$this->load->vars(array(
-			'site_title' => 'Kontes',
+			'site_title' => lang('contest'),
 			'contest_name' => $valuesContestDetail[0]['ContestName'],
 			'contest_id' => $contest_id,
 			'page' => $page,
 			'valuesContestRecipe' => $valuesContestRecipe,
 		));
+
 		$this->render();
 	}
 
@@ -1123,16 +1117,17 @@ class Recipe extends AB_Controller {
 		$this->load->vars(array(
 			'contest_id' => $contest_id,
 		));
+
 		loadModal('contest_winner');
 	}
 
 	public function love_item( $recipe_id = false, $allow_print = false ) {	
 
-		$message = 'Gagal menyimpan data';
+		$message = lang('failed_save_data');
 		$status = 'error';
 
 		if( !empty($recipe_id) ) {    		
-			$message = 'Sukses menyimpan data';
+			$message = lang('success_save_data');
 			$status = 'success';
 
 			$resLoveRecipe = $this->db->query('CALL LoveRecipe(?,?)', array(
@@ -1170,11 +1165,11 @@ class Recipe extends AB_Controller {
 
 	public function unlove_item( $recipe_id = false, $allow_print = false ) {	
 
-		$message = 'Gagal menyimpan data';
+		$message = lang('failed_save_data');
 		$status = 'error';
 
 		if( !empty($recipe_id) ) {    		
-			$message = 'Sukses menyimpan data';
+			$message = lang('success_save_data');
 			$status = 'success';
 
 			$resUnloveRecipe = $this->db->query('CALL UnloveRecipe(?,?)', array(
@@ -1212,11 +1207,11 @@ class Recipe extends AB_Controller {
 
 	public function love_item_recook( $recook_id = false, $allow_print = false ) {	
 
-		$message = 'Gagal menyimpan data';
+		$message = lang('failed_save_data');
 		$status = 'error';
 
 		if( !empty($recook_id) ) {    		
-			$message = 'Sukses menyimpan data';
+			$message = lang('success_save_data');
 			$status = 'success';
 
 			$resLoveRecook = $this->db->query('CALL LoveRecook(?,?)', array(
@@ -1253,11 +1248,11 @@ class Recipe extends AB_Controller {
 
 	public function unlove_item_recook( $recook_id = false, $allow_print = false ) {	
 
-		$message = 'Gagal menyimpan data';
+		$message = lang('failed_save_data');
 		$status = 'error';
 
 		if( !empty($recook_id) ) {    		
-			$message = 'Sukses menyimpan data';
+			$message = lang('success_save_data');
 			$status = 'success';
 
 			$resLoveRecook = $this->db->query('CALL UnloveRecook(?,?)', array(

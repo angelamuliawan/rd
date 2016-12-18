@@ -43,6 +43,34 @@
 			/* VALIDATION */
 			'data_not_available' => 'Data Not Available',
 
+			/* ALERT */
+			'success_save_recipe' => 'Recipe saved successfully',
+			'failed_save_recipe' => 'Failed save recipe. Please try again',
+			'success_save_data' => 'Data saved successfully',
+			'failed_save_data' => 'Failed save data',
+			'success_save_profile_picture' => 'Profile picture successfully saved',
+			'failed_save_profile_picture' => 'Failed save profile picture',
+
+			'success_save_password' => 'Password saved successfully',
+			'failed_save_password' => 'Failed save password',
+
+			'temporary_cannot_login' => 'You cannot login for a while. It could be that the data that you input contains SARA, PLAGIARISM, or lower the quality of data in our website. For further information, please email to admin@cookindo.com',
+			'success_login' => 'Logged in successfully',
+			'invalid_email_or_password' => 'Invalid email or password. Please try again',
+
+			'please_fill_required_data' => 'Please fill all required fields',
+			'success_register' => 'Registration completed successfully',
+			'email_exists' => 'Email already exists',
+			'email_not_found' => 'Email not found',
+			'reset_password_instruction' => 'Please check your email inbox or spam, and follow the instruction that we have been provided',
+			'success_reset_password' => 'Password reset successfully',
+			'expired_reset_password_link' => 'Sorry, this link is not active anymore because it has been used before',
+
+			'failed_follow' => 'Failed to follow user',
+			'failed_unfollow' => 'Failed to unfollow user',
+			'failed_display_list_following' => 'Failed to display following list',
+			'failed_display_list_follower' => 'Failed to display follower list',
+
 			/* TOTAL */
 			'total_comment' => 'Total Comment',
 			'total_like' => 'Total Like',

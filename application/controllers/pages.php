@@ -56,7 +56,7 @@ class Pages extends AB_Controller {
 		$resArticle->next_result();
 
 		$this->load->vars(array(
-			'site_title' => 'Artikel',
+			'site_title' => lang('article'),
 			'values' => $values,
 			'sdk' => array(
 				'facebook' => array(
@@ -186,16 +186,16 @@ class Pages extends AB_Controller {
 				$query_result = $resInsertContactUs->result();				
 				$resInsertContactUs->next_result();
 
-				$message = 'Sukses menyimpan data';
+				$message = lang('success_save_data');
 				$status = 'success';
 			} else {
-				$message = 'Gagal menyimpan data. Silahkan coba lagi';
+				$message = lang('failed_save_data');
 				$status = 'error';
 			}
 		}
 		
 		$this->load->vars(array(
-			'site_title' => 'Kontak Kami',
+			'site_title' => lang('contact_us'),
 		));
 
 		loadMessage($message, $status);
@@ -204,14 +204,14 @@ class Pages extends AB_Controller {
 
 	public function terms_of_use() {
 		$this->load->vars(array(
-			'site_title' => 'Tata Cara Penggunaan',
+			'site_title' => lang('terms_of_use'),
 		));
 		$this->render(false, 'Pages/' . $this->site_lang . '/terms_of_use');
 	}
 
 	public function privacy_policy() {
 		$this->load->vars(array(
-			'site_title' => 'Kebijakan Pribadi',
+			'site_title' => lang('privacy_policy'),
 		));
 		$this->render(false, 'Pages/' . $this->site_lang . '/privacy_policy');
 	}

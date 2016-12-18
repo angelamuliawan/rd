@@ -1,9 +1,9 @@
 var source_data = {};
-var apiUri = 'http://localhost/ckn/public/api/';
-var serviceUri = 'http://localhost/cookindo/';
+// var apiUri = 'http://localhost/ckn/public/api/';
+// var serviceUri = 'http://localhost/cookindo/';
 
-// var apiUri = 'http://api.cookindo.com/public/api/';
-// var serviceUri = 'http://'+document.domain+'/';
+var apiUri = 'http://api.cookindo.com/public/api/';
+var serviceUri = 'http://'+document.domain+'/';
 
 var finished_ajax = true;
 var arrTranslate = {
@@ -37,6 +37,9 @@ var arrTranslate = {
         /* VALIDATION */
         'max' : 'Maksimal',
         'option' : 'opsi',
+
+        /* ALERT */
+        'failed_processing_data' : 'Gagal melakukan proses. Silahkan coba beberapa saat lagi',
     },
     'english' : {
         'cancel' : 'Cancel',
@@ -68,6 +71,9 @@ var arrTranslate = {
         /* VALIDATION */
         'max' : 'Maximum',
         'option' : 'option',
+
+        /* ALERT */
+        'failed_processing_data' : 'Failed processing data. Please try again later',
     }
 }
 
@@ -356,7 +362,7 @@ $.ajaxLink = function() {
                     $.unveil();
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
+                    alert($.translate('failed_processing_data'));
                     return false;
                 }
             });
@@ -407,7 +413,7 @@ $.ajaxForm = function() {
                     $.unveil();
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
+                    alert($.translate('failed_processing_data'));
                     return false;
                 }
             });
@@ -656,7 +662,7 @@ $.ajaxModal = function(options) {
                 return false;
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert('Gagal melakukan proses. Silahkan coba beberapa saat lagi.');
+                alert($.translate('failed_processing_data'));
                 return false;
             }
         });
