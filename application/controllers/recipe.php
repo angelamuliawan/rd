@@ -203,10 +203,12 @@ class Recipe extends AB_Controller {
 			foreach ($_FILES as $field_name => $file_object) {
 				$config = $this->getConfigImage('recipe/step');
 
-			    if ( $file_object['size'] > 2097152 ) {
-		    		$this->setCustomError($field_name, 'Max file size is 2MB.');
-					$valid_photo = false;
-				} else if ( !empty($file_object['name']) ) {
+			    // if ( $file_object['size'] > 2097152 ) {
+		    	// 	$this->setCustomError($field_name, 'Max file size is 2MB.');
+				// 	$valid_photo = false;
+				// } else 
+				
+				if ( !empty($file_object['name']) ) {
 			    	
 			    	$file_name = $file_object['name'];
 			    	$ext = pathinfo($file_name, PATHINFO_EXTENSION);
@@ -410,10 +412,12 @@ class Recipe extends AB_Controller {
 			foreach ($_FILES as $field_name => $file_object) {
 				$config = $this->getConfigImage('recipe/step');
 				
-			    if ( $file_object['size'] > 2097152 ) {
-		    		$this->setCustomError($field_name, 'Max file size is 2MB.');
-					$valid_photo = false;
-				} else if ( !empty($file_object['name']) ) {
+			    // if ( $file_object['size'] > 2097152 ) {
+		    	// 	$this->setCustomError($field_name, 'Max file size is 2MB.');
+				// 	$valid_photo = false;
+				// } else 
+
+				if ( !empty($file_object['name']) ) {
 			    	
 			    	$file_name = $file_object['name'];
 			    	$ext = pathinfo($file_name, PATHINFO_EXTENSION);

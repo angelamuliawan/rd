@@ -97,9 +97,9 @@
 									'name' => 'PrimaryPhoto',
 								));
 								echo form_error('PrimaryPhoto');
-								echo tag('p', sprintf('* %s 2MB', lang('max_file_size')), array(
-									'class' => 'text-orange mt5'
-								));
+								// echo tag('p', sprintf('* %s 2MB', lang('max_file_size')), array(
+								// 	'class' => 'text-orange mt5'
+								// ));
 						?>
 					</div>
 				</div>
@@ -253,7 +253,7 @@
 								'class' => 'col-sm-2 control-label'
 							));
 					?>
-					<div class="col-sm-7 parent-template" model="FoodProcess" max-step="18">
+					<div class="col-sm-7 parent-template" model="FoodProcess">
 						<?php
 								// echo tag('p', '* Maksimum langkah yang dapat dibuat adalah sebanyak 18 langkah', array(
 								// 	'class' => 'text-orange mb0'
@@ -289,7 +289,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-7 col-sm-offset-2 clone-button cpointer <?php echo ( $counter >= 18 ) ? 'hide' : ''; ?>" data-clone="clone-template-step" max-step="8">
+					<div class="col-sm-7 col-sm-offset-2 clone-button cpointer" data-clone="clone-template-step">
 						<?php
 								echo tag('span', false, array(
 									'class' => 'glyphicon glyphicon-plus'
