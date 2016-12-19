@@ -50,33 +50,6 @@
 							<img src="<?php echo $domain; ?>/resources/icons/instagram_w.png" data-disable-progressive="1" />
 						</a>
 					</li>
-
-					<?php
-							// echo tag('a', 'f', array(
-							// 	'href' => $domain.'/pages/about_us',
-							// 	'wrapTag' => 'li',
-							// 	'class' => 'icoFacebook',
-							// ));
-
-							// echo tag('img', false, array(
-							// 	'src' => $domain.'/resources/icons/facebook_w.png',
-							// 	'wrapTag' => 'a',
-							// 	'wrapAttributes' => array(
-							// 		'href' => $domain.'/pages/about_us',
-							// 		'wrapTag' => 'li',
-							// 		'class' => 'icoFacebook',
-							// 	),
-							// ));
-
-							// echo tag('span', '&middot;', array(
-							// 	'style' => 'margin: auto 5px; color:#FFFFFF;'
-							// ));
-
-							// echo tag('a', 'Instagram', array(
-							// 	'href' => $domain.'/pages/contact_us',
-							// 	'wrapTag' => 'li',
-							// ));
-					?> 
 				</ul>
 			</div>
 		</div>
