@@ -205,7 +205,7 @@
 		          				));
 		          				echo divider();
 		          				if( $this->session->userdata('userrole') == 1 ) {
-		          					echo tag('a', lang('create-article'), array(
+		          					echo tag('a', lang('create_article'), array(
 			          					'href' => $domain.'/users/article',
 			          					'wrapTag' => 'li',
 			          				));

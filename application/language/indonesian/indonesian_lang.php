@@ -14,6 +14,8 @@
 			'create_recipe' => 'Tulis Resep',
 			'edit_recipe' => 'Edit Resep',
 			'article' => 'Artikel',
+			'create_article' => 'Tulis Artikel',
+			'edit_article' => 'Edit Artikel',
 			'contest' => 'Kontes',
 			'notification' => 'Notifikasi',
 			'login' => 'Login',
@@ -100,6 +102,8 @@
 			'new' => 'Baru',
 			'max_file_size' => 'Ukuran file maksimum',
 			'drag_to_upload' => 'Letakkan dokumen Anda disini untuk melakukan proses unggah',
+			'title' => 'Judul',
+			'content' => 'Konten',
 
 			'fullname' => 'Nama Lengkap',
 			'account' => 'Akun',

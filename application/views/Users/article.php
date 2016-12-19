@@ -4,13 +4,14 @@
 				if( isset($alert) ) {
 					echo $alert;
 				}
-				echo tag('h2', 'Tulis Artikel');
+				
+				echo tag('h2', lang('create_article'));
 		?>
 		<div class="wrapper-create-article">
 			<form class="form-horizontal mt20" enctype="multipart/form-data" role="form" method="post" accept-charset="utf-8">
 			  	<div class="form-group">
 			  		<?php
-			  				echo tag('label', 'Judul Artikel', array(
+			  				echo tag('label', lang('title'), array(
 			  					'for' => 'title',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -29,7 +30,7 @@
 			  	</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Konten Artikel', array(
+			  				echo tag('label', lang('content'), array(
 			  					'for' => 'content',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -48,7 +49,7 @@
 				</div>
 				<div class="form-group">
 					<?php
-			  				echo tag('label', 'Gambar', array(
+			  				echo tag('label', lang('main_picture'), array(
 			  					'for' => 'photo',
 			  					'class' => 'col-sm-2 control-label',
 			  				));
@@ -79,7 +80,7 @@
 				</div>
 			  	<div class="form-group">
 			  		<?php
-			  				echo tag('button', 'Simpan', array(
+			  				echo tag('button', lang('save'), array(
 			  					'class' => 'btn btn-orange',
 			  					'type' => 'submit',
 			  					'wrapTag' => 'div',

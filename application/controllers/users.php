@@ -570,15 +570,12 @@ class Users extends AB_Controller {
 				$status = 'error';
 			}
 		}
-
-		$this->session->set_flashdata('flash_message', array(
-			'message' => $message,
-			'status' => $status,
-		));
 	
 		if( $status == 'success' ){
 			$this->load->helper('url');
 			redirect($this->domain.'/users/article');
+		} else {
+			loadMessage($message, $status);
 		}
 
 		$this->load->vars(array(
@@ -671,10 +668,10 @@ class Users extends AB_Controller {
 					$article_id,
 				));
 
-				$message = 'Sukses memperbarui artikel';
+				$message = lang('success_save_data');
 				$status = 'success';
 			} else {
-				$message = 'Gagal memperbarui artikel. Silahkan coba lagi';
+				$message = lang('failed_save_data');
 				$status = 'error';
 			}
 		} else {
@@ -695,14 +692,11 @@ class Users extends AB_Controller {
 			}
 		}
 
-		$this->session->set_flashdata('flash_message', array(
-			'message' => $message,
-			'status' => $status,
-		));
-
 		if( $status == 'success' ){
 			$this->load->helper('url');
 			redirect($this->domain.'/users/edit_article/'.$article_id);
+		} else {
+			loadMessage($message, $status);
 		}
 
 		$this->load->vars(array(

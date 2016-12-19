@@ -14,6 +14,8 @@
 			'create_recipe' => 'Create Recipe',
 			'edit_recipe' => 'Edit Recipe',
 			'article' => 'Article',
+			'create_article' => 'Create Article',
+			'edit_article' => 'Edit Article',
 			'contest' => 'Contest',
 			'notification' => 'Notification',
 			'login' => 'Login',
@@ -100,6 +102,8 @@
 			'new' => 'New',
 			'max_file_size' => 'Max File Size',
 			'drag_to_upload' => 'Drag files here to begin uploading',
+			'title' => 'Title',
+			'content' => 'Content',
 
 			'fullname' => 'Full name',
 			'account' => 'Account',
