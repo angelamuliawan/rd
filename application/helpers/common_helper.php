@@ -93,7 +93,7 @@ if ( ! function_exists('load_jsx')) {
 
 		if( !empty($scripts) ) {
 			foreach ($scripts as $script) {
-				$stringify_script .= "<script type='text/babel' src='".$CI->domain.'/resources/jsx/'.$script.".jsx'></script>";
+				$stringify_script .= "<script type='text/babel' src='".$CI->domain.'/resources/jsx/'.$script.".js'></script>";
 		    }
 		}
 	    
