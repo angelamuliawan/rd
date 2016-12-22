@@ -1,9 +1,9 @@
 var source_data = {};
-var apiUri = 'http://localhost/ckn/public/api/';
-var serviceUri = 'http://localhost/cookindo/';
+// var apiUri = 'http://localhost/ckn/public/api/';
+// var serviceUri = 'http://localhost/cookindo/';
 
-// var apiUri = 'http://api.cookindo.com/public/api/';
-// var serviceUri = 'http://'+document.domain+'/';
+var apiUri = 'http://api.cookindo.com/public/api/';
+var serviceUri = 'http://'+document.domain+'/';
 
 var finished_ajax = true;
 var arrTranslate = {
@@ -113,6 +113,7 @@ $(document).ready(function() {
 
     $.froala();
     $.unveil();
+    $.autoResizeTextarea();
 
     $.oauthpopup = function (options) {
         options.windowName = options.windowName || 'ConnectWithOAuth';
@@ -457,6 +458,7 @@ $.cloneButton = function() {
 
         parent.append(template);
         $.autocomplete(template);
+        $.autoResizeTextarea();
     });
 }
 $.multipleSelect = function() {
@@ -731,4 +733,16 @@ $.onErrorImageAutocomplete = function(image){
 }
 $.translate = function( str ){
     return arrTranslate[$('#site_lang').val()][str.toLowerCase()];
+}
+$.autoResizeTextarea = function(){
+    $('.autoResize').each(function(){
+        var self = $(this);
+        self.off('keydown').on('keydown', function(){
+            setTimeout(function(){
+                self.attr('style', 'height:auto; display: inline-block; width: 100%; max-width: ' + self.css('width') + '; min-height: 50px; resize: none; word-wrap: break-word; overflow: hidden; outline: none;');
+                self.attr('style', 'resize:none; min-height: 50px; width: 100%; max-width: ' + self.css('width') + '; overflow: hidden; outline: none; height:' + self[0].scrollHeight + 'px');
+            },0);
+        });
+        self.trigger('keydown');
+    });
 }

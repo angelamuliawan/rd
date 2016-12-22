@@ -53,7 +53,7 @@
 						<?php
 								echo tag('textarea', ( isset($request['RecipeIntro']) ? $request['RecipeIntro']: set_value('RecipeIntro') ) , array(
 				    				'rows' => 4,
-				    				'class' => 'form-control',
+				    				'class' => 'form-control autoResize',
 				    				'name' => 'RecipeIntro',
 				    				'maxlength' => 1200,
 				    			));

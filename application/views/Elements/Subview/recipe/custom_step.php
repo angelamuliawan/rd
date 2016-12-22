@@ -27,7 +27,7 @@
 					'id' => 'FoodStepName'.$counter,
 					'rows' => 4,
 					'name' => $step_name,
-					'class' => 'form-control mb5 inputField template-field',
+					'class' => 'form-control mb5 inputField template-field autoResize',
 					'placeholder' => lang('example_step'),
 					'data-model' => 'FoodStepName',
 					'maxlength' => 1200,
