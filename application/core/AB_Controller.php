@@ -3,17 +3,25 @@
 class AB_Controller extends CI_Controller {
 
 	public $domain;
+	public $static_domain;
 	public $site_lang;
 	public $allowSendEmail = false;
 
 	public function __construct() {
 		parent::__construct();
+
+		// $this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+		// $this->output->set_header('Pragma: no-cache');
+		// $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+
 		ini_set('memory_limit', '-1');
 
 		$this->domain = 'http://localhost/cookindo';
+		$this->static_domain = 'http://localhost/cookindo';
 		$this->webroot = $_SERVER['DOCUMENT_ROOT'].'/cookindo/';
 
 		// $this->domain = 'http://'.$_SERVER['SERVER_NAME'];
+		// $this->static_domain = 'http://static.cookindo.com';
 		// $this->webroot = $_SERVER['DOCUMENT_ROOT'];
 
 		if( isLoggedIn() ) {
@@ -212,7 +220,7 @@ class AB_Controller extends CI_Controller {
 			    4 => lang('stir_fry'),
 			);
 		}
-		
+
 		$price_ranges = array();
 		$estimation_peoples = array();
 		$measure_sizes = array();
