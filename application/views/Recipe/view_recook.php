@@ -40,7 +40,7 @@
 			'style' => 'height: 20px;',
 		));
 
-		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		$url = $domain.'/p/'.$recipe_id.'/'.$slug;
 ?>
 
 <div class="container bg-white">

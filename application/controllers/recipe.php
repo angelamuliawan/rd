@@ -55,8 +55,8 @@ class Recipe extends AB_Controller {
 
 		if( !strpos($slug, '-') && ($slug == '' || str_word_count($slug) > 1 ) ) {
 			$this->load->helper('url');
-			$slug = isset( $valuesRecipeHeader[0]['Slug'] ) ? $valuesRecipeHeader[0]['Slug'] : 'resep-masak';
-			$url = $this->domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+			$slug = isset( $valuesRecipeHeader[0]['Slug'] ) ? $valuesRecipeHeader[0]['Slug'] : 'p';
+			$url = $this->domain.'/p/'.$recipe_id.'/'.$slug;
 
 			return redirect($url);
 		}
@@ -128,10 +128,10 @@ class Recipe extends AB_Controller {
 			'valuesRelatedRecipe' => $valuesRelatedRecipe,
 			'valuesUserFollowStatus' => $valuesUserFollowStatus[0]['RESULT'],
 			'recipe_id' => $recipe_id,
-			'site_title' => $valuesRecipeHeader[0]['RecipeName'],
+			'site_title' => sprintf('%s %s %s', $valuesRecipeHeader[0]['RecipeName'], lang('by'), $valuesRecipeHeader[0]['UserName']),
 			'og_meta' => array(
 				'title' => $valuesRecipeHeader[0]['RecipeName'],
-				'url' => $this->domain.'/resep-masak/'.$recipe_id.'/'.utf8_decode($valuesRecipeHeader[0]['Slug']),
+				'url' => $this->domain.'/p/'.$recipe_id.'/'.utf8_decode($valuesRecipeHeader[0]['Slug']),
 				'image' => $this->domain.'/resources/images/uploads/recipe/primary/'.$valuesRecipeHeader[0]['PrimaryPhoto'],
 				'desc' => $valuesRecipeHeader[0]['RecipeIntro'],
 			),
@@ -140,7 +140,7 @@ class Recipe extends AB_Controller {
 				'emoticon/emoticons',
 			),
 			'additional_js' => array(
-				'react/react-with-addons',
+				'react/react-with-addons.min',
 				'react/react-dom.min',
 				'react/browser.min',
 				'emoticon/emoticons',
@@ -265,14 +265,15 @@ class Recipe extends AB_Controller {
 				}
 
 				// Create Recipe
-				$resInsertRecipe = $this->db->query('CALL InsertRecipe(?,?,?,?,?,?,?,?,?,?,?,?)', array(
-					$post['RecipeName'], 
-					nl2br($post['RecipeIntro']),
+				$resInsertRecipe = $this->db->query('CALL InsertRecipe(?,?,?,?,?,?,?,?,?,?,?,?,?)', array(
+					trim($post['RecipeName']),
+					trim(seoURL($post['RecipeName'])),
+					trim(nl2br($post['RecipeIntro'])),
 					$post['FoodTypeID'],
 					$post['FoodProcessID'],
 					$post['EstPeopleID'],
 					$post['PriceRangeID'],
-					$post['EstTime'],
+					trim($post['EstTime']),
 					( isset($post['PrimaryPhoto']) ? $post['PrimaryPhoto'] : $post['PrimaryPhoto_preview'] ),
 					$this->session->userdata('userid'),
 					$contest_id,
@@ -474,15 +475,16 @@ class Recipe extends AB_Controller {
 				}
 
 				// Create Recipe
-				$resUpdateRecipe = $this->db->query('CALL UpdateRecipe(?,?,?,?,?,?,?,?,?,?,?,?,?)', array(
+				$resUpdateRecipe = $this->db->query('CALL UpdateRecipe(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', array(
 					$recipe_id,
-					$post['RecipeName'], 
-					nl2br($post['RecipeIntro']),
+					trim($post['RecipeName']),
+					trim(seoURL($post['RecipeName'])),
+					trim(nl2br($post['RecipeIntro'])),
 					$post['FoodTypeID'],
 					$post['FoodProcessID'],
 					$post['EstPeopleID'],
 					$post['PriceRangeID'],
-					$post['EstTime'],
+					trim($post['EstTime']),
 					( isset($post['PrimaryPhoto']) ? $post['PrimaryPhoto'] : $post['PrimaryPhoto_preview'] ),
 					$this->session->userdata('userid'),
 					$contest_id,
@@ -748,7 +750,7 @@ class Recipe extends AB_Controller {
 			'site_title' => $valuesRecipeRecook[0]['RecipeName'],
 			'og_meta' => array(
 				'title' => $valuesRecipeRecook[0]['RecipeName'],
-				'url' => $this->domain.'/recipe/view_recook/'.$recook_id.'/'.utf8_decode($valuesRecipeRecook[0]['Slug']),
+				'url' => $this->domain.'/recook/'.$recook_id.'/'.utf8_decode($valuesRecipeRecook[0]['Slug']),
 				'image' => $this->domain.'/resources/images/uploads/recipe/recook/'.$valuesRecipeRecook[0]['RecookPhoto'],
 				'desc' => $valuesRecipeRecook[0]['RecookDesc'],
 			),
@@ -757,7 +759,7 @@ class Recipe extends AB_Controller {
 				'emoticon/emoticons',
 			),
 			'additional_js' => array(
-				'react/react-with-addons',
+				'react/react-with-addons.min',
 				'react/react-dom.min',
 				'react/browser.min',
 				'emoticon/emoticons',

@@ -40,14 +40,14 @@
 							    				'class' => 'form-control autocomplete',
 							    				'name' => 'keyword',
 							    				'placeholder' => lang('type_search_keyword'). ' &hellip;',
-							    				'value' => !empty( $this->input->get('keyword') ) ? $this->input->get('keyword') : (isset( $request['RecipeName'] ) ? $request['RecipeName'] : false),
+							    				'value' => !empty( $this->input->get('keyword') ) ? htmlspecialchars(strip_tags($this->input->get('keyword')), ENT_QUOTES) : (isset( $request['RecipeName'] ) ? htmlspecialchars(strip_tags($request['RecipeName']), ENT_QUOTES) : false),
 							    				'maxlength' => 200,
 							    				'autocomplete' => 'off',
 							    				'data-class' => 'acpRecipe',
 												'data-provide' => 'typeahead',
 												'data-url' => $domain.'/ajax/list_recipe',
 												'data-path' => 'resources/images/uploads/recipe/primary/thumbs/',
-												'redirect-on-selected-path' => 'resep-masak/',
+												'redirect-on-selected-path' => 'p/',
 							    			));
 									?>
 								</div>

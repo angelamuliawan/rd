@@ -3,7 +3,7 @@
 	<head>
 		<?php
 				$site_title = isset($site_title) ? $site_title.' - ' : '';
-				echo tag('title', $site_title . lang('site_title') . ' - Cookindo.com');
+				echo tag('title', $site_title . lang('site_title') . ' - Cookindo');
 		?>
 		<!-- <meta charset="utf-8" /> -->
 		<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->

@@ -35,7 +35,7 @@
 													'data-provide' => 'typeahead',
 													'data-url' => $domain.'/ajax/list_recipe',
 													'data-path' => 'resources/images/uploads/recipe/primary/thumbs/',
-													'redirect-on-selected-path' => 'resep-masak/',
+													'redirect-on-selected-path' => 'p/',
 								    			));
 										?>
 								  	</div>

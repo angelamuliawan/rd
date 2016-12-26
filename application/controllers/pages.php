@@ -87,7 +87,7 @@ class Pages extends AB_Controller {
 
 		if( !strpos($slug, '-') && ($slug == '' || str_word_count($slug) > 1 ) ) {
 			$this->load->helper('url');
-			$slug = isset( $values[0]['Slug'] ) ? $values[0]['Slug'] : 'resep-masak';
+			$slug = isset( $values[0]['Slug'] ) ? $values[0]['Slug'] : 'artikel';
 			$url = $this->domain.'/artikel/'.$article_id.'/'.$slug;
 
 			return redirect($url);

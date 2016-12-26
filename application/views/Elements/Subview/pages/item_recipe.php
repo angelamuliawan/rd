@@ -34,7 +34,7 @@
 			$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
 		}
 
-		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		$url = $domain.'/p/'.$recipe_id.'/'.$slug;
 ?>
 <li class="no-ul-type with-border">
 	<a href="<?php echo $url; ?>">

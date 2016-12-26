@@ -836,7 +836,7 @@ class Users extends AB_Controller {
 					'emoticon/emoticons',
 				),
 				'additional_js' => array(
-					'react/react-with-addons',
+					'react/react-with-addons.min',
 					'react/react-dom.min',
 					'react/browser.min',
 					'emoticon/emoticons',
@@ -955,7 +955,7 @@ class Users extends AB_Controller {
 					'emoticon/emoticons',
 				),
 				'additional_js' => array(
-					'react/react-with-addons',
+					'react/react-with-addons.min',
 					'react/react-dom.min',
 					'react/browser.min',
 					'emoticon/emoticons',

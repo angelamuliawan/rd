@@ -24,11 +24,11 @@
 		$badge = false;
 		$icon_class = false;
 
-		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		$url = $domain.'/p/'.$recipe_id.'/'.$slug;
 		$activity_link = false;
 
 		if( $activity == 'Recook' || $activity == 'CommentRecook' ) {
-			$url = $domain.'/recipe/view_recook/'.$recook_id.'/'.$slug;
+			$url = $domain.'/recook/'.$recook_id.'/'.$slug;
 		}
 
 		if( $activity == 'InsertRecipe' ) {

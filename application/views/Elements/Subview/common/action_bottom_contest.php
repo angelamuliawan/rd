@@ -75,7 +75,7 @@
 		}
 
 
-		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		$url = $domain.'/p/'.$recipe_id.'/'.$slug;
 ?>
 
 <div class="action-bottom mt15 tacenter wrapper-ajax-link">

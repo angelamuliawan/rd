@@ -78,7 +78,7 @@ var TimelineItem = React.createClass({
 		var flag_recook = data.FlagRecook;
 		var flag_creator = data.FlagCreator;
 
-		var url = serviceUri + 'resep-masak/' + recipe_id + '/' + slug;
+		var url = serviceUri + 'p/' + recipe_id + '/' + slug;
 
 		var badge = false;
 		var icon_class = false;
@@ -98,7 +98,7 @@ var TimelineItem = React.createClass({
 		}
 
 		if( activity == 'Recook' || activity == 'CommentRecook' ) {
-			url = serviceUri + 'recipe/view_recook/' + recook_id + '/' + slug;
+			url = serviceUri + 'recook/' + recook_id + '/' + slug;
 		}
 
 		if( activity == 'InsertRecipe' ) {

@@ -139,9 +139,9 @@ window.RecipeAction = React.createClass({
 			cookmarkIcon = <a title="Cookmark" href={urlCookmark} className="ajax-modal">{cookmarkIcon}</a>
 		}
 
-		var url = serviceUri + 'resep-masak/' + recipeId + '/' + slug;
+		var url = serviceUri + 'p/' + recipeId + '/' + slug;
 		if( recookId ) {
-			url = serviceUri + 'recipe/view_recook/' + recookId + '/' + slug;
+			url = serviceUri + 'recook/' + recookId + '/' + slug;
 		}
 
 		// ======================================================

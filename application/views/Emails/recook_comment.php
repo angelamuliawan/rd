@@ -7,7 +7,7 @@
 		$recook_id = isset($recook_id) ? $recook_id : false;
 
 		$url_user = $domain.'/users/profile/'.$user_id.'/'.seoURL($username);
-		$url_recook = $domain.'/recipe/view_recook/'.$recook_id.'/'.$slug;
+		$url_recook = $domain.'/recook/'.$recook_id.'/'.$slug;
 		
 		$link_recook = tag('a', $recipe_name, array(
 			'href' => $url_recook,

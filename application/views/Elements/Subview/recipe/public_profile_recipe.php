@@ -33,7 +33,7 @@
 		$totalRecook = tag('span', $cnt_recook);
 		$totalView = tag('span', $cnt_view);
 
-		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		$url = $domain.'/p/'.$recipe_id.'/'.$slug;
 ?>
 <li class="no-ul-type wrapper-ajax-link">
 	<div class="row">

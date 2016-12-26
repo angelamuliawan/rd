@@ -6,7 +6,7 @@
 		$user_id = isset($user_id) ? $user_id : false;
 		$username = isset($username) ? $username : false;
 
-		$url_recipe = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		$url_recipe = $domain.'/p/'.$recipe_id.'/'.$slug;
 		$url_user = $domain.'/users/profile/'.$user_id.'/'.seoURL($username);
 		
 		$link_recipe = tag('a', $recipe_name, array(

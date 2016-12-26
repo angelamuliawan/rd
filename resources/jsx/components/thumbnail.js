@@ -43,10 +43,10 @@ var ThumbnailItem = React.createClass({
 		var image = data.RecipePhoto;
 		var slug = data.Slug;
 
-		var url = serviceUri + 'resep-masak/' + recipe_id + '/' + slug;
+		var url = serviceUri + 'p/' + recipe_id + '/' + slug;
 
 		if( activity == 'Recook' ) {
-			url = serviceUri + 'recipe/view_recook/' + recook_id + '/' + slug;
+			url = serviceUri + 'recook/' + recook_id + '/' + slug;
 		}
 
 		var path_image = 'resources/images/uploads/recipe/primary/thumbs/' + image;

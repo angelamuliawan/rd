@@ -40,7 +40,7 @@
 								'src' => $custom_image,
 								'wrapTag' => 'a',
 								'wrapAttributes' => array(
-									'href' => $domain.'/resep-masak/'.$recipe_id.'/'.$slug,
+									'href' => $domain.'/p/'.$recipe_id.'/'.$slug,
 									'title' => $title,
 								),
 							));
@@ -49,7 +49,7 @@
 				<div class="col-sm-9">
 					<?php
 							echo tag('a', $title, array(
-								'href' => $domain.'/resep-masak/'.$recipe_id.'/'.$slug,
+								'href' => $domain.'/p/'.$recipe_id.'/'.$slug,
 								'title' => $title,
 								'class' => 'fbold',
 							));

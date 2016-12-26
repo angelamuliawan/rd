@@ -29,10 +29,10 @@
 		      			</p>
 		      			<div class="big-wrapper tacenter">
 		      				<h4 class="mb5">Pemenang 1</h4>
-		      				<a href="http://www.cookindo.com/resep-masak/263/kastengel-cinta"><h4>Kastengel Cinta</h4></a>
+		      				<a href="http://www.cookindo.com/p/263/kastengel-cinta"><h4>Kastengel Cinta</h4></a>
 		      				<br>
 
-		      				<a title="Kastengel Cinta" target="_blank" href="http://www.cookindo.com/resep-masak/263/kastengel-cinta">
+		      				<a title="Kastengel Cinta" target="_blank" href="http://www.cookindo.com/p/263/kastengel-cinta">
 		      					<img data-disable-progressive="1" data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160505_08_03_14_78.jpg">
 		      				</a>
 		      				<br><br>
@@ -47,10 +47,10 @@
 		      			</div>
 		      			<div class="big-wrapper tacenter">
 		      				<h4 class="mb5">Pemenang 2</h4>
-		      				<a href="http://www.cookindo.com/resep-masak/277/japanese-condensed-milk-bread"><h4>Japanese Condensed Milk Bread</h4></a>
+		      				<a href="http://www.cookindo.com/p/277/japanese-condensed-milk-bread"><h4>Japanese Condensed Milk Bread</h4></a>
 		      				<br>
 
-		      				<a title="Japanese Condensed Milk Bread" target="_blank" href="http://www.cookindo.com/resep-masak/277/japanese-condensed-milk-bread">
+		      				<a title="Japanese Condensed Milk Bread" target="_blank" href="http://www.cookindo.com/p/277/japanese-condensed-milk-bread">
 		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160510_09_42_00_69.jpeg">
 		      				</a>
 		      				<br><br>
@@ -65,10 +65,10 @@
 		      			</div>
 		      			<div class="big-wrapper tacenter">
 		      				<h4 class="mb5">Pemenang 3</h4>
-		      				<a href="http://www.cookindo.com/resep-masak/295/fancy-cake-pop"><h4>Fancy Cake Pop</h4></a>
+		      				<a href="http://www.cookindo.com/p/295/fancy-cake-pop"><h4>Fancy Cake Pop</h4></a>
 		      				<br>
 
-		      				<a title="Fancy Cake Pop" target="_blank" href="http://www.cookindo.com/resep-masak/295/fancy-cake-pop">
+		      				<a title="Fancy Cake Pop" target="_blank" href="http://www.cookindo.com/p/295/fancy-cake-pop">
 		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160515_09_10_23_64.jpg">
 		      				</a>
 		      				<br><br>
@@ -97,10 +97,10 @@
 		      			</p>
 		      			<div class="big-wrapper tacenter">
 		      				<h4 class="mb5">Pemenang 1</h4>
-		      				<a href="http://www.cookindo.com/resep-masak/132/nasi-pelangi-barbie"><h4>Nasi Pelangi Barbie</h4></a>
+		      				<a href="http://www.cookindo.com/p/132/nasi-pelangi-barbie"><h4>Nasi Pelangi Barbie</h4></a>
 		      				<br>
 
-		      				<a title="Nasi Pelangi Barbie" target="_blank" href="http://www.cookindo.com/resep-masak/132/nasi-pelangi-barbie">
+		      				<a title="Nasi Pelangi Barbie" target="_blank" href="http://www.cookindo.com/p/132/nasi-pelangi-barbie">
 		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160407_15_34_45_61.jpg">
 		      				</a>
 		      				<br><br>
@@ -115,10 +115,10 @@
 		      			</div>
 		      			<div class="big-wrapper tacenter">
 		      				<h4 class="mb5">Pemenang 2</h4>
-		      				<a href="http://www.cookindo.com/resep-masak/199/perkedel-bakso"><h4>Perkedel Bakso</h4></a>
+		      				<a href="http://www.cookindo.com/p/199/perkedel-bakso"><h4>Perkedel Bakso</h4></a>
 		      				<br>
 
-		      				<a title="Perkedel Bakso" target="_blank" href="http://www.cookindo.com/resep-masak/199/perkedel-bakso">
+		      				<a title="Perkedel Bakso" target="_blank" href="http://www.cookindo.com/p/199/perkedel-bakso">
 		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160414_10_50_57_55.jpg">
 		      				</a>
 		      				<br><br>
@@ -133,10 +133,10 @@
 		      			</div>
 		      			<div class="big-wrapper tacenter">
 		      				<h4 class="mb5">Pemenang 3</h4>
-		      				<a href="http://www.cookindo.com/resep-masak/212/colorful-mug-cake"><h4>Colorful Mug Cake</h4></a>
+		      				<a href="http://www.cookindo.com/p/212/colorful-mug-cake"><h4>Colorful Mug Cake</h4></a>
 		      				<br>
 
-		      				<a title="Colorful Mug Cake" target="_blank" href="http://www.cookindo.com/resep-masak/212/colorful-mug-cake">
+		      				<a title="Colorful Mug Cake" target="_blank" href="http://www.cookindo.com/p/212/colorful-mug-cake">
 		      					<img data-disable-progressive="1" style="width: 100%; height:100%; max-width: 250px;" src="http://www.cookindo.com/resources/images/uploads/recipe/primary/20160414_15_14_55_69.jpg">
 		      				</a>
 		      				<br><br>

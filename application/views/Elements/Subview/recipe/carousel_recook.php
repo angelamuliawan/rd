@@ -21,7 +21,7 @@
   					'style' => 'width:86px; height:64px;',
   					'wrapTag' => 'a',
   					'wrapAttributes' => array(
-  						'href' => $domain.'/recipe/view_recook/'.$recook_id.'/'.$recook_slug,
+  						'href' => $domain.'/recook/'.$recook_id.'/'.$recook_slug,
   						// 'class' => 'ajax-modal',
   					)
   				));

@@ -151,9 +151,9 @@
 		}
 
 
-		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		$url = $domain.'/p/'.$recipe_id.'/'.$slug;
 		if( !empty($recook_id) ) {
-			$url = $domain.'/recipe/view_recook/'.$recook_id.'/'.$slug;
+			$url = $domain.'/recook/'.$recook_id.'/'.$slug;
 		}
 ?>
 

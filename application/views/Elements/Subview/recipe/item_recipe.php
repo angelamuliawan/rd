@@ -61,7 +61,7 @@
 		$totalRecook = tag('span', $cnt_recook);
 		$totalView = tag('span', $cnt_view);
 
-		$url = $domain.'/resep-masak/'.$recipe_id.'/'.$slug;
+		$url = $domain.'/p/'.$recipe_id.'/'.$slug;
 		$userURL = $domain.'/users/profile/'.$user_id;
 ?>
 <li class="no-ul-type">
@@ -85,7 +85,7 @@
 							'class' => 'pull-right mr5',
 							'title' => lang('total_comment'),
 						));
-						
+
 						echo tag('div', $iconLove.$totalLove, array(
 							'class' => 'pull-right mr10',
 							'title' => lang('total_like'),
