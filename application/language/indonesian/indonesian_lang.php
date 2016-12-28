@@ -8,6 +8,7 @@
         	'delete' => 'Hapus',
 
         	'confirm_delete' => 'Yakin ingin menghapus?',
+        	'confirm_unfollow' => 'Yakin ingin unfollow?',
 
 			'home' => 'Beranda',
 			'search_recipe' => 'Cari Resep',

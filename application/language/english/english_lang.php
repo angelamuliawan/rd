@@ -8,6 +8,7 @@
         	'delete' => 'Delete',
 
         	'confirm_delete' => 'Delete this item?',
+        	'confirm_unfollow' => 'Unfollow this user?',
 
 			'home' => 'Home',
 			'search_recipe' => 'Search Recipe',

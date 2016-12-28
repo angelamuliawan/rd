@@ -22,7 +22,7 @@
 
 				if( $follow_status == '1' ) {
 	?>
-					<a title="Following" href="<?php echo $domain.'/users/unfollow/'.$user_id_viewer; ?>" class="ajax-link">
+					<a title="Following" with-confirm="<?php echo lang('confirm_unfollow'); ?>" href="<?php echo $domain.'/users/unfollow/'.$user_id_viewer; ?>" class="ajax-link">
 						<button class="btn btn-success following-button" type="button">
 							<span class="glyphicon glyphicon-ok"></span>
 							Following
