@@ -345,6 +345,7 @@ class Users extends AB_Controller {
 					$device['os'],
 				));
 				$data = $res->result()[0];
+				$res->next_result();
 
 				if( $data->UserID != -1 ) {
 					$this->session->set_userdata('loggedin', true);
