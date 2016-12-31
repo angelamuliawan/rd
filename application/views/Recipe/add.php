@@ -301,7 +301,7 @@
 			  	<div class="form-group">
 			  		<?php
 			  				echo tag('button', sprintf('%s %s', lang('save'), lang('recipe')), array(
-			  					'class' => 'btn btn-orange',
+			  					'class' => 'btn btn-orange disable-on-submit',
 			  					'type' => 'submit',
 			  					'wrapTag' => 'div',
 			  					'wrapAttributes' => array(

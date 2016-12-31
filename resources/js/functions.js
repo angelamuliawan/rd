@@ -1,9 +1,9 @@
 var source_data = {};
-var apiUri = 'http://localhost/ckn/public/api/';
-var serviceUri = 'http://localhost/cookindo/';
+// var apiUri = 'http://localhost/ckn/public/api/';
+// var serviceUri = 'http://localhost/cookindo/';
 
-// var apiUri = 'http://api.cookindo.com/public/api/';
-// var serviceUri = 'http://'+document.domain+'/';
+var apiUri = 'http://api.cookindo.com/public/api/';
+var serviceUri = 'http://'+document.domain+'/';
 
 var finished_ajax = true;
 var arrTranslate = {
@@ -287,6 +287,12 @@ $.customFunction = function() {
             }
         });
     }
+
+    $('body').on('click', '.disable-on-submit', function(e) {
+        e.preventDefault();
+        $(this).attr('disabled', true);
+        $(this).closest('form').submit();
+    });
 }
 $.getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
