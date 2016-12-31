@@ -221,13 +221,71 @@ class AB_Controller extends CI_Controller {
 			);
 		}
 
+		$measure_sizes = array();
+		// For translation purpose, we will hardcode measure sizes from db
+		if( $this->site_lang == 'indonesian' ){
+			$measure_sizes = array(
+			    14 => lang('stalk'),
+				23 => lang('bottle'),
+				12 => lang('piece'),
+				18 => lang('packet'),
+				4 => lang('grain'),
+				15 => lang('cc'),
+				20 => lang('cm'),
+				17 => lang('whole'),
+				21 => lang('glass'),
+				22 => lang('handful'),
+				1 => lang('gram'),
+				19 => lang('bunch'),
+				5 => lang('kilogram'),
+				13 => lang('leaf'),
+				6 => lang('ml'),
+				7 => lang('plate'),
+				16 => lang('slice'),
+				24 => lang('knuckle'),
+				8 => lang('sachet'),
+				3 => lang('tablespoon'),
+				2 => lang('teaspoon'),
+				10 => lang('plenty'),
+				9 => lang('suit_one_taste'),
+				11 => lang('clove'),
+			);
+		} else if( $this->site_lang == 'english' ) {
+			$measure_sizes = array(
+				23 => lang('bottle'),
+				19 => lang('bunch'),
+				15 => lang('cc'),
+				11 => lang('clove'),
+				20 => lang('cm'),
+				21 => lang('glass'),
+				4 => lang('grain'),
+				1 => lang('gram'),
+				22 => lang('handful'),
+				5 => lang('kilogram'),
+				24 => lang('knuckle'),
+				13 => lang('leaf'),
+				6 => lang('ml'),
+				18 => lang('packet'),
+				12 => lang('piece'),
+				7 => lang('plate'),
+				10 => lang('plenty'),
+				8 => lang('sachet'),
+				16 => lang('slice'),
+				14 => lang('stalk'),
+				9 => lang('suit_one_taste'),
+				3 => lang('tablespoon'),
+				2 => lang('teaspoon'),
+				17 => lang('whole'),					
+			);
+		}
+
 		$price_ranges = array();
 		$estimation_peoples = array();
-		$measure_sizes = array();
 		$compositions = array();
 		$sorts = array();
 
 		if( $type == 'create' ) {
+
 			// $food_process = $this->db->query('CALL GetAllFoodProcess()');
 			// $food_process = buildDataDropdown($food_process, 'FoodProcessID', 'FoodProcessName');
 
@@ -243,8 +301,8 @@ class AB_Controller extends CI_Controller {
 				$estimation_peoples[$n] = sprintf('%s %s', $estimation_peoples[$n], $this->lang->line('people'));
 			}
 
-			$measure_sizes = $this->db->query('CALL GetAllMeasureSize()');
-			$measure_sizes = buildDataDropdown($measure_sizes, 'MeasureSizeID', 'MeasureSizeName');
+			// $measure_sizes = $this->db->query('CALL GetAllMeasureSize()');
+			// $measure_sizes = buildDataDropdown($measure_sizes, 'MeasureSizeID', 'MeasureSizeName');
 
 			$compositions = $this->db->query('CALL GetAllComposition()');
 			$compositions = buildDataAutocomplete($compositions, 'CompositionID', 'CompositionName');

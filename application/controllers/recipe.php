@@ -357,7 +357,8 @@ class Recipe extends AB_Controller {
 			// 	'status' => $status,
 			// ));
 			$this->load->helper('url');
-			redirect($this->domain.'/users/profile/'.$this->session->userdata('userid').'/'.seoURL($this->session->userdata('username')));
+			// redirect($this->domain.'/users/profile/'.$this->session->userdata('userid').'/'.seoURL($this->session->userdata('username')));
+			redirect($this->domain.'/p/'.$recipe_id.'/'.trim(seoURL($post['RecipeName'])));
 		} else {
 			loadMessage($message, $status);
 		}
@@ -627,7 +628,8 @@ class Recipe extends AB_Controller {
 
 		if( $status == 'success' ) {
 			$this->load->helper('url');
-			redirect($this->domain.'/users/profile/'.$this->session->userdata('userid').'/'.seoURL($this->session->userdata('username')));
+			// redirect($this->domain.'/users/profile/'.$this->session->userdata('userid').'/'.seoURL($this->session->userdata('username')));
+			redirect($this->domain.'/p/'.$recipe_id.'/'.trim(seoURL($post['RecipeName'])));
 		} else {
 			loadMessage($message, $status);
 		}

@@ -361,26 +361,30 @@
 
 										if( !empty($valuesRecipeComposition) ) {
 								?>
-								<table class="table table-striped">
-									<tbody>
-										<?php
-												foreach( $valuesRecipeComposition as $key => $value ) {
-													$measure = $value['Measure'];
-													$food_composition = $value['CompositionName'];
+											<table class="table table-striped">
+												<tbody>
+													<?php
+															foreach( $valuesRecipeComposition as $key => $value ) {
+																// $measure = $value['Measure'];
+																$measure_value = $value['MeasureValue'];
+																$food_composition = $value['CompositionName'];
+																$measure = isset($measure_sizes[$value['MeasureSizeID']]) ? $measure_sizes[$value['MeasureSizeID']] : false;
+																$measure_text = sprintf("%s %s", $measure_value, $measure);
 
-													echo tableCell(array(
-														$measure,
-														$food_composition,
-													));
-												}
-										?>
-									</tbody>
-								</table>
+																if( $value['MeasureSizeID'] == 9 || $value['MeasureSizeID'] == 10 ) {
+																	$measure_text = $measure;
+																}
+
+																echo tableCell(array(
+																	$measure_text,
+																	$food_composition,
+																));
+															}
+													?>
+												</tbody>
+											</table>
 
 								<?php
-										} else {
-											echo tag('h4', 'Komposisi tidak tersedia');
-											echo tag('br');
 										}
 
 										echo tag('h3', lang('step'));
@@ -390,39 +394,37 @@
 
 										if( !empty($valuesRecipeStep) ) {
 								?>
-								<ol class="simple-list">
-									<?php
-											foreach( $valuesRecipeStep as $key => $value ) {
-												$food_step = $value['FoodStepName'];
-												$food_step_image = $value['FoodStepImage'];
+											<ol class="simple-list">
+												<?php
+														foreach( $valuesRecipeStep as $key => $value ) {
+															$food_step = $value['FoodStepName'];
+															$food_step_image = $value['FoodStepImage'];
 
-												$content = tag('p', $food_step);
-												if( !empty($food_step_image) ) {
+															$content = tag('p', $food_step);
+															if( !empty($food_step_image) ) {
 
-													$path_image = '/resources/images/uploads/recipe/step/'.$food_step_image;
-													$custom_image = $domain.$path_image;
+																$path_image = '/resources/images/uploads/recipe/step/'.$food_step_image;
+																$custom_image = $domain.$path_image;
 
-													if( !file_exists( $webroot.$path_image ) ) {
-														$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
-													}
+																if( !file_exists( $webroot.$path_image ) ) {
+																	$custom_image = $domain.'/resources/images/placeholder/recipe.jpg';
+																}
 
-													$content .= tag('img', false, array(
-														'src' => $custom_image,
-														'wrapTag' => 'div',
-														'wrapAttributes' => array(
-															'class' => 'tacenter',
-														)
-													));
-												}
+																$content .= tag('img', false, array(
+																	'src' => $custom_image,
+																	'wrapTag' => 'div',
+																	'wrapAttributes' => array(
+																		'class' => 'tacenter',
+																	)
+																));
+															}
 
-												echo tag('li', $content);
-											}
-									?>
-								</ol>
+															echo tag('li', $content);
+														}
+												?>
+											</ol>
 
 								<?php
-										} else {
-											echo tag('h3', 'Langkah tidak tersedia');
 										}
 								?>
 							</div>
