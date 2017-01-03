@@ -626,7 +626,7 @@ var Root = React.createClass({
 
 		var loginToCommentButton = false;
 		if( !this.state.userId ) {
-			loginToCommentButton = <Anchor href={ serviceUri + 'users/login' } title="Komentari Recook Ini" className="btn btn-orange ml10 mb10 ajax-modal" />
+			loginToCommentButton = <Anchor href={ serviceUri + 'users/login' } title="Komentari Recook Ini" className="btn btn-orange mt10 ajax-modal" />
 		}
 
 		return (
