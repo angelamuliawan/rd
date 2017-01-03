@@ -265,7 +265,7 @@ class Recipe extends AB_Controller {
 				}
 
 				// Create Recipe
-				$resInsertRecipe = $this->db->query('CALL InsertRecipe(?,?,?,?,?,?,?,?,?,?,?,?,?)', array(
+				$resInsertRecipe = $this->db->query('CALL InsertRecipe(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', array(
 					trim($post['RecipeName']),
 					trim(seoURL($post['RecipeName'])),
 					trim(nl2br($post['RecipeIntro'])),
@@ -278,7 +278,8 @@ class Recipe extends AB_Controller {
 					$this->session->userdata('userid'),
 					$contest_id,
 					$cuisine[0],
-					$cuisine[1]
+					$cuisine[1],
+					$this->site_lang,
 				));
 
 				$query_result = $resInsertRecipe->result();
@@ -476,7 +477,7 @@ class Recipe extends AB_Controller {
 				}
 
 				// Create Recipe
-				$resUpdateRecipe = $this->db->query('CALL UpdateRecipe(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', array(
+				$resUpdateRecipe = $this->db->query('CALL UpdateRecipe(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', array(
 					$recipe_id,
 					trim($post['RecipeName']),
 					trim(seoURL($post['RecipeName'])),
@@ -490,7 +491,8 @@ class Recipe extends AB_Controller {
 					$this->session->userdata('userid'),
 					$contest_id,
 					$cuisine[0],
-					$cuisine[1]
+					$cuisine[1],
+					$this->site_lang,
 				));
 
 				$query_result = $resUpdateRecipe->result();
