@@ -22,7 +22,7 @@ class AB_Controller extends CI_Controller {
 
 		// $this->domain = 'http://'.$_SERVER['SERVER_NAME'];
 		// $this->static_domain = 'http://static.cookindo.com';
-		// $this->webroot = $_SERVER['DOCUMENT_ROOT'];
+		// $this->webroot = $_SERVER['DOCUMENT_ROOT'] . '/';
 
 		if( isLoggedIn() ) {
 
