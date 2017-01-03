@@ -1,9 +1,9 @@
 var source_data = {};
-// var apiUri = 'http://localhost/ckn/public/api/';
-// var serviceUri = 'http://localhost/cookindo/';
+var apiUri = 'http://localhost/ckn/public/api/';
+var serviceUri = 'http://localhost/cookindo/';
 
-var apiUri = 'http://api.cookindo.com/public/api/';
-var serviceUri = 'http://'+document.domain+'/';
+// var apiUri = 'http://api.cookindo.com/public/api/';
+// var serviceUri = 'http://'+document.domain+'/';
 
 var finished_ajax = true;
 var arrTranslate = {
@@ -85,15 +85,19 @@ $(document).ready(function() {
             $('.overlay').css('visibility', 'visible');
         }
 	});
-	$(document).ajaxComplete(function() {
+	
+    $(document).ajaxComplete(function() {
         finished_ajax = true;
 		$('.overlay').css('visibility', 'hidden');
         $('input[type=submit].with-loading, button[type=submit].with-loading').attr('disabled', false);
 	});
-    $(document).submit(function(e) {
+
+    $('.with-loading').closest('form').submit(function(e) {
+        e.preventDefault();
         if( finished_ajax ) {
             $('input[type=submit].with-loading, button[type=submit].with-loading').attr('disabled', true);
         }
+        $(this).off('submit').submit();
     });
     
     $.customFunction();
@@ -398,24 +402,37 @@ $.ajaxForm = function() {
                     var message = $(result).find('#msg-text').html();
                     var status = $(result).find('#msg-status').html();
                     var contentHTML = '';
+
                     if( $(result).find(selector_target).length ) {
                         contentHTML = $(result).find(selector_target).html();
                         $(selector_target).append(contentHTML);
                     } 
 
                     if ($(result).find(form_id).length) {
-                        contentHTML = $(result).find(form_id).html();
-                        $(form_id).html(contentHTML);
+
+                        if( $(form_id).attr('replace') == 'true' ){
+                            contentHTML = $(result).find(form_id);
+                            $(form_id).replaceWith(contentHTML);
+                        } else {
+                            contentHTML = $(result).find(form_id).html();
+                            $(form_id).html(contentHTML);
+                        }
                     } else {
                         self.closest('.ajax-wrapper-form').replaceWith(result);
                     }
+
                     if (status == 'success') {
                         if( data_redirect !== undefined ) {
+                            if( $(form_id).attr('data-redirect') !== undefined ) {
+                                data_redirect = $(form_id).attr('data-redirect');
+                            }
+
                             window.location.replace(serviceUri+data_redirect);
                         } else if (data_reload == 'true') {
                             window.location.reload();
                         }
                     }
+
                     $.fileUpload();
                     $.unveil();
                 },

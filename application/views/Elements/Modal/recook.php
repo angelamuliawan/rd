@@ -23,7 +23,7 @@
 		      				<?php
 		      						echo tag('h4', sprintf('%s ala %s', $title, $this->session->userdata('username')));
 		      				?>
-		      				<form id="formRecook" role="form" action="recipe/recook_item/<?php echo $recipe_id; ?>" data-reload="true" class="ajax-form" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+		      				<form id="formRecook" role="form" action="recipe/recook_item/<?php echo $recipe_id; ?>" data-redirect="recook/<?php echo $recook_id; ?>" replace="true" class="ajax-form" enctype="multipart/form-data" method="post" accept-charset="utf-8">
 					        	<?php
 					        			if( isset($alert) ) {
 											echo $alert;

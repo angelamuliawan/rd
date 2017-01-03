@@ -650,6 +650,7 @@ class Recipe extends AB_Controller {
 		$post = $this->input->post();
 		$message = false;
 		$status = false;
+		$recook_id = false;
 		
 		if( !empty($post) ) {
 			
@@ -714,6 +715,7 @@ class Recipe extends AB_Controller {
 			'request' => $post,
 			'valuesRecipeHeader' => $valuesRecipeHeader,
 			'recipe_id' => $recipe_id,
+			'recook_id' => $recook_id,
 		));
 
 		loadMessage($message, $status);
@@ -725,28 +727,22 @@ class Recipe extends AB_Controller {
 		$this->load->helper('build_data');
 		$this->callDefaultData();
 
-		$post = $this->input->post();
-		
-		if( !empty($post) ) {
-			
-			$this->form_validation->set_rules('recook_comment', 'Comment', 'required');
-
-			if ( $this->form_validation->run() == TRUE ) {
-
-				$res = $this->db->query('CALL InsertRecookComment(?,?,?)', array(
-					$post['recook_comment'],
-					$this->session->userdata('userid'),
-					$recook_id,
-				));
-			}
-		}
-
 		$resRecipeRecook = $this->db->query('CALL GetRecookHeader(?,?)', array(
 			$recook_id,
 			$this->session->userdata('userid'),
 		));
 		$valuesRecipeRecook = $resRecipeRecook->result_array();
 		$resRecipeRecook->next_result();
+
+		$slug = $this->uri->segment(3);
+
+		if( !strpos($slug, '-') && ($slug == '' || str_word_count($slug) > 1 ) ) {
+			$this->load->helper('url');
+			$slug = isset( $valuesRecipeRecook[0]['Slug'] ) ? $valuesRecipeRecook[0]['Slug'] : 'recook';
+			$url = $this->domain.'/recook/'.$recook_id.'/'.$slug;
+
+			return redirect($url);
+		}
 
 		$this->load->vars(array(
 			'valuesRecipeRecook' => $valuesRecipeRecook,
@@ -777,7 +773,7 @@ class Recipe extends AB_Controller {
 			),
 		));
 
-		$this->render($post);
+		$this->render();
 	}
 
 	public function recipe_comment( $recipe_id = false ) {
