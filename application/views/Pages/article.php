@@ -81,7 +81,7 @@
 											$title = $value['ArticleTitle'];
 											$slug = $value['Slug'];
 											$content = $value['ArticleContent'];
-											$date = $value['ArticleDate'];
+											$date = timeAgoFormat($value['ArticleDate']);
 
 											loadSubview('pages/item_article', array(
 												'article_id' => $id,

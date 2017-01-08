@@ -441,7 +441,6 @@ ol.simple-list > li:before {
 }
 
 .follower-following-section .middle {
-	border-left: 1px solid #999; 
 	border-right: 1px solid #999;
 }
 
@@ -619,6 +618,9 @@ a.navbar-brand {
 	cursor:pointer;
 	border: 1px solid #efefef;
 }
+#notif-panel ul li.new {
+	background-color: #EBEFF5;
+}
 #notif-panel div.last {
 	padding: 0;
 	text-align: center;
@@ -632,6 +634,31 @@ a.navbar-brand {
 	color:#000000; 
 	display:block; 
 	font-size:13px;
+}
+.notif-icon {
+	margin: 5px 5px 0 0;
+	float: left;
+}
+.notif-icon.comment-icon {
+	color: #96c344;
+}
+.notif-icon.recook-icon {
+	color: #0A905D;
+}
+.notif-icon.cookmark-icon {
+	color: #6E398D;
+}
+.notif-icon.setting-icon {
+	color: #4d4d4d;
+}
+.notif-icon.love-icon {
+	color: #ef4d4d;
+}
+.notif-icon.like-icon {
+	color: #ed6e0c;
+}
+.notif-icon.user-icon {
+	color: #4cb6ea;
 }
 #notif-panel ul li span.notif-date {
 	font-size: 13px; 
@@ -652,9 +679,15 @@ a.navbar-brand {
 .wrapper-notification ul li {
 	padding:10px 20px;
 }
+.wrapper-notification ul li.new {
+	background-color: #EBEFF5;
+}
 .wrapper-notification ul li a {
 	text-decoration: none; 
 	color: #000000;
+}
+.wrapper-notification .notif-icon {
+	margin: 0 5px 0 0;
 }
 .wrapper-notification ul li a .notif-date {
 	font-size: 13px; 
@@ -1818,6 +1851,28 @@ h1,h2,h3,h4,h5,h6 {
     word-wrap: break-word;
 }
 .wrapper-top-user ul li .wrapper-desc a {
+	color: #E66909;
+}
+
+/* HOME PAGE - LEFT SIDE */
+.wrapper-left-side-home {
+	margin-top: 5px;
+}
+.wrapper-left-side-home li {
+	padding: 5px 0 5px 5px;
+}
+.wrapper-left-side-home li:hover {
+	background-color: #F2F2F2;
+}
+.wrapper-left-side-home li .left-side {
+	width: 17%;
+}
+.wrapper-left-side-home li .right-side {
+	width: auto;
+	margin-top: 5px;
+}
+.wrapper-left-side-home li .right-side .username {
+	word-wrap: break-word;
 	color: #E66909;
 }
 
