@@ -242,3 +242,218 @@ if ( ! function_exists('customConcat')) {
 		return $result;
 	}
 }
+
+if ( ! function_exists('translateNotification')) {
+	
+	function translateNotification( $arr = array(), $site_lang = 'indonesian' ) {
+		$result = false;
+		$notif_code = isset( $arr['NotificationCode'] ) ? $arr['NotificationCode'] : false;
+
+		if( !empty($notif_code) ) {
+			$user_id 					= isset( $arr['ParamUserID'] ) ? $arr['ParamUserID'] : false;
+			$recipe_id 					= isset( $arr['ParamRecipeID'] ) ? $arr['ParamRecipeID'] : false;
+			$recook_id 					= isset( $arr['ParamRecookID'] ) ? $arr['ParamRecookID'] : false;
+			$comment_id 				= isset( $arr['ParamCommentID'] ) ? $arr['ParamCommentID'] : false;
+			$comment_reply_id 			= isset( $arr['ParamCommentReplyID'] ) ? $arr['ParamCommentReplyID'] : false;
+			$recook_comment_id 			= isset( $arr['ParamRecookCommentID'] ) ? $arr['ParamRecookCommentID'] : false;
+			$recook_comment_reply_id 	= isset( $arr['ParamRecookCommentReplyID'] ) ? $arr['ParamRecookCommentReplyID'] : false;
+
+			$user_name 					= isset( $arr['UserName'] ) ? $arr['UserName'] : false;
+			$recipe_name 				= isset( $arr['RecipeName'] ) ? $arr['RecipeName'] : false;
+			$comment 					= isset( $arr['Comment'] ) ? $arr['Comment'] : false;
+			$comment_reply 				= isset( $arr['CommentReply'] ) ? $arr['CommentReply'] : false;
+			$recook_comment 			= isset( $arr['RecookComment'] ) ? $arr['RecookComment'] : false;
+			$recook_comment_reply 		= isset( $arr['RecookCommentReply'] ) ? $arr['RecookCommentReply'] : false;
+
+			if( $site_lang == 'indonesian' ) {
+
+				if( $notif_code == '2-C-0' ) {
+					$result = sprintf('<b>%s</b> mengomentari resep <b>%s</b>: %s', $user_name, $recipe_name, $comment);
+				} else if( $notif_code == '2-C-ParticipateToComment' ) {
+					$result = sprintf('<b>%s</b> ikut mengomentari resep <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '2-A-0' ) {
+					$result = sprintf('<b>%s</b> memasak ulang resep <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '2-B-0' ) {
+					$result = sprintf('<b>%s</b> menandai resep <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '3-C-0' ) {
+					$result = sprintf('<b>%s</b> mengomentari recook <b>%s</b>: %s', $user_name, $recipe_name, $recook_comment);
+				} else if( $notif_code == '3-C-ParticipateToComment' ) {
+					$result = sprintf('<b>%s</b> ikut mengomentari recook <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '1-Completion' ) {
+					$result = sprintf('Lengkapi data Anda di halaman pengaturan akun');
+				} else if( $notif_code == '2-E-0' ) {
+					$result = sprintf('<b>%s</b> menyukai resep <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '3-E-0' ) {
+					$result = sprintf('<b>%s</b> menyukai recook <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '2-C-E' ) {
+					$result = sprintf('<b>%s</b> menyukai komentar Anda: %s', $user_name, $comment);
+				} else if( $notif_code == '3-C-E' ) {
+					$result = sprintf('<b>%s</b> menyukai komentar Anda: %s', $user_name, $recook_comment);
+				} else if( $notif_code == '2-C-D-E' ) {
+					$result = sprintf('<b>%s</b> menyukai balasan komentar Anda: %s', $user_name, $comment_reply);
+				} else if( $notif_code == '3-C-D-E' ) {
+					$result = sprintf('<b>%s</b> menyukai balasan komentar Anda: %s', $user_name, $recook_comment_reply);
+				} else if( $notif_code == '2-C-D' ) {
+					$result = sprintf('<b>%s</b> membalas komentar Anda: %s', $user_name, $comment_reply);
+				} else if( $notif_code == '3-C-D' ) {
+					$result = sprintf('<b>%s</b> membalas komentar Anda: %s', $user_name, $recook_comment_reply);
+				} else if( $notif_code == '1-F-0' ) {
+					$result = sprintf('<b>%s</b> mulai mengikuti Anda', $user_name);
+				}
+
+			} else if( $site_lang == 'english' ) {
+				if( $notif_code == '2-C-0' ) {
+					$result = sprintf('<b>%s</b> commented on recipe <b>%s</b>: %s', $user_name, $recipe_name, $comment);
+				} else if( $notif_code == '2-C-ParticipateToComment' ) {
+					$result = sprintf('<b>%s</b> also commented on recipe <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '2-A-0' ) {
+					$result = sprintf('<b>%s</b> recooked your recipe <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '2-B-0' ) {
+					$result = sprintf('<b>%s</b> cookmarked your recipe <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '3-C-0' ) {
+					$result = sprintf('<b>%s</b> commented on recook <b>%s</b>: %s', $user_name, $recipe_name, $recook_comment);
+				} else if( $notif_code == '3-C-ParticipateToComment' ) {
+					$result = sprintf('<b>%s</b> also commented on recook <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '1-Completion' ) {
+					$result = sprintf('Please complete your profile on Account Setting page');
+				} else if( $notif_code == '2-E-0' ) {
+					$result = sprintf('<b>%s</b> likes your recipe <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '3-E-0' ) {
+					$result = sprintf('<b>%s</b> likes your recook <b>%s</b>', $user_name, $recipe_name);
+				} else if( $notif_code == '2-C-E' ) {
+					$result = sprintf('<b>%s</b> likes your comment: %s', $user_name, $comment);
+				} else if( $notif_code == '3-C-E' ) {
+					$result = sprintf('<b>%s</b> likes your comment: %s', $user_name, $recook_comment);
+				} else if( $notif_code == '2-C-D-E' ) {
+					$result = sprintf('<b>%s</b> likes your reply: %s', $user_name, $comment_reply);
+				} else if( $notif_code == '3-C-D-E' ) {
+					$result = sprintf('<b>%s</b> likes your reply: %s', $user_name, $recook_comment_reply);
+				} else if( $notif_code == '2-C-D' ) {
+					$result = sprintf('<b>%s</b> replied your comment: %s', $user_name, $comment_reply);
+				} else if( $notif_code == '3-C-D' ) {
+					$result = sprintf('<b>%s</b> replied your comment: %s', $user_name, $recook_comment_reply);
+				} else if( $notif_code == '1-F-0' ) {
+					$result = sprintf('<b>%s</b> started following you', $user_name);
+				}
+			}
+		}
+
+		return $result;
+	}
+}
+
+if ( ! function_exists('getNotificationURL')) {
+	
+	function getNotificationURL( $arr = array() ) {
+		$result = false;
+		$notif_code = isset( $arr['NotificationCode'] ) ? $arr['NotificationCode'] : false;
+
+		if( !empty($notif_code) ) {
+			$user_id 					= isset( $arr['ParamUserID'] ) ? $arr['ParamUserID'] : false;
+			$recipe_id 					= isset( $arr['ParamRecipeID'] ) ? $arr['ParamRecipeID'] : false;
+			$recook_id 					= isset( $arr['ParamRecookID'] ) ? $arr['ParamRecookID'] : false;
+			$comment_id 				= isset( $arr['ParamCommentID'] ) ? $arr['ParamCommentID'] : false;
+			$comment_reply_id 			= isset( $arr['ParamCommentReplyID'] ) ? $arr['ParamCommentReplyID'] : false;
+			$recook_comment_id 			= isset( $arr['ParamRecookCommentID'] ) ? $arr['ParamRecookCommentID'] : false;
+			$recook_comment_reply_id 	= isset( $arr['ParamRecookCommentReplyID'] ) ? $arr['ParamRecookCommentReplyID'] : false;
+
+			$user_name 					= isset( $arr['UserName'] ) ? $arr['UserName'] : false;
+			$recipe_name 				= isset( $arr['RecipeName'] ) ? $arr['RecipeName'] : false;
+
+			if( $notif_code == '2-C-0' ) {
+				$result = sprintf('p/%s', $recipe_id);
+			} else if( $notif_code == '2-C-ParticipateToComment' ) {
+				$result = sprintf('p/%s', $recipe_id);
+			} else if( $notif_code == '2-A-0' ) {
+				$result = sprintf('p/%s', $recipe_id);
+			} else if( $notif_code == '2-B-0' ) {
+				$result = sprintf('p/%s', $recipe_id);
+			} else if( $notif_code == '3-C-0' ) {
+				$result = sprintf('recook/%s', $recook_id);
+			} else if( $notif_code == '3-C-ParticipateToComment' ) {
+				$result = sprintf('recook/%s', $recook_id);
+			} else if( $notif_code == '1-Completion' ) {
+				$result = sprintf('users/');
+			} else if( $notif_code == '2-E-0' ) {
+				$result = sprintf('p/%s', $recipe_id);
+			} else if( $notif_code == '3-E-0' ) {
+				$result = sprintf('recook/%s', $recook_id);
+			} else if( $notif_code == '2-C-E' ) {
+				$result = sprintf('p/%s', $recipe_id);
+			} else if( $notif_code == '3-C-E' ) {
+				$result = sprintf('recook/%s', $recook_id);
+			} else if( $notif_code == '2-C-D-E' ) {
+				$result = sprintf('p/%s', $recipe_id);
+			} else if( $notif_code == '3-C-D-E' ) {
+				$result = sprintf('recook/%s', $recook_id);
+			} else if( $notif_code == '2-C-D' ) {
+				$result = sprintf('p/%s', $recipe_id);
+			} else if( $notif_code == '3-C-D' ) {
+				$result = sprintf('recook/%s', $recook_id);
+			} else if( $notif_code == '1-F-0' ) {
+				$result = sprintf('users/profile/%s', $user_id);
+			}
+		}
+
+		return $result;
+	}
+}
+
+if ( ! function_exists('getNotificationIcon')) {
+	
+	function getNotificationIcon( $notif_code = false ) {
+
+		$class = false;
+		$result = false;
+
+		if( !empty($notif_code) ) {
+			if( $notif_code == '2-C-0' || $notif_code == '2-C-ParticipateToComment' || $notif_code == '3-C-0' || $notif_code == '3-C-ParticipateToComment' || $notif_code == '2-C-D' || $notif_code == '3-C-D' ) {
+				$class = 'comment-icon glyphicon-comment';
+			} else if( $notif_code == '2-A-0' ) {
+				$class = 'recook-icon glyphicon-retweet';
+			} else if( $notif_code == '2-B-0' ) {
+				$class = 'cookmark-icon glyphicon-bookmark';
+			} else if( $notif_code == '1-Completion' ) {
+				$class = 'setting-icon glyphicon-cog';
+			} else if( $notif_code == '2-E-0' || $notif_code == '3-E-0' ) {
+				$class = 'love-icon glyphicon-heart';
+			} else if( $notif_code == '2-C-E' || $notif_code == '3-C-E' || $notif_code == '2-C-D-E' || $notif_code == '3-C-D-E' ) {
+				$class = 'like-icon glyphicon-thumbs-up';
+			} else if( $notif_code == '1-F-0' ) {
+				$class = 'user-icon glyphicon-user';
+			}
+		}
+
+		if( !empty($class) ) {
+			$result = tag('span', false, array(
+				'class' => 'notif-icon glyphicon ' . $class,
+			));
+		}
+
+		return $result;
+	}
+}
+
+if ( ! function_exists('timeAgoFormat')) {
+	function timeAgoFormat( $time ) {
+
+        $out    = ''; // what we will print out
+        $now    = time(); // current time
+        $diff   = $now - $time; // difference between the current and the provided dates
+
+        if( $diff < 60 ) // it happened now
+            return lang('timebefore_now');
+
+        elseif( $diff < 3600 ) // it happened X minutes ago
+            return str_replace( '{num}', ( $out = round( $diff / 60 ) ), $out == 1 ? lang('timebefore_minute') : lang('timebefore_minutes') );
+
+        elseif( $diff < 3600 * 24 ) // it happened X hours ago
+            return str_replace( '{num}', ( $out = round( $diff / 3600 ) ), $out == 1 ? lang('timebefore_hour') : lang('timebefore_hours') );
+
+        elseif( $diff < 3600 * 24 * 2 ) // it happened yesterday
+            return strftime( lang('timebefore_yesterday'), $time );
+
+        else // falling back on a usual date format as it happened later than yesterday
+            return strftime( date( 'Y', $time ) == date( 'Y' ) ? lang('timebefore_format') : lang('timebefore_format_year'), $time );
+    }
+}

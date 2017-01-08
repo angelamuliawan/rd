@@ -198,5 +198,15 @@
 			'terms_of_use' => 'Terms of Use',
 			'privacy_policy' => 'Privacy Policy',
 			'copyright' => 'Copyright © 2015 Cookindo. All rights reserved',
+
+			/* TIMEAGO */
+			'timebefore_now' => 'Just now',
+		    'timebefore_minute' => '{num} minute ago',
+		    'timebefore_minutes' => '{num} minutes ago',
+		    'timebefore_hour' => '{num} hour ago',
+		    'timebefore_hours' => '{num} hours ago',
+		    'timebefore_yesterday' => 'Yesterday at %H:%M',
+		    'timebefore_format' => '%#d %b at %H:%M',
+		    'timebefore_format_year' => '%#d %b, %Y at %H:%M',
 		);
 ?>

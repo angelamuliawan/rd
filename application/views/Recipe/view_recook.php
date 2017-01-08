@@ -59,7 +59,7 @@
 			        				'title' => $recook_username,
 			        				'href' => $domain.'/users/profile/'.$recook_user_id,
 			        			));
-								echo tag('p', $recook_date, array(
+								echo tag('p', timeAgoFormat($recook_date), array(
 									'class' => 'mt5',
 								));
 						?>

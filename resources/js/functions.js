@@ -28,8 +28,8 @@ var arrTranslate = {
         'view_more_comment' : 'Lihat komentar lainnya',
 
         'create_recipe' : 'membuat resep',
-        'recooked' : 'melakukan recook',
-        'cookmark' : 'menyimpan resep',
+        'recooked' : 'memasak ulang',
+        'cookmark' : 'menandai resep',
         'comment_recipe' : 'mengomentari resep',
         'comment_recook' : 'mengomentari recook',
         'join_cookindo' : 'Bergabung di Cookindo',
@@ -40,6 +40,14 @@ var arrTranslate = {
 
         /* ALERT */
         'failed_processing_data' : 'Gagal melakukan proses. Silahkan coba beberapa saat lagi',
+
+        /* TIMEAGO */
+        'timebefore_now' : 'Baru saja',
+        'timebefore_minute' : '{num} mnt',
+        'timebefore_minutes' : '{num} mnt',
+        'timebefore_hour' : '{num} jam',
+        'timebefore_hours' : '{num} jam',
+        'timebefore_yesterday' : 'Kemarin',
     },
     'english' : {
         'cancel' : 'Cancel',
@@ -74,6 +82,14 @@ var arrTranslate = {
 
         /* ALERT */
         'failed_processing_data' : 'Failed processing data. Please try again later',
+
+        /* TIMEAGO */
+        'timebefore_now' : 'Just now',
+        'timebefore_minute' : '{num} min',
+        'timebefore_minutes' : '{num} mins',
+        'timebefore_hour' : '{num} hrs',
+        'timebefore_hours' : '{num} hrs',
+        'timebefore_yesterday' : 'Yesterday',
     }
 }
 
@@ -104,6 +120,7 @@ $(document).ready(function() {
     $.ajaxLink();
     $.ajaxForm();
     $.ajaxModal();
+    $.ajaxOnly();
     $.tabs();
     $.replaceText();
     $.fileUpload();
@@ -343,7 +360,7 @@ $.ajaxLink = function() {
                 dataType: 'html',
                 global: blockScreen,
                 success: function(result) {
-                    var contentHTML = '';                    
+                    var contentHTML = '';
                     if (self.attr('remove') !== undefined) {
                         self.closest('.wrapper-ajax-link').slideUp(1500, function(){
                             self.closest('.wrapper-ajax-link').html('<div class="alert alert-success temp-alert">'+
@@ -443,6 +460,29 @@ $.ajaxForm = function() {
             });
             return false;
         }
+    });
+}
+$.ajaxOnly = function() {
+    $('body').on('click', '.ajax-only', function(e) {
+        var self = $(this);
+        var data_url = self.attr('data-url');
+        var run_only_once = self.attr('run-only-once');
+
+        $.ajax({
+            url: data_url,
+            type: 'GET',
+            dataType: 'html',
+            global: false,
+            success: function(result) {
+                if( run_only_once == 'true' ) {
+                    self.removeClass('ajax-only');
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert($.translate('failed_processing_data'));
+                return false;
+            }
+        });
     });
 }
 $.cloneButton = function() {
@@ -768,4 +808,27 @@ $.autoResizeTextarea = function(){
         });
         self.trigger('keydown');
     });
+}
+$.timeAgoFormat = function( timestamp, datetime ){
+    var time    = timestamp;
+    var now     = Math.round( new Date().getTime() / 1000 );
+    var diff    = now - timestamp;
+    var out     = '';
+
+    if( diff < 60 )
+        out = $.translate('timebefore_now');
+
+    else if( diff < 3600 )
+        out = ( ( out = Math.round( diff / 60 ) ) == 1 ? $.translate('timebefore_minute') : $.translate('timebefore_minutes') ).replace( '{num}', out );
+
+    else if( diff < 3600 * 24 )
+        out = ( ( out = Math.round( diff / 3660 ) ) == 1 ? $.translate('timebefore_hour') : $.translate('timebefore_hours') ).replace( '{num}', out );
+
+    else if( diff < 3600 * 24 * 2 )
+        out = $.translate('timebefore_yesterday');
+
+    else
+        out = datetime;
+
+    return out;
 }

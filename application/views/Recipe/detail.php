@@ -92,7 +92,7 @@
 					<div class="pull-left left-side">
 						<?php
 								echo tag('h1', $title);
-								echo tag('p', $created_date, array(
+								echo tag('p', timeAgoFormat($created_date), array(
 									'class' => 'mt5 mb10',
 								));
 						?>

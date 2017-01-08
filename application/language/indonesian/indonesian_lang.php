@@ -198,5 +198,15 @@
 			'terms_of_use' => 'Syarat Pengunaan',
 			'privacy_policy' => 'Kebijakan Pribadi',
 			'copyright' => 'Copyright © 2015 Cookindo. Hak Cipta Dilindungi Undang-Undang',
+
+			/* TIMEAGO */
+			'timebefore_now' => 'Baru saja',
+		    'timebefore_minute' => '{num} menit yang lalu',
+		    'timebefore_minutes' => '{num} menit yang lalu',
+		    'timebefore_hour' => '{num} jam yang lalu',
+		    'timebefore_hours' => '{num} jam yang lalu',
+		    'timebefore_yesterday' => 'Kemarin pukul %H:%M',
+		    'timebefore_format' => '%#d %b pukul %H:%M',
+		    'timebefore_format_year' => '%#d %b, %Y pukul %H:%M',
 		);
 ?>
