@@ -362,7 +362,7 @@ if ( ! function_exists('getNotificationURL')) {
 			} else if( $notif_code == '2-C-ParticipateToComment' ) {
 				$result = sprintf('p/%s', $recipe_id);
 			} else if( $notif_code == '2-A-0' ) {
-				$result = sprintf('p/%s', $recipe_id);
+				$result = sprintf('recook/%s', $recook_id);
 			} else if( $notif_code == '2-B-0' ) {
 				$result = sprintf('p/%s', $recipe_id);
 			} else if( $notif_code == '3-C-0' ) {

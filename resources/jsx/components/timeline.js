@@ -61,7 +61,8 @@ var TimelineItem = React.createClass({
 		var userPhoto = data.UserPhoto;
 		var activity = data.Activity;
 		var activity_desc = data.ActivityDesc;
-		var activity_date = data.ActivityDate;
+		var activity_date = data.ActivityDateCustom;
+		var activity_date_timestamp = data.ActivityDateTimestamp;
 		var intro = data.RecipeIntro;
 		var recipe_id = data.RecipeID;
 		var recook_id = data.RecookID;
@@ -150,6 +151,7 @@ var TimelineItem = React.createClass({
 			timelineId: id,
 			activityLink : activity_link,
 			activityDate : activity_date,
+			activityDateTimestamp : activity_date_timestamp,
 			loggedInUserId : loggedInUserId,
 			userId: userId,
 			userName: userName,
@@ -248,6 +250,7 @@ var TimelineHeading = React.createClass({
 		var timelineId = data.timelineId;
 		var activityLink = data.activityLink;
 		var activityDate = data.activityDate;
+		var activityDateTimestamp = data.activityDateTimestamp;
 		var userId = data.userId;
 		var userName = data.userName;
 		var userPhoto = data.userPhoto;
@@ -285,7 +288,7 @@ var TimelineHeading = React.createClass({
 						<h5 className="media-heading">{ userName }</h5>
 					</a>
 					{ activityLink }
-					<p className="created-date">{ activityDate }</p>
+					<p className="created-date">{ $.timeAgoFormat( activityDateTimestamp, activityDate ) }</p>
 				</div>
 			</div>
 		)

@@ -14,6 +14,7 @@ class AB_Controller extends CI_Controller {
 		// $this->output->set_header('Pragma: no-cache');
 		// $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 
+		date_default_timezone_set("Asia/Jakarta");
 		ini_set('memory_limit', '-1');
 
 		$this->domain = 'http://localhost/cookindo';
@@ -36,8 +37,16 @@ class AB_Controller extends CI_Controller {
 			));
 			$notifications = $resNotification->result_array();
 			$resNotification->next_result();
+
+			$resCountNotification = $this->db->query('CALL GetUnreadNotificationCount(?)', array(
+				$this->session->userdata('userid')
+			));
+			$cnt_notification = $resCountNotification->result_array();
+			$resCountNotification->next_result();
+
 			$this->load->vars(array(
 				'notifications' => $notifications,
+				'cnt_notification' => $cnt_notification,
 			));
 		}
 

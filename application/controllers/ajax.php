@@ -129,4 +129,14 @@ class Ajax extends AB_Controller {
 			echo stripslashes(json_encode($response));
 		// }
 	}
+
+	public function reset_unread_notification(){
+		if( isLoggedIn() ) { 
+			$resCountNotification = $this->db->query('CALL ResetUnreadNotificationCount(?)', array(
+				$this->session->userdata('userid'),
+			));
+			$countNotification = $resCountNotification->result_array();
+			$resCountNotification->next_result();
+		}
+    }
 }

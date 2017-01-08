@@ -478,10 +478,6 @@ $.ajaxOnly = function() {
                     self.removeClass('ajax-only');
                 }
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert($.translate('failed_processing_data'));
-                return false;
-            }
         });
     });
 }

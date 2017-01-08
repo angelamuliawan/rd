@@ -121,26 +121,7 @@
 				?>
 			</div>
 
-			<div class="tacenter mt10">
-				<?php
-						echo tag('img', false, array(
-							'src' => $domain . '/resources/icons/level.png',
-							'data-disable-progressive' => 1,
-							'style' => 'width: 25px; margin-top: -12px;',
-						));
-				?>
-
-				<span style="font-size: 20px; color: #ED6E0C;">
-					20 SUPER CHEF
-				</span>
-
-				<div style="color: #acb1b8;">
-					12 POINT TO LEVEL UP
-				</div>
-			</div>
-
 			<div class="simple-bio">
-				<br>
 				<?php
 						$country = isset( $valuesUserAccount['CountryName'] ) ? $valuesUserAccount['CountryName'] : false;
 						$city = isset( $valuesUserAccount['CityName'] ) ? $valuesUserAccount['CityName'] : false;

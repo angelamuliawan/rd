@@ -38,26 +38,8 @@
 							}
 					?>
 
-					<!-- <div class="tacenter">
-						<?php
-								echo tag('img', false, array(
-									'src' => $domain . '/resources/icons/level.png',
-									'data-disable-progressive' => 1,
-									'style' => 'width: 25px; margin-top: -12px;',
-								));
-						?>
-
-						<span style="font-size: 20px; color: #ED6E0C;">
-							20 SUPER CHEF
-						</span>
-
-						<div style="color: #acb1b8;">
-							12 POINT TO LEVEL UP
-						</div>
-					</div> -->
-
 					<div class="row follower-following-section">
-						<div class="col-sm-4 col-xs-4">
+						<div class="col-sm-6 col-xs-6 middle">
 							<div class="tacenter">
 								<span class="text-title">Followers</span>
 								<p class="text-content">
@@ -70,7 +52,7 @@
 								</p>
 							</div>
 						</div>
-						<div class="col-sm-4 col-xs-4 middle">
+						<div class="col-sm-6 col-xs-6">
 							<div class="tacenter">
 								<span class="text-title">Following</span>
 								<p class="text-content">
@@ -80,14 +62,6 @@
 												'class' => 'ajax-modal',
 											));
 									?>
-								</p>
-							</div>
-						</div>
-						<div class="col-sm-4 col-xs-4">
-							<div class="tacenter">
-								<span class="text-title">Level</span>
-								<p class="text-content">
-									-
 								</p>
 							</div>
 						</div>

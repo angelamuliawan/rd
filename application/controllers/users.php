@@ -67,7 +67,7 @@ class Users extends AB_Controller {
 				$this->session->userdata('userid'),
 			));	
 			$values = $resUpdateNotif->result_array()[0];
-			$notif_url = $values['NotificationURL'];
+			$notif_url = getNotificationURL($values);
 
 			redirect( $this->domain.'/'.$notif_url);
 		} else {
@@ -76,16 +76,21 @@ class Users extends AB_Controller {
 	}
 
 	public function notifications(){
-		$resNotif = $this->db->query('CALL GetNotifications(?)', array(
-			$this->session->userdata('userid'),
-		));
-		$values = $resNotif->result_array();
-		$this->load->vars(array(
-			'site_title' => lang('notification'),
-			'values' => $values,
-		));
+		if( isLoggedIn() ) {
+			$resNotif = $this->db->query('CALL GetNotifications(?)', array(
+				$this->session->userdata('userid'),
+			));
+			$values = $resNotif->result_array();
+			$this->load->vars(array(
+				'site_title' => lang('notification'),
+				'values' => $values,
+			));
 
-		$this->render();
+			$this->render();
+		} else {
+			$this->load->helper('url');
+			redirect($this->domain);
+		}
 	}
 
 	public function update_photo() {
@@ -385,7 +390,7 @@ class Users extends AB_Controller {
 
 	public function forgot_password() {
 
-		if( $this->session->userdata('loggedin') ) {
+		if( isLoggedIn() ) {
 			$this->load->helper('url');
 			redirect($this->domain);
 		}
@@ -557,9 +562,10 @@ class Users extends AB_Controller {
 
 			if ( $this->form_validation->run() == TRUE && $valid_photo == true ) {
 
-				$resInsertArticle = $this->db->query('CALL InsertArticle(?,?,?,?)', array(
+				$resInsertArticle = $this->db->query('CALL InsertArticle(?,?,?,?,?)', array(
 					isset($post['photo']) ? $post['photo'] : $post['photo_preview'],
 					$post['title'],
+					trim(seoURL($post['title'])),
 					$post['content'],
 					$this->session->userdata('userid'),
 				));
@@ -661,9 +667,10 @@ class Users extends AB_Controller {
 
 			if ( $this->form_validation->run() == TRUE && $valid_photo == true ) {
 
-				$resInsertArticle = $this->db->query('CALL UpdateArticle(?,?,?,?,?)', array(
+				$resInsertArticle = $this->db->query('CALL UpdateArticle(?,?,?,?,?,?)', array(
 					isset($post['photo']) ? $post['photo'] : $post['photo_preview'],
 					$post['title'],
+					trim(seoURL($post['title'])),
 					$post['content'],
 					$this->session->userdata('userid'),
 					$article_id,

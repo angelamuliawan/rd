@@ -68,13 +68,13 @@
 
 		     			if( isLoggedIn() ) { 
 
-		     				$cnt_notif = 0;
-		     				foreach( $notifications as $value ) {
-								$isRead = $value['isRead'];
-								if( $isRead == 0 ) {
-									$cnt_notif++;
-								}
-							}
+		     				$cnt_notif = isset( $cnt_notification[0]['unread_notif_count'] ) ? $cnt_notification[0]['unread_notif_count'] : 0;
+		     // 				foreach( $notifications as $value ) {
+							// 	$isRead = $value['isRead'];
+							// 	if( $isRead == 0 ) {
+							// 		$cnt_notif++;
+							// 	}
+							// }
 
 		     				$spanNotifIcon = tag('span', false, array(
 		     					'class' => 'glyphicon glyphicon-bell mt3'
@@ -87,7 +87,9 @@
 		     				}
 
 		     				echo tag('a', sprintf('%s %s %s', lang('notification'), $spanNotifIcon, $spanNotifCount), array(
-								'class' => 'mobile-only',
+								'class' => 'mobile-only ajax-only',
+								'data-url' => $domain.'/ajax/reset_unread_notification',
+								'run-only-once' => 'true',
 								'href' => $domain.'/users/notifications',
 								'wrapTag' => 'li',
 							));
@@ -95,7 +97,9 @@
         		<li class="desktop-only">
         			<?php
         					echo tag('a', $spanNotifIcon.$spanNotifCount, array(
-		     					'class' => 'dropdown-toggle',
+		     					'class' => 'dropdown-toggle ajax-only',
+		     					'data-url' => $domain.'/ajax/reset_unread_notification',
+		     					'run-only-once' => 'true',
 								'data-toggle' => 'dropdown',
 								'aria-hashpopup' => 'true',
 								'aria-expanded' => 'false',
@@ -111,21 +115,24 @@
 						<ul class="no-ul-type" style="max-height:300px; overflow-y:auto;">
 							<?php
 									if( isset($notifications) && !empty($notifications) ) {
+
 										foreach( $notifications as $value ) {
 											$notif_id = $value['NotificationID'];
-											$notif = $value['NotificationName'];
+											$notif = translateNotification($value, $site_lang);
 											$notif_date = $value['NotificationDate'];
 											$isRead = $value['isRead'];
+											$notif_icon = getNotificationIcon($value['NotificationCode']);
 
 											loadSubview('users/notification', array(
 												'notif_id' => $notif_id,
 												'notif' => $notif,
 												'notif_date' => $notif_date,
 												'isRead' => $isRead,
+												'notif_icon' => $notif_icon,
 											));
 										}
 									} else {
-										echo tag('h5', 'Notifikasi tidak tersedia', array(
+										echo tag('h5', lang('data_not_available'), array(
 											'wrapTag' => 'li',
 										));
 									}
@@ -147,6 +154,7 @@
         					$userphoto = $this->session->userdata('userphoto');
 							$path_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
 							$custom_image = $domain.$path_image;
+							$userImage = false;
 
 							if( !file_exists( $webroot.$path_image ) ) {
 								$firstLetter =  !empty( $this->session->userdata('username')[0] ) ? strtoupper($this->session->userdata('username')[0]) : false;

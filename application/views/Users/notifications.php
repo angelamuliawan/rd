@@ -13,15 +13,17 @@
 					if( isset($values) && !empty($values) ) {
 						foreach( $values as $value ) {
 							$notif_id = $value['NotificationID'];
-							$notif = $value['NotificationName'];
+							$notif = translateNotification($value, $site_lang);
 							$notif_date = $value['NotificationDate'];
 							$isRead = $value['isRead'];
+							$notif_icon = getNotificationIcon($value['NotificationCode']);
 
 							loadSubview('users/item_notification', array(
 								'notif_id' => $notif_id,
 								'notif' => $notif,
 								'notif_date' => $notif_date,
 								'isRead' => $isRead,
+								'notif_icon' => $notif_icon,
 							));
 						}
 					} else {

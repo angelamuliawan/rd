@@ -380,6 +380,7 @@ var CommentItem = React.createClass({
 		var commentId = false;
 		var commentUserId = false;
 		var commentDate = false;
+		var commentDateTimestamp = false;
 		var flagLike = false;
 		var totalLike = false;
 
@@ -390,6 +391,7 @@ var CommentItem = React.createClass({
 			commentId = data.FoodCommentID;
 			commentUserId = data.UserID;
 			commentDate = data.CommentDate;
+			commentDateTimestamp = data.CommentDateTimestamp;
 		} else if( type == 'recook_comment' ) {
 			userName = data.RecookUserName;
 			userPhoto = data.UserPhoto;
@@ -397,6 +399,7 @@ var CommentItem = React.createClass({
 			commentId = data.RecookCommentID;
 			commentUserId = data.UserID;
 			commentDate = data.RecookCommentTime;
+			commentDateTimestamp = data.RecookCommentTimestamp;
 		}
 
 		flagLike = data.FlagLove;
@@ -517,7 +520,7 @@ var CommentItem = React.createClass({
 							</span>
 						}
 						<span className="comment-date">
-							{ commentDate }
+							{ $.timeAgoFormat( commentDateTimestamp, commentDate ) }
 						</span>
 					</div>
 

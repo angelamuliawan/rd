@@ -363,6 +363,7 @@ var ReplyCommentItem = React.createClass({
 		var commentReplyId = false;
 		var commentUserId = false;
 		var commentDate = false;
+		var commentDateTimestamp = false;
 		var flagLike = false;
 		var totalLike = false;
 
@@ -370,12 +371,14 @@ var ReplyCommentItem = React.createClass({
 			comment = data.CommentReply;
 			commentReplyId = data.CommentReplyID;
 			commentDate = data.CommentDate;
+			commentDateTimestamp = data.CommentDateTimestamp;
 			flagLike = data.FlagLove;
 			totalLike = data.NumberOfComment;
 		} else if( type == 'recook_comment' ) {
 			comment = data.RecookCommentReply;
 			commentReplyId = data.RecookCommentReplyID;
 			commentDate = data.CommentDate;
+			commentDateTimestamp = data.CommentDateTimestamp;
 			flagLike = data.FlagLove;
 			totalLike = data.NumberOfComment;
 		}
@@ -478,7 +481,7 @@ var ReplyCommentItem = React.createClass({
 							</span>
 						}
 						<span className="comment-date">
-							{ commentDate }
+							{ $.timeAgoFormat( commentDateTimestamp, commentDate ) }
 						</span>
 					</div>
 				</div>

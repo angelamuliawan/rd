@@ -748,7 +748,6 @@ var Root = React.createClass({
             global: false,
             beforeSend: function(){
             	this.setState({
-					onProcessingRequest: true,
 					formReplyComment: update(this.state.formReplyComment, { 
 						onProcessingRequest: {$set : true},
 					}),

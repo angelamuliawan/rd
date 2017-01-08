@@ -131,7 +131,7 @@
 			'related_chef' => 'Chef Terkait',
 			'related_recipe' => 'Resep Terkait',
 			'created_by' => 'Dibuat oleh',
-			'recooked_by' => 'Di Recook oleh',
+			'recooked_by' => 'Di masak ulang oleh',
 			'recooked_from_recipe' => 'Hasil recook dari resep',
 
 			/* CREATE RECIPE */
