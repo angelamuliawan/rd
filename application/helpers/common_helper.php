@@ -357,9 +357,6 @@ if ( ! function_exists('getNotificationURL')) {
 			$recook_comment_id 			= isset( $arr['ParamRecookCommentID'] ) ? $arr['ParamRecookCommentID'] : false;
 			$recook_comment_reply_id 	= isset( $arr['ParamRecookCommentReplyID'] ) ? $arr['ParamRecookCommentReplyID'] : false;
 
-			$user_name 					= isset( $arr['UserName'] ) ? $arr['UserName'] : false;
-			$recipe_name 				= isset( $arr['RecipeName'] ) ? $arr['RecipeName'] : false;
-
 			if( $notif_code == '2-C-0' ) {
 				$result = sprintf('p/%s', $recipe_id);
 			} else if( $notif_code == '2-C-ParticipateToComment' ) {
