@@ -14,7 +14,7 @@
   					'type' => 'text',
   					'name' => 'email',
   					'maxlength' => 100,
-  					'value' => set_value('email'),
+  					'value' => isset( $_POST['email'] ) ? set_value('email') : get_cookie('email'),
   					'class' => 'form-control',
             		'autofocus' => true,
   				));
@@ -31,7 +31,7 @@
   					'type' => 'password',
   					'name' => 'password',
   					'maxlength' => 20,
-  					'value' => set_value('password'),
+  					'value' => isset( $_POST['password'] ) ? set_value('password') : get_cookie('password'),
   					'class' => 'form-control',
   				));
   				echo form_error('password');
@@ -39,7 +39,7 @@
   	</div>
   	<div class="checkbox">
 	    <label>
-	      	<input type="checkbox">
+	      	<input type="checkbox" name="rememberMe" <?php echo !empty(get_cookie('email')) ? 'checked' : ''; ?> >
 			<?php
 					echo lang('remember_me');
 			?>

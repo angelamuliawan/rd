@@ -274,6 +274,23 @@ class Users extends AB_Controller {
 						$status = 'error';
 					} else {
 
+						if( isset($post['rememberMe']) ) {
+							set_cookie(array(
+					        	'name' => 'email',
+					        	'value' => $post['email'],
+					        	'expire' => time() + (10 * 365 * 24 * 60 * 60),
+					        ));
+
+					        set_cookie(array(
+					        	'name' => 'password',
+					        	'value' => $post['password'],
+					        	'expire' => time() + (10 * 365 * 24 * 60 * 60),
+					        ));
+						} else {
+							delete_cookie('email');
+							delete_cookie('password');
+						}
+
 						$this->session->set_userdata('loggedin', true);
 						$this->session->set_userdata('userid', $data->UserID);
 						$this->session->set_userdata('username', $data->UserName);
