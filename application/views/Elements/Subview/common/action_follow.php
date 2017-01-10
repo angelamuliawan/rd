@@ -1,6 +1,7 @@
 <?php
 		$user_id_viewer = isset( $user_id_viewer ) ? $user_id_viewer : false;
 		$follow_status = isset( $follow_status ) ? $follow_status : false;
+		$show_this_is_you = isset( $show_this_is_you ) ? $show_this_is_you : true;
 ?>
 
 <div class="wrapper-follow-button wrapper-ajax-link">
@@ -17,6 +18,13 @@
 						Follow
 					</button>
 				</a>
+	<?php
+			} else if( $user_id_viewer == $this->session->userdata('userid') && $show_this_is_you ) { 
+	?>
+				<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-ok"></span>
+					This is You
+				</button>
 	<?php
 			} else if( $user_id_viewer != $this->session->userdata('userid') ) {
 

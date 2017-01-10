@@ -1119,8 +1119,9 @@ class Users extends AB_Controller {
 
 		if( !empty($user_id) ) { 
 
-			$resFollowingUser = $this->db->query('CALL GetMyFollowingUser(?)', array(
+			$resFollowingUser = $this->db->query('CALL GetMyFollowingUser(?,?)', array(
 				$user_id,
+				$this->session->userdata('userid'),
 			));
 			$valuesUserFollowing = $resFollowingUser->result_array();
 			$resFollowingUser->next_result();
@@ -1141,8 +1142,9 @@ class Users extends AB_Controller {
 
 		if( !empty($user_id) ) { 
 
-			$resFollowerUser = $this->db->query('CALL GetMyFollowerUser(?)', array(
+			$resFollowerUser = $this->db->query('CALL GetMyFollowerUser(?,?)', array(
 				$user_id,
+				$this->session->userdata('userid'),
 			));
 			$valuesUserFollower = $resFollowerUser->result_array();
 			$resFollowerUser->next_result();

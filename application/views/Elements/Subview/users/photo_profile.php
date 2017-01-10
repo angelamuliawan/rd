@@ -71,6 +71,7 @@
 		        				loadSubview('common/action_follow', array(
 									'user_id_viewer' => $user_id_viewer,
 									'follow_status' => $valuesUserFollowStatus,
+									'show_this_is_you' => false,
 								));
 				?>
 							</div>

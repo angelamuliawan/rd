@@ -17,7 +17,7 @@
 												$user_id = isset($value['UserID']) ? $value['UserID'] : false;
 												$username = isset($value['UserName']) ? $value['UserName'] : false;
 												$userphoto = isset($value['UserPhoto']) ? $value['UserPhoto'] : false;
-												$status = isset($value['Status']) ? $value['Status'] : false;
+												$status = isset($value['FlagViewerFollow']) ? $value['FlagViewerFollow'] : false;
 
 												$path_image = '/resources/images/uploads/users/thumbs/'.$userphoto;
 												$custom_image = $domain.$path_image;
