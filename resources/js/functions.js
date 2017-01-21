@@ -48,6 +48,11 @@ var arrTranslate = {
         'timebefore_hour' : '{num} jam',
         'timebefore_hours' : '{num} jam',
         'timebefore_yesterday' : 'Kemarin',
+
+        /* TOTAL */
+        'total_comment' : 'Jumlah Komentar',
+        'total_like' : 'Jumlah yang Menyukai',
+        'total_view' : 'Jumlah View',
     },
     'english' : {
         'cancel' : 'Cancel',
@@ -90,6 +95,11 @@ var arrTranslate = {
         'timebefore_hour' : '{num} hrs',
         'timebefore_hours' : '{num} hrs',
         'timebefore_yesterday' : 'Yesterday',
+
+        /* TOTAL */
+        'total_comment' : 'Total Comment',
+        'total_like' : 'Total Like',
+        'total_view' : 'Total View',
     }
 }
 

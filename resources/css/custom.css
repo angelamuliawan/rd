@@ -1119,7 +1119,7 @@ h1,h2,h3,h4,h5,h6 {
 .wrapper-food-list > .content > ul {
 	padding:10px 5px 10px 15px;
 }
-.wrapper-food-list > .content > ul > li {
+.wrapper-food-list > .content > ul li {
 	width:auto;
 	max-width: 280px; 
 	height:247px; 
@@ -1139,21 +1139,21 @@ h1,h2,h3,h4,h5,h6 {
 	margin:12px; 
 	border-radius:3px;
 }*/
-.wrapper-food-list > .content > ul > li:hover{
+.wrapper-food-list > .content > ul li:hover{
 	opacity: 0.8;
 	transition: .25s ease-out all;
     -moz-transition: .25s ease-out all;
     -webkit-transition: .25s ease-out all;
     -o-transition: .25s ease-out all;
 }
-.wrapper-food-list > .content > ul > li .box-header {
+.wrapper-food-list > .content > ul li .box-header {
 	width:100%; 
 	height:170px; 
 	display:block; 
 	border-bottom:1px solid #efefef;
 	position:relative;
 }
-.wrapper-food-list > .content > ul > li .box-header .wrapper-inner {
+.wrapper-food-list > .content > ul li .box-header .wrapper-inner {
 	position: absolute;
 	z-index: 1; 
 	color: #fff; 
@@ -1165,14 +1165,14 @@ h1,h2,h3,h4,h5,h6 {
 	left: 5px; 
 	right: 5px;
 }
-.wrapper-food-list > .content > ul > li .box-header.cuisine img {
+.wrapper-food-list > .content > ul li .box-header.cuisine img {
 	filter: brightness(50%);
 	-webkit-filter: brightness(50%);
     -moz-filter: brightness(50%);
     -o-filter: brightness(50%);
     -ms-filter: brightness(50%);
 }
-.wrapper-food-list > .content > ul > li .box-header.cuisine .item-cuisine {
+.wrapper-food-list > .content > ul li .box-header.cuisine .item-cuisine {
 	filter: brightness(55%);
 	-webkit-filter: brightness(55%);
     -moz-filter: brightness(55%);
@@ -1183,7 +1183,7 @@ h1,h2,h3,h4,h5,h6 {
     background-size: cover; 
     background-position: center;
 }
-.wrapper-food-list > .content > ul > li .box-header img {
+.wrapper-food-list > .content > ul li .box-header img {
 	/*width:inherit; */
 	/*height:inherit;*/
 	width: 100%;
@@ -1193,7 +1193,7 @@ h1,h2,h3,h4,h5,h6 {
     -o-filter: brightness(50%);
     -ms-filter: brightness(50%);*/
 }
-.wrapper-food-list > .content > ul > li .box-content {
+.wrapper-food-list > .content > ul li .box-content {
 	width:100%; 
 	height:35px; 
 	display:flex; 
@@ -1203,10 +1203,10 @@ h1,h2,h3,h4,h5,h6 {
 	overflow: hidden;
     text-overflow: ellipsis;
 }
-.wrapper-food-list > .content > ul > li .box-content > h4 {
+.wrapper-food-list > .content > ul li .box-content > h4 {
 	line-height:2.2rem;
 }
-.wrapper-food-list > .content > ul > li .box-footer {
+.wrapper-food-list > .content > ul li .box-footer {
 	width:100%; 
 	height:40px; 
 	display:block; 
@@ -1216,17 +1216,17 @@ h1,h2,h3,h4,h5,h6 {
 	/*position: absolute;
     bottom: 0px;*/
 }
-.wrapper-food-list > .content > ul > li .box-footer.cuisine {
+.wrapper-food-list > .content > ul li .box-footer.cuisine {
 	position:absolute; 
 	bottom: 0; 
 	border:none;
 }
-.wrapper-food-list > .content > ul > li .box-footer img {
+.wrapper-food-list > .content > ul li .box-footer img {
 	width:20px; 
 	height:15px; 
 	display:inline;
 }
-.wrapper-food-list > .content > ul > li .box-footer span {
+.wrapper-food-list > .content > ul li .box-footer span {
 	display: inline;
 	padding-left: 3px;
 }

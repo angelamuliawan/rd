@@ -11,36 +11,28 @@ class Pages extends AB_Controller {
 		$top_cuisine = $resTopCuisine->result_array();
 		$resTopCuisine->next_result();
 
-		$resNewRecipe = $this->db->query('CALL GetNewlyCreatedRecipe(?)', array(
-			$this->session->userdata('userid'),
-		));
-		$new_recipe = $resNewRecipe->result_array();
-		$resNewRecipe->next_result();
-
-		$resPopularRecipe = $this->db->query('CALL GetPopularRecipe(?)', array(
-			$this->session->userdata('userid'),
-		));
-		$popular_recipe = $resPopularRecipe->result_array();
-		$resPopularRecipe->next_result();
-
 		// related recipe by recipe
 		$resPopularUser = $this->db->query('CALL GetPopularUser()');
 		$valuesPopularUser = $resPopularUser->result_array();
 		$resPopularUser->next_result();
 
-		// Newest Article
-		$resNewestArticle = $this->db->query('CALL GetNewestArticle(?)', array(
-			NULL
-		));
-		$valuesNewestArticle = $resNewestArticle->result_array();
-		$resNewestArticle->next_result();
-
 		$this->load->vars(array(
 			'valuesTopCuisine' => $top_cuisine,
-			'valuesNewRecipe' => $new_recipe,
-			'valuesPopularRecipe' => $popular_recipe,
 			'valuesPopularUser' => $valuesPopularUser,
-			'valuesNewestArticle' => $valuesNewestArticle,
+			'additional_css' => array(
+				'react/transition',
+			),
+			'additional_js' => array(
+				'react/react-with-addons.min',
+				'react/react-dom.min',
+				'react/browser.min',
+			),
+			'additional_jsx' => array(
+				'common',
+				'components/recipeitem',
+				'components/articleitem',
+				'pages/index',
+			),
 		));
 
 		$this->render();
@@ -75,13 +67,6 @@ class Pages extends AB_Controller {
 		));
 		$values = $resArticleDetail->result_array();
 		$resArticleDetail->next_result();
-
-		// Article Comment
-		$resArticleComment = $this->db->query('CALL GetArticleComment(?)', array(
-			$article_id
-		));
-		$valuesArticleComment = $resArticleComment->result_array();
-		$resArticleComment->next_result();
 		
 		$slug = $this->uri->segment(3);
 
@@ -118,7 +103,6 @@ class Pages extends AB_Controller {
 		$this->load->vars(array(
 			'site_title' => $values[0]['ArticleTitle'],
 			'values' => $values,
-			'valuesArticleComment' => $valuesArticleComment,
 			'valuesNewestArticle' => $valuesNewestArticle,
 			'article_id' => $article_id,
 			'sdk' => array(
@@ -130,6 +114,7 @@ class Pages extends AB_Controller {
 				'froala/font-awesome.min',
 				'froala/froala_editor.min',
 				'froala/froala_style.min',
+				'react/transition',
 			),
 			'additional_js' => array(
 				'froala/froala_editor.min',
@@ -141,6 +126,14 @@ class Pages extends AB_Controller {
 				'froala/plugins/block_styles.min',
 				'froala/plugins/video.min',
 				'froala/plugins/lists.min',
+				'react/react-with-addons.min',
+				'react/react-dom.min',
+				'react/browser.min',
+			),
+			'additional_jsx' => array(
+				'common',
+				'components/articleitem',
+				'pages/articledetail',
 			),
 			'og_meta' => array(
 				'title' => $values[0]['ArticleTitle'],
@@ -149,6 +142,7 @@ class Pages extends AB_Controller {
 				'desc' => substr(strip_tags($values[0]['ArticleContent']), 0, 250),
 			),
 		));
+
 		$this->render();
 	}
 

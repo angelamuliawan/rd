@@ -59,43 +59,8 @@
 								));
 						?>
 					</div>
-					<div class="content">
-						<ul>
-							<?php
-									if( !empty($valuesNewRecipe) ) {
-										foreach( $valuesNewRecipe as $key => $value ) {
-											$id = $value['RecipeID'];
-											$slug = $value['Slug'];
-											$image = $value['PrimaryPhoto'];
-											$title = $value['RecipeName'];
-											$recipe_intro = $value['RecipeIntro'];
-
-											$cnt_love = $value['NumberOfLove'];
-											$cnt_comment = $value['NumberOfComment'];
-											$cnt_recook = $value['NumberOfRecook'];
-											$cnt_view = $value['NumberOfView'];
-
-											loadSubview('pages/item_recipe', array(
-												'recipe_id' => $id,
-												'slug' => $slug,
-												'image' => $image,
-												'title' => $title,
-												'cnt_love' => $cnt_love,
-												'cnt_comment' => $cnt_comment,
-												'cnt_recook' => $cnt_recook,
-												'cnt_view' => $cnt_view,
-											));
-										}
-									} else {
-										echo tag('h4', lang('data_not_available'), array(
-											'wrapTag' => 'li',
-											'wrapAttributes' => array(
-												'class' => 'no-border'
-											)
-										));
-									}
-							?>
-						</ul>
+					<div id="newly-created-recipe-container" class="content">
+						<img src="<?php echo $domain; ?>/resources/images/reload.gif" data-disable-progressive="1" />
 					</div>
 					<div class="header custom mobile-only">
 						<?php
@@ -121,43 +86,8 @@
 								));
 						?>
 					</div>
-					<div class="content">
-						<ul>
-							<?php
-									if( !empty($valuesPopularRecipe) ) {
-										foreach( $valuesPopularRecipe as $key => $value ) {
-											$id = $value['RecipeID'];
-											$slug = $value['Slug'];
-											$image = $value['PrimaryPhoto'];
-											$title = $value['RecipeName'];
-											$recipe_intro = $value['RecipeIntro'];
-
-											$cnt_love = $value['NumberOfLove'];
-											$cnt_comment = $value['NumberOfComment'];
-											$cnt_recook = $value['NumberOfRecook'];
-											$cnt_view = $value['NumberOfView'];
-
-											loadSubview('pages/item_recipe', array(
-												'recipe_id' => $id,
-												'slug' => $slug,
-												'image' => $image,
-												'title' => $title,
-												'cnt_love' => $cnt_love,
-												'cnt_comment' => $cnt_comment,
-												'cnt_recook' => $cnt_recook,
-												'cnt_view' => $cnt_view,
-											));
-										}
-									} else {
-										echo tag('h4', lang('data_not_available'), array(
-											'wrapTag' => 'li',
-											'wrapAttributes' => array(
-												'class' => 'no-border'
-											)
-										));
-									}
-							?>
-						</ul>
+					<div id="popular-recipe-container" class="content">
+						<img src="<?php echo $domain; ?>/resources/images/reload.gif" data-disable-progressive="1" />
 					</div>
 					<div class="header custom mobile-only">
 						<?php
@@ -182,9 +112,20 @@
 			</div>
 		</div>
 		<div class="row">
-			<?php
-					loadSubview('article/item_article');
-			?>
+			<div class="col-sm-12">
+				<div class="wrapper-item-article bg-white pd10">
+					<div class="header">
+						<?php
+								echo tag('h3', lang('latest_article'));
+						?>
+					</div>
+					<div id="newest-article-container">
+						<div class="col-sm-10 tacenter">
+							<img src="<?php echo $domain; ?>/resources/images/reload.gif" data-disable-progressive="1" />
+						</div>
+					</div>
+				</div>
+			</div>			
 		</div>
 	</div>
 </div>

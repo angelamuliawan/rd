@@ -7,11 +7,6 @@
 		$content = $value['ArticleContent'];
 		$date = $value['ArticleDate'];
 
-		// $comment = tag('img', false, array(
-		// 	'src' => $domain.'/resources/icons/comment_w.png',
-		// ));
-		// $total_comment = count($valuesArticleComment);
-
 		$url = $domain.'/artikel/'.$id.'/'.$slug;
 
 		$path_image = '/resources/images/uploads/article/primary/'.$image;
@@ -21,7 +16,7 @@
 		}
 ?>
 
-<div class="container">
+<div class="container bg-white">
 	<div class="big-wrapper">
 		<div class="row">
 			<div class="col-sm-12">
@@ -71,10 +66,19 @@
 						</div>
 						<div class="fb-comments" data-href="<?php echo('http://'.$_SERVER['HTTP_HOST'].$_SERVER['PATH_INFO']); ?>" data-numposts="10" data-width="100%"></div>
 					</div>
-				</div>			
-				<?php
-						loadSubview('article/item_article');
-				?>
+				</div>
+				<div class="wrapper-item-article bg-white pd10">
+					<div class="header">
+						<?php
+								echo tag('h3', lang('latest_article'));
+						?>
+					</div>
+					<div id="newest-article-container">
+						<div class="tacenter">
+							<img src="<?php echo $domain; ?>/resources/images/reload.gif" data-disable-progressive="1" />
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
