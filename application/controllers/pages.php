@@ -19,14 +19,14 @@ class Pages extends AB_Controller {
 		$this->load->vars(array(
 			'valuesTopCuisine' => $top_cuisine,
 			'valuesPopularUser' => $valuesPopularUser,
-			'additional_css' => array(
-				'react/transition',
-			),
-			'additional_js' => array(
-				'react/react-with-addons.min',
-				'react/react-dom.min',
-				'react/browser.min',
-			),
+			// 'additional_css' => array(
+			// 	'react/transition',
+			// ),
+			// 'additional_js' => array(
+			// 	'react/react-with-addons.min',
+			// 	'react/react-dom.min',
+			// 	'react/browser.min',
+			// ),
 			'additional_jsx' => array(
 				'common',
 				'components/recipeitem',
@@ -114,7 +114,7 @@ class Pages extends AB_Controller {
 				'froala/font-awesome.min',
 				'froala/froala_editor.min',
 				'froala/froala_style.min',
-				'react/transition',
+				// 'react/transition',
 			),
 			'additional_js' => array(
 				'froala/froala_editor.min',
@@ -126,9 +126,9 @@ class Pages extends AB_Controller {
 				'froala/plugins/block_styles.min',
 				'froala/plugins/video.min',
 				'froala/plugins/lists.min',
-				'react/react-with-addons.min',
-				'react/react-dom.min',
-				'react/browser.min',
+				// 'react/react-with-addons.min',
+				// 'react/react-dom.min',
+				// 'react/browser.min',
 			),
 			'additional_jsx' => array(
 				'common',

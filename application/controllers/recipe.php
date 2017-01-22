@@ -136,15 +136,15 @@ class Recipe extends AB_Controller {
 				'desc' => $valuesRecipeHeader[0]['RecipeIntro'],
 			),
 			'additional_css' => array(
-				'react/transition',
+				// 'react/transition',
 				'emoticon/emoticons',
 			),
-			'additional_js' => array(
-				'react/react-with-addons.min',
-				'react/react-dom.min',
-				'react/browser.min',
-				'emoticon/emoticons',
-			),
+			// 'additional_js' => array(
+			// 	'react/react-with-addons.min',
+			// 	'react/react-dom.min',
+			// 	'react/browser.min',
+			// 	'emoticon/emoticons',
+			// ),
 			'additional_jsx' => array(
 				'common',
 				'mixins/form',
@@ -755,15 +755,15 @@ class Recipe extends AB_Controller {
 				'desc' => $valuesRecipeRecook[0]['RecookDesc'],
 			),
 			'additional_css' => array(
-				'react/transition',
+				// 'react/transition',
 				'emoticon/emoticons',
 			),
-			'additional_js' => array(
-				'react/react-with-addons.min',
-				'react/react-dom.min',
-				'react/browser.min',
-				'emoticon/emoticons',
-			),
+			// 'additional_js' => array(
+			// 	'react/react-with-addons.min',
+			// 	'react/react-dom.min',
+			// 	'react/browser.min',
+			// 	'emoticon/emoticons',
+			// ),
 			'additional_jsx' => array(
 				'common',
 				'mixins/form',

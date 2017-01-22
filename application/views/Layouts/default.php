@@ -81,12 +81,12 @@
 				echo tag('title', 'Cookindo');
 
 				load_css(array(
-					'bootstrap/bootstrap',
-					'bootstrap/docs',
-					'bootstrap/bootstrap-multiselect',
-					'magicsuggest/magicsuggest',
-					'custom',
-					// 'defer',
+					// 'bootstrap/bootstrap',
+					// 'bootstrap/docs',
+					// 'bootstrap/bootstrap-multiselect',
+					// 'magicsuggest/magicsuggest',
+					// 'custom',
+					'defer',
 				));
 
 				if(isset($additional_css) && !empty($additional_css)){
@@ -127,17 +127,17 @@
 
 				
 				load_script(array(
-					'jquery/jquery.min',
-					'bootstrap/bootstrap.min',
-					'bootstrap/typeahead',
-					'bootstrap/bootstrap-multiselect',
-					'fileupload/jquery.ui.widget',
-					'fileupload/jquery.fileupload',
-					'fileupload/jquery.iframe-transport',
-					'magicsuggest/magicsuggest',
-					'unveil/jquery.unveil',
-					'functions',
-					// 'defer',
+					// 'jquery/jquery.min',
+					// 'bootstrap/bootstrap.min',
+					// 'bootstrap/typeahead',
+					// 'bootstrap/bootstrap-multiselect',
+					// 'fileupload/jquery.ui.widget',
+					// 'fileupload/jquery.fileupload',
+					// 'fileupload/jquery.iframe-transport',
+					// 'magicsuggest/magicsuggest',
+					// 'unveil/jquery.unveil',
+					// 'functions',
+					'defer',
 				));
 
 				if(isset($additional_js) && !empty($additional_js)) {

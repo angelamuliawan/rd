@@ -799,6 +799,7 @@ class Users extends AB_Controller {
 					$device['os'],
 				));
 				$result = $res->result()[0];
+				$res->next_result();
 				
 				$this->session->set_userdata('loggedin', true);
 				$this->session->set_userdata('userid', $result->UserID);
@@ -817,7 +818,7 @@ class Users extends AB_Controller {
             $data['logout_url'] = $this->facebook->getLogoutUrl();
         } else {
 		    $this->load->helper('url');
-            redirect($this->facebook->getLoginUrl( array('scope' => 'email,read_stream') ));
+            redirect($this->facebook->getLoginUrl( array('scope' => 'email') ));
         }
 
         $this->load->view('Users/login_facebook');
@@ -854,18 +855,17 @@ class Users extends AB_Controller {
 			$this->load->vars(array(
 				'valuesUserAccount' => $valuesUserAccount,
 				'valuesRelatedPopularUser' => $valuesRelatedPopularUser,
-				// 'valuesTimeline' => $valuesTimeline,
 				'valuesUserFollowData' => $valuesUserFollowData,
 				'additional_css' => array(
-					'react/transition',
+					// 'react/transition',
 					'emoticon/emoticons',
 				),
-				'additional_js' => array(
-					'react/react-with-addons.min',
-					'react/react-dom.min',
-					'react/browser.min',
-					'emoticon/emoticons',
-				),
+				// 'additional_js' => array(
+				// 	'react/react-with-addons.min',
+				// 	'react/react-dom.min',
+				// 	'react/browser.min',
+				// 	'emoticon/emoticons',
+				// ),
 				'additional_jsx' => array(
 					'common',
 					'mixins/form',
@@ -939,16 +939,6 @@ class Users extends AB_Controller {
 			$valuesCookmark = $resCookmark->result_array();
 			$resCookmark->next_result();
 
-			// Get user timeline
-			// $resTimeline = $this->db->query('CALL GetUserTimeline(?,?,?,?)', array(
-			// 	$user_id,
-			// 	$this->session->userdata('userid'),
-			// 	$filter_view,
-			// 	100
-			// ));
-			// $valuesTimeline = $resTimeline->result_array();
-			// $resTimeline->next_result();
-
 			// Get user follow status
 			$resUserFollowStatus = $this->db->query('CALL GetFollowStatus(?,?)', array(
 				$this->session->userdata('userid'),
@@ -972,19 +962,18 @@ class Users extends AB_Controller {
 				'valuesMyRecipe' => $valuesMyRecipe,
 				'valuesRecook' => $valuesRecook,
 				'valuesCookmark' => $valuesCookmark,
-				// 'valuesTimeline' => $valuesTimeline,
 				'valuesUserFollowStatus' => $valuesUserFollowStatus[0]['RESULT'],
 				'valuesUserFollowData' => $valuesUserFollowData,
 				'additional_css' => array(
-					'react/transition',
+					// 'react/transition',
 					'emoticon/emoticons',
 				),
-				'additional_js' => array(
-					'react/react-with-addons.min',
-					'react/react-dom.min',
-					'react/browser.min',
-					'emoticon/emoticons',
-				),
+				// 'additional_js' => array(
+				// 	'react/react-with-addons.min',
+				// 	'react/react-dom.min',
+				// 	'react/browser.min',
+				// 	'emoticon/emoticons',
+				// ),
 				'additional_jsx' => array(
 					'common',
 					'mixins/form',
@@ -1023,6 +1012,7 @@ class Users extends AB_Controller {
 					$this->session->userdata('userid'),
 				));
 				$data = $res->result()[0];
+				$res->next_result();
 
 				if( $data->result == -1 ) {
 					$message = lang('failed_save_data');
