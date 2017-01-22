@@ -8,7 +8,7 @@
 <li class="<?php echo empty($isRead) ? 'new' : ''; ?>">
 	<a href="<?php echo $domain.'/users/read_notification/'.$notif_id; ?>">
 		<?php 
-				echo tag('span', $notif);
+				echo tag('span', strip_tags($notif, '<b>'));
 		?>
 		<div style="height:40px;position:relative;">
 			<?php
