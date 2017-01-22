@@ -244,11 +244,17 @@
 										echo tag('input', false, array(
 											'id' => 'txtKeyword',
 						    				'type' => 'text',
-						    				'class' => 'form-control',
+						    				'class' => 'form-control autocomplete',
 						    				'name' => 'keyword',
 						    				'placeholder' => lang('type_search_keyword') . ' &hellip;',
 						    				'value' => $this->input->get('keyword'),
 						    				'maxlength' => 200,
+						    				'autocomplete' => 'off',
+						    				'data-class' => 'acpRecipe',
+											'data-provide' => 'typeahead',
+											'data-url' => $domain.'/ajax/list_recipe',
+											'data-path' => 'resources/images/uploads/recipe/primary/thumbs/',
+											'redirect-on-selected-path' => 'p/',
 						    			));
 								?>
 						  	</div>
