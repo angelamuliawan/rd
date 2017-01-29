@@ -158,6 +158,7 @@ class Users extends AB_Controller {
 					$this->session->userdata('userid'),
 				));
 				$data = $res->result()[0];
+				$res->next_result();
 
 				if( $data->result == -1 ) {
 					$message = lang('failed_save_password');
