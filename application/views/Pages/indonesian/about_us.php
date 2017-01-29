@@ -23,7 +23,7 @@
 						<br>
 						<h3>Angela Muliawan</h3>
 						<p>
-							Angela adalah seorang software developer dan analyst yang sudah berpengalaman lebih dari 3 tahun. Ia menguasai pemrograman 
+							Angela adalah seorang software developer dan analyst yang sudah berpengalaman lebih dari 5 tahun. Ia menguasai pemrograman 
 							PHP dan Javascript namun lebih fokus dalam menganalisa dan merancang sistem. Summa cumlaude graduate dari Binus University 
 							ini suka mengeksplorasi teknologi baru tentang database, Business Intelligence dan manajemen bisnis.
 						</p>
@@ -31,7 +31,7 @@
 
 						<h3>Brian Alexandro</h3>
 						<p>
-							Brian adalah seorang software developer yang berpengalaman lebih dari 3 tahun. Ia memfokuskan diri pada bahasa pemrograman berbasis 
+							Brian adalah seorang software developer yang berpengalaman lebih dari 5 tahun. Ia memfokuskan diri pada bahasa pemrograman berbasis 
 							web seperti PHP, ASP.NET dan Javascript. Keahlian programmingnya juga diimbangi dengan keterampilannya dalam membuat desain 
 							website yang kreatif dan atraktif menggunakan teknologi terbaru seperti HTML5.
 						</p>
