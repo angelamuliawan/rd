@@ -107,8 +107,10 @@
 									echo $iconComment;
 									echo tag('span', $cnt_comment);
 
-									echo $iconRecook;
-									echo tag('span', $cnt_recook);
+									if( $cnt_recook ) {
+										echo $iconRecook;
+										echo tag('span', $cnt_recook);
+									}
 						?>
 								</div>
 					</div>
