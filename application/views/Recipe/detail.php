@@ -191,6 +191,8 @@
 					<?php
 							echo tag('img', false, array(
 								'src' => $custom_image,
+								'alt' => $title,
+								'title' => $title,
 								'wrapTag' => 'div',
 								'wrapAttributes' => array(
 									'class' => 'wrapper-banner'

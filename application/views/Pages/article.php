@@ -13,25 +13,12 @@
 		<div class="row">
 			<div class="col-sm-9">
 				<div id="article-list" class="wrapper-food-list-vertical bg-white">
-					<!-- <div class="header with-border"> -->
-						<?php
-								// echo tag('h3', 'Artikel', array(
-								// 	'class' => 'pull-left mt5 wrapper-text'
-								// ));
-						?>
-					<!-- </div> -->
-
 					<?php
 							if( isset($first) ) {
 								$id = $first['ArticleID'];
 								$image = $first['ArticleImage'];
 								$title = $first['ArticleTitle'];
 								$slug = $first['Slug'];
-
-								// $comment = tag('img', false, array(
-								// 	'src' => $domain.'/resources/icons/comment_w.png',
-								// ));
-								// $total_comment = count($valuesArticleComment);
 
 								$url = $domain.'/artikel/'.$id.'/'.$slug;
 
@@ -61,10 +48,6 @@
 													));
 											?>
 										</div>
-										<!-- <div class="right-side">
-											<img src="http://localhost/cookindo/resources/icons/comment_w.png">
-											<span>1</span>						
-										</div> -->
 									</div>
 								</div>
 					<?php
@@ -93,7 +76,7 @@
 											));
 										}
 									} else {
-										echo tag('h4', 'Artikel tidak tersedia', array(
+										echo tag('h4', lang('data_not_available'), array(
 											'wrapTag' => 'li',
 											'wrapAttributes' => array(
 												'class' => 'no-border'

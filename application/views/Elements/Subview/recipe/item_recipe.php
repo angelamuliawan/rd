@@ -71,6 +71,8 @@
 				<?php
 						echo tag('img', false, array(
 							'src' => $custom_image,
+							'alt' => $title,
+							'title' => $title,
 							'wrapTag' => 'a',
 							'wrapAttributes' => array(
 								'href' => $url,

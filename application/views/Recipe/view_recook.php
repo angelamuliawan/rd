@@ -102,6 +102,8 @@
 							echo tag('img', false, array(
 								'src' => $custom_image,
 								'style' => 'width:100%; height:auto;',
+								'alt' => $recipe,
+								'title' => $recipe,
 							));
 
 							loadSubview('common/action_bottom_find', array(
@@ -119,6 +121,8 @@
 						<?php
 								echo tag('img', false, array(
 									'src' => $recipe_custom_image,
+									'alt' => $recipe,
+									'title' => $recipe,
 									'class' => 'media-object',
 									'style' => 'width: 64px; height: 64px;',
 									'wrapTag' => 'a',

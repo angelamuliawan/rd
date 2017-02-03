@@ -53,6 +53,7 @@
 								'style' => 'width: 100%;',
 							),
 						));
+						
 						echo tag('p', $content, array(
 							'class' => 'mt10 description',
 							'style' => 'line-height: 2rem;',

@@ -57,6 +57,8 @@
 					<?php
 							echo tag('img', false, array(
 				        		'src' => $custom_image,
+				        		'alt' => $username,
+				        		'title' => $username,
 				        		'img-progressive-type' => 'users',
 				        	));
 					?>
