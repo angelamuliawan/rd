@@ -416,6 +416,8 @@
 
 																$content .= tag('img', false, array(
 																	'src' => $custom_image,
+																	'alt' => $food_step,
+																	'title' => $food_step,
 																	'wrapTag' => 'div',
 																	'wrapAttributes' => array(
 																		'class' => 'tacenter',
