@@ -302,7 +302,7 @@
 					            	<?php
 											// echo tag('input', false, array(
 							    // 				'type' => 'text',
-							    // 				'class' => 'form-control autocomplete',
+							    // 				'class' => 'form-control autocomplete peventnone',
 							    // 				'name' => 'chef_keyword',
 							    // 				'placeholder' => 'Temukan chef &hellip;',
 							    // 				'value' => isset( $request['UserName'] ) ? $request['UserName'] : false,

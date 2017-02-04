@@ -665,13 +665,13 @@ $.autocomplete = function(objcontainer) {
                 type: 'GET',
                 dataType: 'json',
                 global: blockScreen,
-                async: false,
                 success: function(data) {
                     source_data[_class] = [];
                     for (var i in data) {
                         var row = data[i];
                         source_data[_class].push(JSON.stringify(row));
                     }
+
                     $.buildAutocomplete(self, _class);
                 }
             });
@@ -713,7 +713,7 @@ $.buildAutocomplete = function(obj, _class) {
             return objItem.name;
         },
         showHintOnFocus: true,
-    });
+    }).css('pointer-events','auto');
 }
 $.ajaxModal = function(options) {
     $('body').on('click', '.ajax-modal', function() {

@@ -25,7 +25,7 @@
 												echo tag('input', false, array(
 													'id' => 'txtKeyword',
 								    				'type' => 'text',
-								    				'class' => 'form-control autocomplete',
+								    				'class' => 'form-control autocomplete peventnone',
 								    				'name' => 'keyword',
 								    				'placeholder' => lang('type_search_keyword'). ' &hellip;',
 								    				'value' => $this->input->get('keyword'),
@@ -244,7 +244,7 @@
 										echo tag('input', false, array(
 											'id' => 'txtKeyword',
 						    				'type' => 'text',
-						    				'class' => 'form-control autocomplete',
+						    				'class' => 'form-control autocomplete peventnone',
 						    				'name' => 'keyword',
 						    				'placeholder' => lang('type_search_keyword') . ' &hellip;',
 						    				'value' => $this->input->get('keyword'),

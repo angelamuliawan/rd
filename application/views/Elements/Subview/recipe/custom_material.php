@@ -56,7 +56,7 @@
 					'name' => $composition_name,
 					'type' => 'text',
 					'value' => ( !empty($composition) ) ? $composition : set_value($composition_name),
-					'class' => 'form-control inputField autocomplete template-field',
+					'class' => 'form-control inputField autocomplete template-field peventnone',
 					'autocomplete' => 'off',
 					'maxlength' => 100,
 					'data-class' => 'acpComposition',

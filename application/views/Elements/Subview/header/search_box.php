@@ -37,7 +37,7 @@
 									<?php
 											echo tag('input', false, array(
 							    				'type' => 'text',
-							    				'class' => 'form-control autocomplete',
+							    				'class' => 'form-control autocomplete peventnone',
 							    				'name' => 'keyword',
 							    				'placeholder' => lang('type_search_keyword'). ' &hellip;',
 							    				'value' => !empty( $this->input->get('keyword') ) ? htmlspecialchars(strip_tags($this->input->get('keyword')), ENT_QUOTES) : (isset( $request['RecipeName'] ) ? htmlspecialchars(strip_tags($request['RecipeName']), ENT_QUOTES) : false),
