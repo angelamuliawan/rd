@@ -7,6 +7,10 @@
 			'edit' => 'Ubah',
         	'delete' => 'Hapus',
 
+        	/* USER COMPLETION PAGE */
+        	'complete_your_profile' => 'Lengkapi data Anda',
+        	'one_step_away_to_join_best_cooking_community' => 'Selangkah lagi untuk bergabung dengan komunitas masak terbaik di Indonesia',
+
         	'confirm_delete' => 'Yakin ingin menghapus?',
         	'confirm_unfollow' => 'Yakin ingin unfollow?',
 

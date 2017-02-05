@@ -4,10 +4,12 @@
 				if( isset($alert) ) {
 					echo $alert;
 				}
-				echo tag('h2', 'Lengkapi Data Anda', array(
+
+				echo tag('h2', lang('complete_your_profile'), array(
 					'class' => 'tacenter mb10',
 				));
-				echo tag('p', 'Selangkah lagi untuk bergabung dengan komunitas masak terbaik di Indonesia.', array(
+
+				echo tag('p', lang('one_step_away_to_join_best_cooking_community'), array(
 					'class' => 'tacenter mb20',
 				));
 		?>
@@ -38,7 +40,7 @@
 					  	</div>
 						<div class="form-group">
 							<?php
-					  				echo tag('label', 'Password', array(
+					  				echo tag('label', lang('password'), array(
 					  					'for' => 'password',
 					  					'class' => 'control-label',
 					  				));
@@ -53,7 +55,7 @@
 					  	</div>
 					  	<div class="form-group">
 							<?php
-					  				echo tag('label', 'Konfirmasi Password', array(
+					  				echo tag('label', lang('confirm_password'), array(
 					  					'for' => 'confirmPassword',
 					  					'class' => 'control-label',
 					  				));
@@ -70,7 +72,7 @@
 					  		<?php
 					  				echo tag('input', false, array(
 					  					'type' => 'submit',
-					  					'value' => 'Simpan',
+					  					'value' => lang('save'),
 					  					'class' => 'btn btn-success col-sm-12 col-xs-12',
 					  				));
 					  		?>

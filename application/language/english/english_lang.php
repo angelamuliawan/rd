@@ -7,6 +7,10 @@
 			'edit' => 'Edit',
         	'delete' => 'Delete',
 
+        	/* USER COMPLETION PAGE */
+        	'complete_your_profile' => 'Complete your profile',
+        	'one_step_away_to_join_best_cooking_community' => 'You are one step away to join the best cooking community in Indonesia',
+
         	'confirm_delete' => 'Delete this item?',
         	'confirm_unfollow' => 'Unfollow this user?',
 
